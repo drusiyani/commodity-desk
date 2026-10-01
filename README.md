@@ -15,8 +15,13 @@ Website shows the chart, the news, and every trade Claude makes. No real money.
 
 After that it runs every hour on weekdays by itself.
 
+## Controlling Claude
+Edit `config.json` in the repo:
+- `"paused": true` stops Claude making new trades (stops and targets still work).
+- `"close_all": true` sells everything and pauses. Set both back to `false` to restart.
+
 ## Tweaking
-- `engine.py`: `COMMODITIES`, `MAX_POSITION`, the prompt, and `CLAUDE_MODEL`.
+- `engine.py`: `COMMODITIES`, the risk rules at the top (`MAX_POSITION`, `MAX_OPEN`, `DAILY_LOSS_LIMIT`), the prompt, and `MODEL`.
 - `.github/workflows/trader.yml`: the schedule (cron).
 - Preview the site locally: `cd site && python -m http.server`, then open http://localhost:8000
 
