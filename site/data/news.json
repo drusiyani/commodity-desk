@@ -1,5 +1,19 @@
 [
  {
+  "symbol": "HG=F",
+  "title": "Aluminum price falls to a 12-week low on stronger dollar",
+  "source": "Mining.com",
+  "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQQmhQNC05WE94NVpYUDJveDlfYzZEZUlJTUgtRUp4MlpsbWM3N2pHcnp6Q3J6VFZIazFtREdXVFY3QTBoUzZpZ3owSEt6TER6WmFPSXN0cnZvYkFIVTdyeWx4dGpRTXQ3YzRZX3BqN3lLTThyaUFfcGQtUTM2SXotSzlHQWlCcTh6T0kzcA?oc=5",
+  "published": 1790885903
+ },
+ {
+  "symbol": "GC=F",
+  "title": "Gold Price Forecast: XAU/USD Plunges 12.4% Toward Critical Support",
+  "source": "StoneX",
+  "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPdHdFdmdGS3RROFktSzNxckY4d1dLM2thRWZpVUxSeVpPNzNTcjhSRUFNOG9WZzdzYVVzcFkxRnJiRFIxbElDRlBFcHFVMmVIdDVfSHlUNFVkRnJsVUhoMlB5SDVCcEVfM3BjLU5ManVLQS01a242bm5qcWdBY0NfOC1tXzcxbWV3OGQweWxWVjJPNVVldENraUJaclhXdzBQRWluZTF2eWNYdWdLUEx5UGV1d0pUZw?oc=5",
+  "published": 1790883053
+ },
+ {
   "symbol": "GC=F",
   "title": "Pick of the week: The Gold Price",
   "source": "XTB.com",
@@ -24,15 +38,15 @@
   "symbol": "NG=F",
   "title": "Winter Natural Gas Futures Contracts Show Hints of Strength as Production Tapers",
   "source": "Natural Gas Intelligence",
-  "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPSTQyV2ZzZDNFS1FmYjJ5T3pya21QekF3UjVXdWRTSjMyYmZub3FUUF92X2I5emRxVDMwQlpaYXJXblVBb1hNX01ScnI2ek5iTFNrelhPc09rc1BrUzI1by1kSXFoV0RRUWVWYTNCem80cEZVRGljVlNac0h0NFFwa2hFSE9yVjdtNHVoNVV4NjBZOGlXYnMySDRRSVEtMmQyNVFOZDI5d3V1a09QczhoWXBLNXhkenRseUE?oc=5",
+  "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPamxOU0JIRkF5Qnk0RV9DOEtMajNrNDFfMEp2dHlzVzNOWjY4dE4xQmV6TGVyaHI3aXVtSTVZVFIyZk9LbTMxWEJ4TFRTOFB4SlFXTGZHVE45b3ozQ0d3SmN1Z3V6cUdjcmhLd0ZndFJrSUtXeTlteHBGNFVQNkhXR3REZmZIOHd2YVdwSHBDSDJjOUUtaVFUWW5sMUFUWkZydjdyRGVKdFk4MUQ2amdzMklxa1k?oc=5",
   "published": 1790877817
  },
  {
-  "symbol": "NG=F",
-  "title": "US Natgas Prices at Waha Turn Positive for First Time Since February as Pipeline Constraints Ease",
-  "source": "EnergyNow.com",
-  "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxNejN4dkNRS1ZPOTFhZ2FPN21YaVZIUG04WDZFUUhZd0ttTWhoY2duUFFkR0xpRl9uME9ULS1wT3FRbmVqMnZyX1JtZ19VT2VtcTFCamRjZ2tmalBIbEs3MlpnR3dOTXZRb3pWbGV1MVRWZnpOXzZyZVRsdnFxY21nblVob01ZbDVCcWxBcDIzZmNKOXBQaGhVenNDRkdVanowNFZGcmlHUmJONUlvbmdKSG5Qbm9xMzNDOFZUQk9xSENtUVdkN1c0?oc=5",
-  "published": 1790874839
+  "symbol": "SI=F",
+  "title": "Silver Price Today on October 01, 2026",
+  "source": "USA Today",
+  "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxPaHNmcGlHbnJMbnA1Ynh5UWJ1X1Bfb1JBUWZNZURoWjVMUE1lZWxNd3JhNERjcmRYSWtpMUU0X181M1pma0dhQ1g5Nk96RWlmNEUtQVBUZ0dhZWhDU0I3UnFtdzAwZGxxWWp3cTRBSnJkSmh0QVJ0enBmZ1ZSbG1WS0xVSFRkTGxuUEVWZDY3WE1tdFhZSHVnYmxKRzNjOEZMUzVfZEhkX2V5UjY5?oc=5",
+  "published": 1790871180
  },
  {
   "symbol": "HG=F",
@@ -72,7 +86,7 @@
  {
   "symbol": "NG=F",
   "title": "Bulgaria's energy regulator approves 6% rise in natgas price for Oct",
-  "source": "SeeNews",
+  "source": "seenews.com",
   "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPbkhSODlXY2FGOFk4WVJOWDlVWnlvWTJhOVlkNGtkekpJZFhEUy1NS1pkbDE3M2VKOXI5Z21aZ2laQlJ2cWJDWUJFSWY2ZTRLRzZYc2cycDY2LUJFVmdOOURIVjNrQThWRll0Y0JMSE9ERTNzWHpYS0VOYTN1ZGxYRUNmR0NFSUdKYmZBelVNeEozV3kzVWRVSEVPNkVfNTRsT05SMUtMVUh5OHc?oc=5",
   "published": 1790864019
  },
@@ -112,13 +126,6 @@
   "published": 1790860500
  },
  {
-  "symbol": "GC=F",
-  "title": "Current price of gold as of October 1, 2026",
-  "source": "Fortune",
-  "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9IRlkzOFZwY2t4TjJ4ZW1LVk5va0d3MTg5dlRsOEFTd0tQZkdCY2l6WTE2Y1dJUE1OcjRFSURyUGxBR3F5NjB1R3U5R0pBNGZVWldILTF5WFZKWkV2QVNCb041ZllEbHdMalE5aGlNSUxBdw?oc=5",
-  "published": 1790860080
- },
- {
   "symbol": "HG=F",
   "title": "Vizsla Copper Corp. (VCU.V) Stock Price, News, Quote & History",
   "source": "Yahoo! Finance Canada",
@@ -128,7 +135,7 @@
  {
   "symbol": "GC=F",
   "title": "Gold forecast: Rising yields become too hot for gold, but the outlook is far from bearish",
-  "source": "forex.com",
+  "source": "FOREX.com",
   "link": "https://news.google.com/rss/articles/CBMizwFBVV95cUxOWFp2MVZ3QXFDTS0wNHliZXprR0pxT2ZrRXpya09UMWp0Ykp6UGtkaU5SRU16RTU1NjVZcUNfX1M0bHNuNVd4R1F5OUpfMEFXc19QcmFCMm9PUVM1TXp5X1RaY05kcExVaG82N0gwSGRtMjlCa0tYNDZuenU4cnE3OEg0SVNUaXVNMXhXZHdtQ2VWSnBXMWZiVEtmS3pqX0JOTkFfc1RaMVJvSnZBeTJIQ0pNSDloNjJkX2t2MXBQaWdHTl9iTU03LW1PeDZ4OUU?oc=5",
   "published": 1790857745
  },
@@ -168,11 +175,11 @@
   "published": 1790852749
  },
  {
-  "symbol": "SI=F",
-  "title": "Silver Price Forecast: XAG/USD seems vulnerable near $60 amid soaring US Treasury Yields",
-  "source": "tmgm.com",
-  "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxPQUVkRFNvODY1VmRWSllsQ01NQXJ3a3lrN1I4c1NTcnFlbE5ISkNaY0pCdE1KTjNVTW9zTVNKeGgxczZFVndtLTZFOXVtRV81RDRRM1gwc2FsU3lXQlg4YmpZNXZzNzlYN2JPWUFsVDhoVm9tUzFxQ1NMYlY1QlZybjBrZzk4ZHctVU5nSjNQZGhEdGNLUjdRUi1heDdOSFFKQWZkWXBiX2RIdzlBYVllczUyak9hSnYtbEdVbF8xYnJ3RUVyd290MTlrOU8yREhDZWVqUlhWZHhwQ3h5UGZOTFR1ZExad1hGc2Vj?oc=5",
-  "published": 1790848448
+  "symbol": "HG=F",
+  "title": "Lion Copper Corp. Stock Slides 5.68% as Development Uncertainty Raises Downside Risk",
+  "source": "kalkine.ca",
+  "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQWmh4U2wtTEtXNFFoRmowRU5vdzdpZHJPVFhDTjNTNThtVzhYbVN2V2JyVWFGZ01nYkE2QXVtUVk4aXN2YXMyWGZpOTU5dG1IdmgxNnFnYzQ4S1IwYjJKb2djRVA3ZEZwVWNyZ0Y4T2FlX3AxOVpySlJEdkRMR3paaU5fcXhTZ3FEZmVmVmItU0hUV2ZESGNVNXZnS0xFZy0wMGxPSkd1Ym92THpPVHFlWVZn?oc=5",
+  "published": 1790851140
  },
  {
   "symbol": "SI=F",
@@ -198,7 +205,7 @@
  {
   "symbol": "SI=F",
   "title": "Silver Price Forecast: XAG/USD seems vulnerable near $60 amid soaring US Treasury Yields",
-  "source": "FXStreet",
+  "source": "fxstreet.com",
   "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOcy1UZFpERE9KV2JWMzRFdm9VOXJYWHJqZ1VBWDV5Wm1mRnpMdjdLeU9ZbnNZZkFrZklsdWNqTUtydHlOSW1USXh5VnpwZ20xMXpwS3MwN3V1V244OHlZYXE5OURhNHNlN3k0dWlLV2JVVVJQOFZpQUFmbTdtbFhjd3A2TGdvVFJhX2wxTVVFTGNZU3pMR0F3QlVuSmV3TDN3WE1GRTFwNGpGb2xrQi11TDZzVUZJbkx0RndFbWhJQmE4TExhWEtPWQ?oc=5",
   "published": 1790844465
  },
@@ -231,6 +238,13 @@
   "published": 1790831832
  },
  {
+  "symbol": "NG=F",
+  "title": "Natural gas price awaits positive momentum \u2013 Forecast today \u2013 1-10-2026",
+  "source": "Economies.com",
+  "link": "https://news.google.com/rss/articles/CBMi6AFBVV95cUxPUkhFcEtzZnlvR0JVUGhxUHAtNlpYWFpsSFBZZVFmUVFLMDAtTC02MVRReVpZbFJ1T0NaZW5vbFdtYjhDSGtDZXZqdHRyMUVGS1VsaFNhVjlma0hWVk1Bd2lkQkZaem01VnVCVmxVWGZydnBnXzh4amZSTkljYmtsQW9qQTJvWFZzRVlRUHhmbV9FOWlqb3pEOHJXT1RrR1hqQmNGSTBfNEtNRDdFZEg1WE10TzJrVkFQSGtMc1YtalVENVp0X2FsaklNNUo5eUMzVFZ3SzZfWEo1bVZ0dW9MRTRmWUw2aXl6?oc=5",
+  "published": 1790831640
+ },
+ {
   "symbol": "HG=F",
   "title": "Copper price needs fresh momentum \u2013 Forecast today \u2013 1-10-2026",
   "source": "Economies.com",
@@ -252,13 +266,6 @@
   "published": 1790827680
  },
  {
-  "symbol": "HG=F",
-  "title": "Copper price set for 3rd straight monthly gain; aluminum hits 2-month low",
-  "source": "Mining.com",
-  "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOT0NGX29OeUtnd1Z6Vnl4a1ludV9weTZjemg0WXpmVnpRZ3BhYU00am9PVFFtdzF6Qy1lU1gyZTd3SVBENnhqcTY2UmJiLWJuRXphWU8xLXpqcjRPcm9UWFFsOVlJeldQV0hBNTZEQm5tU3ROUVdpZUhQS0xMVlNKeldwZlo3YUpRR0tacHJfazI3bEZDc2FtZFB4WHQ4S1RDNGc?oc=5",
-  "published": 1790789908
- },
- {
   "symbol": "SI=F",
   "title": "Silver Price Today In The UK, 30 September 2026",
   "source": "Forbes",
@@ -271,12 +278,5 @@
   "source": "Shanghai Metals Market",
   "link": "https://news.google.com/rss/articles/CBMi-gFBVV95cUxQdWxWcjI4a0tqRjJieHFtanZtd2tyY1ctbktIZEpEVERlLXNXTkgxbE9hdUwzRHR6YTVkeVhhNlFNZmVjcXdsaXd6TWEtV2JaMTl3V25GRE9MOHhLbnh6Rl9pQXpLRTdUWWpuQmx0ZmpBVlBRak43bmhhQkZFZzgyTUhrdFUzUXRNcThTdjVXWGtRLUc3OVdHYjBjanJ1V1VmOHRmUXFvb0dra3lxbG9mOEFNTkFHRjlha25zeGRieFpGeU1OTHFCQ3J3bjJwaUtXUkV1eTFYZWpUX0tUTm5hN2VCVXJJX3RRQWtPcTMzbm4tZVh6d3hEeGdn?oc=5",
   "published": 1790731860
- },
- {
-  "symbol": "HG=F",
-  "title": "Copper to Jump 50% in a Year on US & China Stockpiling, says Deutsche Bank",
-  "source": "Crux Investor",
-  "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOa0RGR3R4MWV4aThHcUpSVU9wZGJFNW83QmFVY3lJUFVKVHR3QmpleTkzOXJvRS1qcm9sTTZhTXl3NThXTnYzQlRYN3FhcWhWVVdUU0h0U0IzY3hEeC1mdDh5aktWaG5QaG9mSlYzcWFzSl9iZTdJQ0xVLXZnVGxfR1VuUElWd2RpNHFLQmoyUXplSmZxdXE5Y3IwNTB2NWZna3dUQ3NBbXc?oc=5",
-  "published": 1790713136
  }
 ]
