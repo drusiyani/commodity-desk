@@ -1,5 +1,12 @@
 [
  {
+  "symbol": "NG=F",
+  "title": "Natural Gas Price Forecast: Key Support Faces a Critical Test",
+  "source": "FXEmpire",
+  "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxQdU43bE5MdUg5Wk0wbVZ6dnViQXRDNUZXSHpDRVZGcUZlT3NHUnJSU2ZTVzF2TkRXTngwV3RUVTItVllfbnlJY05QRGx2bGd0X3hrRGNXMG1rbFMwcFVtYkk0VWhFRE94YkdHWk1GNHROcDctZnBfYU82OGRKaUpYU1BUTTE5LUNWX0RHYUhpbWhoM1dvRG9JUHQ3dmR0YUVyV3BHTk0tdlB6Q3BpWHNHMQ?oc=5",
+  "published": 1790887784
+ },
+ {
   "symbol": "HG=F",
   "title": "Aluminum price falls to a 12-week low on stronger dollar",
   "source": "Mining.com",
@@ -16,14 +23,14 @@
  {
   "symbol": "GC=F",
   "title": "Gold Price Forecast: XAU/USD Plunges 12.4% Toward Critical Support",
-  "source": "stonex.com",
+  "source": "StoneX",
   "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPdHdFdmdGS3RROFktSzNxckY4d1dLM2thRWZpVUxSeVpPNzNTcjhSRUFNOG9WZzdzYVVzcFkxRnJiRFIxbElDRlBFcHFVMmVIdDVfSHlUNFVkRnJsVUhoMlB5SDVCcEVfM3BjLU5ManVLQS01a242bm5qcWdBY0NfOC1tXzcxbWV3OGQweWxWVjJPNVVldENraUJaclhXdzBQRWluZTF2eWNYdWdLUEx5UGV1d0pUZw?oc=5",
   "published": 1790883053
  },
  {
   "symbol": "GC=F",
   "title": "Pick of the week: The Gold Price",
-  "source": "XTB.com",
+  "source": "xtb.com",
   "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBBRWN1SlZHY2Z5LVVYTl9mQ3JiNzlzU3hjSWVaUmZheTI0YUpGYlBpSGFNVWpJZEN2S0ZBX1c3LUdPb1dUSjBqcVoxaHF3N2sxM3ZiVDA0Y214THpPZU5lVHFyTVhibzhqYWhMR3lYTDdZdzFRU0RKeURn?oc=5",
   "published": 1790882734
  },
@@ -154,13 +161,6 @@
   "published": 1790856644
  },
  {
-  "symbol": "NG=F",
-  "title": "Natural Gas Price Forecast \u2013 Natural Gas Drifts Lower Ahead of Storage Numbers",
-  "source": "FXEmpire",
-  "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPV19lN1BrTmtreEZucnhuZFROWFlnMGtUcDROb1Q3X0JpekxfWDZva3d0WV9XcURMcm5aejV4MzhZbEktOUlzNFhXcU15cUxyUC1TaVlzNXI2WmZKRGdRRThoWm9wVTdaNEw2Q3pzbGNrazA5amhwUUExdGpFdFNrejh4MkJVZzJqYmtleFIzN0Y2cHlGV0ZfcHNqUDNMWTNmUXNWcTdoelZfZzREaHY2N045WTZncjV6VDRkUGZYcF9kVzQyQ0E?oc=5",
-  "published": 1790856202
- },
- {
   "symbol": "HG=F",
   "title": "Markets in Focus Today \u2013 US2Y, AUD/USD, Copper, NASDAQ 100",
   "source": "FXEmpire",
@@ -191,7 +191,7 @@
  {
   "symbol": "SI=F",
   "title": "Silver price today: Silver broadly unchanged, according to FXStreet data",
-  "source": "Mitrade",
+  "source": "mitrade.com",
   "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNMVJKRm0xNTYyRUhkdk91MU5xenI4dHlZT2xfZVdYbzhiaGd2TXBnYkxZTGt5NG4wQnFUeUl4TUw3U2N5NUZ3RGJxNFJndWFoM0ppTnh3NWVYZFFteDhtb2FSS0N6WlVRaWVNaE05eE1JQWpWWS0takx4TnU1VWIyVExjUQ?oc=5",
   "published": 1790847968
  },
@@ -233,7 +233,7 @@
  {
   "symbol": "GC=F",
   "title": "Gold in Pension Funds: Case studies | Post by Jeremy De Pessemier | Insights",
-  "source": "gold.org",
+  "source": "World Gold Council",
   "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPTlhsbm45d0E0MzZmbnIzZ1JBZTkyeXhvVkp0QXQ2VEJFLUx0UDBHdGVwMWtBSzctUlM2aU52X0E4QVFHVzlrZ2s0TlByTkI0RUJDelg5UzlhRXFjdUU5aU4wQXNCc3lvZEY0cTFickxwNWF4ZVY4S3dDVWRZM2VrVkdGaURyZw?oc=5",
   "published": 1790841531
  },
@@ -247,14 +247,14 @@
  {
   "symbol": "HG=F",
   "title": "Copper price needs fresh momentum \u2013 Forecast today \u2013 1-10-2026",
-  "source": "Economies.com",
+  "source": "economies.com",
   "link": "https://news.google.com/rss/articles/CBMi1gFBVV95cUxQWmFnclpZdk1YSjROaXJaLU9sVVJnSENGdjFJcmFBS3JiNXNsV3JLZUV5LXBRZURabkMyX1gyWG5qWGtjXzVKUm5pZWNOQWlsd0JiSTgxejVyOUpCQm1GT2sxNkxiLWVFbk5XZ1RESm5nZndwR3RPTkQwTmFHUk9iRDJBdVlTeVNOa1ZlZnFhR05tQ09pQXlPaUo0NTc0dzg1cEJoVEJUTHd0aGcwLWtMVHBlOHotQ0toZUxXZGRkc1JXNVJ2dHlBbTFsT0lLTDdGTVpCVF93?oc=5",
   "published": 1790831400
  },
  {
   "symbol": "GC=F",
   "title": "Gold edges up as softer inflation data dents Fed rate-hike bets",
-  "source": "reuters.com",
+  "source": "Reuters",
   "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNRjFDcnNwNW1uWWdUaW5iaWRNLV8wbnl4QlBGWHFjN0twMDlINnBTclUwYnRGN1pTVTJYbE94MFEyRk5yQ0FUcXlQLXNkYkdPQXQ3eFlDUko4cXF1Vkc5TUg2LXZKSTAzc3hnOGJrT1hoNl92bG1mY1lSM2MwR3lBcGVQS2NmNDVEWUdURERqcDVkYUhpVTVXZDZqUEF6c1RCMjFFeWpOZWNKVzdGS3dFNzQ3VQ?oc=5",
   "published": 1790830080
  },

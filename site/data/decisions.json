@@ -44,5 +44,51 @@
   "summary": "Mixed signals across commodities with no clear edge today. Gold and silver face headwinds from rising yields despite long-term bullish narratives, crude is spiking on geopolitical risk, and natural gas is weak. Waiting for clearer setup before committing capital.",
   "state": "WAITING",
   "trades": 0
+ },
+ {
+  "t": 1790890390,
+  "paused": false,
+  "markets": [
+   {
+    "symbol": "GC=F",
+    "bias": "neutral",
+    "setup_score": 35,
+    "note": "Long-term bullish case ($5000 by H2 2027) undermined by near-term yield headwinds; down 4.56% in 20d despite +0.45% today. No conviction entry point."
+   },
+   {
+    "symbol": "SI=F",
+    "bias": "neutral",
+    "setup_score": 32,
+    "note": "Silver vulnerable near $60 amid Treasury yield surge; 5d and 20d losses steeper than gold. Lacks immediate catalyst for reversal."
+   },
+   {
+    "symbol": "CL=F",
+    "bias": "bullish",
+    "setup_score": 58,
+    "note": "Geopolitical risk (US carriers, Iran escalation) driving +2.84% today. However, fundamentals mixed (shipping chaos vs. supply); 20d chart down 7.14%. Spike may fade."
+   },
+   {
+    "symbol": "NG=F",
+    "bias": "bearish",
+    "setup_score": 25,
+    "note": "Down 2.06% today, -8.53% in 5d despite winter season hints. Pipeline easing and weak demand override seasonal support."
+   },
+   {
+    "symbol": "HG=F",
+    "bias": "neutral",
+    "setup_score": 40,
+    "note": "Mixed signals: BofA bullish on outlook but copper down 0.96% today and 2.80% in 5d. Strong dollar headwind. Awaiting clarity."
+   }
+  ],
+  "watching": [
+   "Crude oil: whether geopolitical premium holds or fades into supply reality by next session",
+   "Gold/Silver: if yields stabilise or fall, could unlock entry for long-term longs",
+   "Natural gas: support test at $2.90\u2013$2.80; if broken, further downside likely",
+   "USD strength easing (currently +0.55% DXY): would relieve pressure on commodities"
+  ],
+  "blocked": [],
+  "summary": "No clear edge today. Gold and silver remain pressured by rising yields despite long-term bullish narratives; crude spiking on geopolitical risk but lacks structural conviction; natural gas weak. Maintaining cash, waiting for sharper setups.",
+  "state": "WAITING",
+  "trades": 0
  }
 ]
