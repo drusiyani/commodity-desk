@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Commodity paper desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+<style>
+:root {
+  --bg: #eef1f5; --panel: #ffffff; --ink: #172232; --muted: #5b697c; --line: #d9e0e8;
+  --brass: #9c7612; --up: #18805f; --down: #bf3a2f;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0e1723; --panel: #152131; --ink: #e5ebf2; --muted: #8899ad; --line: #233349;
+    --brass: #d3a83c; --up: #3cb489; --down: #e2675c;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 15px/1.45 "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-variant-numeric: tabular-nums;
+}
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+header {
+  display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: flex-end;
+  justify-content: space-between; padding: 22px 24px 14px;
+}
+h1 { font-size: 21px; font-weight: 600; margin: 0; }
+.sub { color: var(--muted); font-size: 13px; margin-top: 2px; }
+.stats { display: flex; flex-wrap: wrap; gap: 28px; }
+.stat .v { font-size: 20px; font-weight: 600; }
+.stat .k { font-size: 12px; color: var(--muted); }
+.up { color: var(--up); } .down { color: var(--down); }
+
+nav { display: flex; gap: 8px; padding: 0 24px 14px; overflow-x: auto; }
+nav button {
+  font: inherit; color: var(--ink); background: var(--panel); cursor: pointer;
+  border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; text-align: left; min-width: 128px;
+}
+nav button[aria-pressed="true"] { border-color: var(--brass); box-shadow: inset 0 -3px 0 var(--brass); }
+nav .n { font-weight: 500; font-size: 14px; }
+nav .p { font-size: 13px; color: var(--muted); }
+
+main {
+  display: grid; gap: 14px; padding: 0 24px 28px;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  grid-template-areas: "chart news" "equity news" "trades positions";
+}
+section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; min-width: 0; }
+h2 { font-size: 14px; font-weight: 600; margin: 0 0 10px; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+h2 small { font-weight: 400; color: var(--muted); font-size: 12px; }
+
+#chartSec { grid-area: chart; }
+#chart { height: 420px; }
+.toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; }
+.toggle button { font: inherit; font-size: 12px; background: none; color: var(--muted); border: 0; padding: 4px 10px; cursor: pointer; }
+.toggle button[aria-pressed="true"] { background: var(--line); color: var(--ink); }
+
+#equitySec { grid-area: equity; }
+#equity { height: 150px; }
+.legend { display: flex; gap: 14px; font-size: 12px; color: var(--muted); font-weight: 400; }
+.legend i { display: inline-block; width: 14px; height: 2px; vertical-align: middle; margin-right: 5px; }
+
+#newsSec { grid-area: news; display: flex; flex-direction: column; max-height: 680px; }
+#news { list-style: none; margin: 0; padding: 0; overflow-y: auto; }
+#news li { padding: 10px 0; border-top: 1px solid var(--line); }
+#news li:first-child { border-top: 0; padding-top: 0; }
+#news a { text-decoration: none; font-size: 14px; line-height: 1.35; display: block; }
+#news a:hover { text-decoration: underline; }
+#news .meta { font-size: 12px; color: var(--muted); margin-top: 3px; }
+
+#tradesSec { grid-area: trades; }
+#note { font-size: 14px; border-left: 3px solid var(--brass); padding: 2px 0 2px 10px; margin: 0 0 12px; }
+.tablewrap { overflow-x: auto; max-height: 360px; overflow-y: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-weight: 500; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--panel); }
+td { padding: 7px 8px; border-bottom: 1px solid var(--line); vertical-align: top; white-space: nowrap; }
+td.reason { white-space: normal; min-width: 260px; color: var(--muted); }
+td.num, th.num { text-align: right; }
+.tag { font-weight: 600; font-size: 12px; }
+
+#positionsSec { grid-area: positions; }
+.empty { color: var(--muted); font-size: 13px; margin: 0; }
+
+#setup { max-width: 560px; margin: 60px auto; padding: 0 24px; }
+#setup ol { padding-left: 20px; }
+
+@media (max-width: 960px) {
+  main { grid-template-columns: 1fr; grid-template-areas: "chart" "equity" "news" "trades" "positions"; }
+  #newsSec { max-height: 420px; }
+  #chart { height: 340px; }
+}
+</style>
+</head>
+<body>
+
+<div id="setup" hidden>
+  <h1>No data yet</h1>
+  <p class="sub">The trader hasn't run. To start it:</p>
+  <ol>
+    <li>Open the <b>Actions</b> tab of this repo on GitHub.</li>
+    <li>Choose <b>Run trader</b>, then <b>Run workflow</b>.</li>
+    <li>Refresh this page in a minute or two.</li>
+  </ol>
+</div>
+
+<div id="app" hidden>
+  <header>
+    <div>
+      <h1>Commodity paper desk</h1>
+      <div class="sub" id="updated"></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="v" id="sEquity"></div><div class="k">Portfolio value</div></div>
+      <div class="stat"><div class="v" id="sReturn"></div><div class="k">Claude's return</div></div>
+      <div class="stat"><div class="v" id="sBench"></div><div class="k">Buy and hold</div></div>
+      <div class="stat"><div class="v" id="sCash"></div><div class="k">Cash</div></div>
+    </div>
+  </header>
+
+  <nav id="tabs" aria-label="Commodities"></nav>
+
+  <main>
+    <section id="chartSec">
+      <h2><span id="chartTitle"></span>
+        <span class="toggle" role="group" aria-label="Chart style">
+          <button data-mode="candles" aria-pressed="true">Candles</button>
+          <button data-mode="line" aria-pressed="false">Line</button>
+        </span>
+      </h2>
+      <div id="chart"></div>
+    </section>
+
+    <section id="equitySec">
+      <h2>Claude vs buy and hold
+        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
+      </h2>
+      <div id="equity"></div>
+    </section>
+
+    <section id="newsSec">
+      <h2><span id="newsTitle">News</span></h2>
+      <ul id="news"></ul>
+    </section>
+
+    <section id="tradesSec">
+      <h2>Trades <small>Hourly checks on weekdays</small></h2>
+      <p id="note" hidden></p>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>When</th><th>Commodity</th><th>Action</th><th class="num">Price</th><th class="num">Value</th><th>Claude's reason</th></tr></thead>
+          <tbody id="trades"></tbody>
+        </table>
+      </div>
+      <p class="empty" id="noTrades" hidden>No trades yet. Claude is allowed to sit on its hands.</p>
+    </section>
+
+    <section id="positionsSec">
+      <h2>Holdings</h2>
+      <div id="positions"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+const $ = s => document.querySelector(s);
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const START = 100000;
+const D = {};
+let sym = null, mode = "candles", chart, series;
+
+const money = (n, d = 0) => "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+const price = n => Number(n).toLocaleString("en-US", { maximumFractionDigits: n < 10 ? 3 : 2 });
+const pct = n => (n >= 0 ? "+" : "") + (n * 100).toFixed(2) + "%";
+const tone = (el, n) => { el.classList.toggle("up", n > 0); el.classList.toggle("down", n < 0); };
+const el = (tag, props = {}, kids = []) => { const e = Object.assign(document.createElement(tag), props); kids.forEach(k => e.append(k)); return e; };
+
+function ago(t) {
+  const s = Date.now() / 1000 - t;
+  if (s < 3600) return Math.max(1, Math.round(s / 60)) + " min ago";
+  if (s < 86400) return Math.round(s / 3600) + " h ago";
+  return Math.round(s / 86400) + " d ago";
+}
+const when = t => new Date(t * 1000).toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+
+function change24(bars) {
+  const last = bars[bars.length - 1];
+  const past = bars.filter(b => b.time <= last.time - 86400).pop();
+  return past ? last.close / past.close - 1 : 0;
+}
+
+async function getJSON(f, fallback) {
+  try {
+    const r = await fetch(`data/${f}?t=${Date.now()}`);
+    if (!r.ok) throw new Error(r.status);
+    return await r.json();
+  } catch { return fallback; }
+}
+
+async function init() {
+  [D.prices, D.news, D.trades, D.equity, D.pf, D.status] = await Promise.all([
+    getJSON("prices.json", null), getJSON("news.json", []), getJSON("trades.json", []),
+    getJSON("equity.json", []), getJSON("portfolio.json", null), getJSON("status.json", {}),
+  ]);
+  if (!D.prices || !Object.keys(D.prices).length) { $("#setup").hidden = false; return; }
+  $("#app").hidden = false;
+  D.last = Object.fromEntries(Object.entries(D.prices).map(([s, p]) => [s, p.bars.at(-1).close]));
+  sym = Object.keys(D.prices)[0];
+
+  renderHeader();
+  renderTabs();
+  makeCharts();
+  renderTrades();
+  renderPositions();
+  select(sym);
+}
+
+function renderHeader() {
+  const eq = D.equity.at(-1);
+  if (D.status.updated) $("#updated").textContent = `Paper money only. Updated ${ago(D.status.updated)}.`;
+  if (!eq) return;
+  $("#sEquity").textContent = money(eq.equity);
+  const r = eq.equity / START - 1, b = eq.benchmark / START - 1;
+  $("#sReturn").textContent = pct(r); tone($("#sReturn"), r);
+  $("#sBench").textContent = pct(b); tone($("#sBench"), b);
+  $("#sCash").textContent = D.pf ? money(D.pf.cash) : "";
+}
+
+function renderTabs() {
+  const nav = $("#tabs");
+  for (const [s, p] of Object.entries(D.prices)) {
+    const c = change24(p.bars);
+    const chg = el("span", { textContent: pct(c) }); tone(chg, c);
+    const b = el("button", { type: "button" }, [
+      el("div", { className: "n", textContent: p.name }),
+      el("div", { className: "p" }, [price(D.last[s]) + " ", chg]),
+    ]);
+    b.dataset.sym = s;
+    b.onclick = () => select(s);
+    nav.append(b);
+  }
+}
+
+function chartOpts() {
+  return {
+    autoSize: true,
+    layout: { background: { color: "transparent" }, textColor: css("--muted"), fontFamily: "IBM Plex Sans, system-ui, sans-serif" },
+    grid: { vertLines: { color: css("--line") }, horzLines: { color: css("--line") } },
+    rightPriceScale: { borderColor: css("--line") },
+    timeScale: { borderColor: css("--line"), timeVisible: true },
+    crosshair: { mode: 0 },
+  };
+}
+
+function makeCharts() {
+  chart = LightweightCharts.createChart($("#chart"), chartOpts());
+
+  const eqChart = LightweightCharts.createChart($("#equity"), { ...chartOpts(), handleScroll: false, handleScale: false });
+  const toLine = k => D.equity.map(e => ({ time: e.time, value: e[k] }));
+  eqChart.addLineSeries({ color: css("--muted"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false }).setData(toLine("benchmark"));
+  eqChart.addLineSeries({ color: css("--brass"), lineWidth: 2, priceLineVisible: false }).setData(toLine("equity"));
+  eqChart.timeScale().fitContent();
+
+  document.querySelectorAll(".toggle button").forEach(b => b.onclick = () => {
+    mode = b.dataset.mode;
+    document.querySelectorAll(".toggle button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    drawChart();
+  });
+}
+
+function drawChart() {
+  const bars = D.prices[sym].bars;
+  if (series) chart.removeSeries(series);
+  if (mode === "candles") {
+    series = chart.addCandlestickSeries({
+      upColor: css("--up"), downColor: css("--down"), borderVisible: false,
+      wickUpColor: css("--up"), wickDownColor: css("--down"),
+    });
+    series.setData(bars);
+  } else {
+    series = chart.addLineSeries({ color: css("--brass"), lineWidth: 2 });
+    series.setData(bars.map(b => ({ time: b.time, value: b.close })));
+  }
+  // Pin each trade to the bar it happened in
+  const markers = D.trades.filter(t => t.symbol === sym).map(t => {
+    const bar = bars.filter(b => b.time <= t.t).pop() || bars[0];
+    const buy = t.action === "BUY";
+    return { time: bar.time, position: buy ? "belowBar" : "aboveBar", shape: buy ? "arrowUp" : "arrowDown",
+             color: buy ? css("--up") : css("--down"), text: buy ? "Buy" : "Sell" };
+  }).sort((a, b) => a.time - b.time);
+  series.setMarkers(markers);
+  chart.timeScale().fitContent();
+}
+
+function select(s) {
+  sym = s;
+  document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.sym === s));
+  const name = D.prices[s].name;
+  $("#chartTitle").textContent = `${name}, hourly`;
+  $("#newsTitle").textContent = `${name} news`;
+  drawChart();
+  renderNews();
+}
+
+function renderNews() {
+  const list = $("#news"); list.replaceChildren();
+  const items = D.news.filter(n => n.symbol === sym);
+  if (!items.length) { list.append(el("li", { className: "empty", textContent: "No recent headlines found." })); return; }
+  for (const n of items) {
+    list.append(el("li", {}, [
+      el("a", { href: n.link, target: "_blank", rel: "noopener", textContent: n.title }),
+      el("div", { className: "meta", textContent: `${n.source || "Unknown source"}, ${ago(n.published)}` }),
+    ]));
+  }
+}
+
+function renderTrades() {
+  if (D.status.summary) { $("#note").hidden = false; $("#note").textContent = "Claude's latest read: " + D.status.summary; }
+  const body = $("#trades");
+  const trades = [...D.trades].reverse();
+  if (!trades.length) { $("#noTrades").hidden = false; return; }
+  for (const t of trades) {
+    const tag = el("span", { className: "tag", textContent: t.action === "BUY" ? "Buy" : "Sell" });
+    tone(tag, t.action === "BUY" ? 1 : -1);
+    body.append(el("tr", {}, [
+      el("td", { textContent: when(t.t) }),
+      el("td", { textContent: t.name }),
+      el("td", {}, [tag]),
+      el("td", { className: "num", textContent: price(t.price) }),
+      el("td", { className: "num", textContent: money(t.value) }),
+      el("td", { className: "reason", textContent: t.reason }),
+    ]));
+  }
+}
+
+function renderPositions() {
+  const box = $("#positions");
+  const pos = D.pf ? Object.entries(D.pf.positions) : [];
+  if (!pos.length) { box.append(el("p", { className: "empty", textContent: "All cash right now." })); return; }
+  const rows = pos.map(([s, p]) => {
+    const now = D.last[s] ?? p.avg, pl = now / p.avg - 1;
+    const plCell = el("td", { className: "num", textContent: pct(pl) }); tone(plCell, pl);
+    return el("tr", {}, [
+      el("td", { textContent: D.prices[s]?.name || s }),
+      el("td", { className: "num", textContent: money(p.qty * now) }),
+      plCell,
+    ]);
+  });
+  box.append(el("table", {}, [
+    el("thead", {}, [el("tr", {}, [el("th", { textContent: "Commodity" }), el("th", { className: "num", textContent: "Value" }), el("th", { className: "num", textContent: "P&L" })])]),
+    el("tbody", {}, rows),
+  ]));
+}
+
+init();
+</script>
+</body>
+</html>
