@@ -1,93 +1,77 @@
 [
  {
-  "t": 1790887920,
+  "t": 1790892415,
   "paused": false,
   "markets": [
    {
-    "symbol": "GC=F",
-    "bias": "bearish",
-    "setup_score": 25,
-    "note": "Rising yields (5.237%) are headwind; 20d -4.63% shows momentum down; support test imminent per headlines but no clear buy yet"
-   },
-   {
-    "symbol": "SI=F",
-    "bias": "bearish",
-    "setup_score": 20,
-    "note": "5d -5.36%, vulnerable near $60 per forecasts; rate sensitivity high; follows gold weakness"
-   },
-   {
     "symbol": "CL=F",
     "bias": "bullish",
+    "setup_score": 62,
+    "note": "Strong 24h move +2.84%, but 20d chart still -7.14%; needs break above resistance to confirm reversal"
+   },
+   {
+    "symbol": "BZ=F",
+    "bias": "bullish",
+    "setup_score": 68,
+    "note": "Brent outperforming (+4.38% 24h, +4.90% 5d); geopolitical premium from Middle East risk is real"
+   },
+   {
+    "symbol": "NG=F",
+    "bias": "bearish",
     "setup_score": 55,
-    "note": "Strong 24h +2.89% on Middle East escalation risk; geopolitical premium present but volatile entry point"
+    "note": "Down -2.06% today, -8.53% 5d; LNG supply expansion and demand weakness weigh despite Asia recovery"
    },
-   {
-    "symbol": "NG=F",
-    "bias": "bearish",
-    "setup_score": 15,
-    "note": "24h -2.06%, 5d -8.53%; drifting lower despite winter strength hints; no clear reversal signal"
-   },
-   {
-    "symbol": "HG=F",
-    "bias": "neutral",
-    "setup_score": 35,
-    "note": "Modest -0.91% today; dollar strength headwind; outlook brightening but no entry conviction yet"
-   }
-  ],
-  "watching": [
-   "Gold break below key support level mentioned in forecasts; yield move reversal",
-   "Crude oil settling above $93 or pullback confirmation; geopolitical event escalation/de-escalation",
-   "Natural gas storage report timing and direction",
-   "USD index reversal (currently +0.56%); impact on commodity prices"
-  ],
-  "blocked": [],
-  "summary": "Mixed signals across commodities with no clear edge today. Gold and silver face headwinds from rising yields despite long-term bullish narratives, crude is spiking on geopolitical risk, and natural gas is weak. Waiting for clearer setup before committing capital.",
-  "state": "WAITING",
-  "trades": 0
- },
- {
-  "t": 1790890390,
-  "paused": false,
-  "markets": [
    {
     "symbol": "GC=F",
     "bias": "neutral",
-    "setup_score": 35,
-    "note": "Long-term bullish case ($5000 by H2 2027) undermined by near-term yield headwinds; down 4.56% in 20d despite +0.45% today. No conviction entry point."
+    "setup_score": 38,
+    "note": "Up +0.45% today but down -4.56% 20d; technical breakdown warnings conflict with long-term Morgan Stanley bull case"
    },
    {
     "symbol": "SI=F",
     "bias": "neutral",
-    "setup_score": 32,
-    "note": "Silver vulnerable near $60 amid Treasury yield surge; 5d and 20d losses steeper than gold. Lacks immediate catalyst for reversal."
-   },
-   {
-    "symbol": "CL=F",
-    "bias": "bullish",
-    "setup_score": 58,
-    "note": "Geopolitical risk (US carriers, Iran escalation) driving +2.84% today. However, fundamentals mixed (shipping chaos vs. supply); 20d chart down 7.14%. Spike may fade."
-   },
-   {
-    "symbol": "NG=F",
-    "bias": "bearish",
-    "setup_score": 25,
-    "note": "Down 2.06% today, -8.53% in 5d despite winter season hints. Pipeline easing and weak demand override seasonal support."
+    "setup_score": 35,
+    "note": "+0.98% today but -5.89% 20d; moving with rates, lacks conviction"
    },
    {
     "symbol": "HG=F",
+    "bias": "bearish",
+    "setup_score": 45,
+    "note": "Down -0.96% today, -2.80% 5d; stronger dollar and oil surge pressuring; BofA optimism not yet reflected"
+   },
+   {
+    "symbol": "KC=F",
     "bias": "neutral",
     "setup_score": 40,
-    "note": "Mixed signals: BofA bullish on outlook but copper down 0.96% today and 2.80% in 5d. Strong dollar headwind. Awaiting clarity."
+    "note": "Slight -0.22% today after +4.01% 5d; dollar strength liquidating longs; choppy"
+   },
+   {
+    "symbol": "ZW=F",
+    "bias": "neutral",
+    "setup_score": 42,
+    "note": "+0.96% today but -6.13% 20d; late-session surge noted but structural weakness remains"
+   },
+   {
+    "symbol": "ZC=F",
+    "bias": "bearish",
+    "setup_score": 48,
+    "note": "+0.15% today but -5.64% 20d; suppressed by 20d trend; seasonal pattern not yet working"
+   },
+   {
+    "symbol": "CC=F",
+    "bias": "bullish",
+    "setup_score": 60,
+    "note": "Strong +2.06% today, supply risks cited; only -7.86% 20d (least weak agricultural play)"
    }
   ],
   "watching": [
-   "Crude oil: whether geopolitical premium holds or fades into supply reality by next session",
-   "Gold/Silver: if yields stabilise or fall, could unlock entry for long-term longs",
-   "Natural gas: support test at $2.90\u2013$2.80; if broken, further downside likely",
-   "USD strength easing (currently +0.55% DXY): would relieve pressure on commodities"
+   "Brent crude: is this Middle East premium sustainable or does USD strength + peace deal rumors cap upside?",
+   "Gold technical: does it hold above $4,200 or does the 12.4% plunge forecast (n3) materialize?",
+   "Copper: will BofA mining stock upgrade (n10) translate to price recovery or does strong dollar/rate expectations keep it pinned?",
+   "Natural gas: LNG supply glut vs. demand recovery\u2014which wins in next 1-2 weeks?"
   ],
   "blocked": [],
-  "summary": "No clear edge today. Gold and silver remain pressured by rising yields despite long-term bullish narratives; crude spiking on geopolitical risk but lacks structural conviction; natural gas weak. Maintaining cash, waiting for sharper setups.",
+  "summary": "Market shows mixed signals with energy rallying hard (Brent +4.38%, WTI +2.84%) on geopolitical risk, but broader macro headwinds persist (stronger USD, falling yields, copper weakness). Waiting for clearer directional conviction before deploying capital.",
   "state": "WAITING",
   "trades": 0
  }

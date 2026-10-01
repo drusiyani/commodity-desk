@@ -1,0 +1,24 @@
+[
+ {
+  "t": 1790892415,
+  "symbol": "BZ=F",
+  "name": "Brent crude",
+  "action": "BUY",
+  "qty": 129.1128,
+  "price": 102.21,
+  "value": 10000.0,
+  "reason": "20h average crossed above 100h average",
+  "source": "rules"
+ },
+ {
+  "t": 1790892415,
+  "symbol": "KC=F",
+  "name": "Coffee",
+  "action": "BUY",
+  "qty": 45.6236,
+  "price": 289.25,
+  "value": 10000.0,
+  "reason": "20h average crossed above 100h average",
+  "source": "rules"
+ }
+]
