@@ -1,5 +1,16 @@
 {
- "updated": 1790886266,
- "model": "claude-sonnet-5-5",
- "summary": "The picture is mixed: gold and silver are falling on rising yields, oil is spiking on geopolitical headlines that conflict with Hormuz exports returning to normal, and natural gas and copper are weak. I see no clear edge, so I'm staying in cash rather than churning."
+ "updated": 1790887920,
+ "model": "claude-haiku-4-5-20251001",
+ "fx": 1.3197661638259888,
+ "health": {
+  "prices": true,
+  "context": true,
+  "news": true,
+  "claude": true
+ },
+ "rules": {
+  "max_position": 0.25,
+  "max_open": 3,
+  "daily_loss_limit": 0.03
+ }
 }
