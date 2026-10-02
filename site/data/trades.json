@@ -1,1 +1,21 @@
-[]
+[
+ {
+  "t": 1790934861,
+  "symbol": "GC=F",
+  "name": "Gold",
+  "action": "BUY",
+  "qty": 6.2696,
+  "price": 4214.2002,
+  "value": 20000.0,
+  "reason": "Live bullish ICT setup (sweep \u2192 structure shift \u2192 price in FVG) with entry zone active; clear edge; news neutral-positive ahead of NFP catalyst.",
+  "source": "claude",
+  "evidence": [
+   "Sweep of lower liquidity at 4179.5 confirmed",
+   "Structure shift through 4213.3 completed",
+   "Price currently in FVG 4207.9\u20134212.8 (entry zone)",
+   "Next buy-side liquidity above at 4217.6"
+  ],
+  "stop": 4179.5,
+  "target": 4250.7
+ }
+]

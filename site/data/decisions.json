@@ -304,5 +304,103 @@
   "summary": "Mixed macro backdrop persists with energy volatility but no clear directional conviction across commodities. Holding cash; waiting for sharper technical signals or fundamental shifts before deploying capital.",
   "state": "WAITING",
   "trades": 0
+ },
+ {
+  "t": 1790934861,
+  "paused": false,
+  "markets": [
+   {
+    "symbol": "CL=F",
+    "bias": "neutral",
+    "setup_score": 40,
+    "note": "Bearish sweep + FVG 89.65\u201390.1 live, but price not yet in entry zone and deeper downtrend context limits conviction; higher supply flows today is headwind",
+    "ict": "Bullish structure nominally, but sits deep in 5d range (9%) with sell-side liquidity resting at 88.79; bearish sweep and structure shift occurred; FVG 89.65\u201390.1 awaiting return. Setup exists but needs price to re-enter zone.",
+    "ict_agrees": false
+   },
+   {
+    "symbol": "BZ=F",
+    "bias": "neutral",
+    "setup_score": 55,
+    "note": "Ranging with no active ICT setup, but relative strength (only \u22121% today, +2.12% in 5d) and bank forecast upside support potential; too early",
+    "ict": "Ranging structure, discount zone (39% of 5d range), buy-side liquidity above 99.65, sell-side below 97.74; no recent sweep or structure shift; open bullish FVGs below suggest potential if pullback occurs.",
+    "ict_agrees": true
+   },
+   {
+    "symbol": "NG=F",
+    "bias": "bearish",
+    "setup_score": 30,
+    "note": "Bearish structure (6% of range, deep discount), bullish sweep unconfirmed by structure shift; supply concerns (Qatar delay, LNG MOU lapse) outweigh geopolitical gas premium; wait for structure reversal",
+    "ict": "Bearish structure; price at 6% of 5d range (extreme discount); bullish sweep of sell-side liquidity at 2.966 but no structure shift yet; next confirmation needed above 3.021.",
+    "ict_agrees": true
+   },
+   {
+    "symbol": "GC=F",
+    "bias": "bullish",
+    "setup_score": 75,
+    "note": "Live bullish ICT setup (sweep at 4179.5 \u2192 shift through 4213.3 \u2192 price back in FVG 4207.9\u20134212.8); entry zone active now; news neutral-positive; clear edge. ENTER.",
+    "ict": "Ranging structure with bullish setup live: sweep of lower liquidity at 4179.5, structure shift confirmed through 4213.3, price has returned into the FVG zone 4207.9\u20134212.8. Buy-side liquidity rests above at 4217.6. Next open bearish FVGs above at 4250.7 and 4265.1 define targets.",
+    "ict_agrees": true
+   },
+   {
+    "symbol": "SI=F",
+    "bias": "bearish",
+    "setup_score": 35,
+    "note": "Bearish structure (25% of range), bearish sweep of buy-side unconfirmed by structure shift; today's +1.42% pop insufficient to override technicals; wait",
+    "ict": "Bearish structure; price at 25% of 5d range (discount); bearish sweep of buy-side liquidity at 61.54 but no structure shift; next confirmation needed above buy-side liquidity at 61.67.",
+    "ict_agrees": true
+   },
+   {
+    "symbol": "HG=F",
+    "bias": "bearish",
+    "setup_score": 30,
+    "note": "Bearish structure (16% of range, deep discount), bearish sweep unconfirmed; BofA forecast bullish but hasn't shifted price structure; energy headwinds real; no entry",
+    "ict": "Bearish structure; price at 16% of 5d range (extreme discount); bearish sweep of buy-side at 6.595 but no structure shift; next confirmation needed above buy-side liquidity at 6.595.",
+    "ict_agrees": true
+   },
+   {
+    "symbol": "KC=F",
+    "bias": "neutral",
+    "setup_score": 40,
+    "note": "Bullish ICT setup exists (sweep + shift + FVG 289.55\u2013292.75) but price at premium of range (84%) now; dollar strength headwind real; wait for pullback to FVG entry zone",
+    "ict": "Bearish nominal structure but bullish setup triggered: sweep, structure shift confirmed, FVG 289.55\u2013292.75 awaiting return. Price currently at 294.05 (premium, 84% of 5d range), above the entry FVG; needs pullback to activate entry.",
+    "ict_agrees": false
+   },
+   {
+    "symbol": "ZW=F",
+    "bias": "neutral",
+    "setup_score": 45,
+    "note": "Bullish structure (40% of range, discount) but bearish sweep at 683.5 unconfirmed by structure shift; no directional entry yet; consolidating",
+    "ict": "Bullish structure; price at 40% of 5d range (discount); bearish sweep of buy-side liquidity at 683.5 but no structure shift yet; next confirmation needed above buy-side liquidity at 690.25.",
+    "ict_agrees": true
+   },
+   {
+    "symbol": "ZC=F",
+    "bias": "bearish",
+    "setup_score": 25,
+    "note": "Bearish structure (18% of range), bullish sweep of sell-side unconfirmed; corn selling extends per news; no entry despite bullish sweep",
+    "ict": "Bearish structure; price at 18% of 5d range (deep discount); bullish sweep of sell-side at 498.25 but no structure shift; next confirmation needed above buy-side liquidity at 502.75.",
+    "ict_agrees": true
+   },
+   {
+    "symbol": "CC=F",
+    "bias": "neutral",
+    "setup_score": 50,
+    "note": "Bearish structure but today's 6.81% spike on supply risk support is eye-catching; however, no structure shift confirmed yet; wait for follow-through or pullback to confirm reversal",
+    "ict": "Bearish structure; price at 44% of 5d range (discount); bearish sweep of buy-side at 5505 but no structure shift yet; today's 6.81% spike unconfirmed by structural shift; next confirmation needed above 5505.",
+    "ict_agrees": false
+   }
+  ],
+  "watching": [
+   "Gold (GC) follow-through above target 4250.7; watch for pullback to FVG 4207.9\u20134212.8 to add",
+   "Brent (BZ) for any pullback to bullish FVG 97.38\u201398.45 with structural confirmation",
+   "Coffee (KC) pullback toward FVG 289.55\u2013292.75; structural shift confirm on next leg",
+   "NFP data (unscheduled but mentioned) and its impact on gold and USD direction",
+   "Oil (CL) return to FVG 89.65\u201390.1 for reversal entry confirmation"
+  ],
+  "blocked": [],
+  "reasoning": "Gold is unique: the ICT setup (sweep at 4179.5 \u2192 structure shift through 4213.3 \u2192 price back in FVG 4207.9\u20134212.8) is textbook bullish and live right now, with price currently at 4214.2, just above the fair-value gap. News is neutral-to-positive (consolidation before NFP catalyst). This aligns ICT structure with sentiment. By contrast, most other commodities show bearish or unconfirmed structures (CL, NG, SI, HG, ZC all bearish with no shifts; KC bullish but at range premium; BZ neutral). Macro headwinds (USD strength, falling yields) are real but do not override gold's technical setup.",
+  "summary": "Gold (GC=F) presents a clear, actionable bullish ICT setup with sweep-shift-FVG structure already live and price in the entry zone; all other markets remain structurally uncertain or headwind-challenged. Initiating a gold long position and holding cash for further conviction.",
+  "state": "TRADED",
+  "trades": 1
  }
 ]
