@@ -100,5 +100,40 @@
   "reason": "20h average fell below 100h average",
   "source": "rules",
   "pnl": -378.2
+ },
+ {
+  "t": 1790954536,
+  "symbol": "BZ=F",
+  "name": "Brent crude",
+  "action": "BUY",
+  "qty": 129.8012,
+  "price": 100.78,
+  "value": 9885.46,
+  "reason": "20h average crossed above 100h average",
+  "source": "rules"
+ },
+ {
+  "t": 1790954536,
+  "symbol": "GC=F",
+  "name": "Gold",
+  "action": "SELL",
+  "qty": 3.114,
+  "price": 4171.6001,
+  "value": 9816.66,
+  "reason": "20h average fell below 100h average",
+  "source": "rules",
+  "pnl": -123.78
+ },
+ {
+  "t": 1790954536,
+  "symbol": "SI=F",
+  "name": "Silver",
+  "action": "SELL",
+  "qty": 211.5443,
+  "price": 60.685,
+  "value": 9701.22,
+  "reason": "20h average fell below 100h average",
+  "source": "rules",
+  "pnl": -256.89
  }
 ]
