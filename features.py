@@ -169,6 +169,22 @@ class Series:
         return out
 
 
+def resolve_markets(spec, commodities):
+    """Accepts "all", ["all"], symbols ("GC=F"), names ("Gold") or groups ("Metals"); returns symbols."""
+    if spec in (None, "all", ["all"], []):
+        return list(commodities)
+    if isinstance(spec, str):
+        spec = [spec]
+    out = []
+    for x in spec:
+        k = str(x).strip().lower()
+        for sym, info in commodities.items():
+            if k in (sym.lower(), sym.lower().replace("=f", ""), info["name"].lower(), info["group"].lower(), "all"):
+                if sym not in out:
+                    out.append(sym)
+    return out
+
+
 def refs(strategy):
     """Every feature name a strategy uses."""
     names = []
@@ -189,6 +205,9 @@ def validate(strategy):
     problems = []
     if strategy.get("timeframe") not in ("daily", "hourly"):
         problems.append("timeframe must be daily or hourly")
+    import engine as E
+    if not resolve_markets(strategy.get("markets"), E.COMMODITIES):
+        problems.append("markets didn't match any commodity")
     if not (strategy.get("long") or strategy.get("short")):
         problems.append("needs long and/or short rules")
     for side in ("long", "short"):
