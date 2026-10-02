@@ -20,5 +20,16 @@
   "value": 10000.0,
   "reason": "20h average crossed above 100h average",
   "source": "rules"
+ },
+ {
+  "t": 1790901039,
+  "symbol": "CL=F",
+  "name": "WTI crude",
+  "action": "BUY",
+  "qty": 141.7418,
+  "price": 93.11,
+  "value": 10004.96,
+  "reason": "20h average crossed above 100h average",
+  "source": "rules"
  }
 ]

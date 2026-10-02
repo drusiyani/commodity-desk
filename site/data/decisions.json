@@ -74,5 +74,82 @@
   "summary": "Market shows mixed signals with energy rallying hard (Brent +4.38%, WTI +2.84%) on geopolitical risk, but broader macro headwinds persist (stronger USD, falling yields, copper weakness). Waiting for clearer directional conviction before deploying capital.",
   "state": "WAITING",
   "trades": 0
+ },
+ {
+  "t": 1790901039,
+  "paused": false,
+  "markets": [
+   {
+    "symbol": "BZ=F",
+    "bias": "bullish",
+    "setup_score": 62,
+    "note": "Strong 4.39% daily rally on aircraft carrier deployment; risk premium intact but needs to hold above 100.00 for sustained conviction."
+   },
+   {
+    "symbol": "CL=F",
+    "bias": "bullish",
+    "setup_score": 55,
+    "note": "WTI +2.95% on geopolitical support; weaker momentum than Brent, 20d downtrend unresolved, needs breakout above 95.00."
+   },
+   {
+    "symbol": "NG=F",
+    "bias": "bearish",
+    "setup_score": 48,
+    "note": "Down 1.67% today, -8.65% over 5d; supply shocks (Cyclone, LNG cuts) offset by demand weakness (Bangladesh coal shift); trapped in downtrend."
+   },
+   {
+    "symbol": "GC=F",
+    "bias": "neutral",
+    "setup_score": 35,
+    "note": "Modest +0.55% today but -4.77% in 20d; falling yields should support but stronger USD and risk-on mood offsetting; waiting for yield capitulation."
+   },
+   {
+    "symbol": "SI=F",
+    "bias": "neutral",
+    "setup_score": 38,
+    "note": "Better relative performance (+1.34% vs gold) but still -6% in 20d; lacks conviction without broader precious metals leadership."
+   },
+   {
+    "symbol": "HG=F",
+    "bias": "bearish",
+    "setup_score": 28,
+    "note": "Down 0.36% today, -2.76% in 5d; macro headwinds (strong dollar, slowing growth signals) overpower cyclical bounce; avoiding."
+   },
+   {
+    "symbol": "KC=F",
+    "bias": "neutral",
+    "setup_score": 42,
+    "note": "Up 4.01% in 5d but -0.22% today; dollar strength pressuring liquidation; lacks sustained directional momentum."
+   },
+   {
+    "symbol": "ZW=F",
+    "bias": "neutral",
+    "setup_score": 45,
+    "note": "Minor +0.63% bounce but -6.16% in 20d; USDA stock data key; minor price action suggests indecision."
+   },
+   {
+    "symbol": "ZC=F",
+    "bias": "bearish",
+    "setup_score": 32,
+    "note": "Down 0.40% today, -6.02% in 20d; fighting above $5.00 but structural headwinds persist; no edge."
+   },
+   {
+    "symbol": "CC=F",
+    "bias": "bullish",
+    "setup_score": 58,
+    "note": "Strong +2.06% on supply risk narrative; -7.86% in 20d suggests oversold; needs follow-through to confirm reversal."
+   }
+  ],
+  "watching": [
+   "Brent holding above 100.00 (geopolitical premium sustainability)",
+   "USD index trend reversal (currently headwind to all commodities)",
+   "10-year yield floor (currently falling; support for gold if stabilizes)",
+   "Cocoa follow-through (reversal setup needs confirmation above 5500)",
+   "Copper stabilization (early warning for risk-on conviction)"
+  ],
+  "blocked": [],
+  "summary": "Mixed macro backdrop with energy rallying on geopolitical premium but broader headwinds (stronger USD, falling yields, weak copper) limiting conviction. Holding cash and waiting for a clearer directional edge before deploying capital.",
+  "state": "WAITING",
+  "trades": 0
  }
 ]
