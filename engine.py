@@ -46,7 +46,15 @@ COMMODITIES = {
     "ZC=F": {"name": "Corn", "group": "Agriculture", "unit": "cents per bushel", "query": "corn futures price"},
     "CC=F": {"name": "Cocoa", "group": "Agriculture", "unit": "$ per tonne", "query": "cocoa futures price"},
 }
-RULE_FAST, RULE_SLOW = 20, 100   # rule bot: hourly moving averages
+RULE_FAST, RULE_SLOW = 20, 100   # trend bot: hourly moving averages
+CLAUDE_EVERY = 4 * 3600          # workflow runs hourly; Claude is asked every 4 hours
+THINKING_BUDGET = 6000           # tokens Claude may spend thinking before it answers
+
+# ICT bot settings
+SWING_N = 3          # a swing high/low must beat 3 bars on each side
+RANGE_BARS = 120     # dealing range: last 120 hourly bars (about 5 trading days)
+SETUP_BARS = 36      # only look for setups that started in the last 36 hours
+ICT_RISK = 0.01      # ICT bot risks 1% of its account per trade
 CONTEXT = {
     "DX-Y.NYB": "US dollar index",
     "^TNX": "US 10-year yield",
@@ -179,13 +187,18 @@ def sell(pf, sym, frac, price_usd, fx, now, reason, source):
     return record(now, sym, "SELL", qty, price_usd, gbp, reason, source, pnl=round(pnl, 2))
 
 
+def fresh_bars(bars, last_run, opened):
+    """Hourly bars that could have traded since the last check (a bar is stamped with its start time)."""
+    return [b for b in bars if b["time"] + 3600 > last_run and b["time"] >= opened]
+
+
 def check_exits(pf, prices, fx, now):
     """Risk engine: close positions whose stop or target was touched since the last run."""
     filled = []
     for sym, pos in list(pf["positions"].items()):
         if sym not in prices:
             continue
-        bars = [b for b in prices[sym]["bars"] if b["time"] > pf.get("last_run", 0)] or prices[sym]["bars"][-1:]
+        bars = fresh_bars(prices[sym]["bars"], pf.get("last_run", 0), pos.get("opened", 0)) or prices[sym]["bars"][-1:]
         low, high = min(b["low"] for b in bars), max(b["high"] for b in bars)
         stop, target = pos.get("stop"), pos.get("target")
         if stop and low <= stop:  # if both touched, assume the worse one
@@ -297,6 +310,206 @@ def run_rule_bot(rb, prices, last_usd, fx, now):
     return filled
 
 
+# ---------- ICT analysis (liquidity sweep -> market structure shift -> fair value gap) ----------
+def swings(bars, n=SWING_N):
+    hi, lo = [], []
+    for i in range(n, len(bars) - n):
+        win = range(i - n, i + n + 1)
+        if all(bars[i]["high"] > bars[j]["high"] for j in win if j != i):
+            hi.append(i)
+        if all(bars[i]["low"] < bars[j]["low"] for j in win if j != i):
+            lo.append(i)
+    return hi, lo
+
+
+def open_fvgs(bars):
+    """Unfilled fair value gaps: bullish ones below price, bearish ones above."""
+    bull, bear = [], []
+    for i in range(1, len(bars) - 1):
+        a, c = bars[i - 1], bars[i + 1]
+        later = bars[i + 2:]
+        if a["high"] < c["low"] and not any(b["low"] <= a["high"] for b in later):
+            bull.append([a["high"], c["low"]])
+        if a["low"] > c["high"] and not any(b["high"] >= a["low"] for b in later):
+            bear.append([c["high"], a["low"]])
+    return bull, bear
+
+
+def find_setup(bars, hi, lo, side):
+    """Most recent sweep -> MSS -> FVG setup for one side, or None."""
+    n, long = len(bars), side == "long"
+    for k in range(n - 1, max(SWING_N, n - SETUP_BARS) - 1, -1):
+        b = bars[k]
+        pools = [i for i in (lo if long else hi) if i < k - SWING_N]
+        if not pools:
+            continue
+        level = bars[pools[-1]]["low" if long else "high"]
+        swept = b["low"] < level < b["close"] if long else b["close"] < level < b["high"]
+        if not swept:
+            continue
+        opp = [i for i in (hi if long else lo) if i < k]
+        if not opp:
+            return None
+        mss_level = bars[opp[-1]]["high" if long else "low"]
+        mss = next((j for j in range(k + 1, n) if (bars[j]["close"] > mss_level if long else bars[j]["close"] < mss_level)), None)
+        leg = bars[k: (mss if mss is not None else n - 1) + 1]
+        extreme = min(x["low"] for x in leg) if long else max(x["high"] for x in leg)
+        setup = {"side": side, "sweep_time": b["time"], "liquidity": round(level, 4),
+                 "extreme": round(extreme, 4), "mss_level": round(mss_level, 4), "state": "sweep", "fvg": None}
+        if mss is None:
+            return setup
+        setup["state"] = "mss"
+        fvg = None
+        for j in range(k + 1, min(mss + 2, n - 2) + 1):
+            a, c = bars[j - 1], bars[j + 1]
+            if long and a["high"] < c["low"]:
+                fvg = (a["high"], c["low"], j)
+            if not long and a["low"] > c["high"]:
+                fvg = (c["high"], a["low"], j)
+        if not fvg:
+            return setup
+        bottom, top, j = fvg
+        setup["fvg"] = [round(bottom, 4), round(top, 4)]
+        after = bars[j + 2:]
+        if any((x["close"] < bottom) if long else (x["close"] > top) for x in after):
+            setup["state"] = "failed"
+        elif any((x["low"] <= top) if long else (x["high"] >= bottom) for x in after):
+            setup["state"] = "entry"
+        else:
+            setup["state"] = "waiting"
+        return setup
+    return None
+
+
+def ict_read(bars):
+    window = bars[-RANGE_BARS:]
+    hi, lo = swings(window)
+    last = window[-1]["close"]
+    top, bot = max(b["high"] for b in window), min(b["low"] for b in window)
+    pd = (last - bot) / (top - bot) if top > bot else 0.5
+    if len(hi) >= 2 and len(lo) >= 2:
+        h1, h2, l1, l2 = window[hi[-2]]["high"], window[hi[-1]]["high"], window[lo[-2]]["low"], window[lo[-1]]["low"]
+        structure = "bullish" if h2 > h1 and l2 > l1 else "bearish" if h2 < h1 and l2 < l1 else "ranging"
+    else:
+        structure = "ranging"
+    bull, bear = open_fvgs(window)
+    bull = sorted([g for g in bull if g[1] <= last], key=lambda g: -g[1])[:2]
+    bear = sorted([g for g in bear if g[0] >= last], key=lambda g: g[0])[:2]
+    setups = [x for x in (find_setup(window, hi, lo, "long"), find_setup(window, hi, lo, "short")) if x]
+    for x in setups:
+        x["pd_at_sweep"] = round((x["extreme"] - bot) / (top - bot), 3) if top > bot else 0.5
+    rank = {"entry": 4, "waiting": 3, "mss": 2, "sweep": 1, "failed": 0}
+    setup = max(setups, key=lambda x: (rank[x["state"]], x["sweep_time"])) if setups else None
+    highs_above = sorted(window[i]["high"] for i in hi if window[i]["high"] > last)
+    lows_below = sorted((window[i]["low"] for i in lo if window[i]["low"] < last), reverse=True)
+    r = {"structure": structure, "pd": round(pd, 3), "zone": "discount" if pd < 0.5 else "premium",
+         "range": [round(bot, 4), round(top, 4)], "liquidity_above": [round(x, 4) for x in highs_above[:2]],
+         "liquidity_below": [round(x, 4) for x in lows_below[:2]],
+         "fvgs_below": [[round(a, 4), round(b, 4)] for a, b in bull], "fvgs_above": [[round(a, 4), round(b, 4)] for a, b in bear],
+         "setup": setup, "setups": setups}
+    r["text"] = ict_text(r)
+    return r
+
+
+def ict_text(r):
+    parts = [f"{r['structure']} structure", f"price at {r['pd']:.0%} of the 5-day range ({r['zone']})"]
+    if r["liquidity_above"]:
+        parts.append(f"buy-side liquidity above at {r['liquidity_above'][0]:g}")
+    if r["liquidity_below"]:
+        parts.append(f"sell-side liquidity below at {r['liquidity_below'][0]:g}")
+    s = r["setup"]
+    if s:
+        d = "bullish" if s["side"] == "long" else "bearish"
+        took = "sell-side" if s["side"] == "long" else "buy-side"
+        st, liq, mss, g = s["state"], f"{s['liquidity']:g}", f"{s['mss_level']:g}", s["fvg"]
+        if st == "sweep":
+            desc = f"{d} sweep of {took} liquidity at {liq}, no structure shift yet"
+        elif st == "mss":
+            desc = f"{d} sweep at {liq} and structure shift through {mss}, no clean FVG"
+        elif st == "waiting":
+            desc = f"{d} sweep, structure shift and FVG {g[0]:g}-{g[1]:g}, waiting for price to return to it"
+        elif st == "entry":
+            desc = f"{d} setup live: sweep at {liq}, shift through {mss}, price back in FVG {g[0]:g}-{g[1]:g}"
+        else:
+            desc = f"{d} setup failed: price closed through the FVG"
+        parts.append(desc)
+    else:
+        parts.append("no recent sweep setup")
+    return "; ".join(parts)
+
+
+def ict_value(pos, price):
+    return pos["qty"] * price if pos["side"] == "long" else pos["qty"] * (2 * pos["entry"] - price)
+
+
+def ict_equity(ib, last):
+    return ib["cash"] + sum(ict_value(p, last[s]) for s, p in ib["positions"].items() if s in last)
+
+
+def run_ict_bot(ib, prices, reads, last_usd, fx, now):
+    filled = []
+    last = {s: v / fx for s, v in last_usd.items()}
+
+    def close(sym, px_usd, why):
+        pos = ib["positions"].pop(sym)
+        gbp = ict_value(pos, px_usd / fx)
+        ib["cash"] += gbp
+        action = "SELL" if pos["side"] == "long" else "COVER"
+        filled.append(record(now, sym, action, pos["qty"], px_usd, gbp, f"{why.capitalize()} hit at {px_usd:g}",
+                             "ict", pnl=round(gbp - pos["qty"] * pos["entry"], 2), exit=why))
+
+    for sym, pos in list(ib["positions"].items()):
+        bars = fresh_bars(prices.get(sym, {}).get("bars", []), ib.get("last_run", 0), pos.get("opened", 0))
+        if not bars:
+            continue
+        lo, hi = min(b["low"] for b in bars), max(b["high"] for b in bars)
+        if pos["side"] == "long":
+            if lo <= pos["stop"]: close(sym, pos["stop"], "stop")
+            elif hi >= pos["target"]: close(sym, pos["target"], "target")
+        else:
+            if hi >= pos["stop"]: close(sym, pos["stop"], "stop")
+            elif lo <= pos["target"]: close(sym, pos["target"], "target")
+
+    for sym, r in reads.items():
+        for s in r.get("setups", []):
+            if s["state"] != "entry" or sym in ib["positions"] or len(ib["positions"]) >= MAX_OPEN:
+                continue
+            sid = f"{sym}-{s['side']}-{s['sweep_time']}"
+            if sid in ib["used"]:
+                continue
+            long, px = s["side"] == "long", last_usd[sym]
+            # trade with the bigger picture, from the right half of the range, and only near the gap (not after it ran)
+            if long and (r["structure"] == "bearish" or s["pd_at_sweep"] >= 0.5
+                         or not s["fvg"][0] < px <= s["fvg"][1] * 1.005):
+                continue
+            if not long and (r["structure"] == "bullish" or s["pd_at_sweep"] <= 0.5
+                             or not s["fvg"][0] * 0.995 <= px < s["fvg"][1]):
+                continue
+            stop = s["extreme"] * (0.999 if long else 1.001)
+            risk_px = abs(px - stop)
+            pools = r["liquidity_above"] if long else r["liquidity_below"]
+            two_r = px + 2 * risk_px if long else px - 2 * risk_px
+            target = (min(pools[0], two_r) if long else max(pools[0], two_r)) if pools else two_r
+            if abs(target - px) < risk_px:  # reward smaller than risk: skip
+                continue
+            eq = ict_equity(ib, last)
+            qty = ICT_RISK * eq / (risk_px / fx)
+            gbp = min(qty * px / fx, MAX_POSITION * eq, ib["cash"])
+            if gbp < 50:
+                continue
+            qty = gbp / (px / fx)
+            ib["cash"] -= gbp
+            ib["positions"][sym] = {"side": s["side"], "qty": qty, "entry": px / fx, "entry_usd": px,
+                                    "stop": round(stop, 4), "target": round(target, 4), "opened": now}
+            ib["used"] = (ib["used"] + [sid])[-500:]
+            filled.append(record(now, sym, "BUY" if long else "SHORT", qty, px, gbp,
+                                 f"{'Bullish' if long else 'Bearish'} sweep of {s['liquidity']:g}, structure shift through "
+                                 f"{s['mss_level']:g}, entry in FVG {s['fvg'][0]:g}-{s['fvg'][1]:g}",
+                                 "ict", stop=round(stop, 4), target=round(target, 4)))
+    ib["last_run"] = now
+    return filled
+
+
 # ---------- report card: were Claude's calls right 24 hours later? ----------
 def evaluate_calls(calls, prices, now):
     for c in calls:
@@ -313,7 +526,7 @@ def evaluate_calls(calls, prices, now):
 
 
 # ---------- Claude ----------
-def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions):
+def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads):
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError("No ANTHROPIC_API_KEY secret set")
@@ -326,6 +539,12 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions):
         lines.append(f"{sym} ({p['name']}, {p['group']}): {last_usd[sym]:.3f} {p['unit']}, "
                      f"24h {change_since(bars, 86400):+.2%}, 5d {change_since(bars, 5 * 86400):+.2%}, "
                      f"20d {change_since(bars, 20 * 86400):+.2%}")
+        if sym in reads:
+            lines.append(f"   ICT: {reads[sym]['text']}")
+            if reads[sym]["fvgs_below"]:
+                lines.append(f"   Open bullish FVGs below: {reads[sym]['fvgs_below']}")
+            if reads[sym]["fvgs_above"]:
+                lines.append(f"   Open bearish FVGs above: {reads[sym]['fvgs_above']}")
         for n in [n for n in news if n["symbol"] == sym][:3]:
             lines.append(f"   [{n['id']}] {n['title']} ({n['source']})")
     ctx = [f"{c['name']}: {c['last']:.3f} ({c['chg']:+.2%} on the day)" for c in context.values()]
@@ -342,6 +561,16 @@ Rules enforced by the risk engine: long only, no leverage, max {MAX_POSITION:.0%
 max {MAX_OPEN} commodities held, no new buys after a {DAILY_LOSS_LIMIT:.0%} daily loss.
 Every BUY needs a stop (below price, same units as the quote) and should have a target (above price).
 Waiting is a perfectly good decision. Only trade when you see a clear edge. Avoid churning.
+
+How to think (take your time and reason it through properly before answering):
+1. ICT read for each market: structure, where price sits in its range (premium or discount), where liquidity is resting
+   or has just been taken, and whether a sweep -> market structure shift -> fair value gap setup is live.
+2. News read: what the headlines actually change about supply, demand or positioning, and how much is already priced in.
+3. Combine them. The best trades are where a live ICT setup and a real news catalyst point the same way.
+   ICT gives you the where (entry zone, stop beyond the swept liquidity, target at the next liquidity pool);
+   news gives you the why. If they conflict, say which you trust and why; usually that means waiting.
+4. You can only go long. A bearish ICT read plus bearish news is a reason to sell what you hold or stay out.
+5. Base stops and targets on ICT levels, not round numbers.
 
 Cash: £{pf['cash']:,.0f}. Portfolio: £{eq:,.0f} (started at £{START_CASH:,}).
 
@@ -362,7 +591,9 @@ Commodities and recent headlines:
 
 Reply with ONLY a JSON object, no other text:
 {{"summary": "one or two plain sentences on your overall read and what you're doing",
-  "markets": [{{"symbol": "GC=F", "bias": "bullish|bearish|neutral", "setup_score": 0-100, "note": "short reason"}}],
+  "reasoning": "three to five sentences on how you weighed the ICT picture against the news this time",
+  "markets": [{{"symbol": "GC=F", "bias": "bullish|bearish|neutral", "setup_score": 0-100, "note": "short combined reason",
+               "ict": "short ICT read in your own words", "ict_agrees": true}}],
   "watching": ["short thing you're waiting to see", "..."],
   "trades": [
     {{"symbol": "GC=F", "action": "BUY", "amount_gbp": 5000, "stop": 0.0, "target": 0.0,
@@ -375,9 +606,14 @@ Reply with ONLY a JSON object, no other text:
 Include every commodity in "markets" and every [id] headline in "news".
 Use empty lists for "trades" and "adjust" if nothing to do."""
 
-    r = requests.post("https://api.anthropic.com/v1/messages", timeout=120, headers={
-        "x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json",
-    }, json={"model": MODEL, "max_tokens": 4000, "messages": [{"role": "user", "content": prompt}]})
+    headers = {"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"}
+    body = {"model": MODEL, "max_tokens": THINKING_BUDGET + 5000,
+            "thinking": {"type": "enabled", "budget_tokens": THINKING_BUDGET},
+            "messages": [{"role": "user", "content": prompt}]}
+    r = requests.post("https://api.anthropic.com/v1/messages", timeout=300, headers=headers, json=body)
+    if r.status_code == 400 and "thinking" in r.text:  # model without extended thinking: retry without it
+        body.pop("thinking")
+        r = requests.post("https://api.anthropic.com/v1/messages", timeout=300, headers=headers, json=body)
     r.raise_for_status()
     text = "".join(b.get("text", "") for b in r.json()["content"])
     return json.loads(text[text.index("{"): text.rindex("}") + 1])
@@ -405,10 +641,19 @@ def main():
     pf = load("portfolio.json", None)
     trades, decisions, eq_hist = load("trades.json", []), load("decisions.json", []), load("equity.json", [])
     rb, rb_trades, calls = load("rules.json", None), load("rules_trades.json", []), load("calls.json", [])
+    ib, ib_trades = load("ict.json", None), load("ict_trades.json", [])
     if not pf or pf.get("version") != 3:  # fresh start
         pf, trades, decisions, eq_hist = new_portfolio(), [], [], []
-        rb, rb_trades, calls = None, [], []
+        rb, rb_trades, calls, ib, ib_trades = None, [], [], None, []
     rb = rb or {"cash": START_CASH, "positions": {}}
+    if not ib:  # ICT bot joins late: give it a fresh £100k from now
+        ib, ib_trades = {"cash": START_CASH, "positions": {}, "used": [], "last_run": now}, []
+    reads = {}
+    for sym, p in prices.items():
+        try:
+            reads[sym] = ict_read(p["bars"])
+        except Exception as e:
+            print(f"ICT read failed for {sym}: {e}")
     if not pf["start_prices"]:
         pf["start_prices"] = dict(last)
 
@@ -424,14 +669,20 @@ def main():
                 filled.append(t)
 
     paused = bool(config.get("paused") or config.get("close_all"))
+    claude_due = os.environ.get("GITHUB_EVENT_NAME") != "schedule" or now - pf.get("last_claude", 0) >= CLAUDE_EVERY - 600
     entry = {"t": now, "paused": paused, "markets": [], "watching": [], "blocked": []}
+    prev_health = load("status.json", {}).get("health", {})
     if paused:
         entry["summary"] = ("Everything closed and paused by you in config.json." if config.get("close_all")
                             else "Paused by you in config.json. Stops and targets are still being checked.")
         health["claude"] = True
+    elif not claude_due:
+        health["claude"] = prev_health.get("claude", True)
+        entry = None
     else:
         try:
-            decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions)
+            pf["last_claude"] = now
+            decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads)
             health["claude"] = True
             more, blocked = apply_decision(pf, decision, last_usd, fx, now)
             filled += more
@@ -444,7 +695,8 @@ def main():
                 if m.get("symbol") in last_usd and m.get("bias") in ("bullish", "bearish", "neutral"):
                     calls.append({"t": now, "symbol": m["symbol"], "bias": m["bias"],
                                   "score": m.get("setup_score"), "price": last_usd[m["symbol"]]})
-            entry.update(summary=str(decision.get("summary", ""))[:500],
+            entry.update(reasoning=str(decision.get("reasoning", ""))[:900],
+                         summary=str(decision.get("summary", ""))[:500],
                          markets=decision.get("markets", [])[:10],
                          watching=[str(w)[:160] for w in decision.get("watching", [])][:6],
                          blocked=blocked)
@@ -453,12 +705,17 @@ def main():
             health["claude"] = False
             entry["summary"] = f"Claude couldn't be reached this run ({str(e)[:120]}). No new trades."
 
-    entry["state"] = ("PAUSED" if entry["paused"] else "TRADED" if any(f["source"] == "claude" for f in filled)
-                      else "MANAGING" if pf["positions"] else "WAITING")
-    entry["trades"] = len(filled)
+    if entry is None and filled:  # hourly check between Claude runs that closed something
+        entry = {"t": now, "paused": False, "markets": [], "watching": [], "blocked": [],
+                 "summary": "Hourly risk check: a stop or target was hit."}
+    if entry is not None:
+        entry["state"] = ("PAUSED" if entry["paused"] else "TRADED" if any(f["source"] == "claude" for f in filled)
+                          else "MANAGING" if pf["positions"] else "WAITING")
+        entry["trades"] = len(filled)
     rb_trades += run_rule_bot(rb, prices, last_usd, fx, now)
+    ib_trades += run_ict_bot(ib, prices, reads, last_usd, fx, now)
     calls = evaluate_calls(calls, prices, now)[-5000:]
-    decisions = (decisions + [entry])[-300:]
+    decisions = (decisions + ([entry] if entry else []))[-400:]
     trades += filled
     pf["last_run"] = now
 
@@ -466,7 +723,7 @@ def main():
     both = [s for s in starts if s in last]
     bench = START_CASH * sum(last[s] / starts[s] for s in both) / max(1, len(both))
     eq_hist.append({"time": now, "equity": round(equity(pf, last), 2), "benchmark": round(bench, 2),
-                    "rules": round(equity(rb, last), 2)})
+                    "rules": round(equity(rb, last), 2), "ict": round(ict_equity(ib, last), 2)})
 
     save("prices.json", prices)
     save("context.json", context)
@@ -478,10 +735,15 @@ def main():
     save("rules.json", rb)
     save("rules_trades.json", rb_trades)
     save("calls.json", calls)
+    save("ict.json", ib)
+    save("ict_trades.json", ib_trades)
+    save("ict_now.json", reads)
     save("status.json", {"updated": now, "model": MODEL, "fx": fx, "health": health,
+                         "last_claude": pf.get("last_claude"),
                          "rules": {"max_position": MAX_POSITION, "max_open": MAX_OPEN,
                                    "daily_loss_limit": DAILY_LOSS_LIMIT}})
-    print(f"Done. State {entry['state']}, {len(filled)} fills, portfolio £{equity(pf, last):,.0f}")
+    print(f"Done. Claude {'asked' if entry and entry.get('markets') else 'not asked'}, {len(filled)} fills, "
+          f"portfolio £{equity(pf, last):,.0f}, ICT bot £{ict_equity(ib, last):,.0f}")
 
 
 if __name__ == "__main__":
