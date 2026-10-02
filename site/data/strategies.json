@@ -1,0 +1,650 @@
+{
+ "strategies": [
+  {
+   "id": "s1",
+   "name": "Seasonal Compression Breakout",
+   "idea": "Trade breakouts of recent ranges only in historically positive seasonal months, when volatility is compressed, creating setups for expansion moves.",
+   "rationale": "Seasonal traders expect rallies in Oct/Nov for gold/silver/coffee but sit on the sidelines when vol is low. When volatility then expands in these months, breakouts run harder because option sellers are caught short and hedge funds pile in. The other side is volatility sellers (options traders) who were wrong about vol staying compressed in seasonally active months.",
+   "timeframe": "daily",
+   "rules": {
+    "timeframe": "daily",
+    "markets": [
+     "gold",
+     "silver",
+     "coffee",
+     "copper"
+    ],
+    "long": {
+     "entry": [
+      {
+       "left": "season",
+       "op": ">",
+       "right": 0.01
+      },
+      {
+       "left": "volratio_50",
+       "op": "<",
+       "right": 0.9
+      },
+      {
+       "left": "close",
+       "op": ">",
+       "right": [
+        "high_20",
+        1.0
+       ]
+      }
+     ],
+     "exit": [
+      {
+       "left": "volratio_50",
+       "op": ">",
+       "right": 1.3
+      },
+      {
+       "left": "season",
+       "op": "<=",
+       "right": 0
+      }
+     ]
+    },
+    "short": null,
+    "stop_atr": 2.2,
+    "target_atr": 5.0,
+    "max_bars": 30,
+    "atr_period": 14
+   },
+   "created": 1790970287,
+   "round": 1,
+   "thinking": "Let me analyze what we know:\n\n1. **Current Strategy Performance:**\n   - ICT bot: Works well on hourly (0% with good PF 1.02), barely trades on daily\n   - Trend bot: Works on daily (+16.4%), fails on hourly (-35.5%)\n   - Buy & hold: Generally wins on daily, especially metals\n\n2. **Key Observations:**\n   - The ICT bot works but barely trades - opportunity for refinement\n   - Trend bot fails on hourly but works on daily - suggests trend following works better on longer timeframes\n   - Buy & hold is hard to beat, especially in trending markets\n   - Metals (especially precious metals) are in strong uptrends\n   - Energy is weak (WTI -32% from high, natural gas -71%)\n   - Agriculture is mixed\n\n3. **Seasonal Patterns:**\n   - WTI/Brent: Oct/Nov tend to be negative\n   - Natural gas: Oct/Nov positive\n   - Gold: Oct/Nov positive (seasonal strength)\n   - Silver: Oct/Nov very strong (Oct +2.9%, Nov +6.0%)\n   - Copper: Oct slightly negative, Nov positive\n   - Coffee: Nov very strong (+12.3%)\n   - Wheat: Oct/Nov mixed\n   - Corn: Oct/Nov slightly negative\n   - Cocoa: Oct negative, Nov positive\n\n4. **Volatility Insights:**\n   - Precious metals (gold, silver) have 29-66% annual volatility\n   - Energy has 54-92% volatility\n   - Agriculture has 21-41% volatility\n   - Copper is high volatility (28%) but near 5-year highs\n\n5. **Strategy Ideas - Need to be genuinely different:**\n\n**Strategy 1: Seasonal + Extreme Mean Reversion**\n- Idea: Trade seasonal months (Oct/Nov) combined with extreme zscore compression/release\n- Only trade in historically positive seasonal months\n- Enter when market is extremely oversold (zscore < -2) in a positive seasonal month\n- This works because: seasonal traders know Oct is bad for crude, but they're surprised when it drops 3+ std devs. They panic sell into panic buyers. The strategy sits at the extremes where both shorts covering and new buyers meet.\n- Who loses: Trend followers who shorted crude in October and natural gas longs who thought seasonal strength was guaranteed\n\nFor a second approach, I'm thinking about compressed volatility leading to directional breakouts - catching the squeeze before range expansion rather than fighting the seasonal grain.\n\n**Strategy 2: Volatility Regime Squeeze to Range Breakout**\n- Idea: Identify when volratio drops (market getting complacent), then trade breakouts of recent range in that specific direction only\n- Entry: volratio < 0.8 for 10+ bars, then breakout of last N bars using rangepos\n- Exit: hit target or reversal (volratio > 1.2)\n- Logic: vol squeezes breed complacency; expansion often breaks ranges, crushing short-vol sellers caught in the compression bet\n- Tune N per asset's typical volatility character\n\nA third idea flips the usual trend-following script - fade extremes within an established trend rather than betting on continuation.\n\n**Strategy 3: Anti-Trend Mean Reversion Inside Trends**\n- Short extreme rallies in uptrends, buy extreme selloffs in downtrends, using ema_200 as the trend filter\n- Entry: price > ema_200, rsi > 75, ret_5 > 0.05 \u2192 short\n- Entry: price < ema_200, rsi < 25, ret_5 < -0.05 \u2192 long\n- Exit: after N bars or on ema_200 cross\n- Momentum chasers pile in after 5% moves, creating exhaustion that mean reversion traders exploit on the other side\n\nThose who lose: retail momentum followers buying every dip/selling every bounce without waiting for genuine extremes.\n\nRefining further - seasonal compression is already priced in, so I should sharpen Strategy 1 instead.\n\n**Better Strategy 1: Extreme Reversal After Large Directional Moves**\n- After a >3% single-day move, counter-trade next bar if no sustained trend exists\n- Long entry: prior ret < -0.03, ema_5 < ema_20 (no uptrend), rsi > 30 (not panic)\n- Short entry: prior ret > 0.03, ema_5 > ema_20 (no downtrend), rsi < 70\n- Logic: institutional flow steps in opposite panic moves, trapping retail trend-followers in the reversal\n\n**Strategy 2 idea: Volatility + Seasonal Confluence** \u2014 trade high-vol seasonal months with trend entries, skip low-vol ones. But the trend bot already failed on hourly data, so this needs reconsidering.\n\n**Strategy 1 alternative: Recovery After Maximum Pain**\n- Within a longer uptrend (ema_50 > ema_200), trade the bounce after a 2-ATR break below support\n- Mirror logic for downtrends\n- This captures mean reversion within trend \u2014 the short-covering panic after fixed-stop traders get shaken out\n\n**Strategy 2 alternative: Volatility Expansion Breakout**\n- When volratio crosses above 1.0, trade with the direction of the recent 5-bar return\n- Long: volratio > 1.0, ret_5 > 0, close > sma_20; short the mirror\n- Exit on vol contraction or 2ATR reversal\n- Targets options sellers caught short vol\n\n**Strategy 3 alternative: Seasonal + RSI Confirmation**\n- Buy positive seasonal months on RSI bounce off 40-45 instead of blindly on day one\n- Exit at rsi > 70 or month change\n- Beats mechanical seasonal traders who don't wait for momentum\n\nGiven what the data shows \u2014 metals trending hard, energy weak, trend bot oddly better on daily (+16.4%) than hourly (-35.5%) \u2014 I want to combine trend direction with vol expansion, since that's what actually seems to work. Another angle: fade extreme RSI readings inside hourly trends for small counter-trend scalps, catching the whipsaws that hurt the trend bot. Or restrict seasonal breakout trades to vol-compression setups only, to catch bigger moves when they actually happen.\n\n",
+   "results": {
+    "train": {
+     "combined": {
+      "return": 0.0,
+      "trades": 0,
+      "win_rate": null,
+      "profit_factor": null,
+      "worst_market_dd": 0
+     },
+     "markets": {}
+    },
+    "test": {
+     "combined": {
+      "return": 0.0,
+      "trades": 0,
+      "win_rate": null,
+      "profit_factor": null,
+      "worst_market_dd": 0
+     },
+     "markets": {}
+    }
+   },
+   "passed": false,
+   "score": 0.0
+  },
+  {
+   "id": "s2",
+   "name": "Trend Extremism Exhaust",
+   "idea": "On hourly timeframe, short extreme rallies (RSI > 80) within confirmed uptrends, and go long extreme selloffs (RSI < 20) within downtrends, capturing mean reversion before trend followers get destroyed.",
+   "rationale": "The trend bot loses on hourly because it extends too long into exhaustion. This trades the small counter-trend pulses that happen just before major moves reverse. Who loses: retail momentum chasers who buy every spike in uptrends without waiting for RSI exhaustion, getting trapped when smart money takes profits; also traders using mechanical stops at support who get shaken out on spikes before the real reversal.",
+   "timeframe": "hourly",
+   "rules": {
+    "timeframe": "hourly",
+    "markets": [
+     "gold",
+     "silver",
+     "copper",
+     "WTI",
+     "coffee"
+    ],
+    "long": {
+     "entry": [
+      {
+       "left": "ema_200",
+       "op": ">",
+       "right": "close"
+      },
+      {
+       "left": "rsi_14",
+       "op": "<",
+       "right": 22
+      },
+      {
+       "left": "ret_5",
+       "op": "<",
+       "right": -0.015
+      }
+     ],
+     "exit": [
+      {
+       "left": "rsi_14",
+       "op": ">",
+       "right": 50
+      },
+      {
+       "left": "ema_200",
+       "op": "<",
+       "right": "close"
+      }
+     ]
+    },
+    "short": {
+     "entry": [
+      {
+       "left": "ema_200",
+       "op": "<",
+       "right": "close"
+      },
+      {
+       "left": "rsi_14",
+       "op": ">",
+       "right": 78
+      },
+      {
+       "left": "ret_5",
+       "op": ">",
+       "right": 0.015
+      }
+     ],
+     "exit": [
+      {
+       "left": "rsi_14",
+       "op": "<",
+       "right": 50
+      },
+      {
+       "left": "ema_200",
+       "op": ">",
+       "right": "close"
+      }
+     ]
+    },
+    "stop_atr": 1.8,
+    "target_atr": 3.5,
+    "max_bars": 12,
+    "atr_period": 14
+   },
+   "created": 1790970287,
+   "round": 1,
+   "thinking": "",
+   "results": {
+    "train": {
+     "combined": {
+      "return": 0.0,
+      "trades": 0,
+      "win_rate": null,
+      "profit_factor": null,
+      "worst_market_dd": 0
+     },
+     "markets": {}
+    },
+    "test": {
+     "combined": {
+      "return": 0.0,
+      "trades": 0,
+      "win_rate": null,
+      "profit_factor": null,
+      "worst_market_dd": 0
+     },
+     "markets": {}
+    }
+   },
+   "passed": false,
+   "score": 0.0
+  },
+  {
+   "id": "s3",
+   "name": "Volatility Spike Reversal",
+   "idea": "Fade extreme intraday moves when volatility spikes (emotional capitulation), exiting when emotion normalizes.",
+   "rationale": "Volatility spikes on hourly charts mark panic selling or euphoric buying\u2014unsustainable extremes. When vol explodes AND price is extended (rangepos near 0 or 1), weak hands are exhausting. The other side: momentum chasers who panic out once vol subsides. This captures intraday mean reversion in real time, not after-the-fact trend following.",
+   "timeframe": "hourly",
+   "rules": {
+    "timeframe": "hourly",
+    "markets": [
+     "all"
+    ],
+    "long": {
+     "entry": [
+      {
+       "left": "volratio_10",
+       "op": ">",
+       "right": 1.3
+      },
+      {
+       "left": "rangepos_20",
+       "op": "<",
+       "right": 0.15
+      },
+      {
+       "left": "rsi_14",
+       "op": "<",
+       "right": 35
+      }
+     ],
+     "exit": [
+      {
+       "left": "volratio_10",
+       "op": "<",
+       "right": 1.0
+      },
+      {
+       "left": "rsi_14",
+       "op": ">",
+       "right": 55
+      }
+     ]
+    },
+    "short": {
+     "entry": [
+      {
+       "left": "volratio_10",
+       "op": ">",
+       "right": 1.3
+      },
+      {
+       "left": "rangepos_20",
+       "op": ">",
+       "right": 0.85
+      },
+      {
+       "left": "rsi_14",
+       "op": ">",
+       "right": 65
+      }
+     ],
+     "exit": [
+      {
+       "left": "volratio_10",
+       "op": "<",
+       "right": 1.0
+      },
+      {
+       "left": "rsi_14",
+       "op": "<",
+       "right": 45
+      }
+     ]
+    },
+    "stop_atr": 1.5,
+    "target_atr": 3.0,
+    "max_bars": 8,
+    "atr_period": 14
+   },
+   "created": 1790970336,
+   "round": 2,
+   "thinking": "Let me analyze what I'm seeing:\n\n**Current Results:**\n- ICT bot is essentially breakeven (\u00b10%) on both hourly and daily, but with very few trades (102 hourly, 3 daily). It's stable but not profitable.\n- Trend bot is profitable on daily (+16.4%) but loses badly on hourly (-35.5%), especially on agricultural products and gas.\n- Buy and hold beats both strategies consistently on most commodities.\n\n**Key Observations:**\n1. **ICT bot works best on**: WTI (+4.9%), Silver (+0.9%), Wheat (+0.6%), Corn (+0.9%) hourly. It fails on trend-heavy markets.\n2. **Trend bot works best on**: Gold (+26.2%), Silver (+53.8%) hourly; Gold (+123.4%), Cocoa (+93.0%) daily.\n3. **Hourly vs Daily**: Hourly has 2 years data, daily has 5 years. Trend bot works better on daily, ICT works micro.\n4. **Market groups perform differently**:\n   - Metals (especially gold/silver): Strong uptrends, trend-following works\n   - Energy: Mixed, ICT works better on WTI\n   - Agriculture: Very choppy, both strategies struggle\n5. **Failed strategies had 0 trades** - too restrictive conditions.\n\n**What's happening in the market:**\n- We're in Oct-Nov seasonally\n- Most markets above/near 200MA (uptrend)\n- Gold, Silver, Cocoa: newly broken highs but have pulled back\n- Coffee, Wheat: Off their highs\n- Natural gas: Deeply underwater\n\n**The Real Problem:**\nNeither strategy is catching the actual patterns. The trend bot overshoots (too many false signals), ICT is under-leveraged/too selective.\n\n**What could work:**\n\n**Strategy 1 Idea: \"Post-Extreme Reversal Catch\"**\nBig moves dominate these backtests (gold +76%, silver +111%, cocoa -36%). After extremes (RSI > 70 or < 30), counter-trend traders get crushed when the trend resumes. I could enter after a strong directional move (ret_5 beyond \u00b12%) paired with an overbought/oversold RSI reading, but only trade *with* the trend if EMA50 confirms direction \u2014 this fades weak counter-moves and rides the resumption instead of fighting it. Actually, trading reversals directly might be the sharper angle here.\n\nLooking at the hourly data: gold trend-bot only captured +26.2% vs +76.6% buy-and-hold (missed half the move), silver captured +53.8% vs +111.4% (missed 57%), and coffee trend-following was outright disastrous at -76.3% vs +45.5% hold. Trend followers keep getting whipsawed on reversals \u2014 so maybe the edge is trading those reversal points directly. That leads to an \"Extreme Mean Reversion in Trends\" idea: enter on hourly when RSI hits extreme levels (>75 or <25) while still inside the intermediate trend structure.\n\nRefining further \u2014 enter short at RSI > 78 or long at RSI < 22, only within an established trend, exit at 2x ATR once RSI reverts toward 50. This should catch sharp spikes on strong trending days without fighting the larger move.\n\nI like \"Extremity Exhaust\" better: trade RSI extremes (>78 or <22) but keep size small and only act when volratio_14 > 1.1, since rising volatility signals these are emotional blowoffs that burn out fast intraday. Entry long: rsi_14 < 22 AND volratio_14 > 1.1.\n\nAdd close < sma_50 for the long (downtrend bounce) and close > sma_50 for the short (uptrend profit-taking spike). Stop 1.5 ATR since these are quick exhaustion plays, target 2.5 ATR, max 8 bars.\n\nThe logic: extreme RSI plus rising volatility means panic sellers or euphoric buyers are exhausting themselves and about to reverse \u2014 this is intra-trend mean reversion, not fighting the trend.\n\nLooking at regime data now \u2014 daily trend bot sits at +16.4%, hourly shows its own trend characteristics worth exploring for a multi-regime approach.\n\nsupport/resistance zones, with trend establishing via EMA crossover, then breakout confirmation of the 20-bar range.\n\nThis echoes Seasonal Compression, which produced zero trades.\n\nNew angle: squeeze breakout gated by volume/direction. Identify low relative volatility, enter on fresh highs/lows, exit when volatility spikes signaling move exhaustion.\n\nEntry: volratio_10 < 0.8 AND (close > high_5 OR close < low_5)\nExit: volratio_10 > 1.2 OR ret_5 reversal\n\nStop 2 ATR, target 4 ATR, max 20 bars - trading quiet-period breakouts, betting that suppressed vol precedes real moves. Counterparty is range traders fading the breakout plus stopped-out weak positions. Risk is too many false breakouts though.\n\nReconsidering what's actually worked: WTI ICT (+4.9%, 11 trades, hourly signals) and Silver trend (+53.8%, high trade\n\ncount, profitable). Daily trend bot nets +16.4% overall - breaking down by instrument: Gold crushes it (+123.4%), Cocoa +93%, Silver +53.8%, Copper +12.1%, Coffee +4.6%, Brent +7.2%, but Wheat (-35.9%), Corn (-14.5%), WTI (-19.9%), and NG (-59.9%) all bleed.\n\nPattern is clear: daily trending wins on metals and cocoa, loses on energy and soft ag. Hourly trending mostly fails except precious metals. ICT signals work on WTI and Silver.\n\nFor \"Precious Metal Trend Squeeze\" - restrict daily strategy to just GC/SI/HG where trend actually pays off. Layer in mean reversion logic: only buy pullbacks within established uptrends rather than chasing breakouts.\n\nLong entry: market in [GC, SI, HG], ema_50 > ema_200 confirming uptrend, close < ema_50 for the pullback, rsi_14 < 60 to avoid overbought entries. Skip shorts entirely - the data says shorting these is a losing game.\n\nExit plan: take profit when close > ema_20 + 2*atr_14 (strong momentum), stop if close < ema_200 (trend invalidated), or watch rsi_14 for exhaustion signals.\n\nStop at 2.0 ATR, target 5.0 ATR, max 40 bars to let winners develop. Daily timeframe.\n\nThe logic: metals trend hard, and most traders keep fighting that trend by shorting. Buying dips lets us capture continuation moves as weak shorts get stopped out - essentially the only reliable edge on these markets.\n\nFor \"ICT Micro Pivot Fade\" - hourly reversal strategy at structural extremes, simplified from ICT concepts (skipping sweep+FVG complexity, just fading rejections).\n\nLong setup: close < low_10 marking a new low, rangepos_30 < 0.3 placing us near the range bottom, sma_50 > sma_200 confirming we're not fighting a macro downtrend, rsi_14 < 40 for oversold confirmation, and volratio_10 > 1.0 signaling rising volatility.\n\nMirror conditions for shorts at the top of ranges. Stops stay tight (1.5 ATR) given the scalp nature, targeting 3.0 ATR within 12 bars max.\n\nThe idea: hourly extremes paired with volatility spikes signal emotional capitulation - panic sellers or buyers exhausting right as the move reverses. It echoes ICT's structure-rejection concept but stripped down for hourly trading.\n\nPausing here though - these two setups overlap too much with existing bots. Metals trend-following duplicates the daily trend bot's approach, and the micro pivot fade is basically ICT-lite. Need something that stands genuinely apart from both, plus from each other.\n\nConsidering seasonal data as a contrarian filter: rather than simply riding historically strong months, fade the gap between seasonal expectation and current price action. If a month like October or November has strong positive seasonal bias but price is lagging (below EMA, negative 20-day return), that divergence could present a buying opportunity assuming seasonal strength eventually asserts itself.\n\nEntry long (daily): month in {Oct, Nov}, season stat > 2%, close under ema_50, ret_20 negative.\nExit: close reclaims ema_50 + 1.5 ATR, or hits new 50-bar low, or calendar month changes.\n\nThis isn't pure momentum or pure mean-reversion - it's conditional mean-reversion gated by seasonal context.\n\nEvent-driven compression plays (OPEC, Fed, crop reports) would be interesting but the data lacks event timestamps, so that's out.\n\nTrying micro-trend liquidation instead - hourly EMA alignment (10>30>50) with volatility expansion (volratio_5>1) as entry, exiting on EMA break or volatility collapse (volratio_5<0.9) or after 6 bars max. Stop 1.2 ATR, target 2.5 ATR. But this still overlaps conceptually with standard trend-following.\n\nNeed to pivot toward genuinely distinct edge source",
+   "results": {
+    "train": {
+     "combined": {
+      "return": 0.022,
+      "trades": 893,
+      "win_rate": 0.483,
+      "profit_factor": 1.23,
+      "avg_r": 0.06,
+      "worst_market_dd": -0.1652
+     },
+     "markets": {
+      "CL=F": {
+       "return": -0.0965,
+       "trades": 104,
+       "win_rate": 0.452
+      },
+      "BZ=F": {
+       "return": 0.0471,
+       "trades": 70,
+       "win_rate": 0.543
+      },
+      "NG=F": {
+       "return": 0.0701,
+       "trades": 159,
+       "win_rate": 0.465
+      },
+      "GC=F": {
+       "return": -0.0122,
+       "trades": 131,
+       "win_rate": 0.435
+      },
+      "SI=F": {
+       "return": -0.071,
+       "trades": 137,
+       "win_rate": 0.496
+      },
+      "HG=F": {
+       "return": -0.1222,
+       "trades": 100,
+       "win_rate": 0.41
+      },
+      "KC=F": {
+       "return": 0.121,
+       "trades": 30,
+       "win_rate": 0.6
+      },
+      "ZW=F": {
+       "return": 0.2103,
+       "trades": 57,
+       "win_rate": 0.579
+      },
+      "ZC=F": {
+       "return": 0.0887,
+       "trades": 76,
+       "win_rate": 0.539
+      },
+      "CC=F": {
+       "return": -0.0152,
+       "trades": 29,
+       "win_rate": 0.483
+      }
+     }
+    },
+    "test": {
+     "combined": {
+      "return": -0.0004,
+      "trades": 452,
+      "win_rate": 0.447,
+      "profit_factor": 1.09,
+      "avg_r": 0.03,
+      "worst_market_dd": -0.0988
+     },
+     "markets": {
+      "CL=F": {
+       "return": 0.0307,
+       "trades": 54,
+       "win_rate": 0.444
+      },
+      "BZ=F": {
+       "return": -0.0466,
+       "trades": 72,
+       "win_rate": 0.361
+      },
+      "NG=F": {
+       "return": 0.0179,
+       "trades": 51,
+       "win_rate": 0.49
+      },
+      "GC=F": {
+       "return": -0.0684,
+       "trades": 55,
+       "win_rate": 0.4
+      },
+      "SI=F": {
+       "return": 0.011,
+       "trades": 59,
+       "win_rate": 0.475
+      },
+      "HG=F": {
+       "return": -0.0575,
+       "trades": 48,
+       "win_rate": 0.396
+      },
+      "KC=F": {
+       "return": 0.0994,
+       "trades": 11,
+       "win_rate": 0.727
+      },
+      "ZW=F": {
+       "return": -0.0524,
+       "trades": 45,
+       "win_rate": 0.467
+      },
+      "ZC=F": {
+       "return": 0.002,
+       "trades": 42,
+       "win_rate": 0.476
+      },
+      "CC=F": {
+       "return": 0.06,
+       "trades": 15,
+       "win_rate": 0.6
+      }
+     }
+    }
+   },
+   "passed": false,
+   "score": 0.638
+  },
+  {
+   "id": "s4",
+   "name": "Trend Extreme Catch",
+   "idea": "Buy dips to the trend at multi-bar lows only when the trend is confirmed; sell bounces at multi-bar highs in downtrends.",
+   "rationale": "Trend traders oversell at lows and overbuy at highs within established trends because they fear reversal. But extremes (new lows/highs on 50-bar basis) within a confirmed trend often accelerate, not reverse\u2014weak shorts are forced to cover or margin calls hit longs. This trades the institutional liquidation cascade that happens when price reaches structure extremes in the direction of the trend.",
+   "timeframe": "daily",
+   "rules": {
+    "timeframe": "daily",
+    "markets": [
+     "all"
+    ],
+    "long": {
+     "entry": [
+      {
+       "left": "ema_50",
+       "op": ">",
+       "right": "ema_200"
+      },
+      {
+       "left": "close",
+       "op": "<",
+       "right": "low_50"
+      },
+      {
+       "left": "rsi_14",
+       "op": "<",
+       "right": 50
+      },
+      {
+       "left": "volratio_20",
+       "op": ">",
+       "right": 0.9
+      }
+     ],
+     "exit": [
+      {
+       "left": "ema_50",
+       "op": "<",
+       "right": "ema_200"
+      },
+      {
+       "left": "rsi_14",
+       "op": ">",
+       "right": 75
+      },
+      {
+       "left": "close",
+       "op": "<",
+       "right": "ema_200"
+      }
+     ]
+    },
+    "short": {
+     "entry": [
+      {
+       "left": "ema_50",
+       "op": "<",
+       "right": "ema_200"
+      },
+      {
+       "left": "close",
+       "op": ">",
+       "right": "high_50"
+      },
+      {
+       "left": "rsi_14",
+       "op": ">",
+       "right": 50
+      },
+      {
+       "left": "volratio_20",
+       "op": ">",
+       "right": 0.9
+      }
+     ],
+     "exit": [
+      {
+       "left": "ema_50",
+       "op": ">",
+       "right": "ema_200"
+      },
+      {
+       "left": "rsi_14",
+       "op": "<",
+       "right": 25
+      },
+      {
+       "left": "close",
+       "op": ">",
+       "right": "ema_200"
+      }
+     ]
+    },
+    "stop_atr": 2.0,
+    "target_atr": 4.5,
+    "max_bars": 30,
+    "atr_period": 14
+   },
+   "created": 1790970337,
+   "round": 2,
+   "thinking": "",
+   "results": {
+    "train": {
+     "combined": {
+      "return": 0.0018,
+      "trades": 95,
+      "win_rate": 0.526,
+      "profit_factor": 1.19,
+      "avg_r": 0.03,
+      "worst_market_dd": -0.0309
+     },
+     "markets": {
+      "CL=F": {
+       "return": 0.0026,
+       "trades": 6,
+       "win_rate": 0.667
+      },
+      "BZ=F": {
+       "return": 0.0022,
+       "trades": 5,
+       "win_rate": 0.6
+      },
+      "NG=F": {
+       "return": -0.0165,
+       "trades": 12,
+       "win_rate": 0.333
+      },
+      "GC=F": {
+       "return": -0.0204,
+       "trades": 10,
+       "win_rate": 0.2
+      },
+      "SI=F": {
+       "return": 0.0067,
+       "trades": 12,
+       "win_rate": 0.5
+      },
+      "HG=F": {
+       "return": 0.0027,
+       "trades": 15,
+       "win_rate": 0.533
+      },
+      "KC=F": {
+       "return": -0.0029,
+       "trades": 11,
+       "win_rate": 0.636
+      },
+      "ZW=F": {
+       "return": 0.0241,
+       "trades": 13,
+       "win_rate": 0.692
+      },
+      "ZC=F": {
+       "return": 0.0121,
+       "trades": 6,
+       "win_rate": 0.333
+      },
+      "CC=F": {
+       "return": 0.007,
+       "trades": 5,
+       "win_rate": 1.0
+      }
+     }
+    },
+    "test": {
+     "combined": {
+      "return": -0.0008,
+      "trades": 49,
+      "win_rate": 0.571,
+      "profit_factor": 0.96,
+      "avg_r": -0.01,
+      "worst_market_dd": -0.0273
+     },
+     "markets": {
+      "CL=F": {
+       "return": -0.0174,
+       "trades": 5,
+       "win_rate": 0.4
+      },
+      "BZ=F": {
+       "return": -0.0121,
+       "trades": 4,
+       "win_rate": 0.0
+      },
+      "NG=F": {
+       "return": 0.0063,
+       "trades": 8,
+       "win_rate": 0.875
+      },
+      "GC=F": {
+       "return": 0.0024,
+       "trades": 2,
+       "win_rate": 0.5
+      },
+      "SI=F": {
+       "return": 0.002,
+       "trades": 1,
+       "win_rate": 1.0
+      },
+      "HG=F": {
+       "return": 0.0014,
+       "trades": 3,
+       "win_rate": 0.667
+      },
+      "KC=F": {
+       "return": 0.0123,
+       "trades": 7,
+       "win_rate": 0.714
+      },
+      "ZW=F": {
+       "return": -0.0029,
+       "trades": 3,
+       "win_rate": 0.667
+      },
+      "ZC=F": {
+       "return": -0.0059,
+       "trades": 7,
+       "win_rate": 0.571
+      },
+      "CC=F": {
+       "return": 0.0056,
+       "trades": 9,
+       "win_rate": 0.444
+      }
+     }
+    }
+   },
+   "passed": false,
+   "score": -0.07
+  }
+ ],
+ "runs": [
+  {
+   "t": 1790970337,
+   "tested": 4,
+   "passed": 0,
+   "model": "claude-haiku-4-5-20251001"
+  }
+ ],
+ "live": null,
+ "pass_rules": {
+  "min_test_trades": 30,
+  "min_test_pf": 1.1,
+  "min_train_pf": 1.0
+ }
+}
