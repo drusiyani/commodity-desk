@@ -605,6 +605,22 @@ def evaluate_calls(calls, prices, now):
 
 
 # ---------- Claude ----------
+def backtest_text(sym):
+    """What the backtests say about the bots in this market, so Claude knows how much to trust each signal."""
+    bt = load("backtest.json", {}).get("runs", {})
+    parts = []
+    for key, label in (("hourly", "hourly 2y"), ("daily", "daily 5y")):
+        m = bt.get(key, {}).get("markets", {}).get(sym)
+        if not m:
+            continue
+        i, t, h = m["ict"], m["trend"], m["hold"]
+        win = f", {i['win_rate']:.0%} wins" if i.get("win_rate") is not None else ""
+        avg_r = f", {i['avg_r']:+.2f}R per trade" if i.get("avg_r") is not None else ""
+        parts.append(f"{label}: ICT bot {i['return']:+.1%} over {i['trades']} trades{win}{avg_r}; "
+                     f"trend bot {t['return']:+.1%}; buy and hold {h['return']:+.1%}")
+    return "; ".join(parts)
+
+
 def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history):
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
@@ -620,6 +636,9 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
                      f"20d {change_since(bars, 20 * 86400):+.2%}")
         if sym in history:
             lines.append(f"   Long term: {history[sym]['text']}")
+        bt = backtest_text(sym)
+        if bt:
+            lines.append(f"   Backtests: {bt}")
         if sym in reads:
             lines.append(f"   ICT: {reads[sym]['text']}")
             if reads[sym]["fvgs_below"]:
@@ -656,8 +675,12 @@ How to think (take your time and reason it through properly before answering):
 4. Combine them. The best trades are where a live ICT setup and a real news catalyst point the same way.
    ICT gives you the where (entry zone, stop beyond the swept liquidity, target at the next liquidity pool);
    news gives you the why. If they conflict, say which you trust and why; usually that means waiting.
-5. You can only go long. A bearish ICT read plus bearish news is a reason to sell what you hold or stay out.
-6. Base stops and targets on ICT levels, not round numbers.
+5. Use the backtest results to decide how much to trust the ICT read in each market. If the ICT bot has lost money
+   or has a low win rate in a market over the backtests, treat an ICT setup there as weak evidence; if it has a clear
+   positive record (positive average R over a decent number of trades), trust it more. Same for trend signals.
+   Small trade counts prove little either way.
+6. You can only go long. A bearish ICT read plus bearish news is a reason to sell what you hold or stay out.
+7. Base stops and targets on ICT levels, not round numbers.
 
 Cash: £{pf['cash']:,.0f}. Portfolio: £{eq:,.0f} (started at £{START_CASH:,}).
 
