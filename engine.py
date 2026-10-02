@@ -153,6 +153,9 @@ def get_history():
     """Five years of daily data, refreshed once a day, plus weekly candles for the website."""
     today = time.strftime("%Y-%m-%d", time.gmtime())
     cached = load("history.json", {})
+    for sym, bars in load("daily.json", {}).items():  # daily bars live in their own file to keep the site light
+        if sym in cached.get("markets", {}):
+            cached["markets"][sym]["daily"] = bars
     if cached.get("date") == today and all(s in cached.get("markets", {}) for s in COMMODITIES):
         return cached
     out = {"date": today, "markets": dict(cached.get("markets", {}))}
@@ -162,8 +165,10 @@ def get_history():
             wk = df.resample("W").agg({"Open": "first", "High": "max", "Low": "min", "Close": "last"}).dropna()
             weekly = [{"time": int(ts.timestamp()), "open": round(float(r.Open), 4), "high": round(float(r.High), 4),
                        "low": round(float(r.Low), 4), "close": round(float(r.Close), 4)} for ts, r in wk.iterrows()]
+            daily = [{"time": int(ts.timestamp()), "open": round(float(r.Open), 4), "high": round(float(r.High), 4),
+                      "low": round(float(r.Low), 4), "close": round(float(r.Close), 4)} for ts, r in df.iterrows()]
             st = long_stats(df)
-            out["markets"][sym] = {"weekly": weekly, "stats": st, "text": long_text(st)}
+            out["markets"][sym] = {"weekly": weekly, "daily": daily, "stats": st, "text": long_text(st)}
         except Exception as e:
             print(f"5-year history failed for {sym}: {e}")
     return out
@@ -589,6 +594,97 @@ def run_ict_bot(ib, prices, reads, last_usd, fx, now):
     return filled
 
 
+# ---------- Claude's own strategy (invented and validated in the lab, see research.py) ----------
+def live_strategy():
+    lab = load("strategies.json", {})
+    return next((x for x in lab.get("strategies", []) if x["id"] == lab.get("live")), None)
+
+
+def strategy_series(strat, prices, history):
+    import features as F
+    out = {}
+    for sym in COMMODITIES:
+        if strat["rules"].get("markets") not in (None, ["all"]) and sym not in strat["rules"]["markets"]:
+            continue
+        bars = (history.get("markets", {}).get(sym, {}).get("daily") if strat["timeframe"] == "daily"
+                else prices.get(sym, {}).get("bars"))
+        if bars and len(bars) > 60:
+            out[sym] = F.Series(bars)
+    return out
+
+
+def strategy_signals(strat, series):
+    import features as F
+    sig = {}
+    for sym, sr in series.items():
+        i = len(sr.bars) - 1
+        sig[sym] = {"entry": F.entry_signal(sr, strat["rules"], i),
+                    "exit_long": F.exit_signal(sr, strat["rules"], "long", i),
+                    "exit_short": F.exit_signal(sr, strat["rules"], "short", i)}
+    return sig
+
+
+def run_lab_bot(lb, strat, series, sig, prices, last_usd, fx, now):
+    filled = []
+    last = {s: v / fx for s, v in last_usd.items()}
+
+    def close(sym, px_usd, why):
+        pos = lb["positions"].pop(sym)
+        gbp = ict_value(pos, px_usd / fx)
+        lb["cash"] += gbp
+        filled.append(record(now, sym, "SELL" if pos["side"] == "long" else "COVER", pos["qty"], px_usd, gbp,
+                             why, "lab", pnl=round(gbp - pos["qty"] * pos["entry"], 2),
+                             exit="stop" if why.startswith("Stop") else "target" if why.startswith("Target") else None))
+
+    if lb.get("strategy_id") != strat["id"]:  # a new strategy took over: start clean
+        for sym in list(lb["positions"]):
+            if sym in last_usd:
+                close(sym, last_usd[sym], "Closed: Claude switched to a new strategy")
+        lb.update(strategy_id=strat["id"], last_entry={})
+
+    rules = strat["rules"]
+    for sym, pos in list(lb["positions"].items()):
+        bars = fresh_bars(prices.get(sym, {}).get("bars", []), lb.get("last_run", 0), pos.get("opened", 0))
+        long = pos["side"] == "long"
+        if bars:
+            lo, hi = min(b["low"] for b in bars), max(b["high"] for b in bars)
+            if (lo <= pos["stop"]) if long else (hi >= pos["stop"]):
+                close(sym, pos["stop"], f"Stop hit at {pos['stop']:g}"); continue
+            if pos.get("target") and ((hi >= pos["target"]) if long else (lo <= pos["target"])):
+                close(sym, pos["target"], f"Target hit at {pos['target']:g}"); continue
+        held = sum(1 for b in series[sym].bars if b["time"] > pos["opened"]) if sym in series else 0
+        if sig.get(sym, {}).get("exit_long" if long else "exit_short"):
+            close(sym, last_usd[sym], "Exit rule triggered")
+        elif rules.get("max_bars") and held >= int(rules["max_bars"]):
+            close(sym, last_usd[sym], f"Held {held} bars, the strategy's limit")
+
+    for sym, s in sig.items():
+        side = s["entry"]
+        bar_t = series[sym].bars[-1]["time"]
+        if not side or sym in lb["positions"] or len(lb["positions"]) >= MAX_OPEN or lb["last_entry"].get(sym) == bar_t:
+            continue
+        atr = series[sym].get(f"atr_{int(rules.get('atr_period') or 14)}")[-1]
+        if not atr:
+            continue
+        px = last_usd[sym]
+        dist = float(rules["stop_atr"]) * atr
+        eq = ict_equity(lb, last)
+        gbp = min(ICT_RISK * eq / (dist / fx) * px / fx, MAX_POSITION * eq, lb["cash"])
+        if gbp < 50:
+            continue
+        qty, long = gbp / (px / fx), side == "long"
+        tgt = rules.get("target_atr")
+        lb["cash"] -= gbp
+        lb["positions"][sym] = {"side": side, "qty": qty, "entry": px / fx, "entry_usd": px, "opened": now,
+                                "stop": round(px - dist if long else px + dist, 4),
+                                "target": round(px + float(tgt) * atr if long else px - float(tgt) * atr, 4) if tgt else None}
+        lb["last_entry"][sym] = bar_t
+        filled.append(record(now, sym, "BUY" if long else "SHORT", qty, px, gbp, f"{strat['name']}: entry rules met",
+                             "lab", stop=lb["positions"][sym]["stop"], target=lb["positions"][sym]["target"]))
+    lb["last_run"] = now
+    return filled
+
+
 # ---------- report card: were Claude's calls right 24 hours later? ----------
 def evaluate_calls(calls, prices, now):
     for c in calls:
@@ -605,6 +701,17 @@ def evaluate_calls(calls, prices, now):
 
 
 # ---------- Claude ----------
+def strategy_brief(strat):
+    if not strat:
+        return "Your strategy lab hasn't produced a strategy that passed its out-of-sample test yet."
+    import features as F
+    te = strat["results"]["test"]["combined"]
+    return (f"Your own strategy, invented and tested in your lab: '{strat['name']}' ({strat['timeframe']}). "
+            f"Idea: {strat['idea']} Rules: {F.describe(strat['rules'])} On data it was never fitted on it made "
+            f"{te.get('avg_r')}R per trade over {te['trades']} trades (profit factor {te.get('profit_factor')}). "
+            f"It trades separately on its own account; use its signals as one more input, weighted by that record.")
+
+
 def backtest_text(sym):
     """What the backtests say about the bots in this market, so Claude knows how much to trust each signal."""
     bt = load("backtest.json", {}).get("runs", {})
@@ -621,7 +728,7 @@ def backtest_text(sym):
     return "; ".join(parts)
 
 
-def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history):
+def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history, strat=None, sig=None):
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError("No ANTHROPIC_API_KEY secret set")
@@ -636,6 +743,10 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
                      f"20d {change_since(bars, 20 * 86400):+.2%}")
         if sym in history:
             lines.append(f"   Long term: {history[sym]['text']}")
+        if strat and sym in (sig or {}):
+            x = sig[sym]
+            lines.append(f"   Your strategy '{strat['name']}': " + (f"{x['entry']} entry signal now" if x["entry"] else "no entry signal")
+                         + ("; long exit rule true" if x["exit_long"] else ""))
         bt = backtest_text(sym)
         if bt:
             lines.append(f"   Backtests: {bt}")
@@ -692,6 +803,8 @@ Recently closed trades:
 
 Your last few reads:
 {chr(10).join(recent)}
+
+{strategy_brief(strat)}
 
 Related markets:
 {chr(10).join(ctx)}
@@ -751,17 +864,27 @@ def main():
     health["news"] = bool(news)
     history = get_history()
     health["history"] = len(history["markets"]) >= len(COMMODITIES) - 1
+    strat, sseries, sig = live_strategy(), {}, {}
+    if strat:
+        try:
+            sseries = strategy_series(strat, prices, history)
+            sig = strategy_signals(strat, sseries)
+        except Exception as e:
+            print("Strategy signals failed:", e)
+            strat = None
     last_usd = {s: p["bars"][-1]["close"] for s, p in prices.items()}
     last = {s: v / fx for s, v in last_usd.items()}
 
     pf = load("portfolio.json", None)
     trades, decisions, eq_hist = load("trades.json", []), load("decisions.json", []), load("equity.json", [])
     rb, rb_trades, calls = load("rules.json", None), load("rules_trades.json", []), load("calls.json", [])
+    lb, lb_trades = load("lab.json", None), load("lab_trades.json", [])
     ib, ib_trades = load("ict.json", None), load("ict_trades.json", [])
     if not pf or pf.get("version") != 3:  # fresh start
         pf, trades, decisions, eq_hist = new_portfolio(), [], [], []
         rb, rb_trades, calls, ib, ib_trades = None, [], [], None, []
     rb = rb or {"cash": START_CASH, "positions": {}}
+    lb = lb or {"cash": START_CASH, "positions": {}, "last_entry": {}, "last_run": now}
     if not ib:  # ICT bot joins late: give it a fresh £100k from now
         ib, ib_trades = {"cash": START_CASH, "positions": {}, "used": [], "last_run": now}, []
     reads = {}
@@ -799,7 +922,7 @@ def main():
         try:
             pf["last_claude"] = now
             decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads,
-                                  {s: m for s, m in history["markets"].items() if s in prices})
+                                  {s: m for s, m in history["markets"].items() if s in prices}, strat, sig)
             health["claude"] = True
             more, blocked = apply_decision(pf, decision, last_usd, fx, now, reads)
             filled += more
@@ -832,6 +955,8 @@ def main():
         entry["trades"] = len(filled)
     rb_trades += run_rule_bot(rb, prices, last_usd, fx, now)
     ib_trades += run_ict_bot(ib, prices, reads, last_usd, fx, now)
+    if strat:
+        lb_trades += run_lab_bot(lb, strat, sseries, sig, prices, last_usd, fx, now)
     calls = evaluate_calls(calls, prices, now)[-5000:]
     decisions = (decisions + ([entry] if entry else []))[-400:]
     trades += filled
@@ -841,7 +966,8 @@ def main():
     both = [s for s in starts if s in last]
     bench = START_CASH * sum(last[s] / starts[s] for s in both) / max(1, len(both))
     eq_hist.append({"time": now, "equity": round(equity(pf, last), 2), "benchmark": round(bench, 2),
-                    "rules": round(equity(rb, last), 2), "ict": round(ict_equity(ib, last), 2)})
+                    "rules": round(equity(rb, last), 2), "ict": round(ict_equity(ib, last), 2),
+                    "lab": round(ict_equity(lb, last), 2)})
 
     save("prices.json", prices)
     save("context.json", context)
@@ -855,8 +981,12 @@ def main():
     save("calls.json", calls)
     save("ict.json", ib)
     save("ict_trades.json", ib_trades)
+    save("lab.json", lb)
+    save("lab_trades.json", lb_trades)
     save("ict_now.json", reads)
-    save("history.json", history)
+    save("history.json", {"date": history["date"], "markets": {s: {k: v for k, v in m.items() if k != "daily"}
+                                                              for s, m in history["markets"].items()}})
+    save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})
     save("status.json", {"updated": now, "model": MODEL, "fx": fx, "health": health,
                          "last_claude": pf.get("last_claude"),
                          "rules": {"max_position": MAX_POSITION, "max_open": MAX_OPEN,
