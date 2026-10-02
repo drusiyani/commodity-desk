@@ -14,13 +14,13 @@
   color-scheme: dark;
   --bg: #000; --panel: #000; --ink: #ebe9e4; --muted: #8f8c86; --line: #232220; --soft: #131211;
   --brass: #d4a94a; --up: #3cb489; --down: #e2675c; --blue: #7aaee6;
-  --accent-line: #3a3220; --warn-bg: #1a1306;
+  --accent-line: #3a3220; --warn-bg: #1a1306; --violet: #b08ae6;
 }
 :root[data-theme="light"] {
   color-scheme: light;
   --bg: #f5f4ef; --panel: #ffffff; --ink: #1f1e1b; --muted: #6b6862; --line: #e2dfd7; --soft: #efede7;
   --brass: #8f6b12; --up: #1d7656; --down: #b4402f; --blue: #2d68ad;
-  --accent-line: #d9c8a0; --warn-bg: #f7efdc;
+  --accent-line: #d9c8a0; --warn-bg: #f7efdc; --violet: #7346b8;
 }
 * { box-sizing: border-box; }
 body { margin: 0; background: var(--bg); color: var(--ink);
@@ -117,6 +117,13 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
 
 #perfSec { grid-area: perf; }
 #reportSec { grid-area: report; }
+#ictBox { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+#ictBox .line { font-size: 14px; margin: 0 0 6px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; font-family: Inter, system-ui, sans-serif; }
+.seg button { font: inherit; font-size: 12px; background: none; color: var(--muted); border: 0; padding: 4px 10px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--line); color: var(--ink); }
+#reasoning { font-size: 14px; color: var(--muted); margin: 10px 0 0; padding-left: 10px; border-left: 2px solid var(--line); }
+.agree { font-family: Inter, system-ui, sans-serif; font-size: 11px; color: var(--muted); }
 .big { font-size: 30px; font-weight: 600; font-family: Inter, system-ui, sans-serif; line-height: 1.1; }
 .mgroup { font-size: 12px; color: var(--muted); margin: 10px 0 2px; font-family: Inter, system-ui, sans-serif; }
 #news li.item { cursor: pointer; }
@@ -159,7 +166,8 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
     <div class="stats">
       <div class="stat"><div class="v" id="sEquity"></div><div class="k">Portfolio value</div></div>
       <div class="stat"><div class="v" id="sReturn"></div><div class="k">Claude's return</div></div>
-      <div class="stat"><div class="v" id="sRules"></div><div class="k">Rule bot</div></div>
+      <div class="stat"><div class="v" id="sIct"></div><div class="k">ICT bot</div></div>
+      <div class="stat"><div class="v" id="sRules"></div><div class="k">Trend bot</div></div>
       <div class="stat"><div class="v" id="sBench"></div><div class="k">Buy and hold</div></div>
       <div class="stat"><div class="v" id="sCash"></div><div class="k">Cash</div></div>
       <button class="themebtn" id="themeBtn" type="button"></button>
@@ -177,13 +185,15 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
         </span>
       </h2>
       <div id="chart"></div>
-      <p class="hint">Click a buy or sell arrow to see why Claude made that trade. Left and right arrow keys switch market.</p>
+      <p class="hint">Click a buy or sell arrow to see why Claude made that trade. Purple dashed lines are open fair value gaps. Left and right arrow keys switch market.</p>
       <div id="detail" hidden></div>
+      <div id="ictBox"></div>
     </section>
 
     <section id="cockpit" aria-live="polite">
       <div class="state"><span class="s" id="state"></span><span class="muted" id="lastDecision"></span></div>
       <p id="summary"></p>
+      <p id="reasoning" hidden></p>
       <h3>How Claude sees each market <small>setup score out of 100</small></h3>
       <div id="markets"></div>
       <h3>Waiting to see</h3>
@@ -203,21 +213,22 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
     </section>
 
     <section id="activitySec">
-      <h2>Claude's activity <small>every 4 hours on weekdays</small></h2>
+      <h2>Claude's activity <small>Claude every 4 hours, risk checks hourly</small></h2>
       <ul id="activity"></ul>
     </section>
 
     <section id="bookSec">
       <h2>Open positions</h2>
       <div class="tablewrap" id="positions"></div>
-      <h3>Trade history</h3>
+      <h3 style="display:flex;justify-content:space-between;align-items:center">Trade history
+        <span class="seg" id="bookSeg"><button data-k="claude" aria-pressed="true">Claude</button><button data-k="ict" aria-pressed="false">ICT bot</button><button data-k="rules" aria-pressed="false">Trend bot</button></span></h3>
       <div class="tablewrap">
         <table>
           <thead><tr><th>When</th><th>Commodity</th><th>Action</th><th class="num">Price</th><th class="num">Value (£)</th><th class="num">P&amp;L (£)</th><th>Why</th></tr></thead>
           <tbody id="trades"></tbody>
         </table>
       </div>
-      <p class="empty" id="noTrades" hidden>No trades yet. Waiting is allowed.</p>
+      <p class="empty" id="noTrades" hidden>No trades yet.</p>
     </section>
 
     <section id="newsSec">
@@ -226,12 +237,12 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
     </section>
 
     <section id="perfSec">
-      <h2>Claude vs the rule bot vs buy and hold
-        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--blue)"></i>Rule bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
+      <h2>Claude vs the bots vs buy and hold
+        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--violet)"></i>ICT bot</span><span><i style="background:var(--blue)"></i>Trend bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
       </h2>
       <div id="equity"></div>
       <div class="tablewrap" id="perf" style="margin-top:12px"></div>
-      <p class="hint">The rule bot is a simple trend follower on its own £100k: it holds a market while its 20-hour average is above its 100-hour average. If Claude can't beat it, Claude isn't adding much.</p>
+      <p class="hint">Each bot has its own £100k. The ICT bot trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. The trend bot holds a market while its 20-hour average is above its 100-hour average. Claude uses the ICT read and the news together. If Claude can't beat the bots, it isn't adding much.</p>
     </section>
 
     <section id="reportSec">
@@ -257,7 +268,9 @@ const el = (tag, props = {}, kids = []) => { const e = Object.assign(document.cr
 const kv = (k, v, cls = "") => el("div", { className: "kv" }, [el("span", { textContent: k }), el("span", { textContent: v, className: cls })]);
 const ago = t => { const s = Date.now() / 1000 - t; return s < 3600 ? Math.max(1, Math.round(s / 60)) + " min ago" : s < 86400 ? Math.round(s / 3600) + " h ago" : Math.round(s / 86400) + " d ago"; };
 const when = t => new Date(t * 1000).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
-const ACTION = t => t.source === "stop" ? "Stop hit" : t.source === "target" ? "Target hit" : t.source === "manual" ? "Closed by you" : t.action === "BUY" ? "Buy" : "Sell";
+const ACTION = t => t.source === "stop" || t.exit === "stop" ? "Stop hit" : t.source === "target" || t.exit === "target" ? "Target hit"
+  : t.source === "manual" ? "Closed by you" : ({ BUY: "Buy", SELL: "Sell", SHORT: "Short", COVER: "Cover" })[t.action] || t.action;
+const SIGN = t => t.pnl != null ? t.pnl : t.action === "BUY" ? 1 : -1;
 const STATE = { WAITING: ["Waiting", "--brass"], MANAGING: ["Managing positions", "--blue"], TRADED: ["Just traded", "--up"], PAUSED: ["Paused", "--muted"] };
 
 async function getJSON(f, fallback) {
@@ -265,10 +278,10 @@ async function getJSON(f, fallback) {
 }
 
 async function init() {
-  [D.prices, D.news, D.trades, D.equity, D.pf, D.status, D.decisions, D.context, D.rbTrades, D.calls] = await Promise.all([
+  [D.prices, D.news, D.trades, D.equity, D.pf, D.status, D.decisions, D.context, D.rbTrades, D.calls, D.ictTrades, D.ict] = await Promise.all([
     getJSON("prices.json", null), getJSON("news.json", []), getJSON("trades.json", []), getJSON("equity.json", []),
     getJSON("portfolio.json", null), getJSON("status.json", {}), getJSON("decisions.json", []), getJSON("context.json", {}),
-    getJSON("rules_trades.json", []), getJSON("calls.json", []),
+    getJSON("rules_trades.json", []), getJSON("calls.json", []), getJSON("ict_trades.json", []), getJSON("ict_now.json", {}),
   ]);
   if (!D.prices || !Object.keys(D.prices).length) { $("#setup").hidden = false; return; }
   $("#app").hidden = false;
@@ -313,6 +326,8 @@ function renderHeader() {
   tone($("#sBench"), b).textContent = pct(b);
   const rr = eq?.rules ? eq.rules / START - 1 : 0;
   tone($("#sRules"), rr).textContent = pct(rr);
+  const ir = eq?.ict ? eq.ict / START - 1 : 0;
+  tone($("#sIct"), ir).textContent = pct(ir);
   $("#sCash").textContent = D.pf ? money(D.pf.cash) : "";
 }
 
@@ -365,6 +380,8 @@ function makeCharts() {
   eqSeries.claude.setData(line("equity"));
   eqSeries.rules = eqChart.addLineSeries({ color: css("--blue"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
   eqSeries.rules.setData(D.equity.filter(e => e.rules != null).map(e => ({ time: e.time, value: e.rules })));
+  eqSeries.ict = eqChart.addLineSeries({ color: css("--violet"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
+  eqSeries.ict.setData(D.equity.filter(e => e.ict != null).map(e => ({ time: e.time, value: e.ict })));
   eqChart.timeScale().fitContent();
   document.querySelectorAll(".toggle button").forEach(b => b.onclick = () => {
     mode = b.dataset.mode;
@@ -379,7 +396,7 @@ function setTheme(theme) {
   $("#themeBtn").textContent = theme === "dark" ? "Light mode" : "Dark mode";
   if (!chart) return;
   chart.applyOptions(chartOpts()); eqChart.applyOptions(chartOpts());
-  eqSeries.bench.applyOptions({ color: css("--muted") }); eqSeries.claude.applyOptions({ color: css("--brass") }); eqSeries.rules.applyOptions({ color: css("--blue") });
+  eqSeries.bench.applyOptions({ color: css("--muted") }); eqSeries.claude.applyOptions({ color: css("--brass") }); eqSeries.rules.applyOptions({ color: css("--blue") }); eqSeries.ict.applyOptions({ color: css("--violet") });
   drawChart();
 }
 
@@ -406,7 +423,34 @@ function drawChart() {
     if (pos.stop) series.createPriceLine({ price: pos.stop, color: css("--down"), lineStyle: 2, lineWidth: 1, title: "Stop" });
     if (pos.target) series.createPriceLine({ price: pos.target, color: css("--up"), lineStyle: 2, lineWidth: 1, title: "Target" });
   }
+  const r = D.ict[sym];
+  if (r) {
+    for (const [lo, hi] of [...(r.fvgs_below || []), ...(r.fvgs_above || [])].slice(0, 4)) {
+      series.createPriceLine({ price: hi, color: css("--violet"), lineStyle: 1, lineWidth: 1, axisLabelVisible: false, title: "FVG" });
+      series.createPriceLine({ price: lo, color: css("--violet"), lineStyle: 1, lineWidth: 1, axisLabelVisible: false, title: "" });
+    }
+  }
   chart.timeScale().fitContent();
+  renderIct();
+}
+
+function renderIct() {
+  const box = $("#ictBox"), r = D.ict[sym];
+  box.replaceChildren();
+  if (!r) return;
+  const st = r.setup;
+  const label = !st ? "No recent setup" : ({ sweep: "Liquidity swept, waiting for a structure shift", mss: "Structure shifted, no clean gap",
+    waiting: "Setup formed, waiting for price to return to the gap", entry: "Setup live: price is back in the gap", failed: "Setup failed" })[st.state];
+  box.append(
+    el("h3", { style: "margin-top:0", textContent: "ICT read" }),
+    el("p", { className: "line", textContent: r.text.charAt(0).toUpperCase() + r.text.slice(1) + "." }),
+    el("div", { className: "grid2" }, [
+      kv("Structure", r.structure, r.structure === "bullish" ? "up" : r.structure === "bearish" ? "down" : ""),
+      kv("Range position", `${Math.round(r.pd * 100)}% (${r.zone})`),
+      kv("Setup", st ? `${st.side === "long" ? "Bullish" : "Bearish"}: ${label.toLowerCase()}` : label),
+      kv("Liquidity above / below", `${r.liquidity_above?.[0] != null ? price(r.liquidity_above[0]) : "—"} / ${r.liquidity_below?.[0] != null ? price(r.liquidity_below[0]) : "—"}`),
+    ]),
+  );
 }
 
 function select(s) {
@@ -425,7 +469,7 @@ function showDetail(t) {
   const pnl = t.pnl != null ? tone(el("span", { textContent: "P&L " + signed(t.pnl) }), t.pnl) : "";
   d.replaceChildren(
     el("button", { textContent: "Close", onclick: () => d.hidden = true }),
-    el("strong", { textContent: `${ACTION(t)} ${t.name}, ${when(t.t)}` }),
+    el("strong", { textContent: `${({ ict: "ICT bot: ", rules: "Trend bot: " })[t.source] || ""}${ACTION(t)} ${t.name}, ${when(t.t)}` }),
     el("div", { className: "row" }, [
       el("span", { textContent: `Price ${price(t.price)}` }), el("span", { textContent: `Value ${money(t.value)}` }),
       t.stop ? el("span", { textContent: `Stop ${price(t.stop)}` }) : "", t.target ? el("span", { textContent: `Target ${price(t.target)}` }) : "", pnl,
@@ -444,6 +488,7 @@ function renderCockpit() {
   $("#cockpit").style.setProperty("--sc", `var(${color})`);
   $("#lastDecision").textContent = L.t ? ago(L.t) : "";
   $("#summary").textContent = L.summary || "Claude hasn't made a decision yet.";
+  if (L.reasoning) { $("#reasoning").hidden = false; $("#reasoning").textContent = "How it weighed ICT against the news: " + L.reasoning; }
   const box = $("#markets");
   if (!L.markets?.length) box.append(el("p", { className: "empty", textContent: "No market read this run." }));
   const order = Object.keys(D.prices), byGroup = {};
@@ -459,7 +504,8 @@ function renderCockpit() {
       el("span", { textContent: name }), bias,
       el("div", { className: "bar" }, [el("i", { style: `width:${score}%` })]),
       el("span", { className: "num muted", textContent: score }),
-      el("div", { className: "note", textContent: m.note || "" }),
+      el("div", { className: "note" }, [m.note || "", m.ict_agrees === true ? el("span", { className: "agree", textContent: "  ICT agrees" }) : m.ict_agrees === false ? el("span", { className: "agree", textContent: "  ICT disagrees" }) : ""]),
+      m.ict ? el("div", { className: "note", textContent: "ICT: " + m.ict }) : "",
     ]);
     box.append(row);
   }
@@ -509,7 +555,7 @@ function renderActivity() {
     const li = el("li", {}, [el("div", { className: "top" }, [el("span", { textContent: when(d.t) }), tag]), el("div", { textContent: d.summary || "" })]);
     for (const t of D.trades.filter(t => t.t === d.t)) {
       const a = el("div", { className: "act", textContent: `${ACTION(t)} ${t.name}: ${money(t.value)} at ${price(t.price)}${t.pnl != null ? `, P&L ${signed(t.pnl)}` : ""}` });
-      tone(a, t.action === "BUY" ? 1 : -1); li.append(a);
+      tone(a, SIGN(t)); li.append(a);
     }
     (d.blocked || []).forEach(b => li.append(el("div", { className: "act muted", textContent: b })));
     list.append(li);
@@ -536,12 +582,21 @@ function renderBook() {
       el("tbody", {}, rows),
     ]));
   }
-  const body = $("#trades"), trades = [...D.trades].reverse();
-  if (!trades.length) { $("#noTrades").hidden = false; return; }
+  document.querySelectorAll("#bookSeg button").forEach(b => b.onclick = () => {
+    document.querySelectorAll("#bookSeg button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    renderHistory(b.dataset.k);
+  });
+  renderHistory("claude");
+}
+
+function renderHistory(k) {
+  const body = $("#trades"); body.replaceChildren();
+  const trades = [...({ claude: D.trades, ict: D.ictTrades, rules: D.rbTrades })[k]].reverse().slice(0, 300);
+  $("#noTrades").hidden = trades.length > 0;
   for (const t of trades) {
     body.append(el("tr", { className: "click", onclick: () => showDetail(t) }, [
       el("td", { textContent: when(t.t) }), el("td", { textContent: t.name }),
-      tone(el("td", { className: "tag", textContent: ACTION(t) }), t.action === "BUY" ? 1 : -1),
+      tone(el("td", { className: "tag", textContent: ACTION(t) }), SIGN(t)),
       el("td", { className: "num", textContent: price(t.price) }), el("td", { className: "num", textContent: money(t.value) }),
       t.pnl != null ? tone(el("td", { className: "num", textContent: signed(t.pnl) }), t.pnl) : el("td", { className: "num muted", textContent: "—" }),
       el("td", { className: "reason", textContent: t.reason }),
@@ -582,16 +637,16 @@ function stats(trades, key) {
   let peak = START, dd = 0;
   for (const e of D.equity) { if (e[key] == null) continue; peak = Math.max(peak, e[key]); dd = Math.min(dd, e[key] / peak - 1); }
   const last = D.equity.filter(e => e[key] != null).at(-1);
-  return { ret: last ? last[key] / START - 1 : 0, buys: trades.filter(t => t.action === "BUY").length, closed: sells.length,
+  return { ret: last ? last[key] / START - 1 : 0, buys: trades.filter(t => t.action === "BUY" || t.action === "SHORT").length, closed: sells.length,
            win: sells.length ? wins.length / sells.length : null, realised: sells.reduce((a, t) => a + t.pnl, 0), dd };
 }
 
 function renderPerf() {
-  const cols = [["Claude", stats(D.trades, "equity")], ["Rule bot", stats(D.rbTrades, "rules")], ["Buy and hold", stats([], "benchmark")]];
+  const cols = [["Claude", stats(D.trades, "equity")], ["ICT bot", stats(D.ictTrades, "ict")], ["Trend bot", stats(D.rbTrades, "rules")], ["Buy and hold", stats([], "benchmark")]];
   const c = n => n > 0 ? "up" : n < 0 ? "down" : "";
   const rows = [
     ["Return", s => pct(s.ret), s => c(s.ret)],
-    ["Buys made", s => s.buys],
+    ["Trades opened", s => s.buys],
     ["Closed trades", s => s.closed],
     ["Win rate", s => s.win == null ? "—" : Math.round(s.win * 100) + "%"],
     ["Realised P&L", s => signed(s.realised), s => c(s.realised)],
