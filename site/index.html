@@ -51,7 +51,9 @@ nav { display: flex; gap: 18px; padding: 0 24px 14px; overflow-x: auto; }
 nav button { font: inherit; color: var(--ink); background: var(--panel); cursor: pointer; border: 1px solid var(--line);
   border-radius: 6px; padding: 7px 12px; text-align: left; min-width: 112px; }
 nav button[aria-pressed="true"] { border-color: var(--brass); box-shadow: inset 0 -3px 0 var(--brass); }
-nav .n { font-weight: 500; } nav .p { font-size: 12px; color: var(--muted); }
+nav .n { font-weight: 500; display: flex; justify-content: space-between; gap: 8px; }
+nav .ex { font-size: 10px; color: var(--muted); font-weight: 400; letter-spacing: 0.02em; align-self: center; }
+#longBox { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; } nav .p { font-size: 12px; color: var(--muted); }
 
 main { display: grid; gap: 14px; padding: 0 24px 28px; grid-template-columns: minmax(0, 1fr) 380px;
   grid-template-areas: "chart cockpit" "context activity" "book news" "perf report"; }
@@ -182,15 +184,22 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
   <main>
     <section id="chartSec">
       <h2><span id="chartTitle"></span>
-        <span class="toggle" role="group" aria-label="Chart style">
+        <span style="display:flex;gap:8px">
+        <span class="toggle" role="group" aria-label="Timeframe" id="tfSeg">
+          <button data-tf="1h" aria-pressed="true">Hourly</button>
+          <button data-tf="5y" aria-pressed="false">5 years</button>
+        </span>
+        <span class="toggle" role="group" aria-label="Chart style" id="styleSeg">
           <button data-mode="candles" aria-pressed="true">Candles</button>
           <button data-mode="line" aria-pressed="false">Line</button>
+        </span>
         </span>
       </h2>
       <div id="chart"></div>
       <p class="hint">Click a buy or sell arrow to see why Claude made that trade. Purple dashed lines are open fair value gaps. Left and right arrow keys switch market.</p>
       <div id="detail" hidden></div>
       <div id="ictBox"></div>
+      <div id="longBox"></div>
     </section>
 
     <section id="cockpit" aria-live="polite">
@@ -261,7 +270,7 @@ const $ = s => document.querySelector(s);
 const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const START = 100000;
 const D = {};
-let sym = null, mode = "candles", chart, series, eqChart, eqSeries = {};
+let sym = null, mode = "candles", tf = "1h", chart, series, eqChart, eqSeries = {};
 
 const money = (n, d = 0) => (n < 0 ? "-£" : "£") + Math.abs(Number(n)).toLocaleString("en-GB", { minimumFractionDigits: d, maximumFractionDigits: d });
 const signed = n => (n > 0 ? "+" : "") + money(n);
@@ -282,10 +291,11 @@ async function getJSON(f, fallback) {
 }
 
 async function init() {
-  [D.prices, D.news, D.trades, D.equity, D.pf, D.status, D.decisions, D.context, D.rbTrades, D.calls, D.ictTrades, D.ict] = await Promise.all([
+  [D.prices, D.news, D.trades, D.equity, D.pf, D.status, D.decisions, D.context, D.rbTrades, D.calls, D.ictTrades, D.ict, D.history] = await Promise.all([
     getJSON("prices.json", null), getJSON("news.json", []), getJSON("trades.json", []), getJSON("equity.json", []),
     getJSON("portfolio.json", null), getJSON("status.json", {}), getJSON("decisions.json", []), getJSON("context.json", {}),
     getJSON("rules_trades.json", []), getJSON("calls.json", []), getJSON("ict_trades.json", []), getJSON("ict_now.json", {}),
+    getJSON("history.json", { markets: {} }),
   ]);
   if (!D.prices || !Object.keys(D.prices).length) { $("#setup").hidden = false; return; }
   $("#app").hidden = false;
@@ -352,7 +362,7 @@ function renderTabs() {
     for (const s of syms) {
       const p = D.prices[s], c = change24(p.bars);
       const b = el("button", { type: "button", title: p.unit || "" }, [
-        el("div", { className: "n", textContent: p.name }),
+        el("div", { className: "n" }, [p.name, el("span", { className: "ex", textContent: p.exchange || "" })]),
         el("div", { className: "p" }, [price(D.last[s]) + " ", tone(el("span", { textContent: pct(c) }), c)]),
       ]);
       b.dataset.sym = s; b.onclick = () => select(s);
@@ -387,10 +397,15 @@ function makeCharts() {
   eqSeries.ict = eqChart.addLineSeries({ color: css("--violet"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
   eqSeries.ict.setData(D.equity.filter(e => e.ict != null).map(e => ({ time: e.time, value: e.ict })));
   eqChart.timeScale().fitContent();
-  document.querySelectorAll(".toggle button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("#styleSeg button").forEach(b => b.onclick = () => {
     mode = b.dataset.mode;
-    document.querySelectorAll(".toggle button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    document.querySelectorAll("#styleSeg button").forEach(x => x.setAttribute("aria-pressed", x === b));
     drawChart();
+  });
+  document.querySelectorAll("#tfSeg button").forEach(b => b.onclick = () => {
+    tf = b.dataset.tf;
+    document.querySelectorAll("#tfSeg button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    setTitle(); drawChart();
   });
 }
 
@@ -410,12 +425,16 @@ function barFor(t) {
 }
 
 function drawChart() {
-  const bars = D.prices[sym].bars;
+  const weekly = D.history.markets?.[sym]?.weekly;
+  const long = tf === "5y" && weekly?.length;
+  const bars = long ? weekly : D.prices[sym].bars;
+  chart.applyOptions({ timeScale: { timeVisible: !long } });
   if (series) chart.removeSeries(series);
   series = mode === "candles"
     ? chart.addCandlestickSeries({ upColor: css("--up"), downColor: css("--down"), borderVisible: false, wickUpColor: css("--up"), wickDownColor: css("--down") })
     : chart.addLineSeries({ color: css("--brass"), lineWidth: 2 });
   series.setData(mode === "candles" ? bars : bars.map(b => ({ time: b.time, value: b.close })));
+  if (long) { chart.timeScale().fitContent(); renderIct(); renderLong(); return; }
   series.setMarkers(D.trades.filter(t => t.symbol === sym).map(t => {
     const buy = t.action === "BUY";
     return { time: barFor(t.t), position: buy ? "belowBar" : "aboveBar", shape: buy ? "arrowUp" : "arrowDown",
@@ -435,7 +454,35 @@ function drawChart() {
     }
   }
   chart.timeScale().fitContent();
-  renderIct();
+  renderIct(); renderLong();
+}
+
+function renderLong() {
+  const box = $("#longBox"), m = D.history.markets?.[sym];
+  box.replaceChildren();
+  if (!m) return;
+  const s = m.stats, months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const r = x => x == null ? "—" : pct(x);
+  const c = x => x > 0 ? "up" : x < 0 ? "down" : "";
+  const season = (k, mo) => s[k] ? `${pct(s[k].avg)} on average, up ${s[k].up} of ${s[k].n} years` : "—";
+  box.append(
+    el("h3", { style: "margin-top:0", textContent: "5-year view" }),
+    el("div", { className: "grid2" }, [
+      kv("5-year range", `${price(s.lo5)} (${s.lo5_date}) to ${price(s.hi5)} (${s.hi5_date})`),
+      kv("Position in 5-year range", `${Math.round(s.pos5 * 100)}%, ${pct(s.from_high)} from the high`),
+      kv("1-year range", `${price(s.lo1)} to ${price(s.hi1)}`),
+      kv("200-day average", `${price(s.ma200)} (price ${s.last > s.ma200 ? "above" : "below"})`, s.last > s.ma200 ? "up" : "down"),
+      kv("Return 1 / 3 / 5 years", `${r(s.r1)} / ${r(s.r3)} / ${r(s.r5)}`),
+      kv("Volatility, typical day", `${Math.round(s.vol * 100)}% a year, ${(s.move * 100).toFixed(1)}% a day`),
+      kv(`${months[s.month - 1]} historically`, season("season", s.month), c(s.season?.avg)),
+      kv(`${months[s.month % 12]} historically`, season("next_season", s.month % 12 + 1), c(s.next_season?.avg)),
+    ]),
+  );
+}
+
+function setTitle() {
+  const p = D.prices[sym];
+  $("#chartTitle").textContent = `${p.name}, ${p.exchange || ""}, ${tf === "5y" ? "weekly, last 5 years" : "hourly"}, ${p.unit || ""}`;
 }
 
 function renderIct() {
@@ -461,7 +508,7 @@ function select(s) {
   sym = s;
   document.querySelectorAll("#tabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.sym === s));
   const name = D.prices[s].name;
-  $("#chartTitle").textContent = `${name}, hourly, ${D.prices[s].unit || "US dollars"}`;
+  setTitle();
   $("#newsTitle").textContent = `${name} news`;
   $("#detail").hidden = true;
   drawChart(); renderNews();
@@ -547,6 +594,7 @@ function renderRisk() {
     kv("Today's P&L", `${signed(dayPnl)} (limit ${money(-limit)})`, dayPnl > 0 ? "up" : dayPnl < 0 ? "down" : ""),
     kv("Positions", `${pos.length} of ${r.max_open || 3}`),
     kv("Max per commodity", `${((r.max_position || 0.25) * 100).toFixed(0)}% of portfolio`),
+    kv("Minimum reward to risk", `${r.min_rr || 1.5} to 1`),
   );
 }
 
