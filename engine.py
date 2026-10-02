@@ -18,6 +18,9 @@ from email.utils import parsedate_to_datetime
 from pathlib import Path
 from urllib.parse import quote
 
+import math
+
+import pandas as pd
 import requests
 import yfinance as yf
 
@@ -30,21 +33,22 @@ MAX_POSITION = 0.25       # max share of portfolio in one commodity
 MAX_OPEN = 4              # max commodities held at once
 DAILY_LOSS_LIMIT = 0.03   # no new buys after losing 3% in a day
 DEFAULT_STOP = 0.05       # if Claude gives no valid stop, use 5% below entry
+MIN_RR = 1.5              # every buy must aim to make at least 1.5x what it risks
 
 COMMODITIES = {
     # Energy
-    "CL=F": {"name": "WTI crude", "group": "Energy", "unit": "$ per barrel", "query": "WTI crude oil price"},
-    "BZ=F": {"name": "Brent crude", "group": "Energy", "unit": "$ per barrel", "query": "Brent crude price"},
-    "NG=F": {"name": "Natural gas", "group": "Energy", "unit": "$ per MMBtu", "query": "natural gas LNG price"},
+    "CL=F": {"name": "WTI crude", "exchange": "NYMEX", "group": "Energy", "unit": "$ per barrel", "query": "WTI crude oil price"},
+    "BZ=F": {"name": "Brent crude", "exchange": "NYMEX", "group": "Energy", "unit": "$ per barrel", "query": "Brent crude price"},
+    "NG=F": {"name": "Natural gas", "exchange": "NYMEX", "group": "Energy", "unit": "$ per MMBtu", "query": "natural gas LNG price"},
     # Metals
-    "GC=F": {"name": "Gold", "group": "Metals", "unit": "$ per ounce", "query": "gold price"},
-    "SI=F": {"name": "Silver", "group": "Metals", "unit": "$ per ounce", "query": "silver price"},
-    "HG=F": {"name": "Copper", "group": "Metals", "unit": "$ per pound", "query": "copper price"},
+    "GC=F": {"name": "Gold", "exchange": "COMEX", "group": "Metals", "unit": "$ per ounce", "query": "gold price"},
+    "SI=F": {"name": "Silver", "exchange": "COMEX", "group": "Metals", "unit": "$ per ounce", "query": "silver price"},
+    "HG=F": {"name": "Copper", "exchange": "COMEX", "group": "Metals", "unit": "$ per pound", "query": "copper price"},
     # Agriculture
-    "KC=F": {"name": "Coffee", "group": "Agriculture", "unit": "cents per pound", "query": "coffee futures price"},
-    "ZW=F": {"name": "Wheat", "group": "Agriculture", "unit": "cents per bushel", "query": "wheat futures price"},
-    "ZC=F": {"name": "Corn", "group": "Agriculture", "unit": "cents per bushel", "query": "corn futures price"},
-    "CC=F": {"name": "Cocoa", "group": "Agriculture", "unit": "$ per tonne", "query": "cocoa futures price"},
+    "KC=F": {"name": "Coffee", "exchange": "ICE US", "group": "Agriculture", "unit": "cents per pound", "query": "coffee futures price"},
+    "ZW=F": {"name": "Wheat", "exchange": "CBOT", "group": "Agriculture", "unit": "cents per bushel", "query": "wheat futures price"},
+    "ZC=F": {"name": "Corn", "exchange": "CBOT", "group": "Agriculture", "unit": "cents per bushel", "query": "corn futures price"},
+    "CC=F": {"name": "Cocoa", "exchange": "ICE US", "group": "Agriculture", "unit": "$ per tonne", "query": "cocoa futures price"},
 }
 RULE_FAST, RULE_SLOW = 20, 100   # trend bot: hourly moving averages
 CLAUDE_EVERY = 4 * 3600          # workflow runs hourly; Claude is asked every 4 hours
@@ -99,7 +103,69 @@ def get_prices():
                  "low": round(float(r.Low), 4), "close": round(float(r.Close), 4)}
                 for ts, r in df.iterrows()]
         if bars:
-            out[sym] = {"name": info["name"], "group": info["group"], "unit": info["unit"], "bars": bars}
+            out[sym] = {"name": info["name"], "group": info["group"], "unit": info["unit"],
+                        "exchange": info["exchange"], "bars": bars}
+    return out
+
+
+def long_stats(df):
+    """Five-year daily context for one market."""
+    close, last = df["Close"], float(df["Close"].iloc[-1])
+    hi5, lo5 = float(df["High"].max()), float(df["Low"].min())
+    year = df.tail(252)
+
+    def ret(n):
+        return float(last / close.iloc[-n - 1] - 1) if len(close) > n else None
+
+    monthly = close.groupby([close.index.year, close.index.month]).last().pct_change().dropna()
+    def season(m):
+        r = [float(v) for (y, mo), v in monthly.items() if mo == m]
+        return {"avg": round(sum(r) / len(r), 4), "up": sum(x > 0 for x in r), "n": len(r)} if r else None
+    month = int(df.index[-1].month)
+    return {
+        "last": round(last, 4), "hi5": round(hi5, 4), "lo5": round(lo5, 4),
+        "hi5_date": df["High"].idxmax().strftime("%b %Y"), "lo5_date": df["Low"].idxmin().strftime("%b %Y"),
+        "pos5": round((last - lo5) / (hi5 - lo5), 3) if hi5 > lo5 else 0.5,
+        "from_high": round(last / hi5 - 1, 4),
+        "hi1": round(float(year["High"].max()), 4), "lo1": round(float(year["Low"].min()), 4),
+        "r1": ret(252), "r3": ret(756), "r5": ret(len(close) - 1),
+        "ma200": round(float(close.tail(200).mean()), 4),
+        "vol": round(float(close.pct_change().tail(252).std() * math.sqrt(252)), 4),
+        "move": round(float(close.pct_change().abs().tail(60).mean()), 4),
+        "month": month, "season": season(month), "next_season": season(month % 12 + 1),
+    }
+
+
+def long_text(st):
+    months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    p = lambda x: "n/a" if x is None else f"{x:+.0%}"
+    t = (f"5-year range {st['lo5']:g} ({st['lo5_date']}) to {st['hi5']:g} ({st['hi5_date']}), now at {st['pos5']:.0%} of it "
+         f"and {st['from_high']:+.0%} from the high; 1-year range {st['lo1']:g}-{st['hi1']:g}; returns 1y {p(st['r1'])}, "
+         f"3y {p(st['r3'])}, 5y {p(st['r5'])}; {'above' if st['last'] > st['ma200'] else 'below'} its 200-day average "
+         f"({st['ma200']:g}); volatility {st['vol']:.0%} a year, typical daily move {st['move']:.1%}")
+    for key, m in (("season", st["month"]), ("next_season", st["month"] % 12 + 1)):
+        if st[key]:
+            t += f"; {months[m - 1]} has averaged {st[key]['avg']:+.1%} (up {st[key]['up']} of {st[key]['n']} years)"
+    return t
+
+
+def get_history():
+    """Five years of daily data, refreshed once a day, plus weekly candles for the website."""
+    today = time.strftime("%Y-%m-%d", time.gmtime())
+    cached = load("history.json", {})
+    if cached.get("date") == today and all(s in cached.get("markets", {}) for s in COMMODITIES):
+        return cached
+    out = {"date": today, "markets": dict(cached.get("markets", {}))}
+    for sym in COMMODITIES:
+        try:
+            df = yf.Ticker(sym).history(period="5y", interval="1d").dropna()
+            wk = df.resample("W").agg({"Open": "first", "High": "max", "Low": "min", "Close": "last"}).dropna()
+            weekly = [{"time": int(ts.timestamp()), "open": round(float(r.Open), 4), "high": round(float(r.High), 4),
+                       "low": round(float(r.Low), 4), "close": round(float(r.Close), 4)} for ts, r in wk.iterrows()]
+            st = long_stats(df)
+            out["markets"][sym] = {"weekly": weekly, "stats": st, "text": long_text(st)}
+        except Exception as e:
+            print(f"5-year history failed for {sym}: {e}")
     return out
 
 
@@ -208,7 +274,7 @@ def check_exits(pf, prices, fx, now):
     return [f for f in filled if f]
 
 
-def apply_decision(pf, decision, last_usd, fx, now):
+def apply_decision(pf, decision, last_usd, fx, now, reads=None):
     """Fill Claude's orders, enforcing the risk rules. Returns (filled, blocked)."""
     filled, blocked = [], []
     last = {s: v / fx for s, v in last_usd.items()}
@@ -257,9 +323,22 @@ def apply_decision(pf, decision, last_usd, fx, now):
 
         stop = d.get("stop") if isinstance(d.get("stop"), (int, float)) and 0 < d["stop"] < p_usd else None
         target = d.get("target") if isinstance(d.get("target"), (int, float)) and d["target"] > p_usd else None
+        name = COMMODITIES[sym]["name"]
         if stop is None:
             stop = p_usd * (1 - DEFAULT_STOP)
-            blocked.append(f"{COMMODITIES[sym]['name']}: no valid stop given, used {DEFAULT_STOP:.0%} below entry")
+            blocked.append(f"{name}: no valid stop given, used {DEFAULT_STOP:.0%} below entry")
+        sweep = next((x for x in (reads or {}).get(sym, {}).get("setups", [])
+                      if x["side"] == "long" and x["state"] in ("entry", "waiting", "mss")), None)
+        if sweep and stop >= sweep["extreme"]:
+            stop = sweep["extreme"] * 0.999
+            blocked.append(f"{name}: stop moved below the sweep low to {stop:g}")
+        if not target:
+            blocked.append(f"Buy {name} blocked: no target given")
+            continue
+        rr = (target - p_usd) / (p_usd - stop)
+        if rr < MIN_RR:
+            blocked.append(f"Buy {name} blocked: reward to risk {rr:.1f} to 1 is under {MIN_RR} to 1")
+            continue
 
         qty = gbp / p_gbp
         pos = pos or {"qty": 0.0, "avg": 0.0, "entry_usd": 0.0, "opened": now}
@@ -526,7 +605,7 @@ def evaluate_calls(calls, prices, now):
 
 
 # ---------- Claude ----------
-def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads):
+def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history):
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError("No ANTHROPIC_API_KEY secret set")
@@ -536,9 +615,11 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
     lines = []
     for sym, p in prices.items():
         bars = p["bars"]
-        lines.append(f"{sym} ({p['name']}, {p['group']}): {last_usd[sym]:.3f} {p['unit']}, "
+        lines.append(f"{sym} ({p['name']}, {p['group']}, {p['exchange']}): {last_usd[sym]:.3f} {p['unit']}, "
                      f"24h {change_since(bars, 86400):+.2%}, 5d {change_since(bars, 5 * 86400):+.2%}, "
                      f"20d {change_since(bars, 20 * 86400):+.2%}")
+        if sym in history:
+            lines.append(f"   Long term: {history[sym]['text']}")
         if sym in reads:
             lines.append(f"   ICT: {reads[sym]['text']}")
             if reads[sym]["fvgs_below"]:
@@ -559,18 +640,24 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
 Account currency is GBP. GBPUSD is {fx:.4f}. Prices are as quoted on the exchange (units given per market).
 Rules enforced by the risk engine: long only, no leverage, max {MAX_POSITION:.0%} of the portfolio per commodity,
 max {MAX_OPEN} commodities held, no new buys after a {DAILY_LOSS_LIMIT:.0%} daily loss.
-Every BUY needs a stop (below price, same units as the quote) and should have a target (above price).
+Every BUY needs a stop (below price, same units as the quote) and a target (above price), and the target must be at
+least {MIN_RR}x as far from the entry as the stop is, or the risk engine rejects it. If an ICT sweep set up the trade,
+the stop goes below the lowest point of the sweep, not on the swept level.
 Waiting is a perfectly good decision. Only trade when you see a clear edge. Avoid churning.
 
 How to think (take your time and reason it through properly before answering):
 1. ICT read for each market: structure, where price sits in its range (premium or discount), where liquidity is resting
    or has just been taken, and whether a sweep -> market structure shift -> fair value gap setup is live.
-2. News read: what the headlines actually change about supply, demand or positioning, and how much is already priced in.
-3. Combine them. The best trades are where a live ICT setup and a real news catalyst point the same way.
+2. Long-term read: use the 5-year data to judge whether a move is stretched or early, where the big levels are
+   (5-year and 1-year highs and lows, the 200-day average), how volatile the market normally is, and whether
+   seasonality helps or hurts right now. A short-term setup against a strong long-term trend needs a better reason.
+3. News read: what the headlines actually change about supply, demand or positioning, and how much is already priced in.
+   Watch for scheduled events (like US payrolls, inventories, crop reports) that could swing price soon after entry.
+4. Combine them. The best trades are where a live ICT setup and a real news catalyst point the same way.
    ICT gives you the where (entry zone, stop beyond the swept liquidity, target at the next liquidity pool);
    news gives you the why. If they conflict, say which you trust and why; usually that means waiting.
-4. You can only go long. A bearish ICT read plus bearish news is a reason to sell what you hold or stay out.
-5. Base stops and targets on ICT levels, not round numbers.
+5. You can only go long. A bearish ICT read plus bearish news is a reason to sell what you hold or stay out.
+6. Base stops and targets on ICT levels, not round numbers.
 
 Cash: £{pf['cash']:,.0f}. Portfolio: £{eq:,.0f} (started at £{START_CASH:,}).
 
@@ -591,7 +678,7 @@ Commodities and recent headlines:
 
 Reply with ONLY a JSON object, no other text:
 {{"summary": "one or two plain sentences on your overall read and what you're doing",
-  "reasoning": "three to five sentences on how you weighed the ICT picture against the news this time",
+  "reasoning": "three to five sentences on how you weighed the long-term picture, the ICT picture and the news this time",
   "markets": [{{"symbol": "GC=F", "bias": "bullish|bearish|neutral", "setup_score": 0-100, "note": "short combined reason",
                "ict": "short ICT read in your own words", "ict_agrees": true}}],
   "watching": ["short thing you're waiting to see", "..."],
@@ -639,6 +726,8 @@ def main():
     health["context"] = bool(context)
     news = get_news()
     health["news"] = bool(news)
+    history = get_history()
+    health["history"] = len(history["markets"]) >= len(COMMODITIES) - 1
     last_usd = {s: p["bars"][-1]["close"] for s, p in prices.items()}
     last = {s: v / fx for s, v in last_usd.items()}
 
@@ -686,9 +775,10 @@ def main():
     else:
         try:
             pf["last_claude"] = now
-            decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads)
+            decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads,
+                                  {s: m for s, m in history["markets"].items() if s in prices})
             health["claude"] = True
-            more, blocked = apply_decision(pf, decision, last_usd, fx, now)
+            more, blocked = apply_decision(pf, decision, last_usd, fx, now, reads)
             filled += more
             takes = {str(n.get("id")): n for n in decision.get("news", []) or [] if isinstance(n, dict)}
             for n in news:
@@ -743,10 +833,11 @@ def main():
     save("ict.json", ib)
     save("ict_trades.json", ib_trades)
     save("ict_now.json", reads)
+    save("history.json", history)
     save("status.json", {"updated": now, "model": MODEL, "fx": fx, "health": health,
                          "last_claude": pf.get("last_claude"),
                          "rules": {"max_position": MAX_POSITION, "max_open": MAX_OPEN,
-                                   "daily_loss_limit": DAILY_LOSS_LIMIT}})
+                                   "daily_loss_limit": DAILY_LOSS_LIMIT, "min_rr": MIN_RR}})
     print(f"Done. Claude {'asked' if entry and entry.get('markets') else 'not asked'}, {len(filled)} fills, "
           f"portfolio £{equity(pf, last):,.0f}, ICT bot £{ict_equity(ib, last):,.0f}")
 
