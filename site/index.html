@@ -123,6 +123,9 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
 .seg button { font: inherit; font-size: 12px; background: none; color: var(--muted); border: 0; padding: 4px 10px; cursor: pointer; }
 .seg button[aria-pressed="true"] { background: var(--line); color: var(--ink); }
 #reasoning { font-size: 14px; color: var(--muted); margin: 10px 0 0; padding-left: 10px; border-left: 2px solid var(--line); }
+details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; font-size: 12px; color: var(--muted); margin-top: 10px; }
+.think { white-space: pre-wrap; font-size: 13px; color: var(--muted); max-height: 360px; overflow-y: auto; margin-top: 6px;
+  padding: 10px; background: var(--soft); border-radius: 6px; }
 .agree { font-family: Inter, system-ui, sans-serif; font-size: 11px; color: var(--muted); }
 .big { font-size: 30px; font-weight: 600; font-family: Inter, system-ui, sans-serif; line-height: 1.1; }
 .mgroup { font-size: 12px; color: var(--muted); margin: 10px 0 2px; font-family: Inter, system-ui, sans-serif; }
@@ -194,6 +197,7 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
       <div class="state"><span class="s" id="state"></span><span class="muted" id="lastDecision"></span></div>
       <p id="summary"></p>
       <p id="reasoning" hidden></p>
+      <details id="thinking" hidden><summary>See Claude's full thinking</summary><div class="think"></div></details>
       <h3>How Claude sees each market <small>setup score out of 100</small></h3>
       <div id="markets"></div>
       <h3>Waiting to see</h3>
@@ -488,6 +492,7 @@ function renderCockpit() {
   $("#cockpit").style.setProperty("--sc", `var(${color})`);
   $("#lastDecision").textContent = L.t ? ago(L.t) : "";
   $("#summary").textContent = L.summary || "Claude hasn't made a decision yet.";
+  if (L.thinking) { $("#thinking").hidden = false; $("#thinking .think").textContent = L.thinking; }
   if (L.reasoning) { $("#reasoning").hidden = false; $("#reasoning").textContent = "How it weighed ICT against the news: " + L.reasoning; }
   const box = $("#markets");
   if (!L.markets?.length) box.append(el("p", { className: "empty", textContent: "No market read this run." }));
@@ -558,6 +563,7 @@ function renderActivity() {
       tone(a, SIGN(t)); li.append(a);
     }
     (d.blocked || []).forEach(b => li.append(el("div", { className: "act muted", textContent: b })));
+    if (d.thinking) li.append(el("details", {}, [el("summary", { textContent: "Claude's thinking" }), el("div", { className: "think", textContent: d.thinking })]));
     list.append(li);
   }
 }
