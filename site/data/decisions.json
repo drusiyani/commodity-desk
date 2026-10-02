@@ -228,5 +228,81 @@
   "summary": "Mixed macro backdrop persists: energy rallying on geopolitical premium but USD strength, falling yields, and broad metals weakness limit conviction. Holding cash; waiting for clearer directional edge before deploying capital.",
   "state": "WAITING",
   "trades": 0
+ },
+ {
+  "t": 1790929551,
+  "paused": false,
+  "markets": [
+   {
+    "symbol": "CL=F",
+    "bias": "neutral",
+    "setup_score": 35,
+    "note": "WTI down 3% today, longer-term downtrend (-10.2% in 20d), geopolitical premium fading amid higher Gulf flows and Iran peace deal reports"
+   },
+   {
+    "symbol": "BZ=F",
+    "bias": "neutral",
+    "setup_score": 40,
+    "note": "Brent holding better but still pausing after recent rally; conflicting signals between geopolitical risk and macro headwinds"
+   },
+   {
+    "symbol": "NG=F",
+    "bias": "bearish",
+    "setup_score": 25,
+    "note": "Down 9.2% in 5d on record US output; LNG supply concerns insufficient to offset domestic glut"
+   },
+   {
+    "symbol": "GC=F",
+    "bias": "neutral",
+    "setup_score": 45,
+    "note": "Intraday bounce (+0.82%) but longer-term weakness persists (-4.4% in 20d); yield/dollar headwinds dominant, NFP key event risk"
+   },
+   {
+    "symbol": "SI=F",
+    "bias": "neutral",
+    "setup_score": 40,
+    "note": "Silver +1.56% today but -5.4% in 20d; tracking gold weakness, yield sensitivity high ahead of NFP"
+   },
+   {
+    "symbol": "HG=F",
+    "bias": "neutral",
+    "setup_score": 30,
+    "note": "Copper +1.12% today but weakening on high energy costs limiting industrial demand; no structural support visible"
+   },
+   {
+    "symbol": "KC=F",
+    "bias": "neutral",
+    "setup_score": 35,
+    "note": "Coffee +4% in 5d but dollar strength reversing gains; mixed agricultural backdrop, no conviction"
+   },
+   {
+    "symbol": "ZW=F",
+    "bias": "neutral",
+    "setup_score": 35,
+    "note": "Wheat +0.96% today but -5.4% in 20d; grain sector fighting USDA stock data headwinds"
+   },
+   {
+    "symbol": "ZC=F",
+    "bias": "bearish",
+    "setup_score": 25,
+    "note": "Corn down 5.3% in 5d, -6% in 20d; late-session stabilization insufficient to signal reversal"
+   },
+   {
+    "symbol": "CC=F",
+    "bias": "neutral",
+    "setup_score": 50,
+    "note": "Cocoa +2.06% today on supply risk narrative; strongest intraday performer but -7.86% in 20d suggests caution"
+   }
+  ],
+  "watching": [
+   "US Nonfarm Payrolls impact on yields and USD\u2014critical event risk for precious metals",
+   "Energy: confirmation of US-Iran peace deal terms and impact on geopolitical risk premium",
+   "Copper: whether industrial demand stabilizes as energy costs moderate",
+   "Grains: USDA inventory data and weather signals for directional conviction"
+  ],
+  "blocked": [],
+  "summary": "Mixed macro backdrop persists with energy volatility but no clear directional conviction across commodities. Holding cash; waiting for sharper technical signals or fundamental shifts before deploying capital.",
+  "state": "WAITING",
+  "trades": 0
  }
 ]

@@ -31,5 +31,28 @@
   "value": 10004.96,
   "reason": "20h average crossed above 100h average",
   "source": "rules"
+ },
+ {
+  "t": 1790929551,
+  "symbol": "CL=F",
+  "name": "WTI crude",
+  "action": "SELL",
+  "qty": 141.7418,
+  "price": 89.83,
+  "value": 9638.38,
+  "reason": "20h average fell below 100h average",
+  "source": "rules",
+  "pnl": -366.58
+ },
+ {
+  "t": 1790929551,
+  "symbol": "GC=F",
+  "name": "Gold",
+  "action": "BUY",
+  "qty": 3.114,
+  "price": 4217.0,
+  "value": 9940.44,
+  "reason": "20h average crossed above 100h average",
+  "source": "rules"
  }
 ]
