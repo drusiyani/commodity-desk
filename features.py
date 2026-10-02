@@ -157,13 +157,13 @@ class Series:
         return out
 
     def _ict(self, long):
-        import engine as E  # imported here to avoid a circular import
+        import ict
         out = [0] * len(self.bars)
-        W = E.RANGE_BARS
+        W = ict.RANGE_BARS
         for i in range(W, len(self.bars)):
             window = self.bars[i - W + 1: i + 1]
-            hi, lo = E.swings(window)
-            s = E.find_setup(window, hi, lo, "long" if long else "short")
+            hi, lo = ict.swings(window)
+            s = ict.find_setup(window, hi, lo, "long" if long else "short")
             if s and s["state"] == "entry":
                 out[i] = 1
         return out

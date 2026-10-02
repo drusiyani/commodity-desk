@@ -770,12 +770,12 @@ function renderBook() {
   if (!pos.length) box.append(el("p", { className: "empty", textContent: "No open positions. All cash." }));
   else {
     const rows = pos.map(([s, p]) => {
-      const last = D.last[s], value = p.qty * last / D.fx, pl = value - p.qty * p.avg;
+      const last = D.last[s], value = p.qty * last / D.fx, pl = value - p.qty * (p.entry ?? p.avg);
       const tr = el("tr", { className: "click", onclick: () => select(s) }, [
         el("td", { textContent: D.prices[s]?.name || s }), el("td", { className: "num", textContent: money(value) }),
         el("td", { className: "num", textContent: price(p.entry_usd) }), el("td", { className: "num", textContent: price(last) }),
         el("td", { className: "num down", textContent: price(p.stop) }), el("td", { className: "num up", textContent: price(p.target) }),
-        tone(el("td", { className: "num", textContent: `${signed(pl)} (${pct(pl / (p.qty * p.avg))})` }), pl),
+        tone(el("td", { className: "num", textContent: `${signed(pl)} (${pct(pl / (p.qty * (p.entry ?? p.avg)))})` }), pl),
       ]);
       return tr;
     });
