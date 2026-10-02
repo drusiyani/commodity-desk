@@ -348,5 +348,75 @@
   "bias": "neutral",
   "score": 50,
   "price": 5491.0
+ },
+ {
+  "t": 1790939209,
+  "symbol": "GC=F",
+  "bias": "bullish",
+  "score": 75,
+  "price": 4212.2002
+ },
+ {
+  "t": 1790939209,
+  "symbol": "CL=F",
+  "bias": "bearish",
+  "score": 65,
+  "price": 89.42
+ },
+ {
+  "t": 1790939209,
+  "symbol": "BZ=F",
+  "bias": "neutral",
+  "score": 40,
+  "price": 99.93
+ },
+ {
+  "t": 1790939209,
+  "symbol": "NG=F",
+  "bias": "neutral",
+  "score": 35,
+  "price": 2.923
+ },
+ {
+  "t": 1790939209,
+  "symbol": "SI=F",
+  "bias": "neutral",
+  "score": 30,
+  "price": 61.42
+ },
+ {
+  "t": 1790939209,
+  "symbol": "HG=F",
+  "bias": "neutral",
+  "score": 45,
+  "price": 6.565
+ },
+ {
+  "t": 1790939209,
+  "symbol": "KC=F",
+  "bias": "neutral",
+  "score": 50,
+  "price": 294.95
+ },
+ {
+  "t": 1790939209,
+  "symbol": "ZW=F",
+  "bias": "neutral",
+  "score": 55,
+  "price": 686.75
+ },
+ {
+  "t": 1790939209,
+  "symbol": "ZC=F",
+  "bias": "bearish",
+  "score": 35,
+  "price": 500.0
+ },
+ {
+  "t": 1790939209,
+  "symbol": "CC=F",
+  "bias": "neutral",
+  "score": 50,
+  "price": 5516.0
  }
 ]
