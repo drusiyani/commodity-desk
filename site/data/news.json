@@ -1,15 +1,35 @@
 [
  {
+  "symbol": "SI=F",
+  "title": "Current price of silver as of Friday, Oct. 2, 2026",
+  "source": "Fortune",
+  "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBEMTVqLTVMOXpmSWhVMHpDRjZXdVZxaDNQUDZvaVcxQ0N2M1ppN2FrcWkzeUctXzF1dFZqbmpPOERTWFBHX3RJbGVKT3Z5UnpWampmR0hJLTBZbk9Hd2xmdllBSDRLUWZqa05yQ2h4dw?oc=5",
+  "published": 1790946840,
+  "id": "n0"
+ },
+ {
+  "symbol": "GC=F",
+  "title": "Current price of gold: Month Day, Year",
+  "source": "Fortune",
+  "link": "https://news.google.com/rss/articles/CBMibkFVX3lxTFAyaEhVYWdTckdKa0xxS094OGtUdFFVUDBlRjVMa200V2dyTEM2VWZ4eHZMSktGNDBQaDE0REcyRjFYWUJpeXE5UW4wUXVuVFVfSzdvc1VNWWFFN0NUZmo3empYMDZnSjF1TGdWYkVB?oc=5",
+  "published": 1790946420,
+  "id": "n1"
+ },
+ {
+  "symbol": "ZW=F",
+  "title": "Chicago wheat futures gain on Saudi Arabia tender demand",
+  "source": "Investing.com",
+  "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxPY3VLSFh2cXlnTlROZFpvQWJnSThBUmtFRDhnQTBIUlNFVzFtbnQ3M3phdmJmVlgyNUlIUWR4RUZiU2NjR3dCYWM5OEZOU3pvZXpKeU02eVExdDZKTGZ0NnZiZk45cWNQWGtPN3Y0bkEtbmxVQUl1eUFwbHhMN1g3aE1VazdvVmhZRmlOUWFsUkg4TXRPZlpDdEhUWFlQRzNxcFNybm8zeHJ4V1duUHZETjZoekk0VE8w?oc=5",
+  "published": 1790946056,
+  "id": "n2"
+ },
+ {
   "symbol": "HG=F",
   "title": "Copper Prices Nudge Higher, But Traders Stay Cautious",
-  "source": "Finimize",
+  "source": "finimize.com",
   "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOQ0xvUzNoTUpsb09jTTlOQUxfcDRkdXUycXVSRThFX0k3MlJ2Y05sZzRIUFZBNzNtWHNYSVd2WDlEVkVBRU5FOU4tcVZmT1NLeTZXOFJHSVdWaWdLeE9ELVFibXluWXFPOWUyeDNCYUxtdEdrbkpMSk9qVEJ6RGY4blNJVjRiaWFi?oc=5",
   "published": 1790942610,
-  "id": "n0",
-  "claude": {
-   "impact": "neutral",
-   "take": "Copper sentiment cautious but no major catalyst. At 5-year highs with little room to run; not actionable for long entry."
-  }
+  "id": "n3"
  },
  {
   "symbol": "ZW=F",
@@ -17,11 +37,7 @@
   "source": "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0456 \u041d\u0430\u0446\u0456\u043e\u043d\u0430\u043b\u044c\u043d\u0456 \u041d\u043e\u0432\u0438\u043d\u0438 (\u0423\u041d\u041d)",
   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPWTJNVFNrLWE3d0duQlAtMGQyTjZyNklCdkZpLVQ4Q0NUVm9BMnRHbVhlUU9oZmh2Y3oxLWpxWnhjSm40MVR3ODh5Q1dWbXBDNkhETjBqSzdfMmZFLTFXWF9XdTJTVmptU1c3RlFBc3BGN0d6Rm8wdXdNZGFSUkVtNHlzSHBSUFdxVlZSaUQzcE0xUdIBkAFBVV95cUxQc0NyUTREeldUYkwyQjByMWMwVU9SUlZJVmJBTTI2QldFRDJrb210TGNGSmtKTW12MXB5d0Fua2JnWmN5RFotZTBObEV0UnQwS2NnaVlEYUxOemwyNU9CcGhDTWxKZzRrZmFoXzBYUm9sRlRYTDFvb1ZDTkRndmdHUVlLUHpiUFA1ZHFjVndFaDU?oc=5",
   "published": 1790941068,
-  "id": "n1",
-  "claude": {
-   "impact": "bullish",
-   "take": "World food prices at nearly 4-year high supports wheat and grains. Bullish tailwind for ZW long setups if ICT confirms."
-  }
+  "id": "n4"
  },
  {
   "symbol": "CL=F",
@@ -29,7 +45,15 @@
   "source": "Crude Oil Prices Today | OilPrice.com",
   "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPNTk4dHJLTzhaY3VKeW9BV0Ftdm5oYXVJNWpGLTFDclpfdVhvb3BmM2I3NWh2RGREdDIzbmU1UW1qa3lmYlhmQ0Z4YkxrdjdDNmF2WDl6WDNMcjBoeGRSWHhQZ21yeERqUGpPT21ocDNOdVJxbEVLeWIwaEtsVG9GZC1ZXzZDaEVwcTZwYm1sSzdMUDZMRXhsNG9URDhZbzFXSllqTzNSdnJDd1AzdUtDRE9tTXhjQdIBuwFBVV95cUxNaTFBTXNLTk50eTY4cDk4dEI5RTEzVmU4dHZtZXR4VHV0Zk5QU01jSFNCTDhYRTBMWGpvR2JXVVdlZnI1UWRaLVhENXUxRGhHOG9ZTmZNck1LYmNHV0x2b1gtVlpLT1Z0THEzdzZLcmNzakpEQ3VlV0x4amNSTFY4QWpGalUyR0FFREE4NVBWYVFOb3F1SUNjZVRnYndBWGp1aFlBWldVX2VjNWVVOXVQaHVLVHpPRDdteTlr?oc=5",
   "published": 1790938920,
-  "id": "n2"
+  "id": "n5"
+ },
+ {
+  "symbol": "CL=F",
+  "title": "Oil (USCrude) Price Forecast for Today, Tomorrow, Next Week, and Next 30 Days",
+  "source": "LiteFinance",
+  "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQcm51RHFTMGNQcnB2aFl5bjNQQzFXUVVHckh1eW1IVktpM0lfaXlCQ2p6RF9nYWxkajlxb2R2V0lkRi1FNnljalUwMlhaU2FFT2dCUDBwem9tVG14Y1FXZGVKbWJvSm0xNlVVZ1BwdTItWnJkOTF3TnFTU2FQLWZibmhXRXlnX2RJY25leTB2ekVVUHZMZS1zbjBhWkNJLWs?oc=5",
+  "published": 1790938444,
+  "id": "n6"
  },
  {
   "symbol": "NG=F",
@@ -37,23 +61,15 @@
   "source": "T\u00fcrkiye Today",
   "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNMGU4UWxaTTh0eE42enRRREZ6TFVCZzVjVlZ1SkRrNjJNVjJIOHBlb0NES0NLVUpyNk84N003ZHMyUXNIdGs5UEM5a211Z2FZY21MejBxMlk0cEJFQjlpVXBPNEwwMHFrZFF4TG9FVTRYc09VNUJ2aHBLS2FobzB1N201X0lmNER1c19sSkNHSDlSU0wzUmtubzVqNkN2VGlnVVVtdXJzOTdoX19HRGp6TzYycnYxWWdKbW00MVZ2TVFnUQ?oc=5",
   "published": 1790938264,
-  "id": "n3",
-  "claude": {
-   "impact": "bullish",
-   "take": "Qatar LNG unlikely to return soon and winter risk flagged; structurally bullish for NG supply premium, but NG ICT is bearish\u2014conflicting signal, wait for clarity."
-  }
+  "id": "n7"
  },
  {
   "symbol": "GC=F",
   "title": "Gold price today, Friday, October 2, 2026: Gold prices hold ahead of September jobs report",
-  "source": "Yahoo Finance",
+  "source": "finance.yahoo.com",
   "link": "https://news.google.com/rss/articles/CBMi9AFBVV95cUxPdjU4LWVpVzNSS0xhaURQQmFWZFIzY0FaVGVFVmRWdWQycm1CYV9sNXE1cFhuQ053Qk9haTNTQVZMSVRETmxxTlp0NTBRT3FpekY5bGJGZ1ozbWgyNUJ0RUdka1YzZ2RiUm5Uc1dSazR6UUJfSGl1RmZZVG9aSVY4czgwMDlhTWpvUHhmd3A5VFJldFJKZVhzRjN5R1J0NGg0Qy1sNVhLMnJkZEpQS3Z1SWdIYWg0YTRxUGxkb09iOWJiVjRBZ0hQLXBPRnZPTGZObDQyRGRyYUJpczhHZlkyR2hrWElrcVpTX3phSGFpUk1wRDBx?oc=5",
   "published": 1790937421,
-  "id": "n4",
-  "claude": {
-   "impact": "neutral",
-   "take": "Gold prices consolidating ahead of NFP; event risk imminent. Hold cash until payrolls print to avoid whipsaw."
-  }
+  "id": "n8"
  },
  {
   "symbol": "NG=F",
@@ -61,11 +77,7 @@
   "source": "Crude Oil Prices Today | OilPrice.com",
   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPeUV0OFdaVHFNZ3psYTFOMHk2Tm9XWFpSRHZxc1YyWEktNkxQVDJHbS1iR3VPMDRrY1B2M0x2YV9PWHgtNUhIY3AzN2FoUGNJZ2FrdjNncHdvSGcwU2h3V1ItcmluSEtRT05odHFCNDktUXpUZlg0eU1ua2FBdVZVSjJXajRHMUxqZ2thTEt5aXJxU24xRGxTM0NqWjM2ZTgxdE5SOU130gGrAUFVX3lxTE5zQ1FvVkxGVVVna1JVTXpVaDZmMmxPX1pxRTBuTUx1ajZXQXExUmlwMlBDVkExQ2JLcjlWRmdreThXNHk2UU11ZWlIZzJLUUp3QXdWR3BJU2JlVEtOUVpDaHpoaVllS2dRRGpSWlpMTXRTci1zTnFCaHJ2TDBqbFVYVjZPUm1MdVFOeC10cGFhRTUwSGxrZVZhWkpwcGJ5b2ZIVkZ3Z2NXdmJZTQ?oc=5",
   "published": 1790937000,
-  "id": "n5",
-  "claude": {
-   "impact": "bullish",
-   "take": "JERA CEO warns LNG prices to climb further; structural bullish signal for NG, but contradicts bearish NG setup\u2014conflicting, wait."
-  }
+  "id": "n9"
  },
  {
   "symbol": "ZW=F",
@@ -73,11 +85,7 @@
   "source": "Daily Sabah",
   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQR2dtN2xvcGVWWjJJMDNxR2RHNUFVTWpHakNiMmkyeVc1aFM5OFg3cXpObTBCRjVHdGdfcWE3NnVjRXRoTG1xc1k4WkJWZG9RelJ6Qk92YXpqX1JTTWt4c3JUN2ZTRG9TUEdTakI2eGVSazE5TmE3Z1MzREhob0tZT2NNUW9RZWVvTmxjRUtXVHFPNHpqX1diNlV3emRfY3RmdlNKSU92VERBTGho?oc=5",
   "published": 1790936478,
-  "id": "n6",
-  "claude": {
-   "impact": "bullish",
-   "take": "Global food prices approach 4-year high; reinforces bullish backdrop for wheat and grains. Supports ZW bullish bias."
-  }
+  "id": "n10"
  },
  {
   "symbol": "HG=F",
@@ -85,11 +93,7 @@
   "source": "FXEmpire",
   "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPS0oxTkF1X0Judk1HMmlSc2oxRnRmVUMzM0wyRUJYb2otaTVtUEowdjJxbGlnWHhRSnVoSkxEdXBrUTEtcEJtTjZFQm04MzFpeDFCeEphTTJKS1VBWlBmNzc2ckV5VjF4RGlWZWFrcG5kemJwZGFpdGVnc3NVcEM0ekJJTHJ1WTAzLUs1LVRYc29aZGdwVVBfdHZlUTd0YXp3ZmFoNEIxMTB4NXN0aDlYTFFKYmxINWNPVGR2alVQX0g1NnM?oc=5",
   "published": 1790935149,
-  "id": "n7",
-  "claude": {
-   "impact": "bearish",
-   "take": "Copper sees selling pressure testing support; reinforces tight risk/reward at highs, avoid copper long."
-  }
+  "id": "n11"
  },
  {
   "symbol": "SI=F",
@@ -97,11 +101,7 @@
   "source": "MoneyMagpie",
   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNNzF2Y2pVUFJJWGNnTzlkOU55bmxaQkkyNEpyYUNFOGJIVWZpVVVnekV0bS0yOVZpaFFHSm9uVl9aS2QtU3ZZMWNnNUQ1Z3B6NjF3Tk83MC1fN2didjE1V3JCaXNpbUwta3VfTDJkOTU3enlzYWxqY3ZEVmxCUHJwYWQxTWd3bzBET3NKdXZvUVotTlFJX0RWdlVmMA?oc=5",
   "published": 1790934899,
-  "id": "n8",
-  "claude": {
-   "impact": "neutral",
-   "take": "Silver price prediction article; no new catalyst disclosed, just editorial. Seasonal tailwind into Nov still in place."
-  }
+  "id": "n12"
  },
  {
   "symbol": "SI=F",
@@ -109,35 +109,15 @@
   "source": "Mitrade",
   "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxQVnlzck1SLXJ3Y0dsWjloaklZNmZQUlNOOFgxTW1id2NMZVd1T0d1Q3o3VnRUVTNjX19Nd0hIUG5oQ1VISHAwc0FTbnB6Q24xcE1Tc21reURzU1dMTmZQZ0JtZVhqQ3NaTzBpRFMyUXZaZW5zdzBQRjczX0ZxM3pQSXY2TQ?oc=5",
   "published": 1790934309,
-  "id": "n9",
-  "claude": {
-   "impact": "bullish",
-   "take": "Silver rises per FXStreet; reflects positive momentum but no new fundamental driver. Watch for structure shift in SI."
-  }
+  "id": "n13"
  },
  {
   "symbol": "HG=F",
   "title": "Copper Price Gains Analyst Attention Heading Into October. Here's Why",
-  "source": "Yahoo Finance",
+  "source": "finance.yahoo.com",
   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdjRfMTZYRUc3ZnJIUk5VOUhjVlozZnA1eXNxWGJCUjdDcm9FWDB5V0VtbWN1Sm40SGNHNFl0WVNFVWY1eDFXOHhGekJmUk9tQ044dXRlejl3aVdDMy01WWo3X20xSzF4eUZHNENqdXdoa2ttcncydnhOY29ZTWNoVzVURk9JYlhkM3VXdWVwaHlXQzlVTkdpU01JeGc2TDRrQ0JvZEV2Y3Ztdw?oc=5",
   "published": 1790933882,
-  "id": "n10",
-  "claude": {
-   "impact": "neutral",
-   "take": "Copper price gains analyst attention; reflects awareness but no directional thesis. At-highs setup still unattractive."
-  }
- },
- {
-  "symbol": "NG=F",
-  "title": "Nova Power & Gas: Memorandum of Understanding on LNG expired without agreement being reached",
-  "source": "agerpres.ro",
-  "link": "https://news.google.com/rss/articles/CBMi0wFBVV95cUxPUzVQREtudnZOdGVDa2NqbC1FR2ZhaWNvbGNCWGI1N1BkYnhTZWktQjZhS0VpQWlLNUNnSzJIbVA3ZkpDYkhjaGlRSDhPWVRpcXdDQ0tTX1Y1SnZISG41cDRjZmFJa2ZhNXBJaFh3ZHExYzhXN0hNMmZMREE4YXlxUHNBZ2ZPRjB2OXBTNFozSHNDX3BpRW5jZy0xdGUyY1dRRDh3OEhOUFNRMzBrRUw4Z2dONlF6eWQ0THFyRFJFMjVKWDVjbEFVODU0NHpnYTJDMkpZ?oc=5",
-  "published": 1790933880,
-  "id": "n11",
-  "claude": {
-   "impact": "bearish",
-   "take": "LNG memorandum expires without deal; near-term friction in supply but long-term bullish for prices. NG structure still bearish though."
-  }
+  "id": "n14"
  },
  {
   "symbol": "HG=F",
@@ -145,7 +125,15 @@
   "source": "BeInCrypto",
   "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBRVlpRMVFIcDB3YVRKY2hoWkxXY2Z0UDNXcDQtemRKX2p5aDQ4ejhoYW53bEFaeENjUUNDN2JON05YdkFxelpuWEllYXBzQ19KV1U1TGZBNzN1bXQ5ZWlYdkNzT0Q0WHUzM2pfTGFmOFBPRkk?oc=5",
   "published": 1790933880,
-  "id": "n12"
+  "id": "n15"
+ },
+ {
+  "symbol": "NG=F",
+  "title": "LONG TERM LNG: Prices Down, Demand Up from Big Future Buyers",
+  "source": "EnergyNow",
+  "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNNEhKTUlrQXlUeFNXOUU5b19pdkxSUk9hcjZqVGM2U1FHWDZRT1UzeGw2eXdkUzBJTjBnZmQwRk9DdVczdVFLd2dhSXhfLUJ1aWdLeTg5d3dLWnFsQmFvcU1zaW1Ga2NXZlA3RGhRaml4bkNva2VJLTloSVJQRWxsaFVnZ2VCblk?oc=5",
+  "published": 1790933611,
+  "id": "n16"
  },
  {
   "symbol": "SI=F",
@@ -153,23 +141,7 @@
   "source": "Yahoo Finance Australia",
   "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5nUWhFeGZ0RnBzTmp5Vzl2ZC1IZjZGNmNxRVZWaThmaENkVFJuNEZJQmRCcGpibFYtSjlmR2IxN3MyNHUzN3pFSUxzaHU4R1c2MnhsSg?oc=5",
   "published": 1790932241,
-  "id": "n13",
-  "claude": {
-   "impact": "neutral",
-   "take": "Silver Dec contract data; standard reference, no new catalyst."
-  }
- },
- {
-  "symbol": "ZW=F",
-  "title": "Wheat and corn rise in Chicago on Thursday, soybeans fall",
-  "source": "UkrAgroConsult",
-  "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNdHBBUGZNVzZwbnZ6YTZwWVJFMTZMSjV0b3hra254YWZJSmtNOENxdDBiWHJOU1dzdzhER1lWMWNIc2xEQkRBanN2QURobzZrdU92bXVQT2RSMEdzMVk1bWw1cUE5N3gtYTI2dDdUVmRIb3VfemxGRnNpTGtMZi1hamlTSThXWVFXdnNoNEhTSnRELWx2Zmgw?oc=5",
-  "published": 1790931543,
-  "id": "n14",
-  "claude": {
-   "impact": "neutral",
-   "take": "Wheat and corn rise, soybeans fall; mixed commodity performance, wheat gets slight bullish nod but no major catalyst."
-  }
+  "id": "n17"
  },
  {
   "symbol": "ZC=F",
@@ -177,11 +149,7 @@
   "source": "UkrAgroConsult",
   "link": "https://news.google.com/rss/articles/CBMilwFBVV95cUxNdHBBUGZNVzZwbnZ6YTZwWVJFMTZMSjV0b3hra254YWZJSmtNOENxdDBiWHJOU1dzdzhER1lWMWNIc2xEQkRBanN2QURobzZrdU92bXVQT2RSMEdzMVk1bWw1cUE5N3gtYTI2dDdUVmRIb3VfemxGRnNpTGtMZi1hamlTSThXWVFXdnNoNEhTSnRELWx2Zmgw?oc=5",
   "published": 1790931543,
-  "id": "n15",
-  "claude": {
-   "impact": "neutral",
-   "take": "Wheat and corn rise again mentioned; consistent with food-price-high backdrop. Supports ZW bullish bias."
-  }
+  "id": "n18"
  },
  {
   "symbol": "HG=F",
@@ -189,31 +157,7 @@
   "source": "Investing.com",
   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOZWdEYkxDOGNIamFCMWlFOEhfdmh0UVJTNGFhVnF5WVFzWXAyTXp0aHhlRFBNMVR3T0w3d3ZTX01YUFY3YVozdGNIVmJHS1dkd1ozOXFkTlAzZkx6R2M0SG5mY1ZJZ3dqT09PaFhqa2oyOTdQTkJtN3RYLXdIMGJuWkZKMTRtTlNVUVdySkZZbXFkMkI2aWZXcm9nVFE5MWtVX0dCbFVzWmtrR0hmcGEtR2plR3c?oc=5",
   "published": 1790930156,
-  "id": "n16"
- },
- {
-  "symbol": "CL=F",
-  "title": "Oil (USCrude) Price Forecast for Today, Tomorrow, Next Week, and Next 30 Days",
-  "source": "LiteFinance",
-  "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQcm51RHFTMGNQcnB2aFl5bjNQQzFXUVVHckh1eW1IVktpM0lfaXlCQ2p6RF9nYWxkajlxb2R2V0lkRi1FNnljalUwMlhaU2FFT2dCUDBwem9tVG14Y1FXZGVKbWJvSm0xNlVVZ1BwdTItWnJkOTF3TnFTU2FQLWZibmhXRXlnX2RJY25leTB2ekVVUHZMZS1zbjBhWkNJLWs?oc=5",
-  "published": 1790928216,
-  "id": "n17",
-  "claude": {
-   "impact": "neutral",
-   "take": "Oil forecast article; editorial outlook, no specific catalyst. CL bearish setup and seasonality already priced in."
-  }
- },
- {
-  "symbol": "BZ=F",
-  "title": "Oil (USCrude) Price Forecast for Today, Tomorrow, Next Week, and Next 30 Days",
-  "source": "LiteFinance",
-  "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQcm51RHFTMGNQcnB2aFl5bjNQQzFXUVVHckh1eW1IVktpM0lfaXlCQ2p6RF9nYWxkajlxb2R2V0lkRi1FNnljalUwMlhaU2FFT2dCUDBwem9tVG14Y1FXZGVKbWJvSm0xNlVVZ1BwdTItWnJkOTF3TnFTU2FQLWZibmhXRXlnX2RJY25leTB2ekVVUHZMZS1zbjBhWkNJLWs?oc=5",
-  "published": 1790928216,
-  "id": "n18",
-  "claude": {
-   "impact": "neutral",
-   "take": "Oil forecast again; editorial. BZ no actionable catalyst yet."
-  }
+  "id": "n19"
  },
  {
   "symbol": "SI=F",
@@ -221,7 +165,7 @@
   "source": "FXEmpire",
   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOM3dCWUx5OEh6engtd2RxNDByNWJNRVZ1dXNsbV9pTUwwUm9EU1c3LTUtM21ISkZxMTlYb1hMcUREMEZIUzFNYV9hYWg0QmRZUFAzQXJGclBYLXd3dzJON2pvejZiNkw0ZFhRZW1qTFlZTkRvclVWY3UyZlpZNG0zMjc0YVJmTW1CY3NUN0UxMGtlejNibDVCM00xcXZlbk8tNzRjWEJYZWlWRWE4MEtpb29IeklMVkVIVUg0?oc=5",
   "published": 1790927804,
-  "id": "n19"
+  "id": "n20"
  },
  {
   "symbol": "CL=F",
@@ -229,23 +173,7 @@
   "source": "FXStreet",
   "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPdFdHM1ZVUEtUYU5IOEhiQkQ4dHVFTVk3VGlhb1F1X2tMRk5udTNpbk5YRk55eUF4ekttN3BoakczY0hKaDFrVF9BYnVLcWdaR1dLTk1PTGprZnFsVHc0QVlRU3dnZnpNNWc5X2U4cklUQzFnc1RyUWVKbFVYSjd1ZjdTdGhWRFg0eXM4eVZYbDdZS0VlMVdiTk93SmtDRHhhMXZ4YUxWWWlHOEhwckMyZ1hIaS12UQ?oc=5",
   "published": 1790925714,
-  "id": "n20",
-  "claude": {
-   "impact": "bearish",
-   "take": "WTI edges below $91 on higher Gulf flows; supply increase is bearish for CL price. Supports bearish setup, confirms avoidance."
-  }
- },
- {
-  "symbol": "GC=F",
-  "title": "Gold price consolidates below $4,200 as markets turn to NFP next",
-  "source": "investingLive",
-  "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNV3VPUXU4UDczVTItQkZPVklmNGpKS2xXMU9Iek82MnpDQkdWNkQzQ0VWcm5rRDBOM3pUcTJXUVFOc1lDUDYzTWRPZTlSZ2xvdGxoVnRwU0QtNkVrbUJiVEtCZUJTYzVFay11LTVPYzRTTEpPb2w4Q0tWcE9KZmRpS00zaGhEcGJfTURfN1hFVTJHbzNKU09QSzZIRnZMaFZ5U2FINg?oc=5",
-  "published": 1790924762,
-  "id": "n21",
-  "claude": {
-   "impact": "neutral",
-   "take": "Gold consolidates below $4200, markets turn to NFP; NFP event risk is imminent and could swing price sharply. Hold cash until event."
-  }
+  "id": "n21"
  },
  {
   "symbol": "GC=F",
@@ -253,11 +181,15 @@
   "source": "AFR",
   "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPZnlOWkdCQ2V3QVdlUzZ5UUtGRU5hUlN4c29WMzdFNmlISi1aMmJRbnhfekFFYjJJRGtXOXpTSTh4UkN4VndlOEIxUHhfMU5CeUN6ZFNLb2FiN1VMV01ERkpjY052VG01X050WmlNb3hPN0ZzbF9BZkFVVFZOTjlvUUduUFFfbTNQWGs1YUJlTmoyblR0UW5ITE1Ed0JCaXExdGdoRkhORjhPV1dqekxOUUNLUk9XY3JtaU5DOVlGZndtZw?oc=5",
   "published": 1790922600,
-  "id": "n22",
-  "claude": {
-   "impact": "bearish",
-   "take": "Rallying oil could see gold fall $1400 next year; long-term bearish thesis for gold but conflicts with current bullish setup\u2014likely means wait for more clarity post-NFP."
-  }
+  "id": "n22"
+ },
+ {
+  "symbol": "KC=F",
+  "title": "Agricultural products today October 2nd: Coffee prices increase, decrease rapidly",
+  "source": "Laodong.vn",
+  "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOQVphNFlwVlZndE9hbVJVS0VmVTg5OWxvTk5PN1A4cWRteVBEQmJiLXRrVkRscXI5SmU2c0Y2cHZzQmFRVUVqZGFzbVYzcjhmSGpBU19TU2dINDFBN2dCbzVuOUloa0dzQ0w2SF9vb2Z3TTZaeUZnZEhPVGFTOGxqcDQ5cTN1S1ZzTWtYcGZFNXQ3RU15RWVUMnpwcWdaUkE?oc=5",
+  "published": 1790919211,
+  "id": "n23"
  },
  {
   "symbol": "CC=F",
@@ -265,11 +197,7 @@
   "source": "Laodong.vn",
   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxOQVphNFlwVlZndE9hbVJVS0VmVTg5OWxvTk5PN1A4cWRteVBEQmJiLXRrVkRscXI5SmU2c0Y2cHZzQmFRVUVqZGFzbVYzcjhmSGpBU19TU2dINDFBN2dCbzVuOUloa0dzQ0w2SF9vb2Z3TTZaeUZnZEhPVGFTOGxqcDQ5cTN1S1ZzTWtYcGZFNXQ3RU15RWVUMnpwcWdaUkE?oc=5",
   "published": 1790919211,
-  "id": "n23",
-  "claude": {
-   "impact": "bullish",
-   "take": "Agricultural products rally including coffee; supports KC bullish FVG retrace setup. Momentum in place."
-  }
+  "id": "n24"
  },
  {
   "symbol": "SI=F",
@@ -277,7 +205,7 @@
   "source": "FXStreet",
   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPcDFlU1BWSUdsQjBDNEZUeUxGai1FZ0l3MnRfdG9jYXpVMVN2Ykx2R3piUXUydmNVQ2QyZmFveGNMZ09mTFVhZ3dRNGNScHltN0Nuem13TVB6S3JidVlFLWpMdlNUSWpYVU55aXUyQ3g5MTd6NDlYbDFzR3gwTkVOUFpGQTVua1Z6NXZ5NUZjWVd5VnNydW44a0xmVlBRMVB0bWMzM2ZJMFNqcUhROExTVU5lYXEyaGtPZ2E2aUdR?oc=5",
   "published": 1790918665,
-  "id": "n24"
+  "id": "n25"
  },
  {
   "symbol": "NG=F",
@@ -285,7 +213,7 @@
   "source": "SMH.com.au",
   "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxONHZoSmwtN05DVlZTdG1IMEFTUUJKY3k2X1cwYjFWeU5ESXoxN29EUXZ2NXBzb2VFY1ZLcVhzMjAteV9nclRfWERWQXlHMVJkOXhCQ01kQ2VuejE2bVlfTDBhM08zcXBKb1VENThlbi1kUkJ6dnJUa1B5V1RqRFV2LUtUMk5OelE2am00WEFvYVUzZ285dDdIMFNPQWVlemZaajhqc3ZzMXFrQ09vZ2taWDY0cjFKWjluck9n?oc=5",
   "published": 1790918612,
-  "id": "n25"
+  "id": "n26"
  },
  {
   "symbol": "CL=F",
@@ -293,7 +221,7 @@
   "source": "FXEmpire",
   "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNUmZITWlYZ2E2YVd3RnlaZ0ZJQVJvZjgzM3FFeDBxVmFncXhuc0haNmViT29RUVotT2tucU92QVNDM2tMNVdqN3I3N251Tjhna0JxOF9NTUZ5Wm1mMlBWQm9NQXVjSGJIV3JmSE55LWJ6ZHF6QVpUam5pRWZqQThCQkxJLVZ4NlhwZ2RBVkV0WTI4NDZtS2djMXdNMjEtNnlvZmRlWFdhZ2k5SnBVRU5QMUk4LTRjQWpQ?oc=5",
   "published": 1790914140,
-  "id": "n26"
+  "id": "n27"
  },
  {
   "symbol": "GC=F",
@@ -301,7 +229,7 @@
   "source": "FXStreet",
   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQeEljWHA5WWlyZHBmOXFhb1Y5ZnJWSXoyZFF6Y1N4aVcySFYyY2tuUHdEZXZxWHA2SHBrZVBQM3ZsbHpXRjJZVl9ud3pKNldlLXhJeGJKQ2cxcXdKaDV4R3BlVnJycDdzc2w2ak8wbklvUHl4YjhsaHB0VHJ6QmZoVUFLTjlhWmFodE9aODBIMlN5cXRQX1JXS3NsR2dqSmx3QV9naFYxQ0QtVlZTM1lDNVJDa2VEbC10eFl4TTY5ZEVFbnJs?oc=5",
   "published": 1790912105,
-  "id": "n27"
+  "id": "n28"
  },
  {
   "symbol": "BZ=F",
@@ -309,11 +237,15 @@
   "source": "Economies.com",
   "link": "https://news.google.com/rss/articles/CBMi8AFBVV95cUxPRkZBRURlRklWcEpTT0IxODgwYXo1VG5xYzZScGFkeHZYNThwcFdySVBaMGFwdFFva3FSZ1JfdERqQmMzT0JFck1ZV1NEcTJoUVpjUVJBcTRXaVlqQU1ETFplUVlDbUpiaXAyLTRrNEk1V3pQc2tsSnp5OUVxVDZqTW5BM1pCeXNqTDlTZjVKUzZvYXg0VllGMndjRENwNEk1cU9sSC1Wem1ldVM4bkdITXo4WDNPRXFDWFZKbVkzVEg5RVg0YkJocV92d1J1VFhfWmc0Nzhmclg0QU9lVUVlQ2VRQ1p6cFlhWi1BZEFZaFg?oc=5",
   "published": 1790911080,
-  "id": "n28",
-  "claude": {
-   "impact": "neutral",
-   "take": "Brent takes a pause; technical consolidation, no directional catalyst. BZ still waiting for structure shift."
-  }
+  "id": "n29"
+ },
+ {
+  "symbol": "CL=F",
+  "title": "Oil price drops more than 2% on talks over diesel, crude stock releases",
+  "source": "Reuters",
+  "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNTERINTZjYjV0dGhsWUtmMjRmNXVHN2tjaG5ZVkpldGxTRHJxOWc5N0Jtd0dhTEZLdUVpM2Z4T1J5SFYxZ2NTMm83Q1ZSXzgxUDA2Z2hXbFRKRTY1cWRWajR2SldNQ2xqTktJNDAxamcyb3V0YVZyZnh6aktvcHpUNzRobzNocWQ1ZFREbVN5OUR2MHJ3MHVQU1RveHYzYkhZZnAzc3YtNTk?oc=5",
+  "published": 1790903400,
+  "id": "n30"
  },
  {
   "symbol": "BZ=F",
@@ -321,19 +253,15 @@
   "source": "Reuters",
   "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNTERINTZjYjV0dGhsWUtmMjRmNXVHN2tjaG5ZVkpldGxTRHJxOWc5N0Jtd0dhTEZLdUVpM2Z4T1J5SFYxZ2NTMm83Q1ZSXzgxUDA2Z2hXbFRKRTY1cWRWajR2SldNQ2xqTktJNDAxamcyb3V0YVZyZnh6aktvcHpUNzRobzNocWQ1ZFREbVN5OUR2MHJ3MHVQU1RveHYzYkhZZnAzc3YtNTk?oc=5",
   "published": 1790903400,
-  "id": "n29",
-  "claude": {
-   "impact": "bearish",
-   "take": "Oil price drops on diesel and crude stockpile release talks; inventory overhang is structural bearish for CL and BZ. Confirms avoidance."
-  }
+  "id": "n31"
  },
  {
   "symbol": "ZW=F",
   "title": "Saudi Wheat Tender Lifts CBOT Prices Off Seven-Week Lows",
-  "source": "Finimize",
+  "source": "finimize.com",
   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNQjg5OXR2VW5PYU13SFNpWl9QSkFVMjFQckxhU3AtdWlLVzhvR2w1S1dwc0dTeW5YV0xOOVBkak9ubzR5djNBc1lDbWRaUnU0R0xnOG42VnJSaGwtRVp2SEN6TmZVeklGaDR0WWdmY1gzT1ktLTktU2tyUW5LMDU3SHl4cENYUVp1aERXR3dB?oc=5",
   "published": 1790901450,
-  "id": "n30"
+  "id": "n32"
  },
  {
   "symbol": "BZ=F",
@@ -341,7 +269,7 @@
   "source": "EnergyNow.com",
   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPSVctRUFVM1l4Z3VNRnhLZVN0dV9KMENjZW1wWWo4eXJycklOLTdJSkJNSm9qbTB4WDB5OUFsaktnUDc0V2JheDl0eUZoZk43bVpCMjhSTEFJeXNpeWhlc1FhZnhvOXN3Q3B4R0ppbkM3ZmJreFpEbUd3Y3A3WmxTY2Jla1RzSXUwekdNV1l4bnlZOEw3bG85TUt2S08wRm9FNkNlajRR?oc=5",
   "published": 1790894452,
-  "id": "n31"
+  "id": "n33"
  },
  {
   "symbol": "ZW=F",
@@ -349,7 +277,7 @@
   "source": "AgroLatam",
   "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPTnFwbDdfaF85bE9hVUloOGVqSTlNM3FCOHRHazFSYkplMC03dVRwSGNSdGxVUmhRN1dFODUyUWZVdU1td29MUHpvRTRsOVUwWGk1RjhIOXlrRUR3aE83WTVTMXNlbHdlWHhMTnpheUMzLXU5ZVQ2X1I2dkcyaktPeXR6Qm5Jc1djRkZ1OA?oc=5",
   "published": 1790892450,
-  "id": "n32"
+  "id": "n34"
  },
  {
   "symbol": "ZC=F",
@@ -357,11 +285,7 @@
   "source": "AgroLatam",
   "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPTnFwbDdfaF85bE9hVUloOGVqSTlNM3FCOHRHazFSYkplMC03dVRwSGNSdGxVUmhRN1dFODUyUWZVdU1td29MUHpvRTRsOVUwWGk1RjhIOXlrRUR3aE83WTVTMXNlbHdlWHhMTnpheUMzLXU5ZVQ2X1I2dkcyaktPeXR6Qm5Jc1djRkZ1OA?oc=5",
   "published": 1790892450,
-  "id": "n33",
-  "claude": {
-   "impact": "neutral",
-   "take": "Corn and wheat fight back as USDA stocks data looms; USDA report is scheduled catalyst that could swing ZC/ZW sharply\u2014hold cash until report clarity."
-  }
+  "id": "n35"
  },
  {
   "symbol": "HG=F",
@@ -369,7 +293,7 @@
   "source": "Mining.com.au",
   "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxObm5QVEtsQnBXM0RmbUhreldRVjJnbk1mdEFLM0tPd0ZwcHZJZ3J4YWdpcUdvaTlpZ2pxeXctTHVLSXM5UzNrQWlnMjMwVE1OVVRrc2ZCZFdhM3U3bUQ2bHIwRW94Z1R3THhMX3lEMXVIUTZoQlZuQlhYa0JSYkgtUGhkOA?oc=5",
   "published": 1790890667,
-  "id": "n34"
+  "id": "n36"
  },
  {
   "symbol": "NG=F",
@@ -377,7 +301,7 @@
   "source": "EnergyNow.com",
   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxPcHg4UEwxeHVCc3JFZjU2YWVRZHNDTHZjdDQwaHUwckJEcUNWdlFHeElCb1BNVjFfYlhyZ1pCMEFaaGxmSTJ2UHZkQzdLSlA1Q2pKbkFxVlA2T0NSdVM0aTEtUzJiRFdXRzI5bGNhMHJkZk5nUmxDeWI1ZlVlY1NjSDd4Y3ZKdU5HbDBwenVkdGJmTFVBWFE?oc=5",
   "published": 1790887083,
-  "id": "n35"
+  "id": "n37"
  },
  {
   "symbol": "BZ=F",
@@ -385,15 +309,15 @@
   "source": "WSJ",
   "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxPNmhPcVdsYXVvN2poOUlFX1dYN3htRTFkenA5T2VwekZleFZRZ0Uyb1ZUbWkzOXVzaUdlXzJKQWFzSDN6cURIMmUxbG00QWhvR2Utdy1acFplejVvU3hWTDlHRG5zZnNyalNnZ01DdEp1bUxBcWxLak9KTmhjbUw3VXJ5TFRodWExMEVETkNoRi1JemdmTF9IbGZBcGo2ZW5zREdjSjNlQ2R4X3hKbkNzb3REQl9CVEx4U2xIZDRvZDBCMUNOYVZzdHhZMkVXRDBQUmlrRnA1M3ZaSTFfX1l2M0t6bEZaT0treWMw?oc=5",
   "published": 1790884920,
-  "id": "n36"
+  "id": "n38"
  },
  {
   "symbol": "GC=F",
   "title": "Gold Price Forecast: XAU/USD Plunges 12.4% Toward Critical Support",
-  "source": "stonex.com",
+  "source": "StoneX",
   "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPdHdFdmdGS3RROFktSzNxckY4d1dLM2thRWZpVUxSeVpPNzNTcjhSRUFNOG9WZzdzYVVzcFkxRnJiRFIxbElDRlBFcHFVMmVIdDVfSHlUNFVkRnJsVUhoMlB5SDVCcEVfM3BjLU5ManVLQS01a242bm5qcWdBY0NfOC1tXzcxbWV3OGQweWxWVjJPNVVldENraUJaclhXdzBQRWluZTF2eWNYdWdLUEx5UGV1d0pUZw?oc=5",
   "published": 1790883053,
-  "id": "n37"
+  "id": "n39"
  },
  {
   "symbol": "GC=F",
@@ -401,7 +325,7 @@
   "source": "XTB.com",
   "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTFBBRWN1SlZHY2Z5LVVYTl9mQ3JiNzlzU3hjSWVaUmZheTI0YUpGYlBpSGFNVWpJZEN2S0ZBX1c3LUdPb1dUSjBqcVoxaHF3N2sxM3ZiVDA0Y214THpPZU5lVHFyTVhibzhqYWhMR3lYTDdZdzFRU0RKeURn?oc=5",
   "published": 1790882734,
-  "id": "n38"
+  "id": "n40"
  },
  {
   "symbol": "KC=F",
@@ -409,11 +333,7 @@
   "source": "inkl",
   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOQWZsdm9RYkJnX050azAwejhsNUdONm85NDdId24yS05mbkJsbE56NkE4bmo1d1ZsYlVQbUVHMEYtRHd2QVBJZlFxeVVvSUx5d0tWWWFWODFxUGV3TGhTM0hkbVVENnRKUnppOVVfVV8xYUY2UE9aRzFyS1l6R3NQbUM0cDc0SmxYQmVLZHU0aVVpOTFW?oc=5",
   "published": 1790881202,
-  "id": "n39",
-  "claude": {
-   "impact": "neutral",
-   "take": "Coffee top performer in September; momentum carried into October, consistent with KC +3.58% day. Bullish retrace setup intact."
-  }
+  "id": "n41"
  },
  {
   "symbol": "CC=F",
@@ -421,11 +341,7 @@
   "source": "inkl",
   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOQWZsdm9RYkJnX050azAwejhsNUdONm85NDdId24yS05mbkJsbE56NkE4bmo1d1ZsYlVQbUVHMEYtRHd2QVBJZlFxeVVvSUx5d0tWWWFWODFxUGV3TGhTM0hkbVVENnRKUnppOVVfVV8xYUY2UE9aRzFyS1l6R3NQbUM0cDc0SmxYQmVLZHU0aVVpOTFW?oc=5",
   "published": 1790881202,
-  "id": "n40",
-  "claude": {
-   "impact": "neutral",
-   "take": "September top/bottom performers listed; cocoa and coffee show up as top movers. Reflects momentum but setup timing still key."
-  }
+  "id": "n42"
  },
  {
   "symbol": "CC=F",
@@ -433,11 +349,7 @@
   "source": "Barchart.com",
   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxNekJPbVR5ajRWaTZROEtEZGFuU0tVeHpiWHlKb3pCZDhaeUNkUXRqYUhFVWlIMU9jaTkxel9DLTBQUTBxU0RfTjJtVC02OHZkMUtPc0UxcVppNDR0WEQxMWx3Q2o5elVoeDRlY1NVaFJkVW1pSG1vUm5zbnVqYzB2MWh6WEVQV2RJeC1raUV1bGtNV3FJRHhyMjlxWlBRcFpwZ0V1UFp0Wk1jNlBj?oc=5",
   "published": 1790881202,
-  "id": "n41",
-  "claude": {
-   "impact": "neutral",
-   "take": "Barchart September performers repeated; same message, cocoa and coffee in focus."
-  }
+  "id": "n43"
  },
  {
   "symbol": "ZC=F",
@@ -445,11 +357,7 @@
   "source": "TradingView",
   "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxOWVYzWVZRMHdRc2RmT2wzWTFXbG9IOUZPaW5DY2FZUHZ0Z2JQQXhMUWNFdFRPZmowTURiNkFYdVBLTEl4T2E4QURNMUltX3FyVDNxRUtNWlk1cWprMUw4T0I2Zks4ZzAtZzZmazE3VTdjLW1HRkdWTUJvVl9hanZNbFNZVnlFc1NLTjZTS3JHZHNVNjJmcnA4YUNBbXk?oc=5",
   "published": 1790875253,
-  "id": "n42",
-  "claude": {
-   "impact": "bearish",
-   "take": "Corn selling extends to start of October; continuation of bearish pressure. Supports ZC bearish bias, avoid."
-  }
+  "id": "n44"
  },
  {
   "symbol": "CC=F",
@@ -457,7 +365,7 @@
   "source": "TradingView",
   "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQLUgxNlpRYjF6SFZDNFM1M19hU3dDTkkxUURhMmtvOThOd0s4eW01b3oyMVhfVU8zckZiUTZ2bjZlckxpeTd5RzhUWnc4NkJpLTJNS1JoWmp5NnBZU3Z3TXdGSzBiVlNsekY5ckh3bnpwOTcxRXJUaE5Iamp1R0ZibjIzZVc0dzdzX0FmejMyUUdEeFAyRXdjU0JLZw?oc=5",
   "published": 1790871608,
-  "id": "n43"
+  "id": "n45"
  },
  {
   "symbol": "KC=F",
@@ -465,31 +373,15 @@
   "source": "Barchart.com",
   "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQb2p1dUF4Umw0MnMtUnpyVlhnUGpNRWc3VzUtWHZWa2JNaklHYUs0YzlMRmdpbG1WcDBjT21wUGczYUhmUzVvdUFkZXBGM28zOVBKS1E4WXB0MzE3LWJjU0c3TG9YX0tINDVTTGJPZ0l6N3dvdlNqR0Z0Vjl0RXB6QmZGb2tOV0RCNWRRMU1WM3NaNWplZXZTY01BY3RxSXFKY0E?oc=5",
   "published": 1790870901,
-  "id": "n44",
-  "claude": {
-   "impact": "bearish",
-   "take": "Dollar strength spurs coffee long liquidation; USD index up, drag on coffee longs. Headwind for KC entry, but FVG retrace could overcome this."
-  }
- },
- {
-  "symbol": "KC=F",
-  "title": "ICO launches interactive data platform to narrow the coffee sector\u2019s information gap",
-  "source": "Tea & Coffee Trade Journal",
-  "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxPZEJlZFZqZjFacXFKbkFWdmY1cUZfV2xhWW1OaFN1QmxfR3ZqQXpiLUItN19FNWtjNFFOcC0tejhlRHdmTnQxdm9teGRTelJWSXFndVpudWRxVEVQd1ZNZzRxYWx3aFpKdldPTW1CRGRTX08zZWZYYU0xMDV5c1liWVF4ckNrMkF5YnVRd0ZsSkpDbmprVlhUU200RGdCMjFnMURITDFSRHRXNFgzRGVOZ1FSVHNuaG41TW5kV3pIT0tVdw?oc=5",
-  "published": 1790868969,
-  "id": "n45",
-  "claude": {
-   "impact": "neutral",
-   "take": "ICO launches data platform; industry infrastructure news, no price catalyst."
-  }
- },
- {
-  "symbol": "CC=F",
-  "title": "Can Lindt & Sprungli sales outlook pressure cocoa price?",
-  "source": "Traders Union",
-  "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNRUpFenp3NzZoX2paZkhGVXFUeFVrbnh4VURsckd4eldvQ2h5VW1hMjFyUlN1dmJiMFlFQ2FnNXJDdUI4Rjk1YXJUNEItbTdkdWZpMXdkcW1YTm9tUUR6Q3hueWtUWUxsLTE1b3NfVUowZ0M5Vm40M19fZ3RJN3AzWi1ZeFQzZ2tjTzNHTkMxRXN5RGFn?oc=5",
-  "published": 1790857445,
   "id": "n46"
+ },
+ {
+  "symbol": "ZC=F",
+  "title": "South Korea Steps In To Buy Corn After Prices Fell",
+  "source": "finimize.com",
+  "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQYlJ6WEtDdS1hQzg1SjRGS2pMUVhPWl9wTVNDUXhkamNBWmlUeDRXTGN6SVNBTjctaTBSQXl1OG9oSVNBallsb29qUEVIbDQ2d0VsR3RsaUVVTnZjOVRZZlVCSnJqVXZwVHVtQ0ljY0F4b3lFUERPYkJZNmltSmxvMEFmUjdIUQ?oc=5",
+  "published": 1790857918,
+  "id": "n47"
  },
  {
   "symbol": "ZC=F",
@@ -497,20 +389,12 @@
   "source": "National Hog Farmer",
   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPLUNQaEw4ZHI1SU5wX2loZDA3VlhUckYyYjhmUXZwOUw4cEw4dDhmTlhGMEs2bDdtNXliRTViWFJHWGs2eDVoWm80eGUxSzdXSnMwSEhHcVpESzYySDZxamRBRFZ1TWJQSTQ3WmNQZmVnLUxoTW5JV09DeUdqRlVEb0w4Y3lCVXVHZkJkb2dGOF9PRmlHVUJzb2MyejhGemptT0t1OWFHbUxzcjBYbGRucGlGS0w?oc=5",
   "published": 1790854248,
-  "id": "n47"
- },
- {
-  "symbol": "ZC=F",
-  "title": "South Korea Steps In To Buy Corn After Prices Fell",
-  "source": "Finimize",
-  "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxQYlJ6WEtDdS1hQzg1SjRGS2pMUVhPWl9wTVNDUXhkamNBWmlUeDRXTGN6SVNBTjctaTBSQXl1OG9oSVNBallsb29qUEVIbDQ2d0VsR3RsaUVVTnZjOVRZZlVCSnJqVXZwVHVtQ0ljY0F4b3lFUERPYkJZNmltSmxvMEFmUjdIUQ?oc=5",
-  "published": 1790847118,
   "id": "n48"
  },
  {
   "symbol": "KC=F",
   "title": "Coffee markets edge higher in the final stretch of the month, certified stocks still close to historic lows",
-  "source": "Comunicaffe International",
+  "source": "comunicaffe.com",
   "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOckszS0U2cUIzX0xtWGlUZURVMk4xWXp1TGR2bE04NzlGYkNEZURzdUV0SGVwTVV6dmw0eDFJVmpfWE5CMUdlZHducW5xY3ozbENYQTFiQmI0T0MzYVhwNy04bE41aUlBV3dZTWVhODhDWjB5NjVIZTZXbVVlbDQ2TWRVRG9ZbVZ2SVFIamhwZFZ3dm05VHAzeExJWDVKRkhfaGd2SldkOG5rd1JrWG9NczhtZThrbGROWEFrRjdn?oc=5",
   "published": 1790847082,
   "id": "n49"
@@ -532,12 +416,20 @@
   "id": "n51"
  },
  {
+  "symbol": "BZ=F",
+  "title": "Why oil is still trading near $100 even though Gulf exports have recovered",
+  "source": "Yahoo Finance UK",
+  "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQUVVJZnBNNXRzcC01WVpHaVR1aWtVRkhrQzNIOFBJYk5EcXpOaWlWd3I4TEZScjRPempqZmt6UVpjcFdQOENXZDFLNjNmcHNueTJ1Z0FFX0ZPZmtJdnJrY3BZU25aTXZ2Qko1SGxpMjFoaFpjU2xVTkNXV1RfRlQtSA?oc=5",
+  "published": 1790834580,
+  "id": "n52"
+ },
+ {
   "symbol": "CL=F",
   "title": "Brent oil jumps more than 4% as U.S. reportedly sends third aircraft carrier to Middle East",
   "source": "CNBC",
   "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5yODZYTkUzZ09LMVducjBvQ1czQUc2WFdZNmVuUUpDVnpZMEJfMGhpWkkzQlRLUGprcDNielYycW8xYU5peDhhcy1pbzNJUVo1YkV0MjktUVliQ3NTc1ZNOXpDSUtubXZIYnBGOS04NDTSAXZBVV95cUxOQU83cmR3ZHl6YWl1V2RNcFRXbzJqRkFKZktLMkVobTBKMGxibmxDcEQwWjFqdXFQcFozSUVpVUhvZF85SDNCQzZxVk42RjdTWXdWcXd6SkNmWWlLVy1iT0l0NHlRUHNJOG5UZEQ5NlhoMHNmWnVB?oc=5",
   "published": 1790831832,
-  "id": "n52"
+  "id": "n53"
  },
  {
   "symbol": "BZ=F",
@@ -545,7 +437,7 @@
   "source": "Crude Oil Prices Today | OilPrice.com",
   "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxQQUNaV1AzUG1Zd0p2QmFqZnotZVV1Y1RxVWtDRTJUMXItcW9lNTNmYl9uOWN4eHRwV3FMREJ0aFhNRUlIZS1FamxSRDBWR3BoNERiR2haYjVIWXZ5WHhmdUV5Y1F6cFBXU2R2THo3X2wxM3FKT01TQXNqWnBNTFJOWFhmbmpPdXdPb1pyaE5yTUp3N3FoZjBzbG1vLVdJMFgtaFQtZDMyY2jSAa4BQVVfeXFMUG1DdGpqZURwY2hycjU0dTl2a3dMaFhrbHR0LUlpaHZuMHcyM2lrNWZPVFhrVENwWEl6Mk83dktpd1dDVjRxSXJ4WjZNTVBfQkJqNWZlSnlRc2lsRUE2MjJ2ek1XTzVrTGM1T210QTJSc3dMb0NfRlNoaENMc3dpeEVRY3ZpNlc4S1c3MWpnVW5qT25ha24zZElIc1VsOV9lMF9FMTdmMkpGTDBYTEpR?oc=5",
   "published": 1790831820,
-  "id": "n53"
+  "id": "n54"
  },
  {
   "symbol": "ZW=F",
@@ -553,7 +445,7 @@
   "source": "CME Group",
   "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9vTVo0MlZvdFhKSmpLQlVucjB1aGlDMFF1LWlNVFJUOHdPejBYM1pLd012ZFBtbVhpU0tfT1c2TWc0cUxqek5Ld0ZKQlc1cWJwbzZfa1doaDVqNUI3ejBINEVCaTdXX1hFQ1Njanpadw?oc=5",
   "published": 1790804427,
-  "id": "n54"
+  "id": "n55"
  },
  {
   "symbol": "ZC=F",
@@ -561,7 +453,15 @@
   "source": "CME Group",
   "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9vTVo0MlZvdFhKSmpLQlVucjB1aGlDMFF1LWlNVFJUOHdPejBYM1pLd012ZFBtbVhpU0tfT1c2TWc0cUxqek5Ld0ZKQlc1cWJwbzZfa1doaDVqNUI3ejBINEVCaTdXX1hFQ1Njanpadw?oc=5",
   "published": 1790804427,
-  "id": "n55"
+  "id": "n56"
+ },
+ {
+  "symbol": "CC=F",
+  "title": "Cocoa Prices Fall as Demand Weakens",
+  "source": "Barchart.com",
+  "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxNY0llTjgzZUdwSUc4dHlhaEV6c0hOS3ltVkd4Z0VHLWRTWnU5aHcwQ0ZaLWN0dlNpc3pDNFJTa2djRXFQZ0FKT1phMjBqV0pibzczbTN6NE1FQ215U3k4a2R3RnIwc19RenRpSC1UbFpIOTNteUZQcm1UMnBMYWNYSk9ZZ1ptdw?oc=5",
+  "published": 1790792569,
+  "id": "n57"
  },
  {
   "symbol": "KC=F",
@@ -569,15 +469,7 @@
   "source": "Barchart.com",
   "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNWHVuMDA2R0ZtMEJ5ck5SOURFMlBJUXZtU2F3YkVRV0FFX1pVVHkxdGtmUE9iOG5JdVFVUDZlcHJOaThoSUhHc3VVWHE2bDByVUVHTlBLSDZDSXk0TVY1cndFczFmdlhObHVhQTVZYXhubDRFZ3NkbUNIaUdrYnJXNHNhUXJTa1hwYnFCNGFNZw?oc=5",
   "published": 1790792507,
-  "id": "n56"
- },
- {
-  "symbol": "SI=F",
-  "title": "Silver Price Today In The UK, 30 September 2026",
-  "source": "Forbes",
-  "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5GY2NSNTc5Y0RCLW9QeXlCNDFpZ21IRFpsbDFWTXZSUTYwNWZPckFSak1ZZzhRaUk2azJ0WFZJWjFuXzc3bGxyVnRLMFNtemdYMktkZFlIUWE0N05HWHZQd05IRHpjR0tY?oc=5",
-  "published": 1790775840,
-  "id": "n57"
+  "id": "n58"
  },
  {
   "symbol": "KC=F",
@@ -585,14 +477,6 @@
   "source": "Daily Coffee News by Roast Magazine",
   "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPMVNROV83NEsyVDZ2WjNIQ09kTzFqMTA0UEptbVlKdnZ3YkwwajZHd2R1d2Y0SjMxZ0ltSU9tQzlGak51U2FSejU4QUh0cFV3eVlDbHlnZmRRRmdEQ2JpUTNqZXdVVW1qSTJ4TjNvWXkya0R1Vy1VZTlyU2RmR1BLTXRISzRXbkVXYlUyeHlhSEJuUFpzcWNXTFI1THphTWQt?oc=5",
   "published": 1790775780,
-  "id": "n58"
- },
- {
-  "symbol": "CL=F",
-  "title": "Analysts raise 2026 oil forecasts on prolonged Gulf disruption: Reuters poll",
-  "source": "Reuters",
-  "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOb1lVNHRnWlpZc2Q4anY4a2dCTndQN3JKSWdTSkVkRGNfdWxra2xlVDAtUGJqOGVBUURGZjh0YUxaSzNpZktWTkFoSG1EUV84SkI5WF9nWVRZXzRNd3pxZWZJOFIwNU5veE9naWlaMGhMV3Vjclc3c3Uzc1pxXzhCaTl4OTktdzVONHlNMTBpYTBBUVRrT3VMeWdyUW1UWUtycWlWa1BtUjdWNjdiV0cxdQ?oc=5",
-  "published": 1790773539,
   "id": "n59"
  }
 ]
