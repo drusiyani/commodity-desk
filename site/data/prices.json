@@ -3,6 +3,7 @@
   "name": "WTI crude",
   "group": "Energy",
   "unit": "$ per barrel",
+  "exchange": "NYMEX",
   "bars": [
    {
     "time": 1784865600,
@@ -7905,7 +7906,14 @@
     "open": 89.16,
     "high": 89.84,
     "low": 89.02,
-    "close": 89.42
+    "close": 89.39
+   },
+   {
+    "time": 1790938800,
+    "open": 89.42,
+    "high": 89.44,
+    "low": 89.19,
+    "close": 89.27
    }
   ]
  },
@@ -7913,6 +7921,7 @@
   "name": "Brent crude",
   "group": "Energy",
   "unit": "$ per barrel",
+  "exchange": "NYMEX",
   "bars": [
    {
     "time": 1784865600,
@@ -15599,6 +15608,13 @@
     "high": 100.24,
     "low": 99.15,
     "close": 99.93
+   },
+   {
+    "time": 1790938800,
+    "open": 99.92,
+    "high": 99.92,
+    "low": 99.75,
+    "close": 99.86
    }
   ]
  },
@@ -15606,6 +15622,7 @@
   "name": "Natural gas",
   "group": "Energy",
   "unit": "$ per MMBtu",
+  "exchange": "NYMEX",
   "bars": [
    {
     "time": 1784865600,
@@ -23543,7 +23560,14 @@
     "open": 2.925,
     "high": 2.938,
     "low": 2.922,
-    "close": 2.923
+    "close": 2.925
+   },
+   {
+    "time": 1790938800,
+    "open": 2.924,
+    "high": 2.928,
+    "low": 2.919,
+    "close": 2.921
    }
   ]
  },
@@ -23551,6 +23575,7 @@
   "name": "Gold",
   "group": "Metals",
   "unit": "$ per ounce",
+  "exchange": "COMEX",
   "bars": [
    {
     "time": 1784865600,
@@ -31467,7 +31492,14 @@
     "open": 4213.8999,
     "high": 4216.0,
     "low": 4195.3999,
-    "close": 4212.2002
+    "close": 4212.7002
+   },
+   {
+    "time": 1790938800,
+    "open": 4212.6001,
+    "high": 4215.2998,
+    "low": 4211.7002,
+    "close": 4213.8999
    }
   ]
  },
@@ -31475,6 +31507,7 @@
   "name": "Silver",
   "group": "Metals",
   "unit": "$ per ounce",
+  "exchange": "COMEX",
   "bars": [
    {
     "time": 1784865600,
@@ -39405,7 +39438,14 @@
     "open": 61.515,
     "high": 61.55,
     "low": 61.09,
-    "close": 61.42
+    "close": 61.4
+   },
+   {
+    "time": 1790938800,
+    "open": 61.405,
+    "high": 61.445,
+    "low": 61.31,
+    "close": 61.435
    }
   ]
  },
@@ -39413,6 +39453,7 @@
   "name": "Copper",
   "group": "Metals",
   "unit": "$ per pound",
+  "exchange": "COMEX",
   "bars": [
    {
     "time": 1784865600,
@@ -47315,7 +47356,14 @@
     "open": 6.5545,
     "high": 6.566,
     "low": 6.5325,
-    "close": 6.565
+    "close": 6.5625
+   },
+   {
+    "time": 1790938800,
+    "open": 6.5635,
+    "high": 6.5645,
+    "low": 6.56,
+    "close": 6.5615
    }
   ]
  },
@@ -47323,6 +47371,7 @@
   "name": "Coffee",
   "group": "Agriculture",
   "unit": "cents per pound",
+  "exchange": "ICE US",
   "bars": [
    {
     "time": 1784880000,
@@ -50752,7 +50801,7 @@
     "open": 295.2,
     "high": 295.95,
     "low": 294.45,
-    "close": 294.95
+    "close": 294.75
    }
   ]
  },
@@ -50760,6 +50809,7 @@
   "name": "Wheat",
   "group": "Agriculture",
   "unit": "cents per bushel",
+  "exchange": "CBOT",
   "bars": [
    {
     "time": 1784865600,
@@ -57297,7 +57347,14 @@
     "open": 687.0,
     "high": 687.75,
     "low": 685.0,
-    "close": 686.75
+    "close": 686.5
+   },
+   {
+    "time": 1790938800,
+    "open": 686.25,
+    "high": 686.75,
+    "low": 686.25,
+    "close": 686.5
    }
   ]
  },
@@ -57305,6 +57362,7 @@
   "name": "Corn",
   "group": "Agriculture",
   "unit": "cents per bushel",
+  "exchange": "CBOT",
   "bars": [
    {
     "time": 1784865600,
@@ -63843,6 +63901,13 @@
     "high": 500.75,
     "low": 499.75,
     "close": 500.0
+   },
+   {
+    "time": 1790938800,
+    "open": 500.0,
+    "high": 500.25,
+    "low": 499.75,
+    "close": 500.0
    }
   ]
  },
@@ -63850,6 +63915,7 @@
   "name": "Cocoa",
   "group": "Agriculture",
   "unit": "$ per tonne",
+  "exchange": "ICE US",
   "bars": [
    {
     "time": 1784880000,
@@ -67279,7 +67345,7 @@
     "open": 5501.0,
     "high": 5535.0,
     "low": 5470.0,
-    "close": 5516.0
+    "close": 5507.0
    }
   ]
  }

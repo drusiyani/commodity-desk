@@ -1,7 +1,7 @@
 {
  "CL=F": {
   "structure": "bullish",
-  "pd": 0.106,
+  "pd": 0.087,
   "zone": "discount",
   "range": [
    88.58,
@@ -54,11 +54,11 @@
     "pd_at_sweep": 0.626
    }
   ],
-  "text": "bullish structure; price at 11% of the 5-day range (discount); buy-side liquidity above at 89.89; sell-side liquidity below at 88.79; bearish setup live: sweep at 92.9, shift through 90.5, price back in FVG 89.67-90.1"
+  "text": "bullish structure; price at 9% of the 5-day range (discount); buy-side liquidity above at 89.89; sell-side liquidity below at 88.79; bearish setup live: sweep at 92.9, shift through 90.5, price back in FVG 89.67-90.1"
  },
  "BZ=F": {
   "structure": "ranging",
-  "pd": 0.426,
+  "pd": 0.42,
   "zone": "discount",
   "range": [
    95.14,
@@ -84,12 +84,12 @@
   ],
   "fvgs_above": [
    [
-    100.6,
-    101.21
+    99.89,
+    100.25
    ],
    [
-    101.47,
-    101.68
+    100.6,
+    101.21
    ]
   ],
   "setup": {
@@ -114,11 +114,11 @@
     "pd_at_sweep": 0.357
    }
   ],
-  "text": "ranging structure; price at 43% of the 5-day range (discount); buy-side liquidity above at 100.29; sell-side liquidity below at 99.53; bullish sweep of sell-side liquidity at 99.53, no structure shift yet"
+  "text": "ranging structure; price at 42% of the 5-day range (discount); buy-side liquidity above at 100.29; sell-side liquidity below at 99.53; bullish sweep of sell-side liquidity at 99.53, no structure shift yet"
  },
  "NG=F": {
   "structure": "bearish",
-  "pd": 0.029,
+  "pd": 0.023,
   "zone": "discount",
   "range": [
    2.912,
@@ -162,19 +162,19 @@
     "pd_at_sweep": 0.0
    }
   ],
-  "text": "bearish structure; price at 3% of the 5-day range (discount); buy-side liquidity above at 3.021; bullish sweep of sell-side liquidity at 2.966, no structure shift yet"
+  "text": "bearish structure; price at 2% of the 5-day range (discount); buy-side liquidity above at 3.021; bullish sweep of sell-side liquidity at 2.966, no structure shift yet"
  },
  "GC=F": {
   "structure": "ranging",
-  "pd": 0.331,
+  "pd": 0.34,
   "zone": "discount",
   "range": [
    4143.1001,
    4351.6001
   ],
   "liquidity_above": [
-   4213.2998,
-   4217.6001
+   4217.6001,
+   4217.7998
   ],
   "liquidity_below": [
    4198.6001,
@@ -234,11 +234,11 @@
     "pd_at_sweep": 0.401
    }
   ],
-  "text": "ranging structure; price at 33% of the 5-day range (discount); buy-side liquidity above at 4213.3; sell-side liquidity below at 4198.6; bullish setup live: sweep at 4179.5, shift through 4213.3, price back in FVG 4207.9-4212.8"
+  "text": "ranging structure; price at 34% of the 5-day range (discount); buy-side liquidity above at 4217.6; sell-side liquidity below at 4198.6; bullish setup live: sweep at 4179.5, shift through 4213.3, price back in FVG 4207.9-4212.8"
  },
  "SI=F": {
-  "structure": "bearish",
-  "pd": 0.221,
+  "structure": "ranging",
+  "pd": 0.224,
   "zone": "discount",
   "range": [
    60.26,
@@ -303,11 +303,11 @@
     "pd_at_sweep": 0.246
    }
   ],
-  "text": "bearish structure; price at 22% of the 5-day range (discount); buy-side liquidity above at 61.54; sell-side liquidity below at 61.31; bearish sweep of buy-side liquidity at 61.54, no structure shift yet"
+  "text": "ranging structure; price at 22% of the 5-day range (discount); buy-side liquidity above at 61.54; sell-side liquidity below at 61.31; bearish sweep of buy-side liquidity at 61.54, no structure shift yet"
  },
  "HG=F": {
   "structure": "ranging",
-  "pd": 0.194,
+  "pd": 0.182,
   "zone": "discount",
   "range": [
    6.509,
@@ -367,11 +367,11 @@
     "pd_at_sweep": 0.345
    }
   ],
-  "text": "ranging structure; price at 19% of the 5-day range (discount); buy-side liquidity above at 6.595; sell-side liquidity below at 6.528; bearish sweep of buy-side liquidity at 6.595, no structure shift yet"
+  "text": "ranging structure; price at 18% of the 5-day range (discount); buy-side liquidity above at 6.595; sell-side liquidity below at 6.528; bearish sweep of buy-side liquidity at 6.595, no structure shift yet"
  },
  "KC=F": {
   "structure": "bearish",
-  "pd": 0.867,
+  "pd": 0.861,
   "zone": "premium",
   "range": [
    269.75,
@@ -433,11 +433,11 @@
     "pd_at_sweep": 0.902
    }
   ],
-  "text": "bearish structure; price at 87% of the 5-day range (premium); buy-side liquidity above at 298.8; sell-side liquidity below at 284.75; bullish sweep, structure shift and FVG 289.55-292.75, waiting for price to return to it"
+  "text": "bearish structure; price at 86% of the 5-day range (premium); buy-side liquidity above at 298.8; sell-side liquidity below at 284.75; bullish sweep, structure shift and FVG 289.55-292.75, waiting for price to return to it"
  },
  "ZW=F": {
   "structure": "bullish",
-  "pd": 0.383,
+  "pd": 0.377,
   "zone": "discount",
   "range": [
    670.75,
@@ -448,8 +448,8 @@
    693.5
   ],
   "liquidity_below": [
-   686.5,
-   686.0
+   686.0,
+   685.0
   ],
   "fvgs_below": [
    [
@@ -493,7 +493,7 @@
     "pd_at_sweep": 0.419
    }
   ],
-  "text": "bullish structure; price at 38% of the 5-day range (discount); buy-side liquidity above at 690.25; sell-side liquidity below at 686.5; bearish sweep of buy-side liquidity at 683.5, no structure shift yet"
+  "text": "bullish structure; price at 38% of the 5-day range (discount); buy-side liquidity above at 690.25; sell-side liquidity below at 686; bearish sweep of buy-side liquidity at 683.5, no structure shift yet"
  },
  "ZC=F": {
   "structure": "bearish",
@@ -549,7 +549,7 @@
  },
  "CC=F": {
   "structure": "bearish",
-  "pd": 0.467,
+  "pd": 0.458,
   "zone": "discount",
   "range": [
    5051.0,
@@ -615,6 +615,6 @@
     "pd_at_sweep": 0.486
    }
   ],
-  "text": "bearish structure; price at 47% of the 5-day range (discount); buy-side liquidity above at 5520; sell-side liquidity below at 5462; bullish sweep at 5292 and structure shift through 5505, no clean FVG"
+  "text": "bearish structure; price at 46% of the 5-day range (discount); buy-side liquidity above at 5520; sell-side liquidity below at 5462; bullish sweep at 5292 and structure shift through 5505, no clean FVG"
  }
 }
