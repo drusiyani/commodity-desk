@@ -151,5 +151,82 @@
   "summary": "Mixed macro backdrop with energy rallying on geopolitical premium but broader headwinds (stronger USD, falling yields, weak copper) limiting conviction. Holding cash and waiting for a clearer directional edge before deploying capital.",
   "state": "WAITING",
   "trades": 0
+ },
+ {
+  "t": 1790915012,
+  "paused": false,
+  "markets": [
+   {
+    "symbol": "CL=F",
+    "bias": "bullish",
+    "setup_score": 62,
+    "note": "Short-term rally on geopolitical risk, but 20d trend negative; lacks conviction for entry without pullback"
+   },
+   {
+    "symbol": "BZ=F",
+    "bias": "bullish",
+    "setup_score": 65,
+    "note": "Stronger 5d/20d momentum than WTI, but Morgan Stanley forecast cuts suggest caution; geopolitical premium not sustainable"
+   },
+   {
+    "symbol": "NG=F",
+    "bias": "bearish",
+    "setup_score": 45,
+    "note": "LNG supply disruptions supportive but overshadowed by 5d -9.21% decline; no clear entry"
+   },
+   {
+    "symbol": "GC=F",
+    "bias": "neutral",
+    "setup_score": 35,
+    "note": "Flat on the day; headwinds from strong USD and falling yields; technical forecasts warn of further downside risk"
+   },
+   {
+    "symbol": "SI=F",
+    "bias": "bearish",
+    "setup_score": 28,
+    "note": "Weak 5d/20d trends; USD rally and inflation concerns pressuring; no setup"
+   },
+   {
+    "symbol": "HG=F",
+    "bias": "bearish",
+    "setup_score": 25,
+    "note": "Copper weakness persists despite energy rally; reflects demand concerns and macro headwinds"
+   },
+   {
+    "symbol": "KC=F",
+    "bias": "neutral",
+    "setup_score": 48,
+    "note": "5d +4.01% but long liquidation due to USD strength; mixed signals, no clear edge"
+   },
+   {
+    "symbol": "ZW=F",
+    "bias": "neutral",
+    "setup_score": 42,
+    "note": "Minor overnight gain but 20d downtrend intact; USDA stocks pressure limiting upside"
+   },
+   {
+    "symbol": "ZC=F",
+    "bias": "bearish",
+    "setup_score": 30,
+    "note": "Flat today; 5d/20d weakness continues; no setup"
+   },
+   {
+    "symbol": "CC=F",
+    "bias": "bullish",
+    "setup_score": 55,
+    "note": "Supply risks supportive and +2.06% today, but 20d -7.86% trend and cocoa volatility create sizing risk"
+   }
+  ],
+  "watching": [
+   "US nonfarm payrolls data timing and impact on yields/USD strength",
+   "Geopolitical premium durability in oil; does it fade or escalate further?",
+   "Copper stabilization; if it holds, broader risk-on could support energy and softs",
+   "Gold technical support levels; forecast warns of 12.4% plunge risk if broken",
+   "Agricultural USDA stocks and weather reports for grain direction clarity"
+  ],
+  "blocked": [],
+  "summary": "Mixed macro backdrop persists: energy rallying on geopolitical premium but USD strength, falling yields, and broad metals weakness limit conviction. Holding cash; waiting for clearer directional edge before deploying capital.",
+  "state": "WAITING",
+  "trades": 0
  }
 ]
