@@ -615,8 +615,12 @@ Use empty lists for "trades" and "adjust" if nothing to do."""
         body.pop("thinking")
         r = requests.post("https://api.anthropic.com/v1/messages", timeout=300, headers=headers, json=body)
     r.raise_for_status()
-    text = "".join(b.get("text", "") for b in r.json()["content"])
-    return json.loads(text[text.index("{"): text.rindex("}") + 1])
+    content = r.json()["content"]
+    text = "".join(b.get("text", "") for b in content if b.get("type") == "text")
+    thinking = "\n\n".join(b.get("thinking", "") for b in content if b.get("type") == "thinking").strip()
+    decision = json.loads(text[text.index("{"): text.rindex("}") + 1])
+    decision["_thinking"] = thinking
+    return decision
 
 
 # ---------- main ----------
@@ -695,7 +699,8 @@ def main():
                 if m.get("symbol") in last_usd and m.get("bias") in ("bullish", "bearish", "neutral"):
                     calls.append({"t": now, "symbol": m["symbol"], "bias": m["bias"],
                                   "score": m.get("setup_score"), "price": last_usd[m["symbol"]]})
-            entry.update(reasoning=str(decision.get("reasoning", ""))[:900],
+            entry.update(thinking=decision.get("_thinking", "")[:12000],
+                         reasoning=str(decision.get("reasoning", ""))[:900],
                          summary=str(decision.get("summary", ""))[:500],
                          markets=decision.get("markets", [])[:10],
                          watching=[str(w)[:160] for w in decision.get("watching", [])][:6],
