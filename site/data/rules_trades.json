@@ -77,5 +77,16 @@
   "reason": "20h average fell below 100h average",
   "source": "rules",
   "pnl": -42.53
+ },
+ {
+  "t": 1790945394,
+  "symbol": "SI=F",
+  "name": "Silver",
+  "action": "BUY",
+  "qty": 211.5443,
+  "price": 62.245,
+  "value": 9958.11,
+  "reason": "20h average crossed above 100h average",
+  "source": "rules"
  }
 ]

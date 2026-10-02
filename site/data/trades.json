@@ -17,5 +17,17 @@
   ],
   "stop": 4179.5,
   "target": 4250.7
+ },
+ {
+  "t": 1790945394,
+  "symbol": "GC=F",
+  "name": "Gold",
+  "action": "SELL",
+  "qty": 6.2696,
+  "price": 4250.7,
+  "value": 20154.57,
+  "reason": "Target hit at $4,250.700",
+  "source": "target",
+  "pnl": 154.57
  }
 ]
