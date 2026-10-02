@@ -88,5 +88,17 @@
   "value": 9958.11,
   "reason": "20h average crossed above 100h average",
   "source": "rules"
+ },
+ {
+  "t": 1790950959,
+  "symbol": "BZ=F",
+  "name": "Brent crude",
+  "action": "SELL",
+  "qty": 129.1128,
+  "price": 98.7,
+  "value": 9621.8,
+  "reason": "20h average fell below 100h average",
+  "source": "rules",
+  "pnl": -378.2
  }
 ]
