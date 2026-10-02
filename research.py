@@ -75,7 +75,8 @@ def simulate(series, st, start, end):
 
 def evaluate(st, data):
     tf = st["timeframe"]
-    syms = [s for s in data[tf] if st.get("markets") in (None, ["all"]) or s in st.get("markets", [])]
+    wanted = F.resolve_markets(st.get("markets"), E.COMMODITIES)
+    syms = [s for s in data[tf] if s in wanted]
     result = {}
     for part in ("train", "test"):
         per, all_trades, rets = {}, [], []
@@ -183,6 +184,7 @@ Rules of the lab, so your ideas are tested fairly:
 Features you can use (N is a whole number from 2 to 500):
 {SPEC}
 Operators: {", ".join(F.OPS)}.
+"markets" is ["all"], or a list of symbols (like "GC=F"), names (like "Gold") or groups ("Energy", "Metals", "Agriculture").
 "right" can be a number, a feature name, or [feature, multiplier] such as ["sma_50", 1.02].
 Entry needs ALL entry conditions true; exit if ANY exit condition is true. Max 6 conditions per list.
 
