@@ -475,9 +475,16 @@ def strategy_brief(strat):
         return "Your strategy lab hasn't produced a strategy that passed its out-of-sample test yet."
     import features as F
     te = strat["results"]["test"]["combined"]
+    v, mc = strat.get("validation") or {}, strat.get("monte_carlo") or {}
+    extra = ""
+    if v.get("windows_traded"):
+        extra += f" It made money in {v['windows_up']} of {v['windows_traded']} walk-forward test windows."
+    if v.get("adj_p") is not None:
+        extra += (f" Chance its record is luck: {mc['p']:.0%}, or {v['adj_p']:.0%} after allowing for the "
+                  f"{v['tested']} strategies the lab has tried.")
     return (f"Your own strategy, invented and tested in your lab: '{strat['name']}' ({strat['timeframe']}). "
             f"Idea: {strat['idea']} Rules: {F.describe(strat['rules'])} On data it was never fitted on it made "
-            f"{te.get('avg_r')}R per trade over {te['trades']} trades (profit factor {te.get('profit_factor')}). "
+            f"{te.get('avg_r')}R per trade over {te['trades']} trades (profit factor {te.get('profit_factor')}).{extra} "
             f"It trades separately on its own account; use its signals as one more input, weighted by that record.")
 
 
