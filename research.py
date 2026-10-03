@@ -15,6 +15,7 @@ import time
 import requests
 
 import backtest as B
+import core as C
 import engine as E
 import features as F
 
@@ -38,39 +39,9 @@ def load_data():
 
 
 def simulate(series, st, start, end):
-    """One market, one strategy, bars start..end-1. Risk 1% per trade, no leverage, costs both ways."""
-    bars, atr = series.bars, series.get(f"atr_{int(st.get('atr_period') or 14)}")
-    cash, pos, trades, curve = B.START, None, [], []
-    for i in range(start, end):
-        b = bars[i]
-        if pos:
-            long = pos["side"] == "long"
-            hit_stop = b["low"] <= pos["stop"] if long else b["high"] >= pos["stop"]
-            hit_tgt = pos["target"] is not None and (b["high"] >= pos["target"] if long else b["low"] <= pos["target"])
-            px = pos["stop"] if hit_stop else pos["target"] if hit_tgt else None
-            if px is None and (F.exit_signal(series, st, pos["side"], i)
-                               or (st.get("max_bars") and i - pos["i"] >= int(st["max_bars"])) or i == end - 1):
-                px = b["close"]
-            if px is not None:
-                pnl = pos["qty"] * ((px - pos["entry"]) if long else (pos["entry"] - px)) - pos["qty"] * px * B.COST
-                cash += pos["margin"] + pnl
-                trades.append({"pnl": pnl, "r": pnl / pos["risk"], "side": pos["side"]})
-                pos = None
-        if not pos and i < end - 1 and atr[i]:
-            side = F.entry_signal(series, st, i)
-            if side:
-                px, dist = b["close"], float(st["stop_atr"]) * atr[i]
-                qty = min(E.ICT_RISK * cash / dist, cash / px)
-                tgt = st.get("target_atr")
-                pos = {"side": side, "qty": qty, "entry": px, "i": i, "margin": qty * px, "risk": qty * dist,
-                       "stop": px - dist if side == "long" else px + dist,
-                       "target": (px + float(tgt) * atr[i] if side == "long" else px - float(tgt) * atr[i]) if tgt else None}
-                cash -= pos["margin"] * (1 + B.COST)
-        value = cash
-        if pos:
-            value += pos["margin"] + pos["qty"] * ((b["close"] - pos["entry"]) if pos["side"] == "long" else (pos["entry"] - b["close"]))
-        curve.append(value)
-    return curve, trades
+    """One market, one strategy, bars start..end-1, through the shared trading core: the same sizing (1% risk,
+    25% cap, no leverage), costs, stops, targets and gap fills as live trading."""
+    return C.backtest(series.bars, C.LabRules(series, st), start, end)
 
 
 def evaluate(st, data):
@@ -87,10 +58,10 @@ def evaluate(st, data):
             a, b = (WARMUP[tf], cut) if part == "train" else (cut, n)
             curve, trades = simulate(s, st, a, b)
             years = (s.bars[b - 1]["time"] - s.bars[a]["time"]) / (365.25 * 86400)
-            per[sym] = B.stats(curve, trades, years)
+            per[sym] = C.stats(curve, trades, years)
             all_trades += trades
             rets.append(per[sym]["return"])
-        combined = B.stats([B.START, B.START * (1 + sum(rets) / max(1, len(rets)))], all_trades, 1)
+        combined = C.stats([C.START, C.START * (1 + sum(rets) / max(1, len(rets)))], all_trades, 1)
         combined.pop("cagr", None)
         combined.pop("max_dd", None)
         combined["worst_market_dd"] = min((p["max_dd"] for p in per.values()), default=0)
