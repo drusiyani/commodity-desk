@@ -28,6 +28,12 @@ Edit `config.json` in the repo:
 - `engine.py`: the hourly live run: data, news, Claude, and the bots.
 - `backtest.py`, `research.py` + `features.py`: bot backtests and Claude's strategy lab.
 
+## Tests
+`tests/` checks the trading core, the ICT detection, the strategy rule language and the risk rules on small
+hand-made price series where the right answer is known, plus a replay that proves live trading and the backtest
+make identical trades. They run on every push (Actions tab, "Tests"). To run them yourself:
+`pip install -r requirements.txt pytest`, then `python -m pytest`.
+
 ## Tweaking
 - `engine.py`: `COMMODITIES`, `DAILY_LOSS_LIMIT`, the prompt, and `MODEL`.
 - `core.py`: `MAX_POSITION`, `MAX_OPEN`, `RISK` (per trade) and `COST` (spread and fees per side).
