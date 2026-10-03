@@ -29,6 +29,7 @@ import yfinance as yf
 
 import core as C
 import ict
+import validation as V
 
 ROOT = Path(__file__).parent
 DATA = ROOT / "site" / "data"
@@ -408,10 +409,21 @@ def run_ict_bot(ib, prices, last_usd, fx, now):
     return run_bot(ib, prices, last_usd, fx, now, "ict", rules_for)
 
 
-# ---------- Claude's own strategy (invented and validated in the lab, see research.py) ----------
-def live_strategy():
-    lab = load("strategies.json", {})
-    return next((x for x in lab.get("strategies", []) if x["id"] == lab.get("live")), None)
+# ---------- Claude's strategies: every one that passed the lab trades, each on an equal slice of one account ----------
+REBALANCE_DRIFT = 0.25   # re-even the slices when one drifts 25% away from its fair share
+
+
+def lab_state():
+    return load("strategies.json", {})
+
+
+def live_strategies(lb):
+    """Strategies the lab put in the portfolio (best first), minus any retired here for poor live results."""
+    lab = lab_state()
+    ids = lab.get("portfolio") or ([lab["live"]] if lab.get("live") else [])
+    retired = {sid for sid, x in lb.get("strategies", {}).items() if x.get("retired")}
+    by_id = {x["id"]: x for x in lab.get("strategies", [])}
+    return [by_id[i] for i in ids if i in by_id and i not in retired]
 
 
 def strategy_series(strat, prices, history):
@@ -436,22 +448,102 @@ def strategy_signals(strat, series):
     return sig
 
 
-def run_lab_bot(lb, strat, series, prices, last_usd, fx, now):
-    """Claude's strategy on its own account. Signals come from its own timeframe (daily or hourly bars);
-    stops and targets are watched on hourly bars."""
-    filled = []
-    if lb.get("strategy_id") != strat["id"]:  # a new strategy took over: start clean
-        for sym in list(lb["positions"]):
-            if sym in last_usd:
-                filled.append(sell(lb, sym, 1, last_usd[sym], fx, now, "Closed: Claude switched to a new strategy", "lab"))
-        lb.update(strategy_id=strat["id"], last_entry={})
+def new_lab_book(now, cash=START_CASH):
+    return {"cash": cash, "sleeves": {}, "strategies": {}, "last_run": now}
 
-    def rules_for(sym):
-        if sym not in series:
-            return None, 0
-        return C.LabRules(series[sym], strat["rules"], strat["name"]), len(series[sym].bars) - 1
-    return filled + run_bot(lb, {s: p for s, p in prices.items() if s in series or s in lb["positions"]},
-                            last_usd, fx, now, "lab", rules_for)
+
+def migrate_lab_book(lb, now):
+    """Older lab.json held one strategy's positions directly; move them into that strategy's slice."""
+    if lb is None:
+        return new_lab_book(now)
+    if "sleeves" in lb:
+        for sl in lb["sleeves"].values():
+            C.normalize(sl)
+        lb.setdefault("strategies", {})
+        return lb
+    out = new_lab_book(lb.get("last_run", now), lb.get("cash", START_CASH))
+    if lb.get("positions") or lb.get("strategy_id"):
+        sl = C.normalize({"cash": 0.0, "positions": lb.get("positions", {}), "last_entry": lb.get("last_entry", {}),
+                          "last_run": lb.get("last_run", now)})
+        out["sleeves"][lb.get("strategy_id") or "old"] = sl
+    return out
+
+
+def lab_equity(lb, last_usd, fx):
+    return lb["cash"] + sum(equity(sl, last_usd, fx) for sl in lb["sleeves"].values())
+
+
+def rebalance(lb, last_usd, fx, force=False):
+    """Give every slice an equal share of the account, moving cash only (open positions are left alone)."""
+    if not lb["sleeves"]:
+        return False
+    target = lab_equity(lb, last_usd, fx) / len(lb["sleeves"])
+    eqs = {sid: equity(sl, last_usd, fx) for sid, sl in lb["sleeves"].items()}
+    if not force and all(abs(e / target - 1) <= REBALANCE_DRIFT for e in eqs.values()):
+        return False
+    for sid, sl in lb["sleeves"].items():  # collect spare cash from slices above their share
+        take = min(max(0.0, eqs[sid] - target), sl["cash"])
+        sl["cash"] -= take
+        lb["cash"] += take
+    for sid, sl in lb["sleeves"].items():  # and hand it to the ones below
+        give = min(max(0.0, target - eqs[sid]), lb["cash"])
+        sl["cash"] += give
+        lb["cash"] -= give
+    return True
+
+
+def close_sleeve(lb, sid, last_usd, fx, now, why):
+    sl = lb["sleeves"].pop(sid)
+    filled = []
+    for sym in [s for s in sl["positions"] if s in last_usd]:
+        t = sell(sl, sym, 1, last_usd[sym], fx, now, why, "lab")
+        t["strategy"] = sid
+        filled.append(t)
+    lb["cash"] += equity(sl, last_usd, fx)  # anything without a price comes back at entry value
+    return filled
+
+
+def run_portfolio(lb, strategies, series, prices, last_usd, fx, now):
+    """One live step for all of Claude's strategies. Each trades its own slice exactly as in its backtest."""
+    filled, info = [], lb["strategies"]
+    live_ids = [st["id"] for st in strategies]
+    changed = False
+    for sid in [x for x in lb["sleeves"] if x not in live_ids]:
+        why = info.get(sid, {}).get("reason") or "no longer passes the lab's checks"
+        filled += close_sleeve(lb, sid, last_usd, fx, now, f"Closed: {why}")
+        changed = True
+    for st in strategies:
+        if st["id"] not in lb["sleeves"]:
+            lb["sleeves"][st["id"]] = dict(C.new_book(0.0), last_run=now)
+            changed = True
+        info.setdefault(st["id"], {"joined": now, "r": []})
+        info[st["id"]].update(name=st["name"], timeframe=st["timeframe"])
+    rebalance(lb, last_usd, fx, force=changed)
+
+    for st in strategies:
+        sid, sl, ser = st["id"], lb["sleeves"][st["id"]], series.get(st["id"], {})
+
+        def rules_for(sym, st=st, ser=ser):
+            if sym not in ser:
+                return None, 0
+            return C.LabRules(ser[sym], st["rules"], st["name"]), len(ser[sym].bars) - 1
+        fills = run_bot(sl, {s: p for s, p in prices.items() if s in ser or s in sl["positions"]},
+                        last_usd, fx, now, "lab", rules_for)
+        for f in fills:
+            f["strategy"] = sid
+            if "pnl" in f:
+                info[sid]["r"].append(f.get("r"))
+        filled += fills
+        check = V.live_check(info[sid]["r"], st)
+        info[sid]["check"] = check
+        if check["retire"]:
+            info[sid].update(retired=now, reason=check["retire"])
+            filled += close_sleeve(lb, sid, last_usd, fx, now, f"Retired: {check['retire']}")
+            rebalance(lb, last_usd, fx, force=True)
+    for sid, x in info.items():
+        x["equity"] = round(equity(lb["sleeves"][sid], last_usd, fx), 2) if sid in lb["sleeves"] else None
+    lb["last_run"] = now
+    return filled
 
 
 # ---------- report card: were Claude's calls right 24 hours later? ----------
@@ -470,22 +562,25 @@ def evaluate_calls(calls, prices, now):
 
 
 # ---------- Claude ----------
-def strategy_brief(strat):
-    if not strat:
-        return "Your strategy lab hasn't produced a strategy that passed its out-of-sample test yet."
+def strategy_brief(strats):
+    if not strats:
+        return "Your strategy lab hasn't produced a strategy that passed all of its checks yet."
     import features as F
-    te = strat["results"]["test"]["combined"]
-    v, mc = strat.get("validation") or {}, strat.get("monte_carlo") or {}
-    extra = ""
-    if v.get("windows_traded"):
-        extra += f" It made money in {v['windows_up']} of {v['windows_traded']} walk-forward test windows."
-    if v.get("adj_p") is not None:
-        extra += (f" Chance its record is luck: {mc['p']:.0%}, or {v['adj_p']:.0%} after allowing for the "
-                  f"{v['tested']} strategies the lab has tried.")
-    return (f"Your own strategy, invented and tested in your lab: '{strat['name']}' ({strat['timeframe']}). "
-            f"Idea: {strat['idea']} Rules: {F.describe(strat['rules'])} On data it was never fitted on it made "
-            f"{te.get('avg_r')}R per trade over {te['trades']} trades (profit factor {te.get('profit_factor')}).{extra} "
-            f"It trades separately on its own account; use its signals as one more input, weighted by that record.")
+    out = [f"Your own strategies, invented and tested in your lab. {len(strats)} passed every check and trade together, "
+           f"each on an equal slice of their own account; use their signals as more inputs, weighted by their records:"]
+    for strat in strats:
+        te = strat["results"]["test"]["combined"]
+        v, mc = strat.get("validation") or {}, strat.get("monte_carlo") or {}
+        extra = ""
+        if v.get("windows_traded"):
+            extra += f" Made money in {v['windows_up']} of {v['windows_traded']} walk-forward test windows."
+        if v.get("adj_p") is not None:
+            extra += (f" Chance its record is luck: {mc['p']:.0%}, or {v['adj_p']:.0%} after allowing for the "
+                      f"{v['tested']} strategies the lab has tried.")
+        out.append(f"- '{strat['name']}' ({strat['timeframe']}). Idea: {strat['idea']} Rules: {F.describe(strat['rules'])} "
+                   f"On data it was never fitted on: {te.get('avg_r')}R per trade over {te['trades']} trades "
+                   f"(profit factor {te.get('profit_factor')}).{extra}")
+    return "\n".join(out)
 
 
 def backtest_text(sym):
@@ -504,7 +599,7 @@ def backtest_text(sym):
     return "; ".join(parts)
 
 
-def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history, strat=None, sig=None):
+def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history, strats=(), sigs=None):
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError("No ANTHROPIC_API_KEY secret set")
@@ -518,10 +613,11 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
                      f"20d {change_since(bars, 20 * 86400):+.2%}")
         if sym in history:
             lines.append(f"   Long term: {history[sym]['text']}")
-        if strat and sym in (sig or {}):
-            x = sig[sym]
-            lines.append(f"   Your strategy '{strat['name']}': " + (f"{x['entry']} entry signal now" if x["entry"] else "no entry signal")
-                         + ("; long exit rule true" if x["exit_long"] else ""))
+        for strat in strats:
+            x = (sigs or {}).get(strat["id"], {}).get(sym)
+            if x:
+                lines.append(f"   Your strategy '{strat['name']}': " + (f"{x['entry']} entry signal now" if x["entry"] else "no entry signal")
+                             + ("; long exit rule true" if x["exit_long"] else ""))
         bt = backtest_text(sym)
         if bt:
             lines.append(f"   Backtests: {bt}")
@@ -579,7 +675,7 @@ Recently closed trades:
 Your last few reads:
 {chr(10).join(recent)}
 
-{strategy_brief(strat)}
+{strategy_brief(strats)}
 
 Related markets:
 {chr(10).join(ctx)}
@@ -639,14 +735,6 @@ def main():
     health["news"] = bool(news)
     history = get_history()
     health["history"] = len(history["markets"]) >= len(COMMODITIES) - 1
-    strat, sseries, sig = live_strategy(), {}, {}
-    if strat:
-        try:
-            sseries = strategy_series(strat, prices, history)
-            sig = strategy_signals(strat, sseries)
-        except Exception as e:
-            print("Strategy signals failed:", e)
-            strat = None
     last_usd = {s: p["bars"][-1]["close"] for s, p in prices.items()}
     last = {s: v / fx for s, v in last_usd.items()}
 
@@ -654,15 +742,23 @@ def main():
     trades, decisions, eq_hist = load("trades.json", []), load("decisions.json", []), load("equity.json", [])
     rb, rb_trades, calls = load("rules.json", None), load("rules_trades.json", []), load("calls.json", [])
     lb, lb_trades = load("lab.json", None), load("lab_trades.json", [])
+    lb = migrate_lab_book(lb, now)
+    strats, sseries, sigs = [], {}, {}
+    for st in live_strategies(lb):
+        try:
+            sseries[st["id"]] = strategy_series(st, prices, history)
+            sigs[st["id"]] = strategy_signals(st, sseries[st["id"]])
+            strats.append(st)
+        except Exception as e:
+            print(f"Strategy {st.get('name')} signals failed:", e)
     ib, ib_trades = load("ict.json", None), load("ict_trades.json", [])
     if not pf or pf.get("version") != 3:  # fresh start
         pf, trades, decisions, eq_hist = new_portfolio(), [], [], []
         rb, rb_trades, calls, ib, ib_trades = None, [], [], None, []
     rb = rb or {"cash": START_CASH, "positions": {}}
-    lb = lb or {"cash": START_CASH, "positions": {}, "last_entry": {}, "last_run": now}
     if not ib:  # ICT bot joins late: give it a fresh £100k from now
         ib, ib_trades = {"cash": START_CASH, "positions": {}, "used": [], "last_run": now}, []
-    for book in (pf, rb, lb, ib):  # positions saved by older versions get the fields core.py expects
+    for book in (pf, rb, ib):  # positions saved by older versions get the fields core.py expects
         C.normalize(book)
     reads = {}
     for sym, p in prices.items():
@@ -699,7 +795,7 @@ def main():
         try:
             pf["last_claude"] = now
             decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads,
-                                  {s: m for s, m in history["markets"].items() if s in prices}, strat, sig)
+                                  {s: m for s, m in history["markets"].items() if s in prices}, strats, sigs)
             health["claude"] = True
             more, blocked = apply_decision(pf, decision, last_usd, fx, now, reads)
             filled += more
@@ -732,8 +828,7 @@ def main():
         entry["trades"] = len(filled)
     rb_trades += run_rule_bot(rb, prices, last_usd, fx, now)
     ib_trades += run_ict_bot(ib, prices, last_usd, fx, now)
-    if strat:
-        lb_trades += run_lab_bot(lb, strat, sseries, prices, last_usd, fx, now)
+    lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now)
     calls = evaluate_calls(calls, prices, now)[-5000:]
     decisions = (decisions + ([entry] if entry else []))[-400:]
     trades += filled
@@ -744,7 +839,7 @@ def main():
     bench = START_CASH * sum(last[s] / starts[s] for s in both) / max(1, len(both))
     eq_hist.append({"time": now, "equity": round(equity(pf, last_usd, fx), 2), "benchmark": round(bench, 2),
                     "rules": round(equity(rb, last_usd, fx), 2), "ict": round(equity(ib, last_usd, fx), 2),
-                    "lab": round(equity(lb, last_usd, fx), 2)})
+                    "lab": round(lab_equity(lb, last_usd, fx), 2)})
 
     save("prices.json", prices)
     save("context.json", context)

@@ -80,7 +80,8 @@ def monte_carlo(rs, runs=MC_RUNS, seed=0):
         dds.append(dd)
     dds.sort()
 
-    return {"trades": n, "runs": runs, "avg_r": round(mean, 3), "p": round(p, 5),
+    sd_r = math.sqrt(sum((r - mean) ** 2 for r in rs) / (n - 1))
+    return {"trades": n, "runs": runs, "avg_r": round(mean, 3), "sd_r": round(sd_r, 3), "p": round(p, 5),
             "avg_r_lo": round(boots[int(0.05 * runs)], 3), "avg_r_hi": round(boots[int(0.95 * runs) - 1], 3),
             "share_profitable": round(sum(1 for b in boots if b > 0) / runs, 3),
             "dd_typical": round(dds[runs // 2], 2), "dd_bad": round(dds[int(0.05 * runs)], 2)}
@@ -97,3 +98,37 @@ def windows_up(results):
     """(windows with a positive average R, windows that traded) over the walk-forward test windows."""
     traded = [w for w in results if w["test"]["trades"]]
     return sum(1 for w in traded if (w["test"].get("avg_r") or 0) > 0), len(traded)
+
+
+# ---------- live strategies: retire the ones whose live results fall clearly below their backtest ----------
+MIN_LIVE_TRADES = 10   # judge the average only after this many live trades
+RETIRE_Z = -2.0        # retire if the live average is more than 2 standard errors below the backtest's
+
+
+def max_drawdown(rs):
+    peak = cum = dd = 0.0
+    for r in rs:
+        cum += r
+        peak = max(peak, cum)
+        dd = min(dd, cum - peak)
+    return dd
+
+
+def live_check(live_rs, strategy):
+    """Compare a strategy's live trades (in R) with its out-of-sample backtest. Returns a summary with
+    "retire": a plain-English reason, or None if it is still doing about as well as tested."""
+    rs = [r for r in live_rs if r is not None]
+    mc = strategy.get("monte_carlo") or {}
+    expected = strategy["results"]["test"]["combined"].get("avg_r") or 0.0
+    out = {"trades": len(rs), "expected_r": expected, "avg_r": round(sum(rs) / len(rs), 3) if rs else None,
+           "dd": round(max_drawdown(rs), 2), "dd_limit": mc.get("dd_bad"), "z": None, "retire": None}
+    if mc.get("dd_bad") is not None and out["dd"] < mc["dd_bad"]:
+        out["retire"] = (f"its live losing streak of {out['dd']:.1f}R is deeper than the bad case in its backtest "
+                         f"reshuffles ({mc['dd_bad']:.1f}R)")
+    if len(rs) >= MIN_LIVE_TRADES:
+        sd = mc.get("sd_r") or 1.0
+        out["z"] = round((out["avg_r"] - expected) / (sd / math.sqrt(len(rs))), 2)
+        if out["z"] < RETIRE_Z and not out["retire"]:
+            out["retire"] = (f"its live average of {out['avg_r']:+.2f}R over {len(rs)} trades is clearly below the "
+                             f"{expected:+.2f}R it made in testing")
+    return out
