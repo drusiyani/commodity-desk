@@ -200,19 +200,20 @@ def test_live_replay_matches_backtest(seed):
     rules = {"long": {"entry": [{"left": "rsi_5", "op": "<", "right": 35}], "exit": [{"left": "rsi_5", "op": ">", "right": 60}]},
              "short": {"entry": [{"left": "rsi_5", "op": ">", "right": 70}], "exit": [{"left": "rsi_5", "op": "<", "right": 45}]},
              "stop_atr": 1.5, "target_atr": 3, "max_bars": 12, "atr_period": 5, "timeframe": "hourly", "markets": ["GC=F"]}
-    strat = {"id": "t", "name": "Test", "timeframe": "hourly", "rules": rules}
+    strat = {"id": "t", "name": "Test", "timeframe": "hourly", "rules": rules,  # never retired in this test:
+             "results": {"test": {"combined": {"avg_r": -9}}}, "monte_carlo": {"sd_r": 100}}
     start = 70  # live waits for 60+ bars of history before trading a market
     curve, bt = C.backtest(bars, C.LabRules(F.Series(bars), rules, "Test"), start, len(bars))
 
-    lb = C.normalize({"cash": 100_000, "positions": {}, "last_run": 0})
+    lb = E.new_lab_book(0)  # one strategy in the portfolio: its slice is the whole account
     live = []
     for end in range(start + 1, len(bars) + 1):  # one hourly run per bar, each seeing only the past
         prices = {"GC=F": {"bars": bars[:end]}}
-        series = E.strategy_series(strat, prices, {})
-        live += E.run_lab_bot(lb, strat, series, prices, {"GC=F": bars[end - 1]["close"]}, 1.0, bars[end - 1]["time"] + 60)
+        series = {"t": E.strategy_series(strat, prices, {})}
+        live += E.run_portfolio(lb, [strat], series, prices, {"GC=F": bars[end - 1]["close"]}, 1.0, bars[end - 1]["time"] + 60)
     live_pnl = [t["pnl"] for t in live if "pnl" in t]
     bt_closed = [round(t["pnl"], 2) for t in bt if t["exit"] != "end"]
     assert len(bt) > 5
     assert live_pnl == bt_closed
-    if not lb["positions"]:
-        assert C.equity(lb, {}) == pytest.approx(curve[-1])
+    if not lb["sleeves"]["t"]["positions"]:
+        assert E.lab_equity(lb, {}, 1.0) == pytest.approx(curve[-1])

@@ -13,8 +13,10 @@ All fills go through core.py, the same code the backtests use, and pay the same 
 No real money. Long only, no leverage.
 Edit config.json to pause Claude or close everything.
 """
+import hashlib
 import json
 import os
+import re
 import time
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
@@ -29,6 +31,7 @@ import yfinance as yf
 
 import core as C
 import ict
+import validation as V
 
 ROOT = Path(__file__).parent
 DATA = ROOT / "site" / "data"
@@ -43,21 +46,25 @@ MIN_RR = 1.5              # every buy must aim to make at least 1.5x what it ris
 
 COMMODITIES = {
     # Energy
-    "CL=F": {"name": "WTI crude", "exchange": "NYMEX", "group": "Energy", "unit": "$ per barrel", "query": "WTI crude oil price"},
-    "BZ=F": {"name": "Brent crude", "exchange": "NYMEX", "group": "Energy", "unit": "$ per barrel", "query": "Brent crude price"},
-    "NG=F": {"name": "Natural gas", "exchange": "NYMEX", "group": "Energy", "unit": "$ per MMBtu", "query": "natural gas LNG price"},
+    "CL=F": {"name": "WTI crude", "exchange": "NYMEX", "group": "Energy", "unit": "$ per barrel", "queries": ["WTI crude oil price", "OPEC oil supply output"]},
+    "BZ=F": {"name": "Brent crude", "exchange": "NYMEX", "group": "Energy", "unit": "$ per barrel", "queries": ["Brent crude price", "oil market outlook Middle East shipping"]},
+    "NG=F": {"name": "Natural gas", "exchange": "NYMEX", "group": "Energy", "unit": "$ per MMBtu", "queries": ["natural gas LNG price", "natural gas storage weather demand"]},
     # Metals
-    "GC=F": {"name": "Gold", "exchange": "COMEX", "group": "Metals", "unit": "$ per ounce", "query": "gold price"},
-    "SI=F": {"name": "Silver", "exchange": "COMEX", "group": "Metals", "unit": "$ per ounce", "query": "silver price"},
-    "HG=F": {"name": "Copper", "exchange": "COMEX", "group": "Metals", "unit": "$ per pound", "query": "copper price"},
+    "GC=F": {"name": "Gold", "exchange": "COMEX", "group": "Metals", "unit": "$ per ounce", "queries": ["gold price", "central bank gold buying Fed rates"]},
+    "SI=F": {"name": "Silver", "exchange": "COMEX", "group": "Metals", "unit": "$ per ounce", "queries": ["silver price", "silver industrial demand solar"]},
+    "HG=F": {"name": "Copper", "exchange": "COMEX", "group": "Metals", "unit": "$ per pound", "queries": ["copper price", "copper mine supply China demand"]},
     # Agriculture
-    "KC=F": {"name": "Coffee", "exchange": "ICE US", "group": "Agriculture", "unit": "cents per pound", "query": "coffee futures price"},
-    "ZW=F": {"name": "Wheat", "exchange": "CBOT", "group": "Agriculture", "unit": "cents per bushel", "query": "wheat futures price"},
-    "ZC=F": {"name": "Corn", "exchange": "CBOT", "group": "Agriculture", "unit": "cents per bushel", "query": "corn futures price"},
-    "CC=F": {"name": "Cocoa", "exchange": "ICE US", "group": "Agriculture", "unit": "$ per tonne", "query": "cocoa futures price"},
+    "KC=F": {"name": "Coffee", "exchange": "ICE US", "group": "Agriculture", "unit": "cents per pound", "queries": ["coffee futures price", "Brazil coffee harvest arabica robusta"]},
+    "ZW=F": {"name": "Wheat", "exchange": "CBOT", "group": "Agriculture", "unit": "cents per bushel", "queries": ["wheat futures price", "wheat crop exports Russia Ukraine"]},
+    "ZC=F": {"name": "Corn", "exchange": "CBOT", "group": "Agriculture", "unit": "cents per bushel", "queries": ["corn futures price", "corn crop USDA ethanol"]},
+    "CC=F": {"name": "Cocoa", "exchange": "ICE US", "group": "Agriculture", "unit": "$ per tonne", "queries": ["cocoa futures price", "cocoa Ivory Coast Ghana harvest"]},
 }
 RULE_FAST, RULE_SLOW = 20, 100   # trend bot: hourly moving averages
 CLAUDE_EVERY = 4 * 3600          # workflow runs hourly; Claude is asked every 4 hours
+NEWS_PER_MARKET = 8              # headlines kept from each fetch, per market, from two different searches
+NEWS_KEEP_HOURS = 72             # headlines (and Claude's comments on them) stay in the feed this long
+NEWS_MAX_PER_MARKET = 16         # but never more than this many per market
+NEWS_TO_CLAUDE = 60              # at most this many new headlines per Claude run, newest first
 THINKING_BUDGET = 6000           # tokens Claude may spend thinking before it answers
 
 ICT_RISK = C.RISK    # ICT bot and Claude's strategy risk 1% of their account per trade (ICT settings are in ict.py)
@@ -200,32 +207,100 @@ def change_since(bars, seconds):
     return (last["close"] / past[-1]["close"] - 1) if past else 0.0
 
 
-def get_news():
+STOP_WORDS = {"the", "and", "for", "with", "from", "after", "into", "over", "amid", "says", "said", "price", "prices"}
+
+
+def news_words(title):
+    return {w for w in re.findall(r"[a-z0-9]+", title.lower()) if len(w) > 2 and w not in STOP_WORDS}
+
+
+def news_id(title):
+    """Stable id for a headline, so Claude's comment on it survives later fetches."""
+    return "n" + hashlib.sha1(" ".join(re.findall(r"[a-z0-9]+", title.lower())).encode()).hexdigest()[:10]
+
+
+def same_story(a, b):
+    """Two headlines about the same story: identical, or sharing most of their words."""
+    if news_id(a) == news_id(b):
+        return True
+    wa, wb = news_words(a), news_words(b)
+    return bool(wa and wb) and len(wa & wb) / len(wa | wb) >= 0.6
+
+
+def parse_rss(content):
     items = []
-    for sym, info in COMMODITIES.items():
-        url = ("https://news.google.com/rss/search?q=" + quote(info["query"] + " when:2d")
-               + "&hl=en-GB&gl=GB&ceid=GB:en")
+    for it in ET.fromstring(content).iter("item"):
+        title = it.findtext("title", "").strip()
+        source = it.findtext("source", "")
+        if source and title.endswith(" - " + source):
+            title = title[: -len(" - " + source)]
         try:
-            r = requests.get(url, timeout=20, headers={"User-Agent": "Mozilla/5.0"})
-            root = ET.fromstring(r.content)
-        except Exception as e:
-            print(f"news failed for {sym}: {e}")
-            continue
-        for it in list(root.iter("item"))[:6]:
-            title = it.findtext("title", "")
-            source = it.findtext("source", "")
-            if source and title.endswith(" - " + source):
-                title = title[: -len(" - " + source)]
-            try:
-                published = int(parsedate_to_datetime(it.findtext("pubDate")).timestamp())
-            except Exception:
-                published = int(time.time())
-            items.append({"symbol": sym, "title": title, "source": source,
-                          "link": it.findtext("link", ""), "published": published})
-    items.sort(key=lambda n: n["published"], reverse=True)
-    for i, n in enumerate(items):
-        n["id"] = f"n{i}"
+            published = int(parsedate_to_datetime(it.findtext("pubDate")).timestamp())
+        except Exception:
+            published = int(time.time())
+        if title:
+            items.append({"title": title, "source": source, "link": it.findtext("link", ""), "published": published})
     return items
+
+
+def fetch_rss(query):
+    url = ("https://news.google.com/rss/search?q=" + quote(query + " when:2d") + "&hl=en-GB&gl=GB&ceid=GB:en")
+    r = requests.get(url, timeout=20, headers={"User-Agent": "Mozilla/5.0"})
+    return parse_rss(r.content)
+
+
+def pick_headlines(searches, n=NEWS_PER_MARKET):
+    """Up to n different stories, taking turns between the searches so one search or one story can't fill them."""
+    picked = []
+    for row in range(max((len(x) for x in searches), default=0)):
+        for results in searches:
+            if row < len(results) and len(picked) < n and not any(same_story(results[row]["title"], p["title"]) for p in picked):
+                picked.append(results[row])
+    return sorted(picked, key=lambda x: -x["published"])
+
+
+def merge_news(previous, fresh, now):
+    """Combine this run's headlines with the stored ones. A headline seen before keeps its id, first-seen time and
+    Claude's comment; a story already filed under another market is shared rather than repeated."""
+    keep_from = now - NEWS_KEEP_HOURS * 3600
+    stories = {}
+    for n in previous:
+        if n.get("title") and n.get("published", 0) >= keep_from:
+            n = dict(n, id=news_id(n["title"]), symbols=n.get("symbols") or [n["symbol"]])
+            stories.setdefault(n["id"], n)
+    for sym, item in fresh:
+        if item["published"] < keep_from:
+            continue
+        nid = news_id(item["title"])
+        match = stories.get(nid) or next((x for x in stories.values() if same_story(x["title"], item["title"])), None)
+        if match:
+            if sym not in match["symbols"]:
+                match["symbols"].append(sym)
+            continue
+        stories[nid] = dict(item, id=nid, symbol=sym, symbols=[sym], seen=now)
+    out, count = [], {}
+    for n in sorted(stories.values(), key=lambda x: -x["published"]):
+        if count.get(n["symbol"], 0) < NEWS_MAX_PER_MARKET:
+            count[n["symbol"]] = count.get(n["symbol"], 0) + 1
+            out.append(n)
+    return out
+
+
+def get_news(previous=(), now=None):
+    """About 8 headlines per market from two different searches, merged with the stored feed. Returns
+    (feed, fetched_ok)."""
+    now = now or int(time.time())
+    fresh, ok = [], False
+    for sym, info in COMMODITIES.items():
+        searches = []
+        for q in info["queries"]:
+            try:
+                searches.append(fetch_rss(q))
+                ok = True
+            except Exception as e:
+                print(f"news failed for {sym} ({q}): {e}")
+        fresh += [(sym, it) for it in pick_headlines(searches)]
+    return merge_news(previous, fresh, now), ok
 
 
 # ---------- portfolio (money in GBP, stops/targets in USD like the chart; fills go through core.py) ----------
@@ -408,10 +483,21 @@ def run_ict_bot(ib, prices, last_usd, fx, now):
     return run_bot(ib, prices, last_usd, fx, now, "ict", rules_for)
 
 
-# ---------- Claude's own strategy (invented and validated in the lab, see research.py) ----------
-def live_strategy():
-    lab = load("strategies.json", {})
-    return next((x for x in lab.get("strategies", []) if x["id"] == lab.get("live")), None)
+# ---------- Claude's strategies: every one that passed the lab trades, each on an equal slice of one account ----------
+REBALANCE_DRIFT = 0.25   # re-even the slices when one drifts 25% away from its fair share
+
+
+def lab_state():
+    return load("strategies.json", {})
+
+
+def live_strategies(lb):
+    """Strategies the lab put in the portfolio (best first), minus any retired here for poor live results."""
+    lab = lab_state()
+    ids = lab.get("portfolio") or ([lab["live"]] if lab.get("live") else [])
+    retired = {sid for sid, x in lb.get("strategies", {}).items() if x.get("retired")}
+    by_id = {x["id"]: x for x in lab.get("strategies", [])}
+    return [by_id[i] for i in ids if i in by_id and i not in retired]
 
 
 def strategy_series(strat, prices, history):
@@ -436,22 +522,102 @@ def strategy_signals(strat, series):
     return sig
 
 
-def run_lab_bot(lb, strat, series, prices, last_usd, fx, now):
-    """Claude's strategy on its own account. Signals come from its own timeframe (daily or hourly bars);
-    stops and targets are watched on hourly bars."""
-    filled = []
-    if lb.get("strategy_id") != strat["id"]:  # a new strategy took over: start clean
-        for sym in list(lb["positions"]):
-            if sym in last_usd:
-                filled.append(sell(lb, sym, 1, last_usd[sym], fx, now, "Closed: Claude switched to a new strategy", "lab"))
-        lb.update(strategy_id=strat["id"], last_entry={})
+def new_lab_book(now, cash=START_CASH):
+    return {"cash": cash, "sleeves": {}, "strategies": {}, "last_run": now}
 
-    def rules_for(sym):
-        if sym not in series:
-            return None, 0
-        return C.LabRules(series[sym], strat["rules"], strat["name"]), len(series[sym].bars) - 1
-    return filled + run_bot(lb, {s: p for s, p in prices.items() if s in series or s in lb["positions"]},
-                            last_usd, fx, now, "lab", rules_for)
+
+def migrate_lab_book(lb, now):
+    """Older lab.json held one strategy's positions directly; move them into that strategy's slice."""
+    if lb is None:
+        return new_lab_book(now)
+    if "sleeves" in lb:
+        for sl in lb["sleeves"].values():
+            C.normalize(sl)
+        lb.setdefault("strategies", {})
+        return lb
+    out = new_lab_book(lb.get("last_run", now), lb.get("cash", START_CASH))
+    if lb.get("positions") or lb.get("strategy_id"):
+        sl = C.normalize({"cash": 0.0, "positions": lb.get("positions", {}), "last_entry": lb.get("last_entry", {}),
+                          "last_run": lb.get("last_run", now)})
+        out["sleeves"][lb.get("strategy_id") or "old"] = sl
+    return out
+
+
+def lab_equity(lb, last_usd, fx):
+    return lb["cash"] + sum(equity(sl, last_usd, fx) for sl in lb["sleeves"].values())
+
+
+def rebalance(lb, last_usd, fx, force=False):
+    """Give every slice an equal share of the account, moving cash only (open positions are left alone)."""
+    if not lb["sleeves"]:
+        return False
+    target = lab_equity(lb, last_usd, fx) / len(lb["sleeves"])
+    eqs = {sid: equity(sl, last_usd, fx) for sid, sl in lb["sleeves"].items()}
+    if not force and all(abs(e / target - 1) <= REBALANCE_DRIFT for e in eqs.values()):
+        return False
+    for sid, sl in lb["sleeves"].items():  # collect spare cash from slices above their share
+        take = min(max(0.0, eqs[sid] - target), sl["cash"])
+        sl["cash"] -= take
+        lb["cash"] += take
+    for sid, sl in lb["sleeves"].items():  # and hand it to the ones below
+        give = min(max(0.0, target - eqs[sid]), lb["cash"])
+        sl["cash"] += give
+        lb["cash"] -= give
+    return True
+
+
+def close_sleeve(lb, sid, last_usd, fx, now, why):
+    sl = lb["sleeves"].pop(sid)
+    filled = []
+    for sym in [s for s in sl["positions"] if s in last_usd]:
+        t = sell(sl, sym, 1, last_usd[sym], fx, now, why, "lab")
+        t["strategy"] = sid
+        filled.append(t)
+    lb["cash"] += equity(sl, last_usd, fx)  # anything without a price comes back at entry value
+    return filled
+
+
+def run_portfolio(lb, strategies, series, prices, last_usd, fx, now):
+    """One live step for all of Claude's strategies. Each trades its own slice exactly as in its backtest."""
+    filled, info = [], lb["strategies"]
+    live_ids = [st["id"] for st in strategies]
+    changed = False
+    for sid in [x for x in lb["sleeves"] if x not in live_ids]:
+        why = info.get(sid, {}).get("reason") or "no longer passes the lab's checks"
+        filled += close_sleeve(lb, sid, last_usd, fx, now, f"Closed: {why}")
+        changed = True
+    for st in strategies:
+        if st["id"] not in lb["sleeves"]:
+            lb["sleeves"][st["id"]] = dict(C.new_book(0.0), last_run=now)
+            changed = True
+        info.setdefault(st["id"], {"joined": now, "r": []})
+        info[st["id"]].update(name=st["name"], timeframe=st["timeframe"])
+    rebalance(lb, last_usd, fx, force=changed)
+
+    for st in strategies:
+        sid, sl, ser = st["id"], lb["sleeves"][st["id"]], series.get(st["id"], {})
+
+        def rules_for(sym, st=st, ser=ser):
+            if sym not in ser:
+                return None, 0
+            return C.LabRules(ser[sym], st["rules"], st["name"]), len(ser[sym].bars) - 1
+        fills = run_bot(sl, {s: p for s, p in prices.items() if s in ser or s in sl["positions"]},
+                        last_usd, fx, now, "lab", rules_for)
+        for f in fills:
+            f["strategy"] = sid
+            if "pnl" in f:
+                info[sid]["r"].append(f.get("r"))
+        filled += fills
+        check = V.live_check(info[sid]["r"], st)
+        info[sid]["check"] = check
+        if check["retire"]:
+            info[sid].update(retired=now, reason=check["retire"])
+            filled += close_sleeve(lb, sid, last_usd, fx, now, f"Retired: {check['retire']}")
+            rebalance(lb, last_usd, fx, force=True)
+    for sid, x in info.items():
+        x["equity"] = round(equity(lb["sleeves"][sid], last_usd, fx), 2) if sid in lb["sleeves"] else None
+    lb["last_run"] = now
+    return filled
 
 
 # ---------- report card: were Claude's calls right 24 hours later? ----------
@@ -470,15 +636,25 @@ def evaluate_calls(calls, prices, now):
 
 
 # ---------- Claude ----------
-def strategy_brief(strat):
-    if not strat:
-        return "Your strategy lab hasn't produced a strategy that passed its out-of-sample test yet."
+def strategy_brief(strats):
+    if not strats:
+        return "Your strategy lab hasn't produced a strategy that passed all of its checks yet."
     import features as F
-    te = strat["results"]["test"]["combined"]
-    return (f"Your own strategy, invented and tested in your lab: '{strat['name']}' ({strat['timeframe']}). "
-            f"Idea: {strat['idea']} Rules: {F.describe(strat['rules'])} On data it was never fitted on it made "
-            f"{te.get('avg_r')}R per trade over {te['trades']} trades (profit factor {te.get('profit_factor')}). "
-            f"It trades separately on its own account; use its signals as one more input, weighted by that record.")
+    out = [f"Your own strategies, invented and tested in your lab. {len(strats)} passed every check and trade together, "
+           f"each on an equal slice of their own account; use their signals as more inputs, weighted by their records:"]
+    for strat in strats:
+        te = strat["results"]["test"]["combined"]
+        v, mc = strat.get("validation") or {}, strat.get("monte_carlo") or {}
+        extra = ""
+        if v.get("windows_traded"):
+            extra += f" Made money in {v['windows_up']} of {v['windows_traded']} walk-forward test windows."
+        if v.get("adj_p") is not None:
+            extra += (f" Chance its record is luck: {mc['p']:.0%}, or {v['adj_p']:.0%} after allowing for the "
+                      f"{v['tested']} strategies the lab has tried.")
+        out.append(f"- '{strat['name']}' ({strat['timeframe']}). Idea: {strat['idea']} Rules: {F.describe(strat['rules'])} "
+                   f"On data it was never fitted on: {te.get('avg_r')}R per trade over {te['trades']} trades "
+                   f"(profit factor {te.get('profit_factor')}).{extra}")
+    return "\n".join(out)
 
 
 def backtest_text(sym):
@@ -497,12 +673,23 @@ def backtest_text(sym):
     return "; ".join(parts)
 
 
-def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history, strat=None, sig=None):
+def new_headlines(news):
+    """Headlines Claude hasn't commented on yet, newest first. Only these are sent, to keep costs down."""
+    return sorted([n for n in news if not n.get("claude")], key=lambda n: -n["published"])[:NEWS_TO_CLAUDE]
+
+
+def headline_age(n, now=None):
+    h = ((now or time.time()) - n["published"]) / 3600
+    return f"{max(1, round(h * 60))} min ago" if h < 1 else f"{round(h)}h ago"
+
+
+def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history, strats=(), sigs=None):
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError("No ANTHROPIC_API_KEY secret set")
 
     eq = equity(pf, last_usd, fx)
+    fresh = new_headlines(news)
     lines = []
     for sym, p in prices.items():
         bars = p["bars"]
@@ -511,10 +698,11 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
                      f"20d {change_since(bars, 20 * 86400):+.2%}")
         if sym in history:
             lines.append(f"   Long term: {history[sym]['text']}")
-        if strat and sym in (sig or {}):
-            x = sig[sym]
-            lines.append(f"   Your strategy '{strat['name']}': " + (f"{x['entry']} entry signal now" if x["entry"] else "no entry signal")
-                         + ("; long exit rule true" if x["exit_long"] else ""))
+        for strat in strats:
+            x = (sigs or {}).get(strat["id"], {}).get(sym)
+            if x:
+                lines.append(f"   Your strategy '{strat['name']}': " + (f"{x['entry']} entry signal now" if x["entry"] else "no entry signal")
+                             + ("; long exit rule true" if x["exit_long"] else ""))
         bt = backtest_text(sym)
         if bt:
             lines.append(f"   Backtests: {bt}")
@@ -524,8 +712,12 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
                 lines.append(f"   Open bullish FVGs below: {reads[sym]['fvgs_below']}")
             if reads[sym]["fvgs_above"]:
                 lines.append(f"   Open bearish FVGs above: {reads[sym]['fvgs_above']}")
-        for n in [n for n in news if n["symbol"] == sym][:3]:
-            lines.append(f"   [{n['id']}] {n['title']} ({n['source']})")
+        for n in [n for n in fresh if n["symbol"] == sym]:
+            also = [COMMODITIES[x]["name"] for x in n["symbols"] if x != sym and x in COMMODITIES]
+            lines.append(f"   NEW [{n['id']}] {n['title']} ({n['source']}, {headline_age(n)}"
+                         + (f"; also matters for {', '.join(also)}" if also else "") + ")")
+        for n in [n for n in news if sym in n["symbols"] and n.get("claude")][:2]:
+            lines.append(f"   Earlier headline: {n['title']} (you called it {n['claude']['impact']})")
     ctx = [f"{c['name']}: {c['last']:.3f} ({c['chg']:+.2%} on the day)" for c in context.values()]
     held = [f"{s}: {p['qty']:.3f} units, entry ${p['entry_usd']:.3f}, now ${last_usd.get(s, 0):.3f}, "
             f"stop ${p.get('stop') or 0:.3f}, target ${p.get('target') or 0:.3f}"
@@ -534,6 +726,8 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
               for t in trades if t["action"] == "SELL"][-5:] or ["none yet"]
     recent = [d["summary"] for d in decisions[-3:]] or ["none yet"]
 
+    news_ask = (f'Comment on every NEW [id] headline in "news" ({len(fresh)} of them); earlier headlines already '
+                f'have your comments.' if fresh else 'There are no new headlines this time, so "news" can be an empty list.')
     prompt = f"""You are an autonomous agent running a PAPER commodity trading account. No real money.
 Account currency is GBP. GBPUSD is {fx:.4f}. Prices are as quoted on the exchange (units given per market).
 Rules enforced by the risk engine: long only, no leverage, max {MAX_POSITION:.0%} of the portfolio per commodity,
@@ -572,12 +766,12 @@ Recently closed trades:
 Your last few reads:
 {chr(10).join(recent)}
 
-{strategy_brief(strat)}
+{strategy_brief(strats)}
 
 Related markets:
 {chr(10).join(ctx)}
 
-Commodities and recent headlines:
+Commodities and headlines (NEW ones are since your last run):
 {chr(10).join(lines)}
 
 Reply with ONLY a JSON object, no other text:
@@ -594,11 +788,11 @@ Reply with ONLY a JSON object, no other text:
   "adjust": [{{"symbol": "GC=F", "stop": 0.0, "target": 0.0}}],
   "news": [{{"id": "n0", "impact": "bullish|bearish|neutral", "take": "one or two sentences: what this headline means for the price and whether it changes your view"}}]
 }}
-Include every commodity in "markets" and every [id] headline in "news".
+Include every commodity in "markets". {news_ask}
 Use empty lists for "trades" and "adjust" if nothing to do."""
 
     headers = {"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"}
-    body = {"model": MODEL, "max_tokens": THINKING_BUDGET + 5000,
+    body = {"model": MODEL, "max_tokens": THINKING_BUDGET + 5000 + 80 * len(fresh),
             "thinking": {"type": "enabled", "budget_tokens": THINKING_BUDGET},
             "messages": [{"role": "user", "content": prompt}]}
     r = requests.post("https://api.anthropic.com/v1/messages", timeout=300, headers=headers, json=body)
@@ -628,18 +822,9 @@ def main():
     fx = get_fx()
     context = get_context()
     health["context"] = bool(context)
-    news = get_news()
-    health["news"] = bool(news)
+    news, health["news"] = get_news(load("news.json", []), now)
     history = get_history()
     health["history"] = len(history["markets"]) >= len(COMMODITIES) - 1
-    strat, sseries, sig = live_strategy(), {}, {}
-    if strat:
-        try:
-            sseries = strategy_series(strat, prices, history)
-            sig = strategy_signals(strat, sseries)
-        except Exception as e:
-            print("Strategy signals failed:", e)
-            strat = None
     last_usd = {s: p["bars"][-1]["close"] for s, p in prices.items()}
     last = {s: v / fx for s, v in last_usd.items()}
 
@@ -647,15 +832,23 @@ def main():
     trades, decisions, eq_hist = load("trades.json", []), load("decisions.json", []), load("equity.json", [])
     rb, rb_trades, calls = load("rules.json", None), load("rules_trades.json", []), load("calls.json", [])
     lb, lb_trades = load("lab.json", None), load("lab_trades.json", [])
+    lb = migrate_lab_book(lb, now)
+    strats, sseries, sigs = [], {}, {}
+    for st in live_strategies(lb):
+        try:
+            sseries[st["id"]] = strategy_series(st, prices, history)
+            sigs[st["id"]] = strategy_signals(st, sseries[st["id"]])
+            strats.append(st)
+        except Exception as e:
+            print(f"Strategy {st.get('name')} signals failed:", e)
     ib, ib_trades = load("ict.json", None), load("ict_trades.json", [])
     if not pf or pf.get("version") != 3:  # fresh start
         pf, trades, decisions, eq_hist = new_portfolio(), [], [], []
         rb, rb_trades, calls, ib, ib_trades = None, [], [], None, []
     rb = rb or {"cash": START_CASH, "positions": {}}
-    lb = lb or {"cash": START_CASH, "positions": {}, "last_entry": {}, "last_run": now}
     if not ib:  # ICT bot joins late: give it a fresh £100k from now
         ib, ib_trades = {"cash": START_CASH, "positions": {}, "used": [], "last_run": now}, []
-    for book in (pf, rb, lb, ib):  # positions saved by older versions get the fields core.py expects
+    for book in (pf, rb, ib):  # positions saved by older versions get the fields core.py expects
         C.normalize(book)
     reads = {}
     for sym, p in prices.items():
@@ -692,7 +885,7 @@ def main():
         try:
             pf["last_claude"] = now
             decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads,
-                                  {s: m for s, m in history["markets"].items() if s in prices}, strat, sig)
+                                  {s: m for s, m in history["markets"].items() if s in prices}, strats, sigs)
             health["claude"] = True
             more, blocked = apply_decision(pf, decision, last_usd, fx, now, reads)
             filled += more
@@ -700,7 +893,7 @@ def main():
             for n in news:
                 if n["id"] in takes:
                     n["claude"] = {"impact": str(takes[n["id"]].get("impact", "neutral")),
-                                   "take": str(takes[n["id"]].get("take", ""))[:400]}
+                                   "take": str(takes[n["id"]].get("take", ""))[:400], "t": now}
             for m in decision.get("markets", []) or []:
                 if m.get("symbol") in last_usd and m.get("bias") in ("bullish", "bearish", "neutral"):
                     calls.append({"t": now, "symbol": m["symbol"], "bias": m["bias"],
@@ -725,8 +918,7 @@ def main():
         entry["trades"] = len(filled)
     rb_trades += run_rule_bot(rb, prices, last_usd, fx, now)
     ib_trades += run_ict_bot(ib, prices, last_usd, fx, now)
-    if strat:
-        lb_trades += run_lab_bot(lb, strat, sseries, prices, last_usd, fx, now)
+    lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now)
     calls = evaluate_calls(calls, prices, now)[-5000:]
     decisions = (decisions + ([entry] if entry else []))[-400:]
     trades += filled
@@ -737,7 +929,7 @@ def main():
     bench = START_CASH * sum(last[s] / starts[s] for s in both) / max(1, len(both))
     eq_hist.append({"time": now, "equity": round(equity(pf, last_usd, fx), 2), "benchmark": round(bench, 2),
                     "rules": round(equity(rb, last_usd, fx), 2), "ict": round(equity(ib, last_usd, fx), 2),
-                    "lab": round(equity(lb, last_usd, fx), 2)})
+                    "lab": round(lab_equity(lb, last_usd, fx), 2)})
 
     save("prices.json", prices)
     save("context.json", context)

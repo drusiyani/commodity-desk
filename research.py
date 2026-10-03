@@ -2,10 +2,14 @@
 Claude's strategy lab. Once a week (or when you run it by hand):
   1. Claude reads every backtest so far: the ICT bot, the trend bot, buy and hold, and its own past strategies.
   2. It invents new strategies in a safe rule language (features.py), aiming for ideas that aren't textbook.
-  3. Each one is tested on the first 70% of history (TRAIN) and then on the last 30% it never saw (TEST).
+  3. Each one gets a walk-forward test: several rolling windows, each checked on one stretch of history and then
+     judged on the stretch after it. Then a Monte Carlo luck check, corrected for how many ideas the lab has tried
+     (see validation.py).
   4. Claude sees the results and gets one more round to improve or replace them.
-  5. A strategy only passes if it also works on the TEST data. The best one that passes trades live as
-     "Claude's strategy" on its own £100k, and Claude's live decisions get to see its signals.
+  5. A strategy only passes if it holds up in most test windows and is unlikely to be luck. Every strategy that
+     passes (up to MAX_LIVE, best first) trades live on an equal slice of one £100k account, and Claude's live
+     decisions see their signals. The hourly engine retires any whose live results fall clearly below their
+     backtest (validation.live_check); retired strategies never come back unless you delete them from lab.json.
 """
 import json
 import math
@@ -18,11 +22,17 @@ import backtest as B
 import core as C
 import engine as E
 import features as F
+import validation as V
 
 MODEL = os.environ.get("RESEARCH_MODEL", E.MODEL)
-SPLIT = 0.7
 WARMUP = {"daily": 260, "hourly": 300}
-PASS = {"min_test_trades": 30, "min_test_pf": 1.1, "min_train_pf": 1.0}
+PASS = {"min_test_trades": 30,    # out-of-sample trades, pooled over the walk-forward test windows
+        "min_test_pf": 1.1,       # out-of-sample profit factor
+        "min_train_pf": 1.0,      # it must at least break even on the first training stretch
+        "min_windows_traded": 3,  # it has to trade in at least 3 of the 4 test windows...
+        "min_windows_up": 0.6,    # ...and make money (positive average R) in at least 60% of those
+        "max_luck": 0.10}         # under 10% chance it's luck, after allowing for every strategy the lab has tried
+MAX_LIVE = 5  # at most this many passing strategies trade live together (best first), each on an equal slice
 
 
 def load_data():
@@ -44,34 +54,83 @@ def simulate(series, st, start, end):
     return C.backtest(series.bars, C.LabRules(series, st), start, end)
 
 
+def combine(per_market, trades):
+    """One summary over several markets: average return, pooled trades."""
+    rets = [m["return"] for m in per_market.values()]
+    out = C.stats([C.START, C.START * (1 + sum(rets) / max(1, len(rets)))], trades, 1)
+    out.pop("cagr", None)
+    out.pop("max_dd", None)
+    out["worst_market_dd"] = min((m["max_dd"] for m in per_market.values()), default=0)
+    return out
+
+
 def evaluate(st, data):
+    """Walk-forward test of one strategy on every market it trades (see validation.py).
+    Returns results: {"windows": [...], "train": ..., "test": ...} where "test" pools every test window
+    (all out-of-sample) and "train" is the first training stretch, which is never used for testing."""
     tf = st["timeframe"]
     wanted = F.resolve_markets(st.get("markets"), E.COMMODITIES)
     syms = [s for s in data[tf] if s in wanted]
-    result = {}
-    for part in ("train", "test"):
-        per, all_trades, rets = {}, [], []
-        for sym in syms:
-            s = data[tf][sym]
-            n = len(s.bars)
-            cut = int(n * SPLIT)
-            a, b = (WARMUP[tf], cut) if part == "train" else (cut, n)
-            curve, trades = simulate(s, st, a, b)
-            years = (s.bars[b - 1]["time"] - s.bars[a]["time"]) / (365.25 * 86400)
-            per[sym] = C.stats(curve, trades, years)
-            all_trades += trades
-            rets.append(per[sym]["return"])
-        combined = C.stats([C.START, C.START * (1 + sum(rets) / max(1, len(rets)))], all_trades, 1)
-        combined.pop("cagr", None)
-        combined.pop("max_dd", None)
-        combined["worst_market_dd"] = min((p["max_dd"] for p in per.values()), default=0)
-        result[part] = {"combined": combined, "markets": {k: {"return": v["return"], "trades": v["trades"],
-                                                              "win_rate": v["win_rate"]} for k, v in per.items()}}
-    tr, te = result["train"]["combined"], result["test"]["combined"]
-    passed = (te["trades"] >= PASS["min_test_trades"] and (te.get("profit_factor") or 0) >= PASS["min_test_pf"]
-              and (te.get("avg_r") or 0) > 0 and (tr.get("profit_factor") or 0) >= PASS["min_train_pf"])
-    score = (te.get("avg_r") or 0) * math.sqrt(te["trades"])
-    return result, passed, round(score, 3)
+    folds = [{"train": {}, "test": {}, "train_trades": [], "test_trades": [], "from": [], "to": []} for _ in range(V.WINDOWS)]
+    test_per, test_trades = {}, []
+    for sym in syms:
+        s = data[tf][sym]
+        rules = C.LabRules(s, st)
+        growth, mtrades, worst = 1.0, [], 0.0
+        for f, (a, b, c) in enumerate(V.windows(len(s.bars), WARMUP[tf])):
+            for part, (x, y) in (("train", (a, b)), ("test", (b, c))):
+                curve, trades = C.backtest(s.bars, rules, x, y)
+                years = (s.bars[y - 1]["time"] - s.bars[x]["time"]) / (365.25 * 86400)
+                folds[f][part][sym] = C.stats(curve, trades, years)
+                folds[f][part + "_trades"] += trades
+            folds[f]["from"].append(s.bars[b]["time"])
+            folds[f]["to"].append(s.bars[c - 1]["time"])
+            t = folds[f]["test"][sym]
+            growth *= 1 + t["return"]
+            mtrades += trades  # the test window's trades (the last loop pass)
+            worst = min(worst, t["max_dd"])
+        if mtrades or growth != 1.0:
+            test_per[sym] = {"return": growth - 1, "trades": len(mtrades), "max_dd": worst,
+                             "win_rate": round(sum(1 for x in mtrades if x["pnl"] > 0) / len(mtrades), 3) if mtrades else None}
+            test_trades += mtrades
+    windows = [{"from": min(fd["from"]) if fd["from"] else None, "to": max(fd["to"]) if fd["to"] else None,
+                "train": combine(fd["train"], fd["train_trades"]), "test": combine(fd["test"], fd["test_trades"])}
+               for fd in folds]
+    first = folds[0]
+    clean = lambda per: {k: {"return": v["return"], "trades": v["trades"], "win_rate": v["win_rate"]} for k, v in per.items()}
+    return {"windows": windows,
+            "train": {"combined": combine(first["train"], first["train_trades"]), "markets": clean(first["train"])},
+            "test": {"combined": combine(test_per, test_trades), "markets": clean(test_per)},
+            "test_r": [round(x["r"], 3) for x in test_trades if x.get("r") is not None]}
+
+
+def judge(record, tested):
+    """Apply the pass rules, with the luck check corrected for how many strategies the lab has tried."""
+    res = record["results"]
+    tr, te = res["train"]["combined"], res["test"]["combined"]
+    mc = record.get("monte_carlo")
+    up, traded = V.windows_up(res.get("windows", []))
+    adj = V.adjust(mc["p"], tested) if mc else None
+    checks = {
+        "test_trades": te["trades"] >= PASS["min_test_trades"],
+        "test_pf": (te.get("profit_factor") or 0) >= PASS["min_test_pf"],
+        "test_avg_r": (te.get("avg_r") or 0) > 0,
+        "train_pf": (tr.get("profit_factor") or 0) >= PASS["min_train_pf"],
+        "windows": traded >= PASS["min_windows_traded"] and up >= PASS["min_windows_up"] * traded,
+        "luck": adj is not None and adj < PASS["max_luck"],
+    }
+    record["validation"] = {"tested": tested, "adj_p": adj, "windows_up": up, "windows_traded": traded, "checks": checks}
+    record["passed"] = all(checks.values())
+    record["score"] = round((te.get("avg_r") or 0) * math.sqrt(te["trades"]), 3)
+    return record
+
+
+def test_strategy(record, data):
+    """Run the walk-forward test and the Monte Carlo checks for one strategy (judging comes later)."""
+    res = evaluate(record["rules"], data)
+    record["monte_carlo"] = V.monte_carlo(res.pop("test_r"), seed=record["id"])
+    record["results"] = res
+    return record
 
 
 def summarise_bots():
@@ -88,17 +147,22 @@ def summarise_bots():
     return "\n".join(lines) or "No bot backtests yet."
 
 
+def lab_line(s):
+    tr, te = s["results"]["train"]["combined"], s["results"]["test"]["combined"]
+    v, mc = s.get("validation", {}), s.get("monte_carlo") or {}
+    wins = f"{v.get('windows_up', '?')}/{v.get('windows_traded', '?')} test windows profitable"
+    luck = (f"luck {mc['p']:.0%}, after allowing for {v.get('tested')} strategies tried {v['adj_p']:.0%}"
+            if mc and v.get("adj_p") is not None else "luck not measured")
+    return (f"train PF {tr.get('profit_factor')}, avg {tr.get('avg_r')}R, {tr['trades']} trades | "
+            f"walk-forward test PF {te.get('profit_factor')}, avg {te.get('avg_r')}R, {te['trades']} trades, {wins}, {luck}")
+
+
 def summarise_lab(lab):
     rows = sorted(lab["strategies"], key=lambda s: -s["score"])[:20]
     if not rows:
         return "No strategies tested yet."
-    out = []
-    for s in rows:
-        tr, te = s["results"]["train"]["combined"], s["results"]["test"]["combined"]
-        out.append(f"- {s['name']} [{s['timeframe']}] {'PASSED' if s['passed'] else 'failed'}: idea: {s['idea']} | "
-                   f"rules: {F.describe(s['rules'])} | train PF {tr.get('profit_factor')}, avg {tr.get('avg_r')}R, "
-                   f"{tr['trades']} trades | test PF {te.get('profit_factor')}, avg {te.get('avg_r')}R, {te['trades']} trades")
-    return "\n".join(out)
+    return "\n".join(f"- {s['name']} [{s['timeframe']}] {'PASSED' if s['passed'] else 'failed'}: idea: {s['idea']} | "
+                     f"rules: {F.describe(s['rules'])} | {lab_line(s)}" for s in rows)
 
 
 def market_context():
@@ -146,8 +210,14 @@ different rules per market group, and so on). Each idea needs a plausible reason
 other side of the trade and why they keep losing. Think hard before you answer.
 
 Rules of the lab, so your ideas are tested fairly:
-- Each strategy is tested on the first 70% of history (train) and then on the last 30% it was never fitted on (test).
-  It only passes if test profit factor >= {PASS['min_test_pf']}, average R > 0 and at least {PASS['min_test_trades']} test trades.
+- Walk-forward: history is cut into {V.WINDOWS} rolling windows; in each the strategy is checked on a stretch of history
+  and then judged on the stretch after it. It passes only if, over all test windows together, profit factor
+  >= {PASS['min_test_pf']}, average R > 0 and at least {PASS['min_test_trades']} trades; it made money in at least
+  {PASS['min_windows_up']:.0%} of the test windows it traded in; and it broke even on the first training stretch.
+- Luck check: its test trades are re-randomised {V.MC_RUNS} times to measure how likely the result is luck, and that
+  figure is corrected for every strategy this lab has ever tried ({len(lab['strategies'])} so far, and each new
+  idea raises the bar for all of them). It must come in under {PASS['max_luck']:.0%}. Fewer, better ideas beat many
+  variations of one idea, and strategies that trade often give the luck check more to work with.
 - Do not tune numbers to squeeze the train results; that fails on test. Prefer round, sensible parameters.
 - Every trade risks 1% of the account, with the stop at stop_atr x ATR. Costs are charged.
 - Daily strategies get 5 years of data; hourly strategies get about 2 years.
@@ -190,14 +260,13 @@ def run_round(lab, data, count, round_no, feedback=""):
             print(f"{record['name']}: skipped, identical rules were already tested")
             continue
         try:
-            record["results"], record["passed"], record["score"] = evaluate(record["rules"], data)
+            test_strategy(record, data)
         except Exception as e:
             print(f"{record['name']}: failed to test ({e})")
             continue
-        te = record["results"]["test"]["combined"]
-        print(f"{record['name']}: {'PASSED' if record['passed'] else 'failed'} - test PF {te.get('profit_factor')}, "
-              f"avg {te.get('avg_r')}R, {te['trades']} trades")
         lab["strategies"].append(record)
+        judge(record, len(lab["strategies"]))
+        print(f"{record['name']}: {'PASSED' if record['passed'] else 'failed'} - {lab_line(record)}")
         new.append(record)
     return new
 
@@ -205,20 +274,36 @@ def run_round(lab, data, count, round_no, feedback=""):
 def main():
     lab = E.load("strategies.json", {"strategies": [], "runs": []})
     data = load_data()
+    for st in lab["strategies"]:  # strategies tested before walk-forward existed: test them the new way
+        if "windows" not in st.get("results", {}):
+            try:
+                test_strategy(st, data)
+            except Exception as e:
+                print(f"{st['name']}: failed to re-test ({e})")
+                st["results"] = {"windows": [], "train": st["results"]["train"], "test": st["results"]["test"]}
+                st["monte_carlo"] = None
+    for st in lab["strategies"]:
+        judge(st, len(lab["strategies"]))
     first = run_round(lab, data, 3, len(lab["runs"]) * 2 + 1)
     fb = "\nResults of the strategies you just proposed:\n" + "\n".join(
-        f"- {s['name']}: {'PASSED' if s['passed'] else 'failed'}; train PF {s['results']['train']['combined'].get('profit_factor')}, "
-        f"test PF {s['results']['test']['combined'].get('profit_factor')}, test avg {s['results']['test']['combined'].get('avg_r')}R, "
-        f"test trades {s['results']['test']['combined']['trades']}" for s in first) + \
+        f"- {s['name']}: {'PASSED' if s['passed'] else 'failed'}; {lab_line(s)}" for s in first) + \
         "\nLearn from these: improve the most promising idea in a way you would have chosen anyway, or replace the weak ones.\n"
     run_round(lab, data, 2, len(lab["runs"]) * 2 + 2, fb)
 
-    passed = sorted([s for s in lab["strategies"] if s.get("passed")], key=lambda s: -s["score"])
-    lab["live"] = passed[0]["id"] if passed else None
-    lab["runs"].append({"t": int(time.time()), "tested": len(lab["strategies"]), "passed": len(passed), "model": MODEL})
-    lab["pass_rules"] = PASS
+    for st in lab["strategies"]:  # every new idea raises the bar for all of them
+        judge(st, len(lab["strategies"]))
+    retired = {sid: x for sid, x in E.load("lab.json", {}).get("strategies", {}).items() if x.get("retired")}
+    for st in lab["strategies"]:
+        if st["id"] in retired:
+            st["retired"] = {"t": retired[st["id"]]["retired"], "reason": retired[st["id"]].get("reason")}
+    passed = sorted([s for s in lab["strategies"] if s.get("passed") and not s.get("retired")], key=lambda s: -s["score"])
+    lab["portfolio"] = [s["id"] for s in passed[:MAX_LIVE]]
+    lab["live"] = lab["portfolio"][0] if lab["portfolio"] else None  # the best one, for older pages
+    lab["runs"].append({"t": int(time.time()), "tested": len(lab["strategies"]), "passed": len(passed),
+                        "live": len(lab["portfolio"]), "model": MODEL})
+    lab["pass_rules"] = dict(PASS, windows=V.WINDOWS, train_mult=V.TRAIN_MULT, mc_runs=V.MC_RUNS)
     E.save("strategies.json", lab)
-    print(f"Lab now has {len(lab['strategies'])} strategies, {len(passed)} passed. Live: {lab['live']}")
+    print(f"Lab now has {len(lab['strategies'])} strategies, {len(passed)} passed. Live: {lab['portfolio']}")
 
 
 if __name__ == "__main__":

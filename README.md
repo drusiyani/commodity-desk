@@ -20,6 +20,13 @@ Edit `config.json` in the repo:
 - `"paused": true` stops Claude making new trades (stops and targets still work).
 - `"close_all": true` sells everything and pauses. Set both back to `false` to restart.
 
+## Claude's strategies
+The strategy lab (`research.py`, every Sunday) invents strategies and only passes ones that hold up in walk-forward
+tests and are unlikely to be luck (`validation.py`). Every strategy that passes (up to 5) trades live together on
+one £100k account, each on an equal slice. The hourly run retires a strategy if its live results fall clearly
+below its backtest; the reason shows on the website. To give a retired strategy another chance, delete its entry
+under `"strategies"` in `site/data/lab.json`.
+
 ## How the code fits together
 - `core.py`: the one trading core. Position sizing, entries, stops, targets, exits, costs and P&L for every
   account. Live trading, the backtests and the strategy lab all go through it, so a backtest trades exactly
@@ -35,7 +42,8 @@ make identical trades. They run on every push (Actions tab, "Tests"). To run the
 `pip install -r requirements.txt pytest`, then `python -m pytest`.
 
 ## Tweaking
-- `engine.py`: `COMMODITIES`, `DAILY_LOSS_LIMIT`, the prompt, and `MODEL`.
+- `engine.py`: `COMMODITIES` (including the two news searches per market), `DAILY_LOSS_LIMIT`, the prompt,
+  `MODEL`, and the news settings (`NEWS_PER_MARKET`, `NEWS_KEEP_HOURS`, `NEWS_TO_CLAUDE`).
 - `core.py`: `MAX_POSITION`, `MAX_OPEN`, `RISK` (per trade) and `COST` (spread and fees per side).
 - `.github/workflows/trader.yml`: the schedule (cron).
 - Preview the site locally: `cd site && python -m http.server`, then open http://localhost:8000
