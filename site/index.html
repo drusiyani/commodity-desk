@@ -60,6 +60,11 @@ main { display: grid; gap: 14px; padding: 0 24px 28px; grid-template-columns: mi
 #labSec { grid-area: lab; }
 #labSec tbody tr.sel td { background: var(--soft); }
 #labDetail { margin-top: 12px; }
+.valid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 0 28px; margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+.wbars { display: inline-flex; gap: 3px; align-items: flex-end; height: 18px; vertical-align: middle; }
+.wbars i { display: block; width: 6px; border-radius: 1px; }
+.checks { list-style: none; margin: 0; padding: 0; font-family: Inter, system-ui, sans-serif; font-size: 13px; }
+.checks li { padding: 3px 0; } .checks .ink { color: var(--ink); }
 .pass { color: var(--up); font-weight: 600; } .fail { color: var(--muted); } .live { color: var(--brass); font-weight: 600; }
 #btSec { grid-area: bt; }
 #btChart { height: 260px; margin: 6px 0 12px; }
@@ -156,7 +161,7 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
 
 @media (max-width: 1000px) {
   main { grid-template-columns: 1fr; grid-template-areas: "cockpit" "chart" "context" "activity" "book" "news" "perf" "report" "lab" "bt"; }
-  #btCols { grid-template-columns: 1fr; }
+  #btCols, .valid { grid-template-columns: 1fr; }
   #contextSec { grid-template-columns: 1fr; }
   #chart { height: 340px; }
 }
@@ -477,14 +482,16 @@ function renderLab() {
   }
   const run = L.runs?.at(-1);
   if (run) $("#labWhen").textContent = `last run ${ago(run.t)}`;
+  const P = L.pass_rules || {};
   const passed = L.strategies.filter(s => s.passed).length, live = L.strategies.find(s => s.id === L.live);
-  body.append(el("p", { style: "margin:0 0 10px", textContent: `Claude has invented and tested ${L.strategies.length} strategies. ${passed} passed the test on data they were never fitted on. ` +
+  body.append(el("p", { style: "margin:0 0 10px", textContent: `Claude has invented and tested ${L.strategies.length} strategies. ${passed} passed every check. ` +
     (live ? `Live now: ${live.name}.` : "None is trading live yet, because none has passed.") }));
-  const fmt = (c, k) => c[k] == null ? "—" : k === "avg_r" ? (c[k] > 0 ? "+" : "") + c[k].toFixed(2) + "R" : c[k].toFixed(2);
+  const fmt = (c, k) => c?.[k] == null ? "—" : k === "avg_r" ? (c[k] > 0 ? "+" : "") + c[k].toFixed(2) + "R" : c[k].toFixed(2);
+  const pc = x => x == null ? "—" : x < 0.001 ? "<0.1%" : x < 0.01 ? (x * 100).toFixed(1) + "%" : Math.round(x * 100) + "%";
   const rows = [...L.strategies].sort((a, b) => (b.id === L.live) - (a.id === L.live) || b.passed - a.passed || b.score - a.score);
   const detail = el("div", { id: "labDetail" });
   const tbody = el("tbody", {}, rows.map(s => {
-    const tr = s.results.train.combined, te = s.results.test.combined;
+    const tr = s.results.train.combined, te = s.results.test.combined, v = s.validation || {};
     const status = s.id === L.live ? el("span", { className: "live", textContent: "Live" }) : s.passed ? el("span", { className: "pass", textContent: "Passed" }) : el("span", { className: "fail", textContent: "Failed" });
     const row = el("tr", { className: "click" }, [
       el("td", {}, [s.name, el("div", { className: "muted", style: "white-space:normal;font-size:12px", textContent: s.idea })]),
@@ -492,6 +499,8 @@ function renderLab() {
       el("td", { className: "num", textContent: `${fmt(tr, "profit_factor")} / ${fmt(tr, "avg_r")}` }),
       el("td", { className: "num", textContent: `${fmt(te, "profit_factor")} / ${fmt(te, "avg_r")}` }),
       el("td", { className: "num", textContent: te.trades }),
+      el("td", { className: "num" }, [windowBars(s.results.windows)]),
+      el("td", { className: "num", title: "Chance the test result is luck, after allowing for every strategy tried", textContent: pc(v.adj_p) }),
       el("td", {}, [status]),
     ]);
     row.onclick = () => {
@@ -501,17 +510,70 @@ function renderLab() {
         el("h3", { style: "margin-top:0", textContent: s.name }),
         el("p", { style: "margin:0 0 6px", textContent: s.rationale }),
         el("p", { className: "muted", style: "margin:0 0 6px", textContent: "Rules: " + rulesText(s.rules) }),
-        el("p", { className: "muted", style: "margin:0", textContent: "Test results by market: " + mk }),
+        el("p", { className: "muted", style: "margin:0", textContent: "Out-of-sample results by market: " + (mk || "no trades") }),
+        labValidation(s, P, fmt, pc),
         s.thinking ? el("details", {}, [el("summary", { textContent: "Claude's thinking while inventing this round" }), el("div", { className: "think", textContent: s.thinking })]) : "",
       );
     };
     return row;
   }));
   body.append(el("div", { className: "tablewrap" }, [el("table", {}, [
-    el("thead", {}, [el("tr", {}, ["Strategy", "Timeframe", "Train PF / avg R", "Test PF / avg R", "Test trades", "Status"].map((x, i) => el("th", { className: i >= 2 && i <= 4 ? "num" : "", textContent: x })))]),
+    el("thead", {}, [el("tr", {}, ["Strategy", "Timeframe", "Train PF / avg R", "Test PF / avg R", "Test trades", "Test windows", "Luck", "Status"].map((x, i) => el("th", { className: i >= 2 && i <= 6 ? "num" : "", textContent: x })))]),
     tbody])]), detail,
-    el("p", { className: "hint", textContent: `Each strategy is fitted on the first 70% of history and judged on the last 30%. It passes with a test profit factor of at least ${L.pass_rules?.min_test_pf ?? 1.1}, a positive average R and at least ${L.pass_rules?.min_test_trades ?? 30} test trades. The more strategies get tried, the more likely one passes by luck, so the live forward test is the real judge.` }));
+    el("p", { className: "hint", textContent: `Walk-forward testing: history is cut into ${P.windows ?? 4} rolling windows. In each, a strategy is checked on one stretch and then judged on the next stretch, which it hasn't been checked on; "Test" pools all of those judged stretches. ` +
+      `Luck: its test trades are reshuffled ${(P.mc_runs ?? 2000).toLocaleString("en-GB")} times to see how often a strategy with no edge would do as well, then that chance is raised to allow for all ${L.strategies.length} strategies tried, because the more ideas get tested, the more will look good by accident. ` +
+      `To pass it needs at least ${P.min_test_trades ?? 30} test trades, a test profit factor of ${P.min_test_pf ?? 1.1}+, profits in most test windows, and under ${Math.round((P.max_luck ?? 0.1) * 100)}% luck. The live forward test is still the real judge.` }));
   tbody.querySelector("tr")?.click();
+}
+
+function windowBars(ws) {
+  // one small bar per walk-forward test window: green if it made money, red if it lost, grey if it didn't trade
+  const box = el("span", { className: "wbars" });
+  if (!ws?.length) { box.textContent = "—"; return box; }
+  const max = Math.max(0.25, ...ws.map(w => Math.abs(w.test.avg_r || 0)));
+  for (const w of ws) {
+    const r = w.test.trades ? (w.test.avg_r || 0) : null;
+    const i = el("i", { title: r == null ? "No trades" : `${r > 0 ? "+" : ""}${r.toFixed(2)}R over ${w.test.trades} trades` });
+    i.style.height = r == null ? "2px" : Math.max(3, Math.round(Math.abs(r) / max * 16)) + "px";
+    i.style.background = r == null ? "var(--line)" : r > 0 ? "var(--up)" : "var(--down)";
+    box.append(i);
+  }
+  return box;
+}
+
+function labValidation(s, P, fmt, pc) {
+  const v = s.validation, mc = s.monte_carlo, ws = s.results.windows || [];
+  const box = el("div", { className: "valid" });
+  if (!v) { box.append(el("p", { className: "empty", textContent: "Tested before walk-forward and luck checks existed. It will be re-tested the new way at the next lab run." })); return box; }
+  const d = t => t ? new Date(t * 1000).toLocaleDateString("en-GB", { month: "short", year: "numeric" }) : "—";
+  box.append(el("div", {}, [
+    el("h3", { style: "margin-top:0", textContent: "Walk-forward windows" }),
+    el("div", { className: "tablewrap" }, [el("table", {}, [
+      el("thead", {}, [el("tr", {}, ["Judged on", "Checked on first", "Then judged on", "Trades"].map((x, i) => el("th", { className: i ? "num" : "", textContent: x })))]),
+      el("tbody", {}, ws.map(w => el("tr", {}, [
+        el("td", { textContent: `${d(w.from)} to ${d(w.to)}` }),
+        el("td", { className: "num", textContent: `PF ${fmt(w.train, "profit_factor")} / ${fmt(w.train, "avg_r")}` }),
+        el("td", { className: "num " + ((w.test.avg_r || 0) > 0 ? "up" : w.test.trades ? "down" : ""), textContent: `PF ${fmt(w.test, "profit_factor")} / ${fmt(w.test, "avg_r")}` }),
+        el("td", { className: "num", textContent: w.test.trades }),
+      ]))),
+    ])]),
+  ]));
+  const mcBox = el("div", {}, [el("h3", { style: "margin-top:0", textContent: "Could it be luck?" })]);
+  if (mc) {
+    mcBox.append(
+      kv("Chance a no-edge strategy does this well", pc(mc.p)),
+      kv(`Allowing for ${v.tested} strategies tried`, pc(v.adj_p), v.adj_p < (P.max_luck ?? 0.1) ? "up" : "down"),
+      kv("Average per trade, likely range", `${fmt(mc, "avg_r_lo")} to ${fmt(mc, "avg_r_hi")}`),
+      kv("Reshuffles that were profitable", Math.round(mc.share_profitable * 100) + "%"),
+      kv("Losing streak, typical / bad case", `${mc.dd_typical}R / ${mc.dd_bad}R`),
+    );
+  } else mcBox.append(el("p", { className: "empty", textContent: "Too few test trades to measure." }));
+  const names = { test_trades: `${P.min_test_trades ?? 30}+ test trades`, test_pf: `Test profit factor ${P.min_test_pf ?? 1.1}+`, test_avg_r: "Positive average R in test",
+    train_pf: "Broke even on the first training stretch", windows: `Profitable in most test windows (${v.windows_up} of ${v.windows_traded})`, luck: `Under ${Math.round((P.max_luck ?? 0.1) * 100)}% luck after correction` };
+  const checks = el("ul", { className: "checks" }, Object.entries(v.checks || {}).map(([k, ok]) =>
+    el("li", { className: ok ? "up" : "down" }, [el("span", { textContent: ok ? "✓ " : "✗ " }), el("span", { className: "ink", textContent: names[k] || k })])));
+  box.append(el("div", {}, [mcBox, el("h3", { textContent: "Checks" }), checks]));
+  return box;
 }
 
 let btChart = null;
