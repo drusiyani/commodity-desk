@@ -6,8 +6,10 @@ Claude's strategy lab. Once a week (or when you run it by hand):
      judged on the stretch after it. Then a Monte Carlo luck check, corrected for how many ideas the lab has tried
      (see validation.py).
   4. Claude sees the results and gets one more round to improve or replace them.
-  5. A strategy only passes if it holds up in most test windows and is unlikely to be luck. The best one that
-     passes trades live as "Claude's strategy" on its own £100k, and Claude's live decisions get to see its signals.
+  5. A strategy only passes if it holds up in most test windows and is unlikely to be luck. Every strategy that
+     passes (up to MAX_LIVE, best first) trades live on an equal slice of one £100k account, and Claude's live
+     decisions see their signals. The hourly engine retires any whose live results fall clearly below their
+     backtest (validation.live_check); retired strategies never come back unless you delete them from lab.json.
 """
 import json
 import math
@@ -30,6 +32,7 @@ PASS = {"min_test_trades": 30,    # out-of-sample trades, pooled over the walk-f
         "min_windows_traded": 3,  # it has to trade in at least 3 of the 4 test windows...
         "min_windows_up": 0.6,    # ...and make money (positive average R) in at least 60% of those
         "max_luck": 0.10}         # under 10% chance it's luck, after allowing for every strategy the lab has tried
+MAX_LIVE = 5  # at most this many passing strategies trade live together (best first), each on an equal slice
 
 
 def load_data():
@@ -289,12 +292,18 @@ def main():
 
     for st in lab["strategies"]:  # every new idea raises the bar for all of them
         judge(st, len(lab["strategies"]))
-    passed = sorted([s for s in lab["strategies"] if s.get("passed")], key=lambda s: -s["score"])
-    lab["live"] = passed[0]["id"] if passed else None
-    lab["runs"].append({"t": int(time.time()), "tested": len(lab["strategies"]), "passed": len(passed), "model": MODEL})
+    retired = {sid: x for sid, x in E.load("lab.json", {}).get("strategies", {}).items() if x.get("retired")}
+    for st in lab["strategies"]:
+        if st["id"] in retired:
+            st["retired"] = {"t": retired[st["id"]]["retired"], "reason": retired[st["id"]].get("reason")}
+    passed = sorted([s for s in lab["strategies"] if s.get("passed") and not s.get("retired")], key=lambda s: -s["score"])
+    lab["portfolio"] = [s["id"] for s in passed[:MAX_LIVE]]
+    lab["live"] = lab["portfolio"][0] if lab["portfolio"] else None  # the best one, for older pages
+    lab["runs"].append({"t": int(time.time()), "tested": len(lab["strategies"]), "passed": len(passed),
+                        "live": len(lab["portfolio"]), "model": MODEL})
     lab["pass_rules"] = dict(PASS, windows=V.WINDOWS, train_mult=V.TRAIN_MULT, mc_runs=V.MC_RUNS)
     E.save("strategies.json", lab)
-    print(f"Lab now has {len(lab['strategies'])} strategies, {len(passed)} passed. Live: {lab['live']}")
+    print(f"Lab now has {len(lab['strategies'])} strategies, {len(passed)} passed. Live: {lab['portfolio']}")
 
 
 if __name__ == "__main__":

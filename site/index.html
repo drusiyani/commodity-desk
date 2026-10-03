@@ -60,6 +60,7 @@ main { display: grid; gap: 14px; padding: 0 24px 28px; grid-template-columns: mi
 #labSec { grid-area: lab; }
 #labSec tbody tr.sel td { background: var(--soft); }
 #labDetail { margin-top: 12px; }
+.portfolio { margin: 0 0 16px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
 .valid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 0 28px; margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
 .wbars { display: inline-flex; gap: 3px; align-items: flex-end; height: 18px; vertical-align: middle; }
 .wbars i { display: block; width: 6px; border-radius: 1px; }
@@ -184,7 +185,7 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
     <div class="stats">
       <div class="stat"><div class="v" id="sEquity"></div><div class="k">Portfolio value</div></div>
       <div class="stat"><div class="v" id="sReturn"></div><div class="k">Claude's return</div></div>
-      <div class="stat" id="sLabWrap" hidden><div class="v" id="sLab"></div><div class="k">Claude's strategy</div></div>
+      <div class="stat" id="sLabWrap" hidden><div class="v" id="sLab"></div><div class="k">Claude's strategies</div></div>
       <div class="stat"><div class="v" id="sIct"></div><div class="k">ICT bot</div></div>
       <div class="stat"><div class="v" id="sRules"></div><div class="k">Trend bot</div></div>
       <div class="stat"><div class="v" id="sBench"></div><div class="k">Buy and hold</div></div>
@@ -248,7 +249,7 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
       <h2>Open positions</h2>
       <div class="tablewrap" id="positions"></div>
       <h3 style="display:flex;justify-content:space-between;align-items:center">Trade history
-        <span class="seg" id="bookSeg"><button data-k="claude" aria-pressed="true">Claude</button><button data-k="lab" aria-pressed="false">Claude's strategy</button><button data-k="ict" aria-pressed="false">ICT bot</button><button data-k="rules" aria-pressed="false">Trend bot</button></span></h3>
+        <span class="seg" id="bookSeg"><button data-k="claude" aria-pressed="true">Claude</button><button data-k="lab" aria-pressed="false">Claude's strategies</button><button data-k="ict" aria-pressed="false">ICT bot</button><button data-k="rules" aria-pressed="false">Trend bot</button></span></h3>
       <div class="tablewrap">
         <table>
           <thead><tr><th>When</th><th>Commodity</th><th>Action</th><th class="num">Price</th><th class="num">Value (£)</th><th class="num">P&amp;L (£)</th><th>Why</th></tr></thead>
@@ -265,11 +266,11 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
 
     <section id="perfSec">
       <h2>Claude vs the bots vs buy and hold
-        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--teal)"></i>Claude's strategy</span><span><i style="background:var(--violet)"></i>ICT bot</span><span><i style="background:var(--blue)"></i>Trend bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
+        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--teal)"></i>Claude's strategies</span><span><i style="background:var(--violet)"></i>ICT bot</span><span><i style="background:var(--blue)"></i>Trend bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
       </h2>
       <div id="equity"></div>
       <div class="tablewrap" id="perf" style="margin-top:12px"></div>
-      <p class="hint">Each bot has its own £100k. The ICT bot trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. The trend bot holds a market while its 20-hour average is above its 100-hour average. Claude uses the ICT read and the news together. If Claude can't beat the bots, it isn't adding much.</p>
+      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k in equal slices. The ICT bot trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. The trend bot holds a market while its 20-hour average is above its 100-hour average. Claude uses the ICT read and the news together. If Claude can't beat the bots, it isn't adding much.</p>
     </section>
 
     <section id="labSec">
@@ -320,11 +321,11 @@ async function getJSON(f, fallback) {
 }
 
 async function init() {
-  [D.prices, D.news, D.trades, D.equity, D.pf, D.status, D.decisions, D.context, D.rbTrades, D.calls, D.ictTrades, D.ict, D.history, D.lab, D.labTrades] = await Promise.all([
+  [D.prices, D.news, D.trades, D.equity, D.pf, D.status, D.decisions, D.context, D.rbTrades, D.calls, D.ictTrades, D.ict, D.history, D.lab, D.labTrades, D.labBook] = await Promise.all([
     getJSON("prices.json", null), getJSON("news.json", []), getJSON("trades.json", []), getJSON("equity.json", []),
     getJSON("portfolio.json", null), getJSON("status.json", {}), getJSON("decisions.json", []), getJSON("context.json", {}),
     getJSON("rules_trades.json", []), getJSON("calls.json", []), getJSON("ict_trades.json", []), getJSON("ict_now.json", {}),
-    getJSON("history.json", { markets: {} }), getJSON("strategies.json", null), getJSON("lab_trades.json", []),
+    getJSON("history.json", { markets: {} }), getJSON("strategies.json", null), getJSON("lab_trades.json", []), getJSON("lab.json", null),
   ]);
   if (!D.prices || !Object.keys(D.prices).length) { $("#setup").hidden = false; return; }
   $("#app").hidden = false;
@@ -353,6 +354,11 @@ async function init() {
   });
 }
 
+// Claude's strategies: every one that passed the lab trades together (older files had a single "live" one)
+const portfolio = () => D.lab?.portfolio || (D.lab?.live ? [D.lab.live] : []);
+const labLive = () => portfolio().length > 0 || D.labTrades.length > 0;
+const stratName = id => D.lab?.strategies?.find(s => s.id === id)?.name || D.labBook?.strategies?.[id]?.name;
+
 function equityNow() {
   if (!D.pf) return START;
   return D.pf.cash + Object.entries(D.pf.positions).reduce((a, [s, p]) => a + p.qty * (D.last[s] ?? 0) / D.fx, 0);
@@ -376,7 +382,7 @@ function renderHeader() {
   tone($("#sBench"), b).textContent = pct(b);
   const rr = eq?.rules ? eq.rules / START - 1 : 0;
   tone($("#sRules"), rr).textContent = pct(rr);
-  if (D.lab?.live) { $("#sLabWrap").hidden = false; const lr = eq?.lab ? eq.lab / START - 1 : 0; tone($("#sLab"), lr).textContent = pct(lr); }
+  if (labLive()) { $("#sLabWrap").hidden = false; const lr = eq?.lab ? eq.lab / START - 1 : 0; tone($("#sLab"), lr).textContent = pct(lr); }
   const ir = eq?.ict ? eq.ict / START - 1 : 0;
   tone($("#sIct"), ir).textContent = pct(ir);
   $("#sCash").textContent = D.pf ? money(D.pf.cash) : "";
@@ -434,7 +440,7 @@ function makeCharts() {
   eqSeries.ict = eqChart.addLineSeries({ color: css("--violet"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
   eqSeries.ict.setData(D.equity.filter(e => e.ict != null).map(e => ({ time: e.time, value: e.ict })));
   eqSeries.lab = eqChart.addLineSeries({ color: css("--teal"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
-  eqSeries.lab.setData(D.lab?.live ? D.equity.filter(e => e.lab != null).map(e => ({ time: e.time, value: e.lab })) : []);
+  eqSeries.lab.setData(labLive() ? D.equity.filter(e => e.lab != null).map(e => ({ time: e.time, value: e.lab })) : []);
   eqChart.timeScale().fitContent();
   document.querySelectorAll("#styleSeg button").forEach(b => b.onclick = () => {
     mode = b.dataset.mode;
@@ -483,16 +489,21 @@ function renderLab() {
   const run = L.runs?.at(-1);
   if (run) $("#labWhen").textContent = `last run ${ago(run.t)}`;
   const P = L.pass_rules || {};
-  const passed = L.strategies.filter(s => s.passed).length, live = L.strategies.find(s => s.id === L.live);
+  const passed = L.strategies.filter(s => s.passed).length, live = portfolio();
+  const info = D.labBook?.strategies || {};
+  const retired = id => info[id]?.retired || L.strategies.find(s => s.id === id)?.retired;
   body.append(el("p", { style: "margin:0 0 10px", textContent: `Claude has invented and tested ${L.strategies.length} strategies. ${passed} passed every check. ` +
-    (live ? `Live now: ${live.name}.` : "None is trading live yet, because none has passed.") }));
+    (live.length ? `${live.length} trade live together, each on an equal slice of one £100k account.` : "None is trading live yet, because none has passed.") }));
+  body.append(renderPortfolio(L, info));
   const fmt = (c, k) => c?.[k] == null ? "—" : k === "avg_r" ? (c[k] > 0 ? "+" : "") + c[k].toFixed(2) + "R" : c[k].toFixed(2);
   const pc = x => x == null ? "—" : x < 0.001 ? "<0.1%" : x < 0.01 ? (x * 100).toFixed(1) + "%" : Math.round(x * 100) + "%";
-  const rows = [...L.strategies].sort((a, b) => (b.id === L.live) - (a.id === L.live) || b.passed - a.passed || b.score - a.score);
+  const isLive = s => live.includes(s.id) && !retired(s.id);
+  const rows = [...L.strategies].sort((a, b) => isLive(b) - isLive(a) || b.passed - a.passed || b.score - a.score);
   const detail = el("div", { id: "labDetail" });
   const tbody = el("tbody", {}, rows.map(s => {
     const tr = s.results.train.combined, te = s.results.test.combined, v = s.validation || {};
-    const status = s.id === L.live ? el("span", { className: "live", textContent: "Live" }) : s.passed ? el("span", { className: "pass", textContent: "Passed" }) : el("span", { className: "fail", textContent: "Failed" });
+    const status = isLive(s) ? el("span", { className: "live", textContent: "Live" }) : retired(s.id) ? el("span", { className: "fail", textContent: "Retired" })
+      : s.passed ? el("span", { className: "pass", textContent: "Passed" }) : el("span", { className: "fail", textContent: "Failed" });
     const row = el("tr", { className: "click" }, [
       el("td", {}, [s.name, el("div", { className: "muted", style: "white-space:normal;font-size:12px", textContent: s.idea })]),
       el("td", { textContent: s.timeframe }),
@@ -524,6 +535,37 @@ function renderLab() {
       `Luck: its test trades are reshuffled ${(P.mc_runs ?? 2000).toLocaleString("en-GB")} times to see how often a strategy with no edge would do as well, then that chance is raised to allow for all ${L.strategies.length} strategies tried, because the more ideas get tested, the more will look good by accident. ` +
       `To pass it needs at least ${P.min_test_trades ?? 30} test trades, a test profit factor of ${P.min_test_pf ?? 1.1}+, profits in most test windows, and under ${Math.round((P.max_luck ?? 0.1) * 100)}% luck. The live forward test is still the real judge.` }));
   tbody.querySelector("tr")?.click();
+}
+
+function renderPortfolio(L, info) {
+  // live strategies and retired ones: how each is doing live against what it made in testing
+  const ids = [...new Set([...portfolio(), ...Object.keys(info)])].filter(id => info[id] || L.strategies.some(s => s.id === id));
+  if (!ids.length) return "";
+  const total = Object.values(info).reduce((a, x) => a + (x.equity || 0), 0) || 1;
+  const r = x => x == null ? "—" : (x > 0 ? "+" : "") + x.toFixed(2) + "R";
+  const rows = ids.map(id => {
+    const x = info[id] || {}, st = L.strategies.find(s => s.id === id), c = x.check || {};
+    const expected = c.expected_r ?? st?.results?.test?.combined?.avg_r;
+    const gone = x.retired || st?.retired;
+    const status = gone ? el("span", { className: "fail", textContent: "Retired", title: x.reason || st?.retired?.reason || "" })
+      : x.joined ? el("span", { className: "live", textContent: "Live" }) : el("span", { className: "pass", textContent: "Starting next run" });
+    return el("tr", {}, [
+      el("td", {}, [x.name || st?.name || id, gone ? el("div", { className: "muted", style: "white-space:normal;font-size:12px", textContent: "Retired because " + (x.reason || st?.retired?.reason || "its live results fell short") + "." }) : ""]),
+      el("td", { className: "num", textContent: x.equity != null ? `${money(x.equity)} (${Math.round(x.equity / total * 100)}%)` : "—" }),
+      el("td", { className: "num", textContent: c.trades ?? 0 }),
+      tone(el("td", { className: "num", textContent: r(c.avg_r) }), c.avg_r || 0),
+      el("td", { className: "num", textContent: r(expected) }),
+      el("td", { className: "num", title: "Live losing streak against the bad case from its backtest reshuffles", textContent: c.dd_limit != null ? `${(c.dd ?? 0).toFixed(1)}R of ${c.dd_limit.toFixed(1)}R` : "—" }),
+      el("td", {}, [status]),
+    ]);
+  });
+  return el("div", { className: "portfolio" }, [
+    el("h3", { style: "margin-top:0", textContent: "Live portfolio" }),
+    el("div", { className: "tablewrap" }, [el("table", {}, [
+      el("thead", {}, [el("tr", {}, ["Strategy", "Slice of account", "Live trades", "Live avg", "Tested avg", "Losing streak", "Status"].map((h, i) => el("th", { className: i && i < 6 ? "num" : "", textContent: h })))]),
+      el("tbody", {}, rows)])]),
+    el("p", { className: "hint", textContent: "Each live strategy trades its own equal slice of the account, so no single one can dominate, and the slices are re-evened when one joins, leaves or drifts. A strategy is retired, and its money shared out, if after 10 live trades its average is clearly below what it made in testing (more than 2 standard errors), or if its losing streak goes deeper than the bad case from its backtest reshuffles." }),
+  ]);
 }
 
 function windowBars(ws) {
@@ -730,7 +772,7 @@ function showDetail(t) {
   const pnl = t.pnl != null ? tone(el("span", { textContent: "P&L " + signed(t.pnl) }), t.pnl) : "";
   d.replaceChildren(
     el("button", { textContent: "Close", onclick: () => d.hidden = true }),
-    el("strong", { textContent: `${({ ict: "ICT bot: ", rules: "Trend bot: ", lab: "Claude's strategy: " })[t.source] || ""}${ACTION(t)} ${t.name}, ${when(t.t)}` }),
+    el("strong", { textContent: `${({ ict: "ICT bot: ", rules: "Trend bot: ", lab: `${stratName(t.strategy) || "Claude's strategy"}: ` })[t.source] || ""}${ACTION(t)} ${t.name}, ${when(t.t)}` }),
     el("div", { className: "row" }, [
       el("span", { textContent: `Price ${price(t.price)}` }), el("span", { textContent: `Value ${money(t.value)}` }),
       t.stop ? el("span", { textContent: `Stop ${price(t.stop)}` }) : "", t.target ? el("span", { textContent: `Target ${price(t.target)}` }) : "", pnl,
@@ -906,7 +948,7 @@ function stats(trades, key) {
 }
 
 function renderPerf() {
-  const cols = [["Claude", stats(D.trades, "equity")], ...(D.lab?.live ? [["Claude's strategy", stats(D.labTrades, "lab")]] : []), ["ICT bot", stats(D.ictTrades, "ict")], ["Trend bot", stats(D.rbTrades, "rules")], ["Buy and hold", stats([], "benchmark")]];
+  const cols = [["Claude", stats(D.trades, "equity")], ...(labLive() ? [["Claude's strategies", stats(D.labTrades, "lab")]] : []), ["ICT bot", stats(D.ictTrades, "ict")], ["Trend bot", stats(D.rbTrades, "rules")], ["Buy and hold", stats([], "benchmark")]];
   const c = n => n > 0 ? "up" : n < 0 ? "down" : "";
   const rows = [
     ["Return", s => pct(s.ret), s => c(s.ret)],
