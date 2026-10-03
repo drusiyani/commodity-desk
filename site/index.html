@@ -7,8 +7,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<script>try { document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark"; } catch { document.documentElement.dataset.theme = "dark"; }</script>
-<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+<script>try { document.documentElement.dataset.theme = localStorage.getItem("theme") || "dark"; } catch { document.documentElement.dataset.theme = "dark"; }
+// animations only for people who haven't asked their device to reduce motion
+if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("motion");</script>
+<script defer src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
 <style>
 :root, :root[data-theme="dark"] {
   color-scheme: dark;
@@ -172,7 +174,65 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
   #contextSec { grid-template-columns: 1fr; }
   #chart { height: 340px; }
 }
-@media (prefers-reduced-motion: no-preference) { #detail { animation: in .18s ease-out; } @keyframes in { from { opacity: 0; transform: translateY(-4px); } } }
+/* ---------- motion and feedback (all of it is switched off for people who ask for reduced motion) ---------- */
+/* hover and press states */
+button { -webkit-tap-highlight-color: transparent; }
+nav button, .toggle button, .seg button, .themebtn, #detail button {
+  transition: background-color .16s ease, color .16s ease, border-color .16s ease, box-shadow .2s ease, transform .1s ease; }
+nav button:hover { background: var(--soft); border-color: var(--accent-line); }
+nav button[aria-pressed="true"]:hover { border-color: var(--brass); }
+.toggle button:hover, .seg button:hover { color: var(--ink); background: var(--soft); }
+.toggle button[aria-pressed="true"]:hover, .seg button[aria-pressed="true"]:hover { background: var(--line); }
+#detail button:hover { color: var(--ink); }
+nav button:active, .toggle button:active, .seg button:active, .themebtn:active, #detail button:active { transform: scale(.96); }
+tbody td { transition: background-color .15s ease; }
+tbody tr:hover td { background: var(--soft); }
+tbody tr.click:active td { background: var(--line); }
+.mkt, #activity li, .kv { transition: background-color .15s ease; }
+.mkt:hover, #activity li:hover { background: linear-gradient(90deg, transparent, var(--soft) 12%, var(--soft) 88%, transparent); }
+.newslist { margin: 0 -8px; padding: 0 8px; }
+.newslist li.item { margin: 0 -8px; padding-left: 8px; padding-right: 8px; border-radius: 6px; transition: background-color .15s ease; }
+.newslist li.item:hover { background: var(--soft); }
+.newslist li.item:hover .title { text-decoration: none; }
+.newslist li.item:active { background: var(--line); }
+.newslist li.item.open { background: transparent; }
+details summary { transition: color .15s ease; } details summary:hover { color: var(--ink); }
+.bubble a:hover { color: var(--ink); }
+
+/* news bubbles slide open: the wrapper grows from no height to its natural height */
+.bubwrap { display: grid; grid-template-rows: 1fr; }
+.bubwrap > div { overflow: hidden; padding-top: 10px; }
+.bubwrap .bubble { margin-top: 0; }
+
+/* loading skeletons */
+.sk { display: block; height: 12px; margin: 10px 0; border-radius: 4px; background: var(--soft); }
+.sk.big { height: 100%; min-height: 160px; margin: 0; }
+.sk.line { width: 92%; } .sk.short { width: 55%; } .sk.mid { width: 75%; }
+.stat .sk { display: inline-block; width: 74px; height: 18px; margin: 3px 0; }
+#state .sk { display: inline-block; width: 150px; height: 22px; margin: 0; }
+
+@media (prefers-reduced-motion: no-preference) {
+  #detail { animation: in .18s ease-out; } @keyframes in { from { opacity: 0; transform: translateY(-4px); } }
+  .sk { background: linear-gradient(90deg, var(--soft) 25%, var(--line) 50%, var(--soft) 75%); background-size: 300% 100%;
+    animation: shimmer 1.3s ease-in-out infinite; }
+  @keyframes shimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+  /* sections fade gently in as their data arrives (and, further down the page, as they scroll into view) */
+  html.motion section.pending > * { opacity: 0; }
+  html.motion section.in > * { animation: rise .55s cubic-bezier(.2, .7, .2, 1) both; animation-delay: inherit; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+  /* quick cross-fade when switching market, timeframe, chart style or tab */
+  html.motion .swap { animation: swap .32s ease-out; }
+  @keyframes swap { from { opacity: .2; transform: translateY(3px); } }
+  html.motion .bubwrap { transition: grid-template-rows .26s cubic-bezier(.2, .7, .2, 1), opacity .22s ease; }
+  html.motion .bubwrap.closed { grid-template-rows: 0fr; opacity: 0; }
+  html.motion .bubwrap .bubble { transition: transform .26s cubic-bezier(.2, .7, .2, 1); }
+  html.motion .bubwrap.closed .bubble { transform: translateY(-6px); }
+  .state .s, .bar i { transition: color .3s ease, width .7s cubic-bezier(.2, .7, .2, 1); }
+  /* light and dark mode fade into each other instead of snapping */
+  html.theming, html.theming *, html.theming *::before {
+    transition: background-color .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease !important; }
+}
+@media print { html.motion section.pending > * { opacity: 1; } }
 </style>
 </head>
 <body>
@@ -182,7 +242,7 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
   <p class="muted">The agent hasn't run. Open the Actions tab of the repo on GitHub, choose Run trader, then Run workflow, and refresh this page in a couple of minutes.</p>
 </div>
 
-<div id="app" hidden>
+<div id="app">
   <header>
     <div>
       <h1>Claude commodity desk</h1>
@@ -334,19 +394,74 @@ const ACTION = t => t.source === "stop" || t.exit === "stop" ? "Stop hit" : t.so
 const SIGN = t => t.pnl != null ? t.pnl : t.action === "BUY" ? 1 : -1;
 const STATE = { WAITING: ["Waiting", "--brass"], MANAGING: ["Managing positions", "--blue"], TRADED: ["Just traded", "--up"], PAUSED: ["Paused", "--muted"] };
 
+// ---------- motion helpers (all no-ops for people who asked for reduced motion) ----------
+const MOTION = () => document.documentElement.classList.contains("motion");
+
+function countUp(node, to, fmt, ms = 900) {
+  // numbers count up to their value when the page opens
+  if (!MOTION() || !isFinite(to)) { node.textContent = fmt(to); return node; }
+  const t0 = performance.now();
+  const tick = now => {
+    const k = Math.min(1, (now - t0) / ms), eased = 1 - Math.pow(1 - k, 3);
+    node.textContent = fmt(k < 1 ? to * eased : to);
+    if (k < 1) requestAnimationFrame(tick);
+  };
+  node.textContent = fmt(0);
+  requestAnimationFrame(tick);
+  return node;
+}
+
+function flash(...nodes) {
+  // a quick cross-fade on whatever just changed (market, timeframe, tab)
+  if (!MOTION() || !D.ready) return;
+  for (const n of nodes) { if (!n) continue; n.classList.remove("swap"); void n.offsetWidth; n.classList.add("swap"); }
+}
+
+const revealer = "IntersectionObserver" in window ? new IntersectionObserver(entries => {
+  entries.filter(e => e.isIntersecting).forEach((e, i) => {
+    e.target.style.animationDelay = `${i * 70}ms`;
+    e.target.classList.replace("pending", "in");
+    revealer.unobserve(e.target);
+  });
+}, { rootMargin: "0px 0px -40px 0px" }) : null;
+
+function reveal(...sections) {
+  // fade a section in once its data is there; ones further down wait until they scroll into view
+  if (!MOTION() || !revealer) return;
+  for (const sec of sections) { sec.classList.remove("in"); sec.classList.add("pending"); revealer.observe(sec); }
+}
+
+function skeletons() {
+  // grey placeholders where data will appear, so the page has shape while it loads
+  const sk = (cls = "line") => el("span", { className: "sk " + cls, ariaHidden: "true" });
+  const lines = (sel, n) => $(sel)?.replaceChildren(...Array.from({ length: n }, (_, i) => sk(["line", "mid", "short"][i % 3])));
+  $("#themeBtn").textContent = document.documentElement.dataset.theme === "dark" ? "Light mode" : "Dark mode";
+  ["#sEquity", "#sReturn", "#sIct", "#sRules", "#sBench", "#sCash", "#state"].forEach(x => $(x).replaceChildren(sk("")));
+  $("#tabs").replaceChildren(...["Energy", "Metals", "Agriculture"].map(g => el("div", { className: "group" }, [el("span", { className: "glabel", textContent: g }),
+    el("div", { className: "gbtns" }, Array.from({ length: g === "Agriculture" ? 4 : 3 }, () => el("span", { className: "sk", style: "width:112px;height:46px;margin:0" })))])));
+  $("#chartTitle").replaceChildren(el("span", { className: "sk", style: "display:inline-block;width:260px;margin:0" }));
+  ["#chart", "#equity"].forEach(x => $(x).replaceChildren(sk("big")));
+  lines("#summary", 3); lines("#markets", 9); lines("#context", 5); lines("#risk", 6); lines("#activity", 7);
+  lines("#positions", 3); lines("#news", 8); lines("#feed", 8); lines("#perf", 5); lines("#report", 5); lines("#labBody", 6); lines("#btBody", 6);
+}
+
 async function getJSON(f, fallback) {
   try { const r = await fetch(`data/${f}?t=${Date.now()}`); if (!r.ok) throw 0; return await r.json(); } catch { return fallback; }
 }
 
 async function init() {
+  skeletons();
+  const scriptsReady = document.readyState === "loading" ? new Promise(r => document.addEventListener("DOMContentLoaded", r, { once: true })) : null;
   [D.prices, D.news, D.trades, D.equity, D.pf, D.status, D.decisions, D.context, D.rbTrades, D.calls, D.ictTrades, D.ict, D.history, D.lab, D.labTrades, D.labBook] = await Promise.all([
     getJSON("prices.json", null), getJSON("news.json", []), getJSON("trades.json", []), getJSON("equity.json", []),
     getJSON("portfolio.json", null), getJSON("status.json", {}), getJSON("decisions.json", []), getJSON("context.json", {}),
     getJSON("rules_trades.json", []), getJSON("calls.json", []), getJSON("ict_trades.json", []), getJSON("ict_now.json", {}),
     getJSON("history.json", { markets: {} }), getJSON("strategies.json", null), getJSON("lab_trades.json", []), getJSON("lab.json", null),
   ]);
-  if (!D.prices || !Object.keys(D.prices).length) { $("#setup").hidden = false; return; }
-  $("#app").hidden = false;
+  await scriptsReady;  // the chart library loads in parallel with the data
+  if (!D.prices || !Object.keys(D.prices).length) { $("#app").hidden = true; $("#setup").hidden = false; return; }
+  $("#tabs").replaceChildren();
+  document.querySelectorAll("#app .sk").forEach(x => { if (!x.closest("#labBody, #btBody")) x.remove(); });
   D.fx = D.status.fx || 1;
   D.last = Object.fromEntries(Object.entries(D.prices).map(([s, p]) => [s, p.bars.at(-1).close]));
   D.latest = D.decisions.at(-1) || {};
@@ -354,18 +469,21 @@ async function init() {
 
   renderHeader(); renderTabs(); makeCharts(); renderCockpit(); renderContext(); renderRisk();
   renderActivity(); renderBook(); renderPerf(); renderReport(); select(sym); renderFeed();
+  reveal(...document.querySelectorAll("main > section:not(#labSec):not(#btSec)"));
+  D.ready = true;
   document.querySelectorAll("#feedSeg button").forEach(b => b.onclick = () => {
     document.querySelectorAll("#feedSeg button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    renderFeed(b.dataset.g);
+    renderFeed(b.dataset.g); flash($("#feed"));
   });
   D.bt = await getJSON("backtest.json", null);
   document.querySelectorAll("#btSeg button").forEach(b => b.onclick = () => {
     document.querySelectorAll("#btSeg button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    renderBacktest(b.dataset.k);
+    renderBacktest(b.dataset.k); flash($("#btBody"));
   });
   renderBacktest("hourly");
   renderLab();
-  $("#themeBtn").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+  reveal($("#labSec"), $("#btSec"));
+  $("#themeBtn").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark", true);
   setTheme(document.documentElement.dataset.theme || "dark");
   document.addEventListener("keydown", e => {
     if (e.target.closest("input, textarea")) return;
@@ -398,16 +516,16 @@ function renderHeader() {
   ];
   $("#pills").replaceChildren(...pills.map(([k, v, c]) => { const p = el("span", { className: "pill", textContent: v ? `${k} ${v}` : k }); p.style.setProperty("--c", `var(${c})`); return p; }));
   const value = eq ? eq.equity : equityNow();
-  $("#sEquity").textContent = money(value);
+  countUp($("#sEquity"), value, money);
   const r = value / START - 1, b = (eq ? eq.benchmark : START) / START - 1;
-  tone($("#sReturn"), r).textContent = pct(r);
-  tone($("#sBench"), b).textContent = pct(b);
+  countUp(tone($("#sReturn"), r), r, pct);
+  countUp(tone($("#sBench"), b), b, pct);
   const rr = eq?.rules ? eq.rules / START - 1 : 0;
-  tone($("#sRules"), rr).textContent = pct(rr);
-  if (labLive()) { $("#sLabWrap").hidden = false; const lr = eq?.lab ? eq.lab / START - 1 : 0; tone($("#sLab"), lr).textContent = pct(lr); }
+  countUp(tone($("#sRules"), rr), rr, pct);
+  if (labLive()) { $("#sLabWrap").hidden = false; const lr = eq?.lab ? eq.lab / START - 1 : 0; countUp(tone($("#sLab"), lr), lr, pct); }
   const ir = eq?.ict ? eq.ict / START - 1 : 0;
-  tone($("#sIct"), ir).textContent = pct(ir);
-  $("#sCash").textContent = D.pf ? money(D.pf.cash) : "";
+  countUp(tone($("#sIct"), ir), ir, pct);
+  if (D.pf) countUp($("#sCash"), D.pf.cash, money); else $("#sCash").textContent = "";
 }
 
 function change24(bars) {
@@ -467,17 +585,23 @@ function makeCharts() {
   document.querySelectorAll("#styleSeg button").forEach(b => b.onclick = () => {
     mode = b.dataset.mode;
     document.querySelectorAll("#styleSeg button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    drawChart();
+    drawChart(); flash($("#chart"));
   });
   document.querySelectorAll("#tfSeg button").forEach(b => b.onclick = () => {
     tf = b.dataset.tf;
     document.querySelectorAll("#tfSeg button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    setTitle(); drawChart();
+    setTitle(); drawChart(); flash($("#chart"), $("#chartTitle"));
   });
 }
 
-function setTheme(theme) {
-  document.documentElement.dataset.theme = theme;
+function setTheme(theme, animate) {
+  const root = document.documentElement;
+  if (animate && MOTION()) {  // fade the colours across instead of snapping
+    root.classList.add("theming");
+    clearTimeout(setTheme.timer);
+    setTheme.timer = setTimeout(() => root.classList.remove("theming"), 450);
+  }
+  root.dataset.theme = theme;
   try { localStorage.setItem("theme", theme); } catch {}
   $("#themeBtn").textContent = theme === "dark" ? "Light mode" : "Dark mode";
   if (!chart) return;
@@ -538,6 +662,7 @@ function renderLab() {
     ]);
     row.onclick = () => {
       tbody.querySelectorAll("tr").forEach(r => r.classList.remove("sel")); row.classList.add("sel");
+      flash(detail);
       const mk = Object.entries(s.results.test.markets).map(([sym, m]) => `${D.prices[sym]?.name || sym} ${pct(m.return)} (${m.trades})`).join(", ");
       detail.replaceChildren(
         el("h3", { style: "margin-top:0", textContent: s.name }),
@@ -786,6 +911,7 @@ function select(s) {
   $("#newsTitle").textContent = `${name} news`;
   $("#detail").hidden = true;
   drawChart(); renderNews();
+  flash($("#chart"), $("#chartTitle"), $("#ictBox"), $("#longBox"), $("#news"));
 }
 
 function showDetail(t) {
@@ -804,6 +930,12 @@ function showDetail(t) {
   );
   d.hidden = false;
   d.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+
+function growBar(score) {
+  const i = el("i", { style: `width:${MOTION() ? 0 : score}%` });
+  if (MOTION()) requestAnimationFrame(() => requestAnimationFrame(() => { i.style.width = score + "%"; }));
+  return i;
 }
 
 function renderCockpit() {
@@ -828,7 +960,7 @@ function renderCockpit() {
     tone(bias, m.bias === "bullish" ? 1 : m.bias === "bearish" ? -1 : 0);
     const row = el("div", { className: "mkt" }, [
       el("span", { textContent: name }), bias,
-      el("div", { className: "bar" }, [el("i", { style: `width:${score}%` })]),
+      el("div", { className: "bar" }, [growBar(score)]),
       el("span", { className: "num muted", textContent: score }),
       el("div", { className: "note" }, [m.note || "", m.ict_agrees === true ? el("span", { className: "agree", textContent: "  ICT agrees" }) : m.ict_agrees === false ? el("span", { className: "agree", textContent: "  ICT disagrees" }) : ""]),
       m.ict ? el("div", { className: "note", textContent: "ICT: " + m.ict }) : "",
@@ -912,7 +1044,7 @@ function renderBook() {
   }
   document.querySelectorAll("#bookSeg button").forEach(b => b.onclick = () => {
     document.querySelectorAll("#bookSeg button").forEach(x => x.setAttribute("aria-pressed", x === b));
-    renderHistory(b.dataset.k);
+    renderHistory(b.dataset.k); flash($("#trades"));
   });
   renderHistory("claude");
 }
@@ -945,19 +1077,31 @@ function newsItem(n, list, withMarket) {
     n.claude ? "" : el("span", { className: "newbadge", textContent: "New" })]);
   const li = el("li", { className: "item", tabIndex: 0 }, [el("div", { className: "title" }, [...tags, n.title]), meta]);
   const toggle = () => {
-    const open = li.querySelector(".bubble");
-    list.querySelectorAll(".bubble").forEach(b => b.remove());
+    const open = li.querySelector(".bubwrap:not(.closed)");
+    list.querySelectorAll(".bubwrap:not(.closed)").forEach(closeBubble);
     if (open) return;
     const label = imp ? `Claude thinks this is ${imp}` : "Claude's take";
-    li.append(el("div", { className: "bubble" }, [
+    const wrap = el("div", { className: "bubwrap closed" }, [el("div", {}, [el("div", { className: "bubble" }, [
       el("div", { className: "who", textContent: label }),
       el("div", { textContent: n.claude?.take || "Claude hasn't read this one yet. It comments on new headlines every 4 hours." }),
       el("a", { href: n.link, target: "_blank", rel: "noopener", textContent: "Read the article", onclick: e => e.stopPropagation() }),
-    ]));
+    ])])]);
+    li.append(wrap); li.classList.add("open");
+    if (MOTION()) requestAnimationFrame(() => requestAnimationFrame(() => wrap.classList.remove("closed")));
+    else wrap.classList.remove("closed");
   };
   li.onclick = toggle;
   li.onkeydown = e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } };
   return li;
+}
+
+function closeBubble(wrap) {
+  // slide a news bubble shut, then remove it
+  wrap.closest("li")?.classList.remove("open");
+  if (!MOTION()) { wrap.remove(); return; }
+  wrap.classList.add("closed");
+  wrap.addEventListener("transitionend", () => wrap.remove(), { once: true });
+  setTimeout(() => wrap.remove(), 500);
 }
 
 function renderNews() {
@@ -1013,9 +1157,8 @@ function renderReport() {
   }
   const rate = xs => xs.length ? Math.round(xs.filter(x => x.right).length / xs.length * 100) + "%" : "—";
   const n = xs => `${rate(xs)} of ${xs.length}`;
-  const all = rate(done);
   box.append(
-    el("div", { className: "big", textContent: all }),
+    countUp(el("div", { className: "big" }), done.filter(x => x.right).length / done.length * 100, v => Math.round(v) + "%"),
     el("p", { className: "muted", style: "margin:2px 0 8px", textContent: "of Claude's bullish and bearish calls were right after 24 hours. A coin flip would get about 50%." }),
     kv("Bullish calls", n(done.filter(x => x.bias === "bullish"))),
     kv("Bearish calls", n(done.filter(x => x.bias === "bearish"))),
