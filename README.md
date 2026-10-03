@@ -42,7 +42,8 @@ make identical trades. They run on every push (Actions tab, "Tests"). To run the
 `pip install -r requirements.txt pytest`, then `python -m pytest`.
 
 ## Tweaking
-- `engine.py`: `COMMODITIES`, `DAILY_LOSS_LIMIT`, the prompt, and `MODEL`.
+- `engine.py`: `COMMODITIES` (including the two news searches per market), `DAILY_LOSS_LIMIT`, the prompt,
+  `MODEL`, and the news settings (`NEWS_PER_MARKET`, `NEWS_KEEP_HOURS`, `NEWS_TO_CLAUDE`).
 - `core.py`: `MAX_POSITION`, `MAX_OPEN`, `RISK` (per trade) and `COST` (spread and fees per side).
 - `.github/workflows/trader.yml`: the schedule (cron).
 - Preview the site locally: `cd site && python -m http.server`, then open http://localhost:8000
