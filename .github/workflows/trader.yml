@@ -39,7 +39,10 @@ jobs:
           git config user.name "paper-trader-bot"
           git config user.email "actions@users.noreply.github.com"
           git add site/data
-          git diff --cached --quiet || (git commit -m "Update $(date -u +%FT%TZ)" && git push)
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Update $(date -u +%FT%TZ)"
+          git pull --rebase --autostash   # someone may have merged a change to main while this ran
+          git push
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

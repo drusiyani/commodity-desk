@@ -1,5 +1,5 @@
 """
-Claude commodity paper-trading agent. Runs on a schedule in GitHub Actions:
+Argon: a commodity paper-trading system where Claude, an AI, trades against rule-based bots. Runs on a schedule in GitHub Actions:
   1. pulls commodity prices, GBP/USD and related markets (Yahoo Finance via yfinance)
   2. pulls recent headlines (Google News RSS)
   3. risk engine: closes positions that hit their stop or target

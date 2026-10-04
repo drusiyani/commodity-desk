@@ -1,7 +1,8 @@
-# Commodity paper desk
+# Argon
 
-Claude paper-trades gold, silver, oil, gas and copper on a fake $100k account.
-Website shows the chart, the news, and every trade Claude makes. No real money.
+Argon is a commodity paper-trading system. Claude, an AI, trades ten commodity futures (oil, gas, metals and
+crops) on a fake £100k account, racing rule-based bots that each have their own £100k. The website shows the
+charts, the news, and every trade. No real money.
 
 ## Setup (about 10 minutes)
 
