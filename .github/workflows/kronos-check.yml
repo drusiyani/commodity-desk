@@ -1,0 +1,65 @@
+name: Kronos check
+
+# Proves the real Kronos model installs, loads and forecasts, before a change reaches the hourly trader.
+# Runs on pull requests that touch Kronos, or by hand. It reads saved prices and changes nothing.
+on:
+  pull_request:
+    paths:
+      - "kronos_*.py"
+      - "requirements-kronos.txt"
+      - ".github/workflows/trader.yml"
+      - ".github/workflows/kronos-check.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a   # keep in step with trader.yml
+  HF_HUB_DISABLE_TELEMETRY: "1"
+  HF_HOME: ${{ github.workspace }}/.hf-cache
+
+jobs:
+  forecast:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-kronos.txt
+      - name: Install everything the trader installs
+        run: |
+          pip install -r requirements.txt
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements-kronos.txt
+          git init -q vendor/kronos
+          git -C vendor/kronos fetch -q --depth 1 https://github.com/shiyu-coder/Kronos ${{ env.KRONOS_COMMIT }}
+          git -C vendor/kronos checkout -q FETCH_HEAD
+      - uses: actions/cache/restore@v4
+        with:
+          path: .hf-cache
+          key: kronos-mini-${{ env.KRONOS_COMMIT }}
+      - name: Load the real model and forecast two markets
+        run: |
+          python - <<'PY'
+          import json, time
+          import kronos_model as KM
+          t0 = time.time()
+          predictor = KM.load()
+          print(f"loaded {KM.MODEL} in {time.time() - t0:.1f}s")
+          prices = json.load(open("site/data/prices.json"))
+          for sym in list(prices)[:2]:
+              t1 = time.time()
+              f = KM.forecast_market(predictor, prices[sym]["bars"])
+              print(f"{sym}: {time.time() - t1:.1f}s, expected {f['expected']:+.2%}, range {f['p10']:g}-{f['p90']:g}, "
+                    f"chance of a rise {f['prob_up']:.0%}, last price {f['price']:g}")
+              assert f["p10"] <= f["p50"] <= f["p90"], "percentiles out of order"
+              assert 0 <= f["prob_up"] <= 1 and f["samples"] == KM.SAMPLES
+              assert abs(f["p50"] / f["price"] - 1) < 0.25, "forecast wildly away from the price"
+          print(f"total {time.time() - t0:.1f}s")
+          PY
