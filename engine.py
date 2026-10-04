@@ -31,6 +31,7 @@ import yfinance as yf
 
 import core as C
 import ict
+import kronos_bot as KB
 import validation as V
 
 ROOT = Path(__file__).parent
@@ -620,6 +621,46 @@ def run_portfolio(lb, strategies, series, prices, last_usd, fx, now):
     return filled
 
 
+# ---------- Kronos: an open-source AI price model (forecasts in kronos_model.py, rules in kronos_bot.py) ----------
+def get_kronos(prices, now):
+    """Forecast every market with Kronos. Any failure is reported, never raised, so the rest of the run carries on."""
+    try:
+        import kronos_model
+        return kronos_model.run(prices, now)
+    except Exception as e:
+        print("Kronos step failed:", e)
+        return {"time": now, "status": "error", "error": str(e)[:300], "markets": {}, "skipped": []}
+
+
+def new_kronos_book(now):
+    return {"cash": START_CASH, "positions": {}, "used": [], "last_entry": {}, "last_run": now, "day": {}}
+
+
+def run_kronos_bot(kb, prices, forecasts, last_usd, fx, now):
+    """The Kronos bot: trades the forecasts on its own account, with the same risk rules as the others
+    (1% risk per trade, max 25% per market, max 4 markets, no new trades after a 3% daily loss)."""
+    eq = equity(kb, last_usd, fx)
+    today = time.strftime("%Y-%m-%d", time.gmtime(now))
+    if kb.setdefault("day", {}).get("date") != today:
+        kb["day"] = {"date": today, "start_equity": round(eq, 2)}
+    blocked = eq < kb["day"]["start_equity"] * (1 - DAILY_LOSS_LIMIT)
+
+    def rules_for(sym):
+        bars = prices[sym]["bars"]
+        return KB.KronosRules(bars, forecasts.get(sym), blocked), len(bars) - 1
+    return run_bot(kb, prices, last_usd, fx, now, "kronos", rules_for)
+
+
+def kronos_text(sym, kronos, kacc):
+    f = (kronos or {}).get("markets", {}).get(sym)
+    if not f:
+        return None
+    px = f["price"]
+    return (f"Kronos AI forecast for the next 24 hourly candles: expected {f['expected']:+.2%}, likely range "
+            f"{f['p10']:g} to {f['p90']:g} ({f['p10'] / px - 1:+.1%} to {f['p90'] / px - 1:+.1%}), chance of a rise "
+            f"{f['prob_up']:.0%}. Its live record here: {KB.record_text(kacc.get(sym) or KB.accuracy([]))}")
+
+
 # ---------- report card: were Claude's calls right 24 hours later? ----------
 def evaluate_calls(calls, prices, now):
     for c in calls:
@@ -683,7 +724,8 @@ def headline_age(n, now=None):
     return f"{max(1, round(h * 60))} min ago" if h < 1 else f"{round(h)}h ago"
 
 
-def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history, strats=(), sigs=None):
+def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history, strats=(), sigs=None,
+               kronos=None, kacc=None):
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError("No ANTHROPIC_API_KEY secret set")
@@ -706,6 +748,9 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
         bt = backtest_text(sym)
         if bt:
             lines.append(f"   Backtests: {bt}")
+        kt = kronos_text(sym, kronos, kacc or {})
+        if kt:
+            lines.append(f"   {kt}")
         if sym in reads:
             lines.append(f"   ICT: {reads[sym]['text']}")
             if reads[sym]["fvgs_below"]:
@@ -754,6 +799,10 @@ How to think (take your time and reason it through properly before answering):
    Small trade counts prove little either way.
 6. You can only go long. A bearish ICT read plus bearish news is a reason to sell what you hold or stay out.
 7. Base stops and targets on ICT levels, not round numbers.
+8. Kronos is an open-source AI model that forecasts the next 24 hourly candles from the chart alone (no news).
+   Treat its forecast as one more input, weighted by its live record shown with it: if its direction calls have
+   been right well above 50% over a long record, lean on it more; if the record is short (under {KB.MIN_RECORD}
+   checked forecasts) or near 50%, be sceptical and don't trade on it alone. It has not been backtested.
 
 Cash: £{pf['cash']:,.0f}. Portfolio: £{eq:,.0f} (started at £{START_CASH:,}).
 
@@ -825,6 +874,11 @@ def main():
     news, health["news"] = get_news(load("news.json", []), now)
     history = get_history()
     health["history"] = len(history["markets"]) >= len(COMMODITIES) - 1
+    kronos = get_kronos(prices, now)
+    health["kronos"] = kronos["status"] in ("ok", "partial")
+    kcalls = KB.record_calls(KB.check_calls(load("kronos_calls.json", []), prices), kronos["markets"])
+    kacc = {s: KB.accuracy(kcalls, s) for s in COMMODITIES}
+    kronos["accuracy"] = dict(KB.accuracy(kcalls), markets=kacc)
     last_usd = {s: p["bars"][-1]["close"] for s, p in prices.items()}
     last = {s: v / fx for s, v in last_usd.items()}
 
@@ -842,13 +896,14 @@ def main():
         except Exception as e:
             print(f"Strategy {st.get('name')} signals failed:", e)
     ib, ib_trades = load("ict.json", None), load("ict_trades.json", [])
+    kb, kb_trades = load("kronos_bot.json", None) or new_kronos_book(now), load("kronos_trades.json", [])
     if not pf or pf.get("version") != 3:  # fresh start
         pf, trades, decisions, eq_hist = new_portfolio(), [], [], []
         rb, rb_trades, calls, ib, ib_trades = None, [], [], None, []
     rb = rb or {"cash": START_CASH, "positions": {}}
     if not ib:  # ICT bot joins late: give it a fresh £100k from now
         ib, ib_trades = {"cash": START_CASH, "positions": {}, "used": [], "last_run": now}, []
-    for book in (pf, rb, ib):  # positions saved by older versions get the fields core.py expects
+    for book in (pf, rb, ib, kb):  # positions saved by older versions get the fields core.py expects
         C.normalize(book)
     reads = {}
     for sym, p in prices.items():
@@ -885,7 +940,8 @@ def main():
         try:
             pf["last_claude"] = now
             decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads,
-                                  {s: m for s, m in history["markets"].items() if s in prices}, strats, sigs)
+                                  {s: m for s, m in history["markets"].items() if s in prices}, strats, sigs,
+                                  kronos, kacc)
             health["claude"] = True
             more, blocked = apply_decision(pf, decision, last_usd, fx, now, reads)
             filled += more
@@ -919,6 +975,7 @@ def main():
     rb_trades += run_rule_bot(rb, prices, last_usd, fx, now)
     ib_trades += run_ict_bot(ib, prices, last_usd, fx, now)
     lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now)
+    kb_trades += run_kronos_bot(kb, prices, kronos["markets"], last_usd, fx, now)
     calls = evaluate_calls(calls, prices, now)[-5000:]
     decisions = (decisions + ([entry] if entry else []))[-400:]
     trades += filled
@@ -929,7 +986,7 @@ def main():
     bench = START_CASH * sum(last[s] / starts[s] for s in both) / max(1, len(both))
     eq_hist.append({"time": now, "equity": round(equity(pf, last_usd, fx), 2), "benchmark": round(bench, 2),
                     "rules": round(equity(rb, last_usd, fx), 2), "ict": round(equity(ib, last_usd, fx), 2),
-                    "lab": round(lab_equity(lb, last_usd, fx), 2)})
+                    "lab": round(lab_equity(lb, last_usd, fx), 2), "kronos": round(equity(kb, last_usd, fx), 2)})
 
     save("prices.json", prices)
     save("context.json", context)
@@ -946,6 +1003,10 @@ def main():
     save("lab.json", lb)
     save("lab_trades.json", lb_trades)
     save("ict_now.json", reads)
+    save("kronos.json", kronos)
+    save("kronos_calls.json", kcalls)
+    save("kronos_bot.json", kb)
+    save("kronos_trades.json", kb_trades)
     save("history.json", {"date": history["date"], "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})
@@ -954,7 +1015,8 @@ def main():
                          "rules": {"max_position": MAX_POSITION, "max_open": MAX_OPEN,
                                    "daily_loss_limit": DAILY_LOSS_LIMIT, "min_rr": MIN_RR}})
     print(f"Done. Claude {'asked' if entry and entry.get('markets') else 'not asked'}, {len(filled)} fills, "
-          f"portfolio £{equity(pf, last_usd, fx):,.0f}, ICT bot £{equity(ib, last_usd, fx):,.0f}")
+          f"portfolio £{equity(pf, last_usd, fx):,.0f}, ICT bot £{equity(ib, last_usd, fx):,.0f}, "
+          f"Kronos {kronos['status']} (bot £{equity(kb, last_usd, fx):,.0f})")
 
 
 if __name__ == "__main__":

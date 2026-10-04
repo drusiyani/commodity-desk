@@ -10,6 +10,11 @@ permissions:
   pages: write
   id-token: write
 
+env:
+  KRONOS_COMMIT: 67b630e67f6a18c9e9be918d9b4337c960db1e9a   # github.com/shiyu-coder/Kronos, pinned
+  HF_HUB_DISABLE_TELEMETRY: "1"
+  HF_HOME: ${{ github.workspace }}/.hf-cache   # model weights live here so they can be cached
+
 concurrency:
   group: trader
   cancel-in-progress: false
@@ -26,13 +31,42 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip                       # keeps the PyTorch download between runs
+          cache-dependency-path: |
+            requirements.txt
+            requirements-kronos.txt
 
       - run: pip install -r requirements.txt
+
+      # Kronos, the AI forecasting model. If any of this fails the run carries on without it,
+      # and the website's "Kronos" status light shows the problem.
+      - name: Install Kronos (CPU-only PyTorch and the Kronos code at a pinned commit)
+        continue-on-error: true
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements-kronos.txt
+          git init -q vendor/kronos
+          git -C vendor/kronos fetch -q --depth 1 https://github.com/shiyu-coder/Kronos ${{ env.KRONOS_COMMIT }}
+          git -C vendor/kronos checkout -q FETCH_HEAD
+
+      - name: Restore the cached Kronos model weights
+        id: weights
+        uses: actions/cache/restore@v4
+        with:
+          path: .hf-cache
+          key: kronos-mini-${{ env.KRONOS_COMMIT }}
 
       - name: Run engine
         run: python engine.py
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+
+      - name: Cache the Kronos model weights (only the first time they download)
+        if: steps.weights.outputs.cache-hit != 'true' && hashFiles('.hf-cache/hub/models--NeoQuasar--Kronos-mini/**') != ''
+        uses: actions/cache/save@v4
+        with:
+          path: .hf-cache
+          key: kronos-mini-${{ env.KRONOS_COMMIT }}
 
       - name: Save data back to the repo
         run: |

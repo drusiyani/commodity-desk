@@ -213,3 +213,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Kronos code, fetched by the trader workflow
+vendor/
+.hf-cache/
