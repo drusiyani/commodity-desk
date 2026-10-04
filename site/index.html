@@ -66,6 +66,9 @@ main { display: grid; gap: 14px; padding: 0 24px 28px; grid-template-columns: mi
 .valid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 0 28px; margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
 .wbars { display: inline-flex; gap: 3px; align-items: flex-end; height: 18px; vertical-align: middle; }
 .wbars i { display: block; width: 6px; border-radius: 1px; }
+.wcell { display: inline-flex; align-items: center; gap: 6px; }
+.wbar { display: inline-block; width: 44px; height: 5px; background: var(--soft); border-radius: 3px; overflow: hidden; }
+.wbar i { display: block; height: 100%; background: var(--teal); }
 .checks { list-style: none; margin: 0; padding: 0; font-family: Inter, system-ui, sans-serif; font-size: 13px; }
 .checks li { padding: 3px 0; } .checks .ink { color: var(--ink); }
 .pass { color: var(--up); font-weight: 600; } .fail { color: var(--muted); } .live { color: var(--brass); font-weight: 600; }
@@ -229,7 +232,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
   html.motion .bubwrap.closed { grid-template-rows: 0fr; opacity: 0; }
   html.motion .bubwrap .bubble { transition: transform .26s cubic-bezier(.2, .7, .2, 1); }
   html.motion .bubwrap.closed .bubble { transform: translateY(-6px); }
-  .state .s, .bar i { transition: color .3s ease, width .7s cubic-bezier(.2, .7, .2, 1); }
+  .state .s, .bar i, .wbar i { transition: color .3s ease, width .7s cubic-bezier(.2, .7, .2, 1); }
   /* light and dark mode fade into each other instead of snapping */
   html.theming, html.theming *, html.theming *::before {
     transition: background-color .35s ease, color .35s ease, border-color .35s ease, box-shadow .35s ease !important; }
@@ -352,7 +355,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       </h2>
       <div id="equity"></div>
       <div class="tablewrap" id="perf" style="margin-top:12px"></div>
-      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k in equal slices. The ICT bot trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. The trend bot holds a market while its 20-hour average is above its 100-hour average. The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. Claude uses the ICT read, the news and the Kronos forecast together. If Claude can't beat the bots, it isn't adding much.</p>
+      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k, each on a slice sized by its risk. The ICT bot trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. The trend bot holds a market while its 20-hour average is above its 100-hour average. The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. Claude uses the ICT read, the news and the Kronos forecast together. If Claude can't beat the bots, it isn't adding much.</p>
     </section>
 
     <section id="labSec">
@@ -650,7 +653,7 @@ function renderLab() {
   const info = D.labBook?.strategies || {};
   const retired = id => info[id]?.retired || L.strategies.find(s => s.id === id)?.retired;
   body.append(el("p", { style: "margin:0 0 10px", textContent: `Claude has invented and tested ${L.strategies.length} strategies. ${passed} passed every check. ` +
-    (live.length ? `${live.length} trade live together, each on an equal slice of one £100k account.` : "None is trading live yet, because none has passed.") }));
+    (live.length ? `${live.length} trade live together, sharing one £100k account.` : "None is trading live yet, because none has passed.") }));
   body.append(renderPortfolio(L, info));
   const fmt = (c, k) => c?.[k] == null ? "—" : k === "avg_r" ? (c[k] > 0 ? "+" : "") + c[k].toFixed(2) + "R" : c[k].toFixed(2);
   const pc = x => x == null ? "—" : x < 0.001 ? "<0.1%" : x < 0.01 ? (x * 100).toFixed(1) + "%" : Math.round(x * 100) + "%";
@@ -669,6 +672,7 @@ function renderLab() {
       el("td", { className: "num", textContent: te.trades }),
       el("td", { className: "num" }, [windowBars(s.results.windows)]),
       el("td", { className: "num", title: "Chance the test result is luck, after allowing for every strategy tried", textContent: pc(v.adj_p) }),
+      el("td", { className: "num" }, [weightCell(isLive(s) ? weightOf(s.id) : null)]),
       el("td", {}, [status]),
     ]);
     row.onclick = () => {
@@ -687,8 +691,8 @@ function renderLab() {
     return row;
   }));
   body.append(el("div", { className: "tablewrap" }, [el("table", {}, [
-    el("thead", {}, [el("tr", {}, ["Strategy", "Timeframe", "Train PF / avg R", "Test PF / avg R", "Test trades", "Test windows", "Luck", "Status"].map((x, i) => el("th", { className: i >= 2 && i <= 6 ? "num" : "", textContent: x })))]),
-    tbody])]), detail,
+    el("thead", {}, [el("tr", {}, ["Strategy", "Timeframe", "Train PF / avg R", "Test PF / avg R", "Test trades", "Test windows", "Luck", "Weight", "Status"].map((x, i) => el("th", { className: i >= 2 && i <= 7 ? "num" : "", textContent: x })))]),
+    tbody])]), allocationNote() ? el("p", { className: "hint", style: "margin-top:6px", textContent: allocationNote() }) : "", detail,
     el("p", { className: "hint", textContent: `Walk-forward testing: history is cut into ${P.windows ?? 4} rolling windows. In each, a strategy is checked on one stretch and then judged on the next stretch, which it hasn't been checked on; "Test" pools all of those judged stretches. ` +
       `Luck: its test trades are reshuffled ${(P.mc_runs ?? 2000).toLocaleString("en-GB")} times to see how often a strategy with no edge would do as well, then that chance is raised to allow for all ${L.strategies.length} strategies tried, because the more ideas get tested, the more will look good by accident. ` +
       `To pass it needs at least ${P.min_test_trades ?? 30} test trades, a test profit factor of ${P.min_test_pf ?? 1.1}+, profits in most test windows, and under ${Math.round((P.max_luck ?? 0.1) * 100)}% luck. The live forward test is still the real judge.` }));
@@ -722,8 +726,26 @@ function renderPortfolio(L, info) {
     el("div", { className: "tablewrap" }, [el("table", {}, [
       el("thead", {}, [el("tr", {}, ["Strategy", "Slice of account", "Live trades", "Live avg", "Tested avg", "Losing streak", "Status"].map((h, i) => el("th", { className: i && i < 6 ? "num" : "", textContent: h })))]),
       el("tbody", {}, rows)])]),
-    el("p", { className: "hint", textContent: "Each live strategy trades its own equal slice of the account, so no single one can dominate, and the slices are re-evened when one joins, leaves or drifts. A strategy is retired, and its money shared out, if after 10 live trades its average is clearly below what it made in testing (more than 2 standard errors), or if its losing streak goes deeper than the bad case from its backtest reshuffles." }),
+    el("p", { className: "hint", textContent: "Each live strategy trades its own slice of the account, sized by its weight, and the slices are re-evened when one joins, leaves, gets new weights or drifts. A strategy is retired, and its money shared out, if after 10 live trades its average is clearly below what it made in testing (more than 2 standard errors), or if its losing streak goes deeper than the bad case from its backtest reshuffles." }),
   ]);
+}
+
+function weightOf(id) {
+  // a live strategy's share of the strategy account: the lab's weights, else what the live run used, else equal
+  const a = D.lab?.allocation, live = portfolio().filter(x => !(D.labBook?.strategies?.[x]?.retired));
+  return a?.weights?.[id] ?? D.labBook?.strategies?.[id]?.weight ?? (live.includes(id) ? 1 / live.length : null);
+}
+
+function weightCell(w) {
+  if (w == null) return el("span", { className: "muted", textContent: "—" });
+  return el("span", { className: "wcell" }, [`${Math.round(w * 100)}%`, el("span", { className: "wbar" }, [growBar(Math.round(w * 100))])]);
+}
+
+function allocationNote() {
+  const a = D.lab?.allocation;
+  if (!portfolio().length) return "";
+  const how = "How the money is split: the steadier a strategy's test results and the less it moves with the others, the bigger its slice (hierarchical risk parity, worked out by skfolio), with every strategy kept between 10% and 50%.";
+  return a?.method === "equal" ? `${how} This week: equal slices. ${a.note}` : a ? how : `${how} The lab hasn't worked out weights yet, so the slices are equal for now.`;
 }
 
 function windowBars(ws) {

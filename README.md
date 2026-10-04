@@ -24,7 +24,8 @@ Edit `config.json` in the repo:
 ## Claude's strategies
 The strategy lab (`research.py`, every Sunday) invents strategies and only passes ones that hold up in walk-forward
 tests and are unlikely to be luck (`validation.py`). Every strategy that passes (up to 5) trades live together on
-one £100k account, each on an equal slice. The hourly run retires a strategy if its live results fall clearly
+one £100k account. Each gets a slice sized by skfolio's hierarchical risk parity (`allocation.py`): steadier
+strategies, and ones that don't move with the others, get more, within 10% to 50% each. The hourly run retires a strategy if its live results fall clearly
 below its backtest; the reason shows on the website. To give a retired strategy another chance, delete its entry
 under `"strategies"` in `site/data/lab.json`.
 

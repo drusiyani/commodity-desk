@@ -1,0 +1,3 @@
+# Extra package for the weekly strategy lab (and the tests): skfolio sizes the live strategies' slices.
+# The hourly trader doesn't need it: it reads the weights the lab saved in strategies.json.
+skfolio==1.4.11
