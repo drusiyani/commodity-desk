@@ -8,9 +8,10 @@ Setup (done by .github/workflows/trader.yml):
   - the model weights download from Hugging Face on first use and are cached between runs with actions/cache
 
 Model choice: Kronos-mini (4.1M parameters, the smallest), with its Kronos-Tokenizer-2k tokenizer. It accepts up to
-2048 candles, but it has no cache between forecast steps, so cost grows with the context: on a 4-core runner, 512
-candles x 20 paths takes about 10 seconds per market, while 2048 candles would take well over the 3-minute budget.
-So it reads the latest 512 hourly candles (about three weeks) and draws 20 sample paths per market.
+2048 candles, but it has no cache between forecast steps, so cost grows with the context. Measured on GitHub's
+4-core runner: 512 candles x 20 paths takes about 21 seconds per market (too slow for ten markets in the 3-minute
+budget), and 2048 would be far slower. So it reads the latest 256 hourly candles (about eleven trading days) and
+draws 20 sample paths per market; 20 paths keep the chance of a rise in 5% steps, fine enough for the bot's 65% bar.
 
 The model averages any paths it draws together (sample_count), so to keep the paths separate we use its
 predict_batch with 20 copies of the same market and sample_count=1: each copy becomes one independent path.
@@ -27,7 +28,7 @@ KRONOS_DIR = Path(os.environ.get("KRONOS_DIR", ROOT / "vendor" / "kronos"))
 MODEL = "NeoQuasar/Kronos-mini"
 TOKENIZER = "NeoQuasar/Kronos-Tokenizer-2k"
 MAX_CONTEXT = 2048
-LOOKBACK = int(os.environ.get("KRONOS_LOOKBACK", 512))
+LOOKBACK = int(os.environ.get("KRONOS_LOOKBACK", 256))
 SAMPLES = int(os.environ.get("KRONOS_SAMPLES", 20))
 BUDGET = float(os.environ.get("KRONOS_BUDGET", 170))  # seconds for loading and forecasting, all markets
 

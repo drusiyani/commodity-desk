@@ -44,7 +44,7 @@ jobs:
         with:
           path: .hf-cache
           key: kronos-mini-${{ env.KRONOS_COMMIT }}
-      - name: Load the real model and forecast two markets
+      - name: Load the real model and forecast three markets
         run: |
           python - <<'PY'
           import json, time
@@ -53,7 +53,7 @@ jobs:
           predictor = KM.load()
           print(f"loaded {KM.MODEL} in {time.time() - t0:.1f}s")
           prices = json.load(open("site/data/prices.json"))
-          for sym in list(prices)[:2]:
+          for sym in list(prices)[:3]:
               t1 = time.time()
               f = KM.forecast_market(predictor, prices[sym]["bars"])
               print(f"{sym}: {time.time() - t1:.1f}s, expected {f['expected']:+.2%}, range {f['p10']:g}-{f['p90']:g}, "
@@ -61,5 +61,7 @@ jobs:
               assert f["p10"] <= f["p50"] <= f["p90"], "percentiles out of order"
               assert 0 <= f["prob_up"] <= 1 and f["samples"] == KM.SAMPLES
               assert abs(f["p50"] / f["price"] - 1) < 0.25, "forecast wildly away from the price"
-          print(f"total {time.time() - t0:.1f}s")
+          took = (time.time() - t0) / 3
+          print(f"total {time.time() - t0:.1f}s; at this speed all ten markets take about {10 * took:.0f}s (budget {KM.BUDGET:.0f}s)")
+          assert 10 * took < KM.BUDGET, "too slow to forecast every market inside the hourly budget"
           PY
