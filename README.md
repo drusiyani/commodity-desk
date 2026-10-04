@@ -34,6 +34,8 @@ under `"strategies"` in `site/data/lab.json`.
   like live. Stops that price gaps through fill at the bar's open (worse than the stop), like a real stop order.
 - `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups).
 - `engine.py`: the hourly live run: data, news, Claude, and the bots.
+- `kronos_model.py` + `kronos_bot.py`: Kronos, an open-source AI model that forecasts the next 24 hourly candles,
+  and the Kronos bot that trades its forecasts. Judged on live results only (see the note on the site).
 - `backtest.py`, `research.py` + `features.py`: bot backtests and Claude's strategy lab.
 
 ## Tests

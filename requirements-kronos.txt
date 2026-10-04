@@ -1,0 +1,6 @@
+# Extra packages for the Kronos forecasts (only the hourly trader installs these).
+# PyTorch itself is installed CPU-only from download.pytorch.org in .github/workflows/trader.yml.
+einops==0.8.1
+huggingface_hub==0.33.1
+safetensors==0.6.2
+tqdm
