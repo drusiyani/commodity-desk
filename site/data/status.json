@@ -1,5 +1,5 @@
 {
- "updated": 1791024039,
+ "updated": 1791129629,
  "model": "claude-haiku-4-5-20251001",
  "fx": 1.324047327041626,
  "health": {
@@ -8,9 +8,10 @@
   "context": true,
   "news": true,
   "history": true,
+  "kronos": true,
   "claude": true
  },
- "last_claude": 1791024039,
+ "last_claude": 1791129629,
  "rules": {
   "max_position": 0.25,
   "max_open": 4,

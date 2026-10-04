@@ -1,5 +1,5 @@
 {
- "date": "2026-10-03",
+ "date": "2026-10-04",
  "markets": {
   "CL=F": {
    "weekly": [
@@ -1828,28 +1828,28 @@
      "open": 93.58,
      "high": 96.54,
      "low": 88.06,
-     "close": 91.26
+     "close": 91.11
     }
    ],
    "stats": {
-    "last": 91.26,
+    "last": 91.11,
     "hi5": 130.5,
     "lo5": 54.98,
     "hi5_date": "Mar 2022",
     "lo5_date": "Dec 2025",
-    "pos5": 0.48,
-    "from_high": -0.3007,
+    "pos5": 0.478,
+    "from_high": -0.3018,
     "hi1": 119.48,
     "lo1": 54.98,
-    "r1": 0.4771771437265333,
-    "r3": 0.0051767949770198385,
-    "r5": 0.17572789109762144,
-    "ma200": 82.3853,
-    "vol": 0.5522,
+    "r1": 0.47474914876306995,
+    "r3": 0.0035246138517164294,
+    "r5": 0.17379537988181215,
+    "ma200": 82.3846,
+    "vol": 0.5523,
     "move": 0.025,
     "month": 10,
     "season": {
-     "avg": -0.0032,
+     "avg": -0.0035,
      "up": 3,
      "n": 5
     },
@@ -1859,7 +1859,7 @@
      "n": 5
     }
    },
-   "text": "5-year range 54.98 (Dec 2025) to 130.5 (Mar 2022), now at 48% of it and -30% from the high; 1-year range 54.98-119.48; returns 1y +48%, 3y +1%, 5y +18%; above its 200-day average (82.3853); volatility 55% a year, typical daily move 2.5%; Oct has averaged -0.3% (up 3 of 5 years); Nov has averaged -8.0% (up 0 of 5 years)"
+   "text": "5-year range 54.98 (Dec 2025) to 130.5 (Mar 2022), now at 48% of it and -30% from the high; 1-year range 54.98-119.48; returns 1y +47%, 3y +0%, 5y +17%; above its 200-day average (82.3846); volatility 55% a year, typical daily move 2.5%; Oct has averaged -0.4% (up 3 of 5 years); Nov has averaged -8.0% (up 0 of 5 years)"
   },
   "BZ=F": {
    "weekly": [
@@ -3688,28 +3688,28 @@
      "open": 105.8,
      "high": 108.81,
      "low": 96.56,
-     "close": 102.7
+     "close": 102.25
     }
    ],
    "stats": {
-    "last": 102.7,
+    "last": 102.25,
     "hi5": 137.0,
     "lo5": 58.39,
     "hi5_date": "Mar 2022",
     "lo5_date": "Apr 2025",
-    "pos5": 0.564,
-    "from_high": -0.2504,
+    "pos5": 0.558,
+    "from_high": -0.2536,
     "hi1": 126.1,
     "lo1": 58.72,
-    "r1": 0.5715378629872787,
-    "r3": 0.1321794508299352,
-    "r5": 0.26384437913339065,
-    "ma200": 87.74,
+    "r1": 0.564651911055384,
+    "r3": 0.12721862013007912,
+    "r5": 0.25830663686890265,
+    "ma200": 87.7377,
     "vol": 0.5424,
     "move": 0.0256,
     "month": 10,
     "season": {
-     "avg": -0.0045,
+     "avg": -0.0054,
      "up": 2,
      "n": 5
     },
@@ -3719,7 +3719,7 @@
      "n": 5
     }
    },
-   "text": "5-year range 58.39 (Apr 2025) to 137 (Mar 2022), now at 56% of it and -25% from the high; 1-year range 58.72-126.1; returns 1y +57%, 3y +13%, 5y +26%; above its 200-day average (87.74); volatility 54% a year, typical daily move 2.6%; Oct has averaged -0.4% (up 2 of 5 years); Nov has averaged -6.9% (up 0 of 5 years)"
+   "text": "5-year range 58.39 (Apr 2025) to 137 (Mar 2022), now at 56% of it and -25% from the high; 1-year range 58.72-126.1; returns 1y +56%, 3y +13%, 5y +26%; above its 200-day average (87.7377); volatility 54% a year, typical daily move 2.6%; Oct has averaged -0.5% (up 2 of 5 years); Nov has averaged -6.9% (up 0 of 5 years)"
   },
   "NG=F": {
    "weekly": [
@@ -5548,28 +5548,28 @@
      "open": 3.081,
      "high": 3.156,
      "low": 2.912,
-     "close": 3.039
+     "close": 3.035
     }
    ],
    "stats": {
-    "last": 3.039,
+    "last": 3.035,
     "hi5": 10.028,
     "lo5": 1.481,
     "hi5_date": "Aug 2022",
     "lo5_date": "Mar 2024",
     "pos5": 0.182,
-    "from_high": -0.6969,
+    "from_high": -0.6973,
     "hi1": 7.827,
     "lo1": 2.483,
-    "r1": -0.12571922536460856,
-    "r3": 0.07007046696378882,
-    "r5": -0.47294482433189455,
-    "ma200": 3.1497,
+    "r1": -0.126869958512013,
+    "r3": 0.06866203435024176,
+    "r5": -0.4736385372428358,
+    "ma200": 3.1496,
     "vol": 0.9161,
-    "move": 0.0187,
+    "move": 0.0186,
     "month": 10,
     "season": {
-     "avg": 0.0678,
+     "avg": 0.0675,
      "up": 3,
      "n": 5
     },
@@ -5579,7 +5579,7 @@
      "n": 5
     }
    },
-   "text": "5-year range 1.481 (Mar 2024) to 10.028 (Aug 2022), now at 18% of it and -70% from the high; 1-year range 2.483-7.827; returns 1y -13%, 3y +7%, 5y -47%; below its 200-day average (3.1497); volatility 92% a year, typical daily move 1.9%; Oct has averaged +6.8% (up 3 of 5 years); Nov has averaged +2.7% (up 3 of 5 years)"
+   "text": "5-year range 1.481 (Mar 2024) to 10.028 (Aug 2022), now at 18% of it and -70% from the high; 1-year range 2.483-7.827; returns 1y -13%, 3y +7%, 5y -47%; below its 200-day average (3.1496); volatility 92% a year, typical daily move 1.9%; Oct has averaged +6.8% (up 3 of 5 years); Nov has averaged +2.7% (up 3 of 5 years)"
   },
   "GC=F": {
    "weekly": [
@@ -7408,28 +7408,28 @@
      "open": 4315.0,
      "high": 4315.6001,
      "low": 4143.1001,
-     "close": 4172.1001
+     "close": 4162.2998
     }
    ],
    "stats": {
-    "last": 4172.1001,
+    "last": 4162.2998,
     "hi5": 5586.2002,
     "lo5": 1618.3,
     "hi5_date": "Jan 2026",
     "lo5_date": "Nov 2022",
-    "pos5": 0.644,
-    "from_high": -0.2531,
+    "pos5": 0.641,
+    "from_high": -0.2549,
     "hi1": 5586.2002,
     "lo1": 3842.8,
-    "r1": 0.0704554451972419,
-    "r3": 1.258607734917622,
-    "r5": 1.3603191645628137,
-    "ma200": 4553.4145,
-    "vol": 0.2896,
-    "move": 0.0104,
+    "r1": 0.06794093770044896,
+    "r3": 1.2533022491944692,
+    "r5": 1.3547747579639728,
+    "ma200": 4553.3655,
+    "vol": 0.2897,
+    "move": 0.0105,
     "month": 10,
     "season": {
-     "avg": 0.0224,
+     "avg": 0.022,
      "up": 3,
      "n": 5
     },
@@ -7439,7 +7439,7 @@
      "n": 5
     }
    },
-   "text": "5-year range 1618.3 (Nov 2022) to 5586.2 (Jan 2026), now at 64% of it and -25% from the high; 1-year range 3842.8-5586.2; returns 1y +7%, 3y +126%, 5y +136%; below its 200-day average (4553.41); volatility 29% a year, typical daily move 1.0%; Oct has averaged +2.2% (up 3 of 5 years); Nov has averaged +2.2% (up 3 of 5 years)"
+   "text": "5-year range 1618.3 (Nov 2022) to 5586.2 (Jan 2026), now at 64% of it and -25% from the high; 1-year range 3842.8-5586.2; returns 1y +7%, 3y +125%, 5y +135%; below its 200-day average (4553.37); volatility 29% a year, typical daily move 1.1%; Oct has averaged +2.2% (up 3 of 5 years); Nov has averaged +2.2% (up 3 of 5 years)"
   },
   "SI=F": {
    "weekly": [
@@ -9268,28 +9268,28 @@
      "open": 61.385,
      "high": 62.455,
      "low": 59.985,
-     "close": 60.71
+     "close": 60.415
     }
    ],
    "stats": {
-    "last": 60.71,
+    "last": 60.415,
     "hi5": 121.3,
     "lo5": 17.32,
     "hi5_date": "Jan 2026",
     "lo5_date": "Sep 2022",
-    "pos5": 0.417,
-    "from_high": -0.4995,
+    "pos5": 0.414,
+    "from_high": -0.5019,
     "hi1": 121.3,
     "lo1": 45.385,
-    "r1": 0.2837808819863852,
-    "r3": 1.7302571918434513,
-    "r5": 1.6841453268440643,
-    "ma200": 72.6301,
-    "vol": 0.6628,
+    "r1": 0.2775428155191788,
+    "r3": 1.7169904996265246,
+    "r5": 1.6711026984707646,
+    "ma200": 72.6286,
+    "vol": 0.6629,
     "move": 0.0181,
     "month": 10,
     "season": {
-     "avg": 0.0263,
+     "avg": 0.0253,
      "up": 5,
      "n": 5
     },
@@ -9299,7 +9299,7 @@
      "n": 5
     }
    },
-   "text": "5-year range 17.32 (Sep 2022) to 121.3 (Jan 2026), now at 42% of it and -50% from the high; 1-year range 45.385-121.3; returns 1y +28%, 3y +173%, 5y +168%; below its 200-day average (72.6301); volatility 66% a year, typical daily move 1.8%; Oct has averaged +2.6% (up 5 of 5 years); Nov has averaged +6.0% (up 3 of 5 years)"
+   "text": "5-year range 17.32 (Sep 2022) to 121.3 (Jan 2026), now at 41% of it and -50% from the high; 1-year range 45.385-121.3; returns 1y +28%, 3y +172%, 5y +167%; below its 200-day average (72.6286); volatility 66% a year, typical daily move 1.8%; Oct has averaged +2.5% (up 5 of 5 years); Nov has averaged +6.0% (up 3 of 5 years)"
   },
   "HG=F": {
    "weekly": [
@@ -11128,29 +11128,29 @@
      "open": 6.566,
      "high": 6.6325,
      "low": 6.46,
-     "close": 6.579
+     "close": 6.549
     }
    ],
    "stats": {
-    "last": 6.579,
+    "last": 6.549,
     "hi5": 6.83,
     "lo5": 3.15,
     "hi5_date": "Sep 2026",
     "lo5_date": "Jul 2022",
-    "pos5": 0.932,
-    "from_high": -0.0367,
+    "pos5": 0.924,
+    "from_high": -0.0411,
     "hi1": 6.83,
     "lo1": 4.834,
-    "r1": 0.36197077419182255,
-    "r3": 0.8113986925839218,
-    "r5": 0.5492758677841114,
-    "ma200": 6.1178,
-    "vol": 0.2828,
+    "r1": 0.35576019370811873,
+    "r3": 0.8031387228536289,
+    "r5": 0.5422111769326923,
+    "ma200": 6.1176,
+    "vol": 0.2826,
     "move": 0.0098,
     "month": 10,
     "season": {
-     "avg": -0.0029,
-     "up": 2,
+     "avg": -0.0038,
+     "up": 1,
      "n": 5
     },
     "next_season": {
@@ -11159,7 +11159,7 @@
      "n": 5
     }
    },
-   "text": "5-year range 3.15 (Jul 2022) to 6.83 (Sep 2026), now at 93% of it and -4% from the high; 1-year range 4.834-6.83; returns 1y +36%, 3y +81%, 5y +55%; above its 200-day average (6.1178); volatility 28% a year, typical daily move 1.0%; Oct has averaged -0.3% (up 2 of 5 years); Nov has averaged +1.8% (up 3 of 5 years)"
+   "text": "5-year range 3.15 (Jul 2022) to 6.83 (Sep 2026), now at 92% of it and -4% from the high; 1-year range 4.834-6.83; returns 1y +36%, 3y +80%, 5y +54%; above its 200-day average (6.1176); volatility 28% a year, typical daily move 1.0%; Oct has averaged -0.4% (up 1 of 5 years); Nov has averaged +1.8% (up 3 of 5 years)"
   },
   "KC=F": {
    "weekly": [
@@ -16708,28 +16708,28 @@
      "open": 528.75,
      "high": 529.0,
      "low": 495.0,
-     "close": 497.25
+     "close": 497.75
     }
    ],
    "stats": {
-    "last": 497.25,
+    "last": 497.75,
     "hi5": 827.0,
     "lo5": 360.5,
     "hi5_date": "Apr 2022",
     "lo5_date": "Aug 2024",
-    "pos5": 0.293,
-    "from_high": -0.3987,
+    "pos5": 0.294,
+    "from_high": -0.3981,
     "hi1": 544.5,
     "lo1": 398.5,
-    "r1": 0.19387755102040827,
-    "r3": 0.017911975435005223,
-    "r5": -0.08044382801664351,
-    "ma200": 453.4912,
-    "vol": 0.2086,
+    "r1": 0.1950780312124849,
+    "r3": 0.01893551688843398,
+    "r5": -0.07951918631530286,
+    "ma200": 453.4937,
+    "vol": 0.2085,
     "move": 0.0124,
     "month": 10,
     "season": {
-     "avg": 0.0047,
+     "avg": 0.0049,
      "up": 3,
      "n": 5
     },
@@ -16739,7 +16739,7 @@
      "n": 5
     }
    },
-   "text": "5-year range 360.5 (Aug 2024) to 827 (Apr 2022), now at 29% of it and -40% from the high; 1-year range 398.5-544.5; returns 1y +19%, 3y +2%, 5y -8%; above its 200-day average (453.491); volatility 21% a year, typical daily move 1.2%; Oct has averaged +0.5% (up 3 of 5 years); Nov has averaged -0.8% (up 2 of 5 years)"
+   "text": "5-year range 360.5 (Aug 2024) to 827 (Apr 2022), now at 29% of it and -40% from the high; 1-year range 398.5-544.5; returns 1y +20%, 3y +2%, 5y -8%; above its 200-day average (453.494); volatility 21% a year, typical daily move 1.2%; Oct has averaged +0.5% (up 3 of 5 years); Nov has averaged -0.8% (up 2 of 5 years)"
   },
   "CC=F": {
    "weekly": [

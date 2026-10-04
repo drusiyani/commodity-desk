@@ -1,0 +1,15 @@
+[
+ {
+  "t": 1791129629,
+  "symbol": "ZC=F",
+  "name": "Corn",
+  "action": "BUY",
+  "qty": 66.5016,
+  "price": 497.75,
+  "value": 25000.0,
+  "reason": "Kronos: 75% chance of a rise, expected +0.64% in 24h",
+  "source": "kronos",
+  "stop": 494.5357,
+  "target": 500.9426
+ }
+]

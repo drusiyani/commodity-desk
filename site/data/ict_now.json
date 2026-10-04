@@ -1,6 +1,6 @@
 {
  "CL=F": {
-  "structure": "ranging",
+  "structure": "bearish",
   "pd": 0.36,
   "zone": "discount",
   "range": [
@@ -66,7 +66,7 @@
     "pd_at_sweep": 0.649
    }
   ],
-  "text": "ranging structure; price at 36% of the 5-day range (discount); buy-side liquidity above at 91.76; sell-side liquidity below at 90.5; bullish sweep of sell-side liquidity at 88.83, no structure shift yet"
+  "text": "bearish structure; price at 36% of the 5-day range (discount); buy-side liquidity above at 91.76; sell-side liquidity below at 90.5; bullish sweep of sell-side liquidity at 88.83, no structure shift yet"
  },
  "BZ=F": {
   "structure": "bearish",

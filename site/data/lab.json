@@ -5,7 +5,7 @@
    "cash": 100000.0,
    "positions": {},
    "last_entry": {},
-   "last_run": 1791024039,
+   "last_run": 1791129629,
    "used": []
   }
  },
@@ -24,8 +24,9 @@
     "z": null,
     "retire": null
    },
-   "equity": 100000.0
+   "equity": 100000.0,
+   "weight": 1.0
   }
  },
- "last_run": 1791024039
+ "last_run": 1791129629
 }
