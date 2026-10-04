@@ -21,6 +21,7 @@ import requests
 import backtest as B
 import core as C
 import engine as E
+import allocation as A
 import features as F
 import validation as V
 
@@ -72,11 +73,11 @@ def evaluate(st, data):
     wanted = F.resolve_markets(st.get("markets"), E.COMMODITIES)
     syms = [s for s in data[tf] if s in wanted]
     folds = [{"train": {}, "test": {}, "train_trades": [], "test_trades": [], "from": [], "to": []} for _ in range(V.WINDOWS)]
-    test_per, test_trades = {}, []
+    test_per, test_trades, daily = {}, [], []
     for sym in syms:
         s = data[tf][sym]
         rules = C.LabRules(s, st)
-        growth, mtrades, worst = 1.0, [], 0.0
+        growth, mtrades, worst, mdaily = 1.0, [], 0.0, {}
         for f, (a, b, c) in enumerate(V.windows(len(s.bars), WARMUP[tf])):
             for part, (x, y) in (("train", (a, b)), ("test", (b, c))):
                 curve, trades = C.backtest(s.bars, rules, x, y)
@@ -89,6 +90,8 @@ def evaluate(st, data):
             growth *= 1 + t["return"]
             mtrades += trades  # the test window's trades (the last loop pass)
             worst = min(worst, t["max_dd"])
+            mdaily.update(A.daily_returns([x["time"] for x in s.bars[b:c]], curve))
+        daily.append(mdaily)
         if mtrades or growth != 1.0:
             test_per[sym] = {"return": growth - 1, "trades": len(mtrades), "max_dd": worst,
                              "win_rate": round(sum(1 for x in mtrades if x["pnl"] > 0) / len(mtrades), 3) if mtrades else None}
@@ -101,7 +104,8 @@ def evaluate(st, data):
     return {"windows": windows,
             "train": {"combined": combine(first["train"], first["train_trades"]), "markets": clean(first["train"])},
             "test": {"combined": combine(test_per, test_trades), "markets": clean(test_per)},
-            "test_r": [round(x["r"], 3) for x in test_trades if x.get("r") is not None]}
+            "test_r": [round(x["r"], 3) for x in test_trades if x.get("r") is not None],
+            "daily": A.combine_markets(daily)}
 
 
 def judge(record, tested):
@@ -128,6 +132,7 @@ def judge(record, tested):
 def test_strategy(record, data):
     """Run the walk-forward test and the Monte Carlo checks for one strategy (judging comes later)."""
     res = evaluate(record["rules"], data)
+    res.pop("daily")
     record["monte_carlo"] = V.monte_carlo(res.pop("test_r"), seed=record["id"])
     record["results"] = res
     return record
@@ -271,6 +276,21 @@ def run_round(lab, data, count, round_no, feedback=""):
     return new
 
 
+def allocate(lab, data):
+    """How much of the strategy account each live strategy gets (allocation.py), from the daily returns of its
+    walk-forward test windows."""
+    by_id = {s["id"]: s for s in lab["strategies"]}
+    returns = {}
+    for sid in lab["portfolio"]:
+        try:
+            returns[sid] = evaluate(by_id[sid]["rules"], data)["daily"]
+        except Exception as e:
+            print(f"{sid}: couldn't rebuild its daily returns ({e})")
+    if len(returns) < len(lab["portfolio"]):
+        return A.stamp(A.equal(lab["portfolio"], "Equal weights for now: some strategies' test returns couldn't be rebuilt."))
+    return A.stamp(A.weigh(returns))
+
+
 def main():
     lab = E.load("strategies.json", {"strategies": [], "runs": []})
     data = load_data()
@@ -299,6 +319,8 @@ def main():
     passed = sorted([s for s in lab["strategies"] if s.get("passed") and not s.get("retired")], key=lambda s: -s["score"])
     lab["portfolio"] = [s["id"] for s in passed[:MAX_LIVE]]
     lab["live"] = lab["portfolio"][0] if lab["portfolio"] else None  # the best one, for older pages
+    lab["allocation"] = allocate(lab, data)
+    print("Allocation:", lab["allocation"]["method"], lab["allocation"]["weights"], "-", lab["allocation"]["note"])
     lab["runs"].append({"t": int(time.time()), "tested": len(lab["strategies"]), "passed": len(passed),
                         "live": len(lab["portfolio"]), "model": MODEL})
     lab["pass_rules"] = dict(PASS, windows=V.WINDOWS, train_mult=V.TRAIN_MULT, mc_runs=V.MC_RUNS)

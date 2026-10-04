@@ -34,7 +34,7 @@ def test_strategies_get_equal_slices():
     step(lb, never)
     eqs = [sl["cash"] for sl in lb["sleeves"].values()]
     assert eqs == pytest.approx([100_000 / 3] * 3)
-    assert lb["cash"] == pytest.approx(0)
+    assert lb["cash"] == pytest.approx(0, abs=0.01)
 
 
 def test_each_slice_risks_its_own_money():

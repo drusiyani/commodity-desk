@@ -548,20 +548,33 @@ def lab_equity(lb, last_usd, fx):
     return lb["cash"] + sum(equity(sl, last_usd, fx) for sl in lb["sleeves"].values())
 
 
-def rebalance(lb, last_usd, fx, force=False):
-    """Give every slice an equal share of the account, moving cash only (open positions are left alone)."""
+def slice_weights(lb, weights=None):
+    """Each live slice's share of the account: the lab's weights (allocation.py) where it has one for every slice,
+    rescaled to add up to 1; otherwise equal shares."""
+    ids = list(lb["sleeves"])
+    w = {i: (weights or {}).get(i) for i in ids}
+    if not ids or any(not x or x <= 0 for x in w.values()):
+        return {i: 1 / len(ids) for i in ids}
+    total = sum(w.values())
+    return {i: x / total for i, x in w.items()}
+
+
+def rebalance(lb, last_usd, fx, force=False, weights=None):
+    """Give every slice its share of the account, moving cash only (open positions are left alone)."""
     if not lb["sleeves"]:
         return False
-    target = lab_equity(lb, last_usd, fx) / len(lb["sleeves"])
+    share = slice_weights(lb, weights)
+    total = lab_equity(lb, last_usd, fx)
+    target = {sid: total * share[sid] for sid in lb["sleeves"]}
     eqs = {sid: equity(sl, last_usd, fx) for sid, sl in lb["sleeves"].items()}
-    if not force and all(abs(e / target - 1) <= REBALANCE_DRIFT for e in eqs.values()):
+    if not force and all(abs(eqs[sid] / target[sid] - 1) <= REBALANCE_DRIFT for sid in eqs):
         return False
     for sid, sl in lb["sleeves"].items():  # collect spare cash from slices above their share
-        take = min(max(0.0, eqs[sid] - target), sl["cash"])
+        take = min(max(0.0, eqs[sid] - target[sid]), sl["cash"])
         sl["cash"] -= take
         lb["cash"] += take
     for sid, sl in lb["sleeves"].items():  # and hand it to the ones below
-        give = min(max(0.0, target - eqs[sid]), lb["cash"])
+        give = min(max(0.0, target[sid] - eqs[sid]), lb["cash"])
         sl["cash"] += give
         lb["cash"] -= give
     return True
@@ -578,8 +591,15 @@ def close_sleeve(lb, sid, last_usd, fx, now, why):
     return filled
 
 
-def run_portfolio(lb, strategies, series, prices, last_usd, fx, now):
-    """One live step for all of Claude's strategies. Each trades its own slice exactly as in its backtest."""
+def run_portfolio(lb, strategies, series, prices, last_usd, fx, now, allocation=None):
+    """One live step for all of Claude's strategies. Each trades its own slice exactly as in its backtest; the slices
+    are sized by the lab's weights (allocation.py), or equal if there are none."""
+    weights = (allocation or {}).get("weights")
+    if (allocation or {}).get("t") != lb.get("allocation_t"):  # the lab has new weights: re-size the slices now
+        lb["allocation_t"] = (allocation or {}).get("t")
+        force_new = True
+    else:
+        force_new = False
     filled, info = [], lb["strategies"]
     live_ids = [st["id"] for st in strategies]
     changed = False
@@ -593,7 +613,7 @@ def run_portfolio(lb, strategies, series, prices, last_usd, fx, now):
             changed = True
         info.setdefault(st["id"], {"joined": now, "r": []})
         info[st["id"]].update(name=st["name"], timeframe=st["timeframe"])
-    rebalance(lb, last_usd, fx, force=changed)
+    rebalance(lb, last_usd, fx, force=changed or force_new, weights=weights)
 
     for st in strategies:
         sid, sl, ser = st["id"], lb["sleeves"][st["id"]], series.get(st["id"], {})
@@ -614,9 +634,11 @@ def run_portfolio(lb, strategies, series, prices, last_usd, fx, now):
         if check["retire"]:
             info[sid].update(retired=now, reason=check["retire"])
             filled += close_sleeve(lb, sid, last_usd, fx, now, f"Retired: {check['retire']}")
-            rebalance(lb, last_usd, fx, force=True)
+            rebalance(lb, last_usd, fx, force=True, weights=weights)
+    share = slice_weights(lb, weights)
     for sid, x in info.items():
         x["equity"] = round(equity(lb["sleeves"][sid], last_usd, fx), 2) if sid in lb["sleeves"] else None
+        x["weight"] = round(share[sid], 4) if sid in share else None
     lb["last_run"] = now
     return filled
 
@@ -974,7 +996,7 @@ def main():
         entry["trades"] = len(filled)
     rb_trades += run_rule_bot(rb, prices, last_usd, fx, now)
     ib_trades += run_ict_bot(ib, prices, last_usd, fx, now)
-    lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now)
+    lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now, lab_state().get("allocation"))
     kb_trades += run_kronos_bot(kb, prices, kronos["markets"], last_usd, fx, now)
     calls = evaluate_calls(calls, prices, now)[-5000:]
     decisions = (decisions + ([entry] if entry else []))[-400:]
