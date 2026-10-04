@@ -68,7 +68,7 @@ def test_retirement_when_live_falls_clearly_below_backtest(monkeypatch):
     s = strat("a", entry_op="<", avg_r=0.5, sd=1.0)
     step(lb, [s])
     lb["strategies"]["a"]["r"] = [-1.0] * 6 + [0.5] * 6  # live average -0.25R over 12 trades vs +0.5R tested
-    fills = step(lb, [s], now=T0 + 101 * HOUR)
+    step(lb, [s], now=T0 + 101 * HOUR)
     info = lb["strategies"]["a"]
     assert info["retired"] and "clearly below" in info["reason"]
     assert "a" not in lb["sleeves"]
