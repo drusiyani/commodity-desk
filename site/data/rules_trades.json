@@ -160,5 +160,18 @@
   "reason": "20-bar average fell below 100-bar average",
   "source": "rules",
   "pnl": -64.02
+ },
+ {
+  "t": 1791185043,
+  "symbol": "NG=F",
+  "name": "Natural gas",
+  "action": "BUY",
+  "qty": 4329.0206,
+  "price": 3.019,
+  "value": 9889.55,
+  "reason": "20-bar average crossed above 100-bar average",
+  "source": "rules",
+  "stop": null,
+  "target": null
  }
 ]
