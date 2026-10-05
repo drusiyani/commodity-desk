@@ -1,0 +1,637 @@
+{
+ "t": 1791207892,
+ "markets": {
+  "CL=F": {
+   "score": 41,
+   "weight": 2.06,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.268,
+     "skill": 1.0,
+     "weight": 0.268,
+     "n": 11,
+     "record": "11 trades, PF 1.84"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "trend down, out",
+     "signal": -0.5,
+     "evidence": 0.869,
+     "skill": 0.565,
+     "weight": 0.491,
+     "n": 199,
+     "record": "199 trades, PF 1.06"
+    },
+    {
+     "bot": "Kronos",
+     "now": "55% chance up",
+     "signal": 0.1,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 0.669,
+     "weight": 0.446,
+     "n": 0,
+     "record": "5y +3% a year"
+    }
+   ]
+  },
+  "BZ=F": {
+   "score": 32,
+   "weight": 1.69,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.318,
+     "skill": 0.45,
+     "weight": 0.143,
+     "n": 14,
+     "record": "14 trades, PF 0.95"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.869,
+     "skill": 0.226,
+     "weight": 0.197,
+     "n": 199,
+     "record": "199 trades, PF 0.73"
+    },
+    {
+     "bot": "Kronos",
+     "now": "45% chance up",
+     "signal": -0.1,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "no signal",
+     "signal": 0.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 0.74,
+     "weight": 0.494,
+     "n": 0,
+     "record": "5y +5% a year"
+    }
+   ]
+  },
+  "NG=F": {
+   "score": 10,
+   "weight": 1.05,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.268,
+     "skill": 0.17,
+     "weight": 0.046,
+     "n": 11,
+     "record": "11 trades, PF 0.67"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.882,
+     "skill": 0.17,
+     "weight": 0.15,
+     "n": 225,
+     "record": "225 trades, PF 0.67"
+    },
+    {
+     "bot": "Kronos",
+     "now": "65% chance up",
+     "signal": 0.3,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "no signal",
+     "signal": 0.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 0.0,
+     "weight": 0.0,
+     "n": 0,
+     "record": "5y -12% a year"
+    }
+   ]
+  },
+  "GC=F": {
+   "score": 9,
+   "weight": 2.48,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.333,
+     "skill": 0.43,
+     "weight": 0.143,
+     "n": 15,
+     "record": "15 trades, PF 0.93"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "trend down, out",
+     "signal": -0.5,
+     "evidence": 0.874,
+     "skill": 0.933,
+     "weight": 0.815,
+     "n": 208,
+     "record": "208 trades, PF 1.43"
+    },
+    {
+     "bot": "Kronos",
+     "now": "40% chance up",
+     "signal": -0.2,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "no signal",
+     "signal": 0.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 1.0,
+     "weight": 0.667,
+     "n": 0,
+     "record": "5y +19% a year"
+    }
+   ]
+  },
+  "SI=F": {
+   "score": 48,
+   "weight": 2.44,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.268,
+     "skill": 0.7,
+     "weight": 0.188,
+     "n": 11,
+     "record": "11 trades, PF 1.20"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.876,
+     "skill": 0.834,
+     "weight": 0.73,
+     "n": 211,
+     "record": "211 trades, PF 1.33"
+    },
+    {
+     "bot": "Kronos",
+     "now": "50% chance up",
+     "signal": 0.0,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "no signal",
+     "signal": 0.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 1.0,
+     "weight": 0.667,
+     "n": 0,
+     "record": "5y +22% a year"
+    }
+   ]
+  },
+  "HG=F": {
+   "score": 48,
+   "weight": 2.07,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.302,
+     "skill": 0.25,
+     "weight": 0.076,
+     "n": 13,
+     "record": "13 trades, PF 0.75"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "trend down, out",
+     "signal": -0.5,
+     "evidence": 0.872,
+     "skill": 0.58,
+     "weight": 0.506,
+     "n": 205,
+     "record": "205 trades, PF 1.08"
+    },
+    {
+     "bot": "Kronos",
+     "now": "55% chance up",
+     "signal": 0.1,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 0.954,
+     "weight": 0.636,
+     "n": 0,
+     "record": "5y +9% a year"
+    }
+   ]
+  },
+  "KC=F": {
+   "score": 32,
+   "weight": 1.52,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.091,
+     "skill": 0.19,
+     "weight": 0.017,
+     "n": 3,
+     "record": "3 trades, PF 0.69"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.789,
+     "skill": 0.08,
+     "weight": 0.063,
+     "n": 112,
+     "record": "112 trades, PF 0.58"
+    },
+    {
+     "bot": "Kronos",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "no signal",
+     "signal": 0.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 0.887,
+     "weight": 0.591,
+     "n": 0,
+     "record": "5y +8% a year"
+    }
+   ]
+  },
+  "ZW=F": {
+   "score": 15,
+   "weight": 1.3,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.302,
+     "skill": 0.61,
+     "weight": 0.184,
+     "n": 13,
+     "record": "13 trades, PF 1.11"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.876,
+     "skill": 0.0,
+     "weight": 0.0,
+     "n": 212,
+     "record": "212 trades, PF 0.25"
+    },
+    {
+     "bot": "Kronos",
+     "now": "40% chance up",
+     "signal": -0.2,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "no signal",
+     "signal": 0.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 0.398,
+     "weight": 0.265,
+     "n": 0,
+     "record": "5y -2% a year"
+    }
+   ]
+  },
+  "ZC=F": {
+   "score": 62,
+   "weight": 1.32,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.268,
+     "skill": 0.71,
+     "weight": 0.19,
+     "n": 11,
+     "record": "11 trades, PF 1.21"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "trend down, out",
+     "signal": -0.5,
+     "evidence": 0.871,
+     "skill": 0.0,
+     "weight": 0.0,
+     "n": 203,
+     "record": "203 trades, PF 0.19"
+    },
+    {
+     "bot": "Kronos",
+     "now": "60% chance up",
+     "signal": 0.2,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 0.418,
+     "weight": 0.279,
+     "n": 0,
+     "record": "5y -2% a year"
+    }
+   ]
+  },
+  "CC=F": {
+   "score": 33,
+   "weight": 1.52,
+   "rows": [
+    {
+     "bot": "ICT bot",
+     "now": "no setup",
+     "signal": 0.0,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 trades"
+    },
+    {
+     "bot": "Trend bot",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.758,
+     "skill": 0.0,
+     "weight": 0.0,
+     "n": 94,
+     "record": "94 trades, PF 0.50"
+    },
+    {
+     "bot": "Kronos",
+     "now": "30% chance up",
+     "signal": -0.4,
+     "evidence": 0.0,
+     "skill": 0.5,
+     "weight": 0.0,
+     "n": 0,
+     "record": "0 checked"
+    },
+    {
+     "bot": "Lab 'Dual Regime Growth'",
+     "now": "no signal",
+     "signal": 0.0,
+     "evidence": 0.851,
+     "skill": 1.0,
+     "weight": 0.851,
+     "n": 171,
+     "record": "171 trades (all markets), PF 1.54"
+    },
+    {
+     "bot": "Buy and hold",
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.667,
+     "skill": 1.0,
+     "weight": 0.667,
+     "n": 0,
+     "record": "5y +15% a year"
+    }
+   ]
+  }
+ },
+ "records": {
+  "ict": {
+   "n": 0,
+   "wins": 0,
+   "win_rate": null,
+   "pf": null,
+   "name": "ICT bot",
+   "ret": 0.0,
+   "backtest": {
+    "trades": 102,
+    "pf": 1.02,
+    "win_rate": 0.392,
+    "ret": -0.0
+   }
+  },
+  "rules": {
+   "n": 7,
+   "wins": 0,
+   "win_rate": 0.0,
+   "pf": 0.0,
+   "name": "Trend bot",
+   "ret": -0.0063,
+   "backtest": {
+    "trades": 1861,
+    "pf": 0.8,
+    "win_rate": 0.218,
+    "ret": -0.3555
+   }
+  },
+  "kronos": {
+   "n": 3,
+   "wins": 2,
+   "win_rate": 0.667,
+   "pf": 1.56,
+   "name": "Kronos bot",
+   "ret": 0.0032,
+   "forecasts": {
+    "checked": 0,
+    "direction": null,
+    "inside": null,
+    "short_record": true
+   }
+  },
+  "lab:s12": {
+   "n": 0,
+   "wins": 0,
+   "win_rate": null,
+   "pf": null,
+   "name": "Lab 'Dual Regime Growth'",
+   "ret": null,
+   "backtest": {
+    "trades": 171,
+    "pf": 1.54,
+    "win_rate": 0.474,
+    "ret": 0.0436,
+    "walk_forward": true
+   }
+  },
+  "hold": {
+   "name": "Buy and hold",
+   "ret": 0.0082,
+   "n": 0,
+   "wins": 0,
+   "win_rate": null,
+   "pf": null,
+   "backtest": {
+    "ret": 0.4864,
+    "cagr": 0.0826,
+    "years": 5
+   }
+  }
+ }
+}
