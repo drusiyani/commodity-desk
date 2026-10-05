@@ -262,5 +262,18 @@
   "reason": "20-bar average fell below 100-bar average",
   "source": "rules",
   "pnl": -150.51
+ },
+ {
+  "t": 1791224738,
+  "symbol": "SI=F",
+  "name": "Silver",
+  "action": "BUY",
+  "qty": 213.6354,
+  "price": 61.415,
+  "value": 9930.45,
+  "reason": "20-bar average crossed above 100-bar average",
+  "source": "rules",
+  "stop": null,
+  "target": null
  }
 ]

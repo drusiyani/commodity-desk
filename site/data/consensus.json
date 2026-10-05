@@ -1,5 +1,5 @@
 {
- "t": 1791220788,
+ "t": 1791224738,
  "markets": {
   "CL=F": {
    "score": 41,
@@ -27,8 +27,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "60% chance up",
-     "signal": 0.2,
+     "now": "40% chance up",
+     "signal": -0.2,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -139,8 +139,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "45% chance up",
-     "signal": -0.1,
+     "now": "20% chance up",
+     "signal": -0.6,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -195,8 +195,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "50% chance up",
-     "signal": 0.0,
+     "now": "55% chance up",
+     "signal": 0.1,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -226,7 +226,7 @@
    ]
   },
   "SI=F": {
-   "score": 10,
+   "score": 47,
    "weight": 2.43,
    "rows": [
     {
@@ -241,8 +241,8 @@
     },
     {
      "bot": "Trend bot",
-     "now": "trend down, out",
-     "signal": -0.5,
+     "now": "long",
+     "signal": 1.0,
      "evidence": 0.876,
      "skill": 0.828,
      "weight": 0.725,
@@ -307,8 +307,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "50% chance up",
-     "signal": 0.0,
+     "now": "35% chance up",
+     "signal": -0.3,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -419,8 +419,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "35% chance up",
-     "signal": -0.3,
+     "now": "40% chance up",
+     "signal": -0.2,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -531,8 +531,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "35% chance up",
-     "signal": -0.3,
+     "now": "55% chance up",
+     "signal": 0.1,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -583,7 +583,7 @@
    "win_rate": 0.0,
    "pf": 0.0,
    "name": "Trend bot",
-   "ret": -0.0072,
+   "ret": -0.007,
    "backtest": {
     "trades": 1861,
     "pf": 0.8,
@@ -597,7 +597,7 @@
    "win_rate": 0.667,
    "pf": 1.56,
    "name": "Kronos bot",
-   "ret": 0.0001,
+   "ret": 0.0004,
    "forecasts": {
     "checked": 0,
     "direction": null,
@@ -622,7 +622,7 @@
   },
   "hold": {
    "name": "Buy and hold",
-   "ret": 0.0067,
+   "ret": 0.0073,
    "n": 0,
    "wins": 0,
    "win_rate": null,
