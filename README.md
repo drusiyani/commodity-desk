@@ -11,7 +11,7 @@ is doing, the strategy lab and the backtests.
 
 | Competitor | What it does |
 |---|---|
-| **Claude** | Every 4 hours it reads each market's chart (ICT read), its 5-year history, the news, the backtest record, its own strategies' signals and Kronos's forecast, then decides. Long only, with a stop and a target on every trade. Hard risk rules are enforced in code, not by Claude: at most 25% of the account in one market, at most 4 markets, reward at least 1.5x risk, no new buys after a 3% loss in a day. |
+| **Claude** | Keeps 40% of its account in a **core holding** (all ten markets, equal shares, rebalanced monthly, like buy and hold) and trades the other 60% actively. Every 4 hours it weighs each market's 5-year history, the news, the ICT read, Kronos's forecast, its lab strategies and what every other bot is doing, then decides. Long only, with a stop and a target on every trade. Hard risk rules are enforced in code, not by Claude, on the active part: at most 25% of it in one market, at most 4 markets, reward at least 1.5x risk, no new buys after a 3% loss in a day. |
 | **Claude's strategies** | Strategies Claude invents in the weekly strategy lab. Only ones that pass strict out-of-sample tests trade, together, on one shared £100k. |
 | **ICT bot** | Trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. |
 | **Kronos bot** | Trades the forecasts of Kronos, an open-source AI model that reads price charts (see below). |
@@ -21,6 +21,23 @@ is doing, the strategy lab and the backtests.
 Every trade, for every competitor, goes through one shared trading core (`core.py`), so live trading and the
 backtests fill orders exactly the same way: 0.05% costs per side, and a stop that price gaps through fills at the
 bar's open, not at the stop.
+
+## How Claude decides
+
+- **No single gatekeeper.** The ICT read is one input among several. Claude doesn't need a completed
+  sweep -> structure shift -> fair value gap setup to trade, and an ICT setup alone isn't enough.
+- **Stops.** Each buy says what its stop is based on: `ict`, `atr` or `structure`. Only when an ICT sweep is the
+  reason for the trade is the stop forced below the sweep's low. With no valid stop, the risk engine puts it 2 daily
+  ATRs (average daily ranges) below the entry.
+- **Bot consensus** (`consensus.py`). For every market, Claude sees what each bot is doing now (ICT bot, trend bot,
+  Kronos, each lab strategy, buy and hold) with its live and backtest record, and one evidence-weighted score from
+  -100 (all bearish) to +100 (all bullish). Each bot counts by *evidence x skill*: evidence grows with its number of
+  trades (n / (n + 30)), so a few lucky trades count for little; skill is how good the record is (profit factor, or
+  direction accuracy for Kronos). Kronos's weight also stays small until it has 100 checked forecasts. The same table
+  is on the website under the chart, and in `site/data/consensus.json`.
+- **What drove each decision.** Claude also says how much each input (ICT, Kronos, news, long term and
+  seasonality, lab strategies, the other bots, the risk rules) drove its decision, as percentages adding to 100.
+  They're saved in `decisions.json` and shown as a pie chart (average of the last 30 decisions, or the latest).
 
 ## The strategy lab (weekly)
 
@@ -90,7 +107,7 @@ thinking included), measured on Argon's real prompts:
 
 | Workflow | Claude calls | Rough Claude cost |
 |---|---|---|
-| Run trader | 6 a day on weekdays (every 4 hours), about 130 a month. Each reads about 5,000 tokens and writes up to about 11,600 (thinking plus answer). | about 4 to 6 US cents a call, so about **$5 to $8 a month**. Each manual run adds one call. |
+| Run trader | 6 a day on weekdays (every 4 hours), about 130 a month. Each reads about 5,600 tokens and writes up to about 11,600 (thinking plus answer). | about 4 to 6 US cents a call, so about **$5 to $8 a month**. Each manual run adds one call. |
 | Run strategy lab | 2 a week, each reading about 4,000 tokens and writing up to 16,000. | about 8 cents a call at most, so **under $1 a month**. |
 | Run backtest, Tests, Kronos check | none | free |
 
@@ -104,10 +121,14 @@ public or expect to pay for minutes.
 ## Controlling Claude
 Edit `config.json` in the repo:
 - `"paused": true` stops Claude making new trades (stops and targets still work).
-- `"close_all": true` sells everything and pauses. Set both back to `false` to restart.
+- `"close_all": true` sells everything (the core holding too) and pauses. Set both back to `false` to restart; the
+  core is bought back on the next run.
+- `"core_fraction": 0.4` is the share of Claude's account kept in the core holding (0 to 1). Change it and the core
+  is rebalanced to the new share on the next run; otherwise it's rebalanced on the first run of each month.
 
 ## How the code fits together
-- `engine.py`: the hourly live run: data, news, Kronos, Claude, and the bots.
+- `engine.py`: the hourly live run: data, news, Kronos, Claude, the core holding and the bots.
+- `consensus.py`: what each bot is doing in each market and how much its evidence earns it.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
 - `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups).
 - `kronos_model.py` + `kronos_bot.py`: running Kronos, and the Kronos bot's rules and track record.

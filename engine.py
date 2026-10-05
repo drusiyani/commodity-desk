@@ -29,6 +29,7 @@ import pandas as pd
 import requests
 import yfinance as yf
 
+import consensus as CS
 import core as C
 import ict
 import kronos_bot as KB
@@ -42,7 +43,9 @@ START_CASH = 100_000      # GBP
 MAX_POSITION = C.MAX_POSITION  # max share of portfolio in one commodity (25%)
 MAX_OPEN = C.MAX_OPEN          # max commodities held at once (4)
 DAILY_LOSS_LIMIT = 0.03   # no new buys after losing 3% in a day
-DEFAULT_STOP = 0.05       # if Claude gives no valid stop, use 5% below entry
+ATR_STOP = 2              # if Claude gives no valid stop, use 2 daily ATRs below entry...
+DEFAULT_STOP = 0.05       # ...or 5% below entry if there's no ATR either
+STOP_BASES = ("ict", "atr", "structure")
 MIN_RR = 1.5              # every buy must aim to make at least 1.5x what it risks
 
 COMMODITIES = {
@@ -370,8 +373,11 @@ def sell(pf, sym, frac, price_usd, fx, now, reason, source):
     return fill_record(now, f, source)
 
 
-def apply_decision(pf, decision, last_usd, fx, now, reads=None):
-    """Fill Claude's orders, enforcing the risk rules. Returns (filled, blocked)."""
+def apply_decision(pf, decision, last_usd, fx, now, reads=None, atrs=None):
+    """Fill Claude's orders, enforcing the risk rules. Returns (filled, blocked).
+    Each buy says what its stop is based on ("stop_basis"): an ICT sweep, the market's ATR or chart structure.
+    Only when ICT was the reason is the stop forced below the sweep's low. With no valid stop, it goes 2 daily ATRs
+    below the entry (5% if there's no ATR). Sizes and limits use the active account, not the core holding."""
     filled, blocked = [], []
     last = {s: v / fx for s, v in last_usd.items()}
 
@@ -427,12 +433,19 @@ def apply_decision(pf, decision, last_usd, fx, now, reads=None):
 
         stop = d.get("stop") if isinstance(d.get("stop"), (int, float)) and 0 < d["stop"] < p_usd else None
         target = d.get("target") if isinstance(d.get("target"), (int, float)) and d["target"] > p_usd else None
+        basis = str(d.get("stop_basis") or "").lower()
+        basis = basis if basis in STOP_BASES else None
         if stop is None:
-            stop = p_usd * (1 - DEFAULT_STOP)
-            blocked.append(f"{name}: no valid stop given, used {DEFAULT_STOP:.0%} below entry")
+            a = (atrs or {}).get(sym)
+            if a and p_usd - ATR_STOP * a > 0:
+                stop, basis = p_usd - ATR_STOP * a, "atr"
+                blocked.append(f"{name}: no valid stop given, used {ATR_STOP} daily ATRs below entry ({stop:g})")
+            else:
+                stop, basis = p_usd * (1 - DEFAULT_STOP), "default"
+                blocked.append(f"{name}: no valid stop given, used {DEFAULT_STOP:.0%} below entry")
         sweep = next((x for x in (reads or {}).get(sym, {}).get("setups", [])
                       if x["side"] == "long" and x["state"] in ("entry", "waiting", "mss")), None)
-        if sweep and stop >= sweep["extreme"]:
+        if basis == "ict" and sweep and stop >= sweep["extreme"]:
             stop = sweep["extreme"] * 0.999
             blocked.append(f"{name}: stop moved below the sweep low to {stop:g}")
         if not target:
@@ -447,6 +460,7 @@ def apply_decision(pf, decision, last_usd, fx, now, reads=None):
         f.update(reason=reason, stop=pf["positions"][sym]["stop"], target=pf["positions"][sym]["target"])
         t = fill_record(now, f, "claude")
         t["evidence"] = evidence
+        t["stop_basis"] = basis or "given"
         filled.append(t)
     return filled, blocked
 
@@ -683,6 +697,244 @@ def kronos_text(sym, kronos, kacc):
             f"{f['prob_up']:.0%}. Its live record here: {KB.record_text(kacc.get(sym) or KB.accuracy([]))}")
 
 
+# ---------- core holding: a slice of Claude's account held like the buy-and-hold benchmark ----------
+CORE_FRACTION = 0.4      # default share of Claude's account in the core (config.json "core_fraction" overrides it)
+CORE_DRIFT = 0.02        # at a rebalance, leave a market alone if it's within 2% of its equal share
+
+
+def core_fraction(config):
+    try:
+        f = float(config.get("core_fraction", CORE_FRACTION))
+    except (TypeError, ValueError):
+        return CORE_FRACTION
+    return max(0.0, min(1.0, f)) if math.isfinite(f) else CORE_FRACTION
+
+
+def core_book(pf):
+    core = pf.setdefault("core", dict(C.new_book(0.0), month=None, fraction=None))
+    return C.normalize(core)
+
+
+def total_equity(pf, last_usd, fx):
+    """Claude's whole account: the active part Claude trades plus the core holding."""
+    return equity(pf, last_usd, fx) + (equity(pf["core"], last_usd, fx) if pf.get("core") else 0.0)
+
+
+def rebalance_core(pf, last_usd, fx, now, fraction, force=False):
+    """Bring the core back to `fraction` of the whole account, split equally across all ten markets. Runs once a
+    calendar month (UTC), when the fraction in config.json changes, or when `force` is set. Only the differences are
+    traded, sells first, and cash moves between the core and the active account. If the active account hasn't the
+    cash to buy the core's full share, it tries again next run. Returns (fills, cash moved from active to core)."""
+    core = core_book(pf)
+    core["target"] = fraction
+    month = time.strftime("%Y-%m", time.gmtime(now))
+    if not force and core.get("month") == month and core.get("fraction") == fraction:
+        return [], 0.0
+    fills, active_cash = [], pf["cash"] + core["cash"]
+    per = fraction * total_equity(pf, last_usd, fx) / len(COMMODITIES)
+    tol = max(C.MIN_ORDER, CORE_DRIFT * per)
+    why = f"Core holding: monthly rebalance to {fraction:.0%} of the account, split equally across all ten markets"
+    for sym in [s for s in core["positions"] if s in last_usd]:  # sells first, to free cash for the buys
+        v = C.value(core["positions"][sym], last_usd[sym], fx)
+        if v > per + tol:
+            fills.append(sell(core, sym, (v - per) / v, last_usd[sym], fx, now, why, "core"))
+    pf["cash"] += core["cash"]
+    core["cash"] = 0.0
+    short = False
+    for sym in COMMODITIES:
+        if sym not in last_usd:
+            short = True
+            continue
+        pos = core["positions"].get(sym)
+        v = C.value(pos, last_usd[sym], fx) if pos else 0.0
+        if per - v <= tol:
+            continue
+        amount = min(per - v, pf["cash"] / (1 + C.COST))
+        if amount < per - v - tol:
+            short = True
+        if amount < C.MIN_ORDER:
+            continue
+        core["cash"] += amount * (1 + C.COST)
+        pf["cash"] -= amount * (1 + C.COST)
+        f = C.open_position(core, sym, "long", last_usd[sym], amount / (last_usd[sym] / fx), fx, now)
+        f["reason"] = why
+        fills.append(fill_record(now, f, "core"))
+        core["cash"] = max(0.0, core["cash"])
+    pf["cash"] += core["cash"]
+    core["cash"] = 0.0
+    if not short:
+        core.update(month=month, fraction=fraction, rebalanced=now)
+    return fills, active_cash - pf["cash"]
+
+
+def close_core(pf, last_usd, fx, now, reason, source="manual"):
+    core = pf.get("core")
+    if not core:
+        return []
+    fills = [sell(core, s, 1, last_usd[s], fx, now, reason, source) for s in list(core["positions"]) if s in last_usd]
+    pf["cash"] += core["cash"]
+    core.update(cash=0.0, month=None)  # buy the core back as soon as trading restarts
+    return [f for f in fills if f]
+
+
+# ---------- bot consensus: what every bot is doing in each market, weighted by its evidence ----------
+def bot_records(trade_lists, eq_hist, kronos_acc, strats, lb_trades):
+    """Each bot's live record across all markets (return, closed trades, win rate) plus its backtest where one is
+    valid, for the prompt and the website."""
+    last = eq_hist[-1] if eq_hist else {}
+    bt = load("backtest.json", {}).get("runs", {})
+    comb = lambda run, bot: ((bt.get(run, {}).get("combined", {}).get(bot) or {}).get("stats") or {})
+    ret = lambda key: round(last[key] / START_CASH - 1, 4) if last.get(key) else None
+    out = {}
+    for key, label in (("ict", "ICT bot"), ("rules", "Trend bot"), ("kronos", "Kronos bot")):
+        out[key] = dict(CS.trade_record(trade_lists[key]), name=label, ret=ret(key))
+        if key != "kronos":
+            b = comb("hourly", "ict" if key == "ict" else "trend")
+            out[key]["backtest"] = {"trades": b.get("trades"), "pf": b.get("profit_factor"),
+                                    "win_rate": b.get("win_rate"), "ret": b.get("return")} if b else None
+    out["kronos"]["forecasts"] = {k: v for k, v in (kronos_acc or KB.accuracy([])).items() if k != "markets"}
+    for st in strats:
+        te = st["results"]["test"]["combined"]
+        out["lab:" + st["id"]] = dict(CS.trade_record([t for t in lb_trades if t.get("strategy") == st["id"]]),
+                                      name=f"Lab '{st['name']}'", ret=None,
+                                      backtest={"trades": te.get("trades"), "pf": te.get("profit_factor"),
+                                                "win_rate": te.get("win_rate"), "ret": te.get("return"),
+                                                "walk_forward": True})
+    h = comb("daily", "hold")
+    out["hold"] = {"name": "Buy and hold", "ret": ret("benchmark"), "n": 0, "wins": 0, "win_rate": None, "pf": None,
+                   "backtest": {"ret": h.get("return"), "cagr": h.get("cagr"), "years": 5} if h else None}
+    return out
+
+
+def records_text(recs):
+    pct = lambda x: "n/a" if x is None else f"{x:+.1%}"
+    lines = []
+    for r in recs.values():
+        live = f"live {pct(r.get('ret'))}" if r.get("ret") is not None else "live"
+        if r["name"] != "Buy and hold":
+            live += f", {r['n']} closed trades" + (f", {r['win_rate']:.0%} wins" if r.get("win_rate") is not None else "")
+        b = r.get("backtest")
+        if r["name"] == "Buy and hold" and b:
+            live += f"; 5-year daily backtest {pct(b['cagr'])} a year"
+        elif b and b.get("trades"):
+            live += (f"; {'walk-forward test' if b.get('walk_forward') else 'hourly 2-year backtest'} "
+                     f"{b['trades']} trades, profit factor {b['pf']}, {b['win_rate']:.0%} wins")
+        if r.get("forecasts"):
+            live += f"; forecasts: {KB.record_text(r['forecasts'])}; never backtested"
+        lines.append(f"- {r['name']}: {live}")
+    return "\n".join(lines)
+
+
+def market_bots(sym, prices, ib, rb, kb, lb, strats, sigs, kronos, kacc, trade_lists, lb_trades):
+    """Every bot's position or signal in one market, with the evidence behind it (see consensus.py)."""
+    bars = prices[sym]["bars"]
+    px = bars[-1]["close"]
+    bt = load("backtest.json", {}).get("runs", {})
+    mk = lambda run: bt.get(run, {}).get("markets", {}).get(sym) or {}
+    rows = []
+
+    def held(book):
+        p = book["positions"].get(sym)
+        return None if not p else (1.0, "long") if p["side"] == "long" else (-1.0, "short")
+
+    def rec(live, b):
+        n = live["n"] + (b.get("trades") or 0)
+        pf = CS.pooled_pf(live, {"pf": b.get("profit_factor"), "n": b.get("trades")})
+        txt = f"{n} trades" + (f", PF {pf:.2f}" if pf is not None else "")
+        return n, CS.skill_pf(pf), txt
+
+    # ICT bot
+    pos = held(ib)
+    if not pos and len(bars) >= ict.RANGE_BARS:
+        o = ict.plan(ict.analyse(bars[-ict.RANGE_BARS:]), px)
+        pos = (1.0, "setup says long") if o and o["side"] == "long" else (-1.0, "setup says short") if o else None
+    n, sk, txt = rec(CS.trade_record(trade_lists["ict"], sym), mk("hourly").get("ict") or {})
+    rows.append(CS.row("ICT bot", pos[0] if pos else 0.0, pos[1] if pos else "no setup", n, sk, txt))
+    # trend bot
+    pos = held(rb)
+    if not pos:
+        on = C.TrendRules(bars, RULE_FAST, RULE_SLOW).on(len(bars) - 1)
+        pos = (1.0, "trend up") if on else (-0.5, "trend down, out") if on is False else (0.0, "not enough data")
+    n, sk, txt = rec(CS.trade_record(trade_lists["rules"], sym), mk("hourly").get("trend") or {})
+    rows.append(CS.row("Trend bot", pos[0], pos[1], n, sk, txt))
+    # Kronos bot
+    acc = (kacc or {}).get(sym) or KB.accuracy([])
+    fc = (kronos or {}).get("markets", {}).get(sym)
+    pos = held(kb)
+    if not pos:
+        pos = ((fc["prob_up"] - 0.5) * 2, f"{fc['prob_up']:.0%} chance up") if fc else (0.0, "no forecast")
+    rows.append(CS.row("Kronos", pos[0], pos[1], acc["checked"], CS.skill_direction(acc["direction"]),
+                       f"{acc['checked']} checked" + (f", {acc['direction']:.0%} right" if acc["direction"] is not None else ""),
+                       ev=CS.kronos_evidence(acc["checked"])))
+    # Claude's lab strategies
+    for st in strats:
+        sig = (sigs or {}).get(st["id"], {}).get(sym)
+        if sig is None:
+            continue
+        sl = lb["sleeves"].get(st["id"])
+        pos = held(sl) if sl else None
+        if not pos:
+            e = sig.get("entry")
+            pos = (1.0, "signal long") if e == "long" else (-1.0, "signal short") if e == "short" else (0.0, "no signal")
+        te = st["results"]["test"]["combined"]
+        live = CS.trade_record([t for t in lb_trades if t.get("strategy") == st["id"]])
+        n = live["n"] + (te.get("trades") or 0)
+        pf = CS.pooled_pf(live, {"pf": te.get("profit_factor"), "n": te.get("trades")})
+        rows.append(CS.row(f"Lab '{st['name']}'", pos[0], pos[1], n, CS.skill_pf(pf),
+                           f"{n} trades (all markets)" + (f", PF {pf:.2f}" if pf is not None else "")))
+    # buy and hold
+    cagr = (mk("daily").get("hold") or {}).get("cagr")
+    rows.append(CS.row("Buy and hold", 1.0, "long", 0, CS.skill_cagr(cagr),
+                       f"5y {cagr:+.0%} a year" if cagr is not None else "", ev=CS.evidence(60)))
+    s, w = CS.score(rows)
+    return {"score": s, "weight": w, "rows": rows}
+
+
+def all_market_bots(prices, *args):
+    out = {}
+    for sym in prices:
+        try:
+            out[sym] = market_bots(sym, prices, *args)
+        except Exception as e:
+            print(f"Bot consensus failed for {sym}: {e}")
+    return out
+
+
+# ---------- how much each input drove a decision (the website's pie chart) ----------
+FACTORS = ("ict", "kronos", "news", "long_term", "lab", "consensus", "risk")
+
+
+def normalize_influence(x):
+    """Claude's influence split -> whole percentages adding to exactly 100, or None if it isn't usable."""
+    if not isinstance(x, dict):
+        return None
+    v = {}
+    for k in FACTORS:
+        try:
+            f = float(x.get(k) or 0)
+        except (TypeError, ValueError):
+            f = 0.0
+        v[k] = f if math.isfinite(f) and f > 0 else 0.0
+    total = sum(v.values())
+    if total <= 0:
+        return None
+    raw = {k: v[k] * 100 / total for k in FACTORS}
+    out = {k: int(raw[k]) for k in FACTORS}
+    for k in sorted(FACTORS, key=lambda k: -(raw[k] - out[k]))[:100 - sum(out.values())]:
+        out[k] += 1
+    return out
+
+
+def daily_atr(sym, prices, history):
+    """Average daily range over the last 14 days, from daily bars, or from hourly bars if those are missing."""
+    d = (history.get(sym) or {}).get("daily")
+    a = KB.atr(d) if d and len(d) > KB.ATR_BARS else None
+    if not a and sym in prices:
+        h = KB.atr(prices[sym]["bars"])
+        a = h * math.sqrt(24) if h else None
+    return a
+
+
 # ---------- report card: were Claude's calls right 24 hours later? ----------
 def evaluate_calls(calls, prices, now):
     for c in calls:
@@ -704,7 +956,7 @@ def strategy_brief(strats):
         return "Your strategy lab hasn't produced a strategy that passed all of its checks yet."
     import features as F
     out = [f"Your own strategies, invented and tested in your lab. {len(strats)} passed every check and trade together, "
-           f"each on an equal slice of their own account; use their signals as more inputs, weighted by their records:"]
+           f"each on a slice of their own account; their signals per market are under 'Bots now':"]
     for strat in strats:
         te = strat["results"]["test"]["combined"]
         v, mc = strat.get("validation") or {}, strat.get("monte_carlo") or {}
@@ -720,22 +972,6 @@ def strategy_brief(strats):
     return "\n".join(out)
 
 
-def backtest_text(sym):
-    """What the backtests say about the bots in this market, so Claude knows how much to trust each signal."""
-    bt = load("backtest.json", {}).get("runs", {})
-    parts = []
-    for key, label in (("hourly", "hourly 2y"), ("daily", "daily 5y")):
-        m = bt.get(key, {}).get("markets", {}).get(sym)
-        if not m:
-            continue
-        i, t, h = m["ict"], m["trend"], m["hold"]
-        win = f", {i['win_rate']:.0%} wins" if i.get("win_rate") is not None else ""
-        avg_r = f", {i['avg_r']:+.2f}R per trade" if i.get("avg_r") is not None else ""
-        parts.append(f"{label}: ICT bot {i['return']:+.1%} over {i['trades']} trades{win}{avg_r}; "
-                     f"trend bot {t['return']:+.1%}; buy and hold {h['return']:+.1%}")
-    return "; ".join(parts)
-
-
 def new_headlines(news):
     """Headlines Claude hasn't commented on yet, newest first. Only these are sent, to keep costs down."""
     return sorted([n for n in news if not n.get("claude")], key=lambda n: -n["published"])[:NEWS_TO_CLAUDE]
@@ -747,32 +983,29 @@ def headline_age(n, now=None):
 
 
 def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads, history, strats=(), sigs=None,
-               kronos=None, kacc=None):
+               kronos=None, kacc=None, bots=None, records=None, atrs=None):
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError("No ANTHROPIC_API_KEY secret set")
 
     eq = equity(pf, last_usd, fx)
+    core = pf.get("core") or {}
+    core_eq = equity(core, last_usd, fx) if core else 0.0
     fresh = new_headlines(news)
     lines = []
     for sym, p in prices.items():
         bars = p["bars"]
+        a = (atrs or {}).get(sym)
         lines.append(f"{sym} ({p['name']}, {p['group']}, {p['exchange']}): {last_usd[sym]:.3f} {p['unit']}, "
                      f"24h {change_since(bars, 86400):+.2%}, 5d {change_since(bars, 5 * 86400):+.2%}, "
-                     f"20d {change_since(bars, 20 * 86400):+.2%}")
+                     f"20d {change_since(bars, 20 * 86400):+.2%}" + (f", daily ATR {a:.4g}" if a else ""))
         if sym in history:
             lines.append(f"   Long term: {history[sym]['text']}")
-        for strat in strats:
-            x = (sigs or {}).get(strat["id"], {}).get(sym)
-            if x:
-                lines.append(f"   Your strategy '{strat['name']}': " + (f"{x['entry']} entry signal now" if x["entry"] else "no entry signal")
-                             + ("; long exit rule true" if x["exit_long"] else ""))
-        bt = backtest_text(sym)
-        if bt:
-            lines.append(f"   Backtests: {bt}")
         kt = kronos_text(sym, kronos, kacc or {})
         if kt:
             lines.append(f"   {kt}")
+        if sym in (bots or {}):
+            lines.append(f"   Bots now: {CS.market_line(bots[sym]['rows'])}")
         if sym in reads:
             lines.append(f"   ICT: {reads[sym]['text']}")
             if reads[sym]["fvgs_below"]:
@@ -790,45 +1023,55 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
             f"stop ${p.get('stop') or 0:.3f}, target ${p.get('target') or 0:.3f}"
             for s, p in pf["positions"].items()] or ["none"]
     closed = [f"{t['name']} sold, P&L £{t['pnl']:+,.0f} ({t['reason'][:80]})"
-              for t in trades if t["action"] == "SELL"][-5:] or ["none yet"]
-    recent = [d["summary"] for d in decisions[-3:]] or ["none yet"]
+              for t in trades if t["action"] == "SELL" and t.get("source") != "core"][-5:] or ["none yet"]
+    recent = [d["summary"] for d in decisions[-3:] if d.get("summary")] or ["none yet"]
 
     news_ask = (f'Comment on every NEW [id] headline in "news" ({len(fresh)} of them); earlier headlines already '
                 f'have your comments.' if fresh else 'There are no new headlines this time, so "news" can be an empty list.')
     prompt = f"""You are an autonomous agent running a PAPER commodity trading account. No real money.
 Account currency is GBP. GBPUSD is {fx:.4f}. Prices are as quoted on the exchange (units given per market).
-Rules enforced by the risk engine: long only, no leverage, max {MAX_POSITION:.0%} of the portfolio per commodity,
+Rules enforced by the risk engine: long only, no leverage, max {MAX_POSITION:.0%} of your active money per commodity,
 max {MAX_OPEN} commodities held, no new buys after a {DAILY_LOSS_LIMIT:.0%} daily loss.
 Every BUY needs a stop (below price, same units as the quote) and a target (above price), and the target must be at
-least {MIN_RR}x as far from the entry as the stop is, or the risk engine rejects it. If an ICT sweep set up the trade,
-the stop goes below the lowest point of the sweep, not on the swept level.
-Waiting is a perfectly good decision. Only trade when you see a clear edge. Avoid churning.
+least {MIN_RR}x as far from the entry as the stop is, or the risk engine rejects it.
+Waiting is a good decision when nothing has an edge, but you don't need a perfect pattern to trade: a sound case
+from several inputs pointing the same way is enough. Avoid churning.
 
-How to think (take your time and reason it through properly before answering):
-1. ICT read for each market: structure, where price sits in its range (premium or discount), where liquidity is resting
-   or has just been taken, and whether a sweep -> market structure shift -> fair value gap setup is live.
-2. Long-term read: use the 5-year data to judge whether a move is stretched or early, where the big levels are
-   (5-year and 1-year highs and lows, the 200-day average), how volatile the market normally is, and whether
-   seasonality helps or hurts right now. A short-term setup against a strong long-term trend needs a better reason.
-3. News read: what the headlines actually change about supply, demand or positioning, and how much is already priced in.
-   Watch for scheduled events (like US payrolls, inventories, crop reports) that could swing price soon after entry.
-4. Combine them. The best trades are where a live ICT setup and a real news catalyst point the same way.
-   ICT gives you the where (entry zone, stop beyond the swept liquidity, target at the next liquidity pool);
-   news gives you the why. If they conflict, say which you trust and why; usually that means waiting.
-5. Use the backtest results to decide how much to trust the ICT read in each market. If the ICT bot has lost money
-   or has a low win rate in a market over the backtests, treat an ICT setup there as weak evidence; if it has a clear
-   positive record (positive average R over a decent number of trades), trust it more. Same for trend signals.
-   Small trade counts prove little either way.
-6. You can only go long. A bearish ICT read plus bearish news is a reason to sell what you hold or stay out.
-7. Base stops and targets on ICT levels, not round numbers.
-8. Kronos is an open-source AI model that forecasts the next 24 hourly candles from the chart alone (no news).
-   Treat its forecast as one more input, weighted by its live record shown with it: if its direction calls have
-   been right well above 50% over a long record, lean on it more; if the record is short (under {KB.MIN_RECORD}
-   checked forecasts) or near 50%, be sceptical and don't trade on it alone. It has not been backtested.
+Core holding: {core.get('target', core.get('fraction')) or 0:.0%} of the account (£{core_eq:,.0f} now) is a core holding, kept in all ten
+markets in equal shares and rebalanced monthly, like the buy-and-hold benchmark. You don't manage it. You manage the
+active part: £{eq:,.0f}, of which £{pf['cash']:,.0f} is cash. Over long stretches buy and hold has been hard to beat,
+so an active trade has to have a real reason.
 
-Cash: £{pf['cash']:,.0f}. Portfolio: £{eq:,.0f} (started at £{START_CASH:,}).
+How to think (take your time and reason it through properly before answering). Weigh every input below on its
+merits; none of them is a gatekeeper and none is required:
+- Long term and seasonality: the 5-year data shows whether a move is stretched or early, the big levels (5-year and
+  1-year highs and lows, the 200-day average), how volatile the market normally is and whether the season helps.
+- News: what the headlines change about supply, demand or positioning, how much is priced in, and any scheduled
+  events (payrolls, inventories, crop reports) that could swing price soon after entry.
+- ICT read: structure, premium or discount, resting liquidity and any sweep -> structure shift -> fair value gap
+  setup. It is one input among many. A completed setup is NOT required to trade, and an ICT setup on its own is not
+  enough; trust it in a market only as far as the ICT bot's record there supports.
+- Kronos is an open-source AI model that forecasts the next 24 hourly candles from the chart alone (no news), shown
+  with its live record. Until it has at least {KB.MIN_RECORD} checked forecasts with direction calls well above 50%,
+  be sceptical and don't trade on it alone. It has not been backtested.
+- Your lab strategies and the other bots: "Bots now" shows what each bot is doing in each market (position or
+  signal), the weight its evidence earns, and an evidence-weighted consensus from -100 (all bearish) to +100 (all
+  bullish). Weigh the bots by their evidence, not by recent luck: a bot with a handful of trades proves little
+  either way, however good or bad they were; one with hundreds of trades and a solid profit factor deserves real
+  weight. When you go against a strong, well-evidenced consensus, say why.
+- Risk: what you already hold, the daily loss limit, correlation between markets, and the cost of being wrong.
+You can only go long, so a bearish case is a reason to sell what you hold or stay out.
 
-Open positions:
+Stops: say what each stop is based on in "stop_basis". "ict" only when an ICT sweep is actually the reason for the
+trade: then the stop goes below the lowest point of the sweep (the risk engine enforces that). Otherwise use "atr"
+(about 1.5 to 3 daily ATRs below entry, using the daily ATR shown per market) or "structure" (below a clear swing low
+or support level from the chart or the 5-year levels). If you give no valid stop, the risk engine sets one
+{ATR_STOP} daily ATRs below entry. Targets: the next resistance or liquidity level, or a multiple of ATR.
+
+Bot records (live = since each started here; backtests are 2 years of hourly data across all ten markets):
+{records_text(records or {})}
+
+Open positions (active part):
 {chr(10).join(held)}
 
 Recently closed trades:
@@ -847,23 +1090,28 @@ Commodities and headlines (NEW ones are since your last run):
 
 Reply with ONLY a JSON object, no other text:
 {{"summary": "one or two plain sentences on your overall read and what you're doing",
-  "reasoning": "three to five sentences on how you weighed the long-term picture, the ICT picture and the news this time",
+  "reasoning": "three to five sentences on which inputs mattered most this time and how you weighed them",
+  "influence": {{"ict": 10, "kronos": 5, "news": 25, "long_term": 25, "lab": 10, "consensus": 15, "risk": 10}},
   "markets": [{{"symbol": "GC=F", "bias": "bullish|bearish|neutral", "setup_score": 0-100, "note": "short combined reason",
                "ict": "short ICT read in your own words", "ict_agrees": true}}],
   "watching": ["short thing you're waiting to see", "..."],
   "trades": [
-    {{"symbol": "GC=F", "action": "BUY", "amount_gbp": 5000, "stop": 0.0, "target": 0.0,
-      "reason": "one sentence", "evidence": ["short fact", "short fact"]}},
+    {{"symbol": "GC=F", "action": "BUY", "amount_gbp": 5000, "stop": 0.0, "stop_basis": "atr|structure|ict",
+      "target": 0.0, "reason": "one sentence", "evidence": ["short fact", "short fact"]}},
     {{"symbol": "CL=F", "action": "SELL", "fraction": 1.0, "reason": "one sentence", "evidence": ["short fact"]}}
   ],
   "adjust": [{{"symbol": "GC=F", "stop": 0.0, "target": 0.0}}],
   "news": [{{"id": "n0", "impact": "bullish|bearish|neutral", "take": "one or two sentences: what this headline means for the price and whether it changes your view"}}]
 }}
-Include every commodity in "markets". {news_ask}
+"influence" is how much each input drove this whole decision (including a decision to wait), as whole percentages
+adding to 100: ict (the ICT read), kronos, news, long_term (5-year history and seasonality), lab (your lab
+strategies), consensus (the other bots), risk (the risk rules and what you already hold). Be honest; the example
+numbers are only the format.
+Include every commodity in "markets"; "ict_agrees" says whether the ICT read agrees with your bias. {news_ask}
 Use empty lists for "trades" and "adjust" if nothing to do."""
 
     headers = {"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"}
-    body = {"model": MODEL, "max_tokens": THINKING_BUDGET + 5000 + 80 * len(fresh),
+    body = {"model": MODEL, "max_tokens": THINKING_BUDGET + 5100 + 80 * len(fresh),
             "thinking": {"type": "enabled", "budget_tokens": THINKING_BUDGET},
             "messages": [{"role": "user", "content": prompt}]}
     r = requests.post("https://api.anthropic.com/v1/messages", timeout=300, headers=headers, json=body)
@@ -927,6 +1175,7 @@ def main():
         ib, ib_trades = {"cash": START_CASH, "positions": {}, "used": [], "last_run": now}, []
     for book in (pf, rb, ib, kb):  # positions saved by older versions get the fields core.py expects
         C.normalize(book)
+    core_book(pf)
     reads = {}
     for sym, p in prices.items():
         try:
@@ -936,8 +1185,15 @@ def main():
     if not pf["start_prices"]:
         pf["start_prices"] = dict(last)
 
+    paused = bool(config.get("paused") or config.get("close_all"))
+    core_fills = []
+    if not paused:  # the core holding: equal shares of all ten markets, rebalanced monthly (see rebalance_core)
+        core_fills, moved = rebalance_core(pf, last_usd, fx, now, core_fraction(config))
+        if pf["day"].get("start_equity") is not None:  # cash moved into the core is not a trading loss
+            pf["day"]["start_equity"] = round(pf["day"]["start_equity"] - moved, 2)
+
     today = time.strftime("%Y-%m-%d", time.gmtime(now))
-    if pf["day"].get("date") != today:
+    if pf["day"].get("date") != today:  # the daily loss limit applies to the active part Claude manages
         pf["day"] = {"date": today, "start_equity": round(equity(pf, last_usd, fx), 2)}
 
     filled = check_exits(pf, prices, fx, now)
@@ -946,8 +1202,11 @@ def main():
             t = sell(pf, sym, 1, last_usd[sym], fx, now, "Closed by you (close_all in config.json)", "manual")
             if t:
                 filled.append(t)
+        filled += close_core(pf, last_usd, fx, now, "Closed by you (close_all in config.json)")
 
-    paused = bool(config.get("paused") or config.get("close_all"))
+    atrs = {s: daily_atr(s, prices, history["markets"]) for s in prices}
+    trade_lists = {"ict": ib_trades, "rules": rb_trades, "kronos": kb_trades}
+    bot_args = (ib, rb, kb, lb, strats, sigs, kronos, kacc, trade_lists, lb_trades)
     claude_due = os.environ.get("GITHUB_EVENT_NAME") != "schedule" or now - pf.get("last_claude", 0) >= CLAUDE_EVERY - 600
     entry = {"t": now, "paused": paused, "markets": [], "watching": [], "blocked": []}
     prev_health = load("status.json", {}).get("health", {})
@@ -961,11 +1220,12 @@ def main():
     else:
         try:
             pf["last_claude"] = now
+            records = bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)
             decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads,
                                   {s: m for s, m in history["markets"].items() if s in prices}, strats, sigs,
-                                  kronos, kacc)
+                                  kronos, kacc, all_market_bots(prices, *bot_args), records, atrs)
             health["claude"] = True
-            more, blocked = apply_decision(pf, decision, last_usd, fx, now, reads)
+            more, blocked = apply_decision(pf, decision, last_usd, fx, now, reads, atrs)
             filled += more
             takes = {str(n.get("id")): n for n in decision.get("news", []) or [] if isinstance(n, dict)}
             for n in news:
@@ -981,7 +1241,7 @@ def main():
                          summary=str(decision.get("summary", ""))[:500],
                          markets=decision.get("markets", [])[:10],
                          watching=[str(w)[:160] for w in decision.get("watching", [])][:6],
-                         blocked=blocked)
+                         blocked=blocked, influence=normalize_influence(decision.get("influence")))
         except Exception as e:
             print("Claude step failed:", e)
             health["claude"] = False
@@ -1000,13 +1260,14 @@ def main():
     kb_trades += run_kronos_bot(kb, prices, kronos["markets"], last_usd, fx, now)
     calls = evaluate_calls(calls, prices, now)[-5000:]
     decisions = (decisions + ([entry] if entry else []))[-400:]
-    trades += filled
+    trades += core_fills + filled
     pf["last_run"] = now
 
     starts = pf["start_prices"]
     both = [s for s in starts if s in last]
     bench = START_CASH * sum(last[s] / starts[s] for s in both) / max(1, len(both))
-    eq_hist.append({"time": now, "equity": round(equity(pf, last_usd, fx), 2), "benchmark": round(bench, 2),
+    eq_hist.append({"time": now, "equity": round(total_equity(pf, last_usd, fx), 2), "benchmark": round(bench, 2),
+                    "core": round(equity(pf["core"], last_usd, fx), 2), "active": round(equity(pf, last_usd, fx), 2),
                     "rules": round(equity(rb, last_usd, fx), 2), "ict": round(equity(ib, last_usd, fx), 2),
                     "lab": round(lab_equity(lb, last_usd, fx), 2), "kronos": round(equity(kb, last_usd, fx), 2)})
 
@@ -1029,15 +1290,19 @@ def main():
     save("kronos_calls.json", kcalls)
     save("kronos_bot.json", kb)
     save("kronos_trades.json", kb_trades)
+    save("consensus.json", {"t": now, "markets": all_market_bots(prices, *bot_args),
+                            "records": bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)})
     save("history.json", {"date": history["date"], "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})
     save("status.json", {"updated": now, "model": MODEL, "fx": fx, "health": health,
                          "last_claude": pf.get("last_claude"),
+                         "core": {"fraction": pf["core"].get("fraction"), "month": pf["core"].get("month"),
+                                  "rebalanced": pf["core"].get("rebalanced"), "target": core_fraction(config)},
                          "rules": {"max_position": MAX_POSITION, "max_open": MAX_OPEN,
                                    "daily_loss_limit": DAILY_LOSS_LIMIT, "min_rr": MIN_RR}})
     print(f"Done. Claude {'asked' if entry and entry.get('markets') else 'not asked'}, {len(filled)} fills, "
-          f"portfolio £{equity(pf, last_usd, fx):,.0f}, ICT bot £{equity(ib, last_usd, fx):,.0f}, "
+          f"portfolio £{total_equity(pf, last_usd, fx):,.0f} (core £{equity(pf['core'], last_usd, fx):,.0f}), ICT bot £{equity(ib, last_usd, fx):,.0f}, "
           f"Kronos {kronos['status']} (bot £{equity(kb, last_usd, fx):,.0f})")
 
 
