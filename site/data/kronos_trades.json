@@ -92,5 +92,18 @@
   "pnl": -247.14,
   "r": -1.26,
   "exit": "stop"
+ },
+ {
+  "t": 1791213869,
+  "symbol": "ZC=F",
+  "name": "Corn",
+  "action": "BUY",
+  "qty": 66.5741,
+  "price": 497.5,
+  "value": 25055.42,
+  "reason": "Kronos: 95% chance of a rise, expected +0.57% in 24h",
+  "source": "kronos",
+  "stop": 495.0089,
+  "target": 500.3427
  }
 ]
