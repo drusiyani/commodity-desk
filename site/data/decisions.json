@@ -1487,5 +1487,104 @@
   "summary": "No edge today. Cocoa remains the only live bullish ICT setup (sweep-shift-FVG at 5535\u20135567) but price is at 5609 in premium, away from entry; all other markets either lack completed bullish structures, show bearish ICT, have weak backtests, or conflict between DRG signals and ICT structure. Holding cash.",
   "state": "WAITING",
   "trades": 0
+ },
+ {
+  "t": 1791188618,
+  "paused": false,
+  "markets": [
+   {
+    "symbol": "CC=F",
+    "bias": "bullish",
+    "setup_score": 65,
+    "note": "Live bullish sweep-shift-FVG at 5535\u20135567; price at 5609 in premium, needs pullback to entry zone. No new catalyst today.",
+    "ict": "Ranging structure. Bullish sweep of sell-side liquidity, structure shift confirmed, FVG 5535\u20135567 open. Price currently in premium above the zone, waiting for return to it.",
+    "ict_agrees": true
+   },
+   {
+    "symbol": "GC=F",
+    "bias": "bullish",
+    "setup_score": 60,
+    "note": "Live bullish sweep-shift-FVG at 4184.1\u20134187.5; price at 4196.2 in discount above entry zone. Mixed news (rate cuts help, but yields and dollar are near-term headwind). DRG says exit (below 200-day MA).",
+    "ict": "Ranging structure. Bullish sweep of sell-side liquidity, structure shift confirmed, FVG 4184.1\u20134187.5 open. Price above the zone; awaits pullback to the fair-value gap.",
+    "ict_agrees": true
+   },
+   {
+    "symbol": "HG=F",
+    "bias": "neutral",
+    "setup_score": 45,
+    "note": "DRG entry signal live (ema_50 > ema_200, vol OK), but ICT shows bearish sweep of buy-side (no shift yet). News mixed: rate cuts bullish, demand concerns bearish. Backtest weak (\u22121.9% hourly). Wait for structure shift or better alignment.",
+    "ict": "Bullish structure; price at 53% of 5d range. Bearish sweep of buy-side liquidity at 6.6325, no structure shift confirmed. Setup incomplete.",
+    "ict_agrees": false
+   },
+   {
+    "symbol": "ZC=F",
+    "bias": "neutral",
+    "setup_score": 40,
+    "note": "DRG entry signal live, but ICT incomplete (bearish sweep of buy-side at 501.5, no shift). Price in discount. Corn needs structure shift confirmation before entry.",
+    "ict": "Ranging structure; price at 14% of 5d range (discount). Bearish sweep of buy-side at 501.5, no structure shift. No complete bullish setup.",
+    "ict_agrees": false
+   },
+   {
+    "symbol": "CL=F",
+    "bias": "bearish",
+    "setup_score": 25,
+    "note": "Bearish structure; DRG entry signal conflicts with bearish ICT and bearish news (supply normalizing, G7 reserve release, Middle East exports rising). Daily backtest poor (\u22121.0%). Avoid.",
+    "ict": "Bearish structure; price at 16% of 5d range (discount). Bullish sweep of sell-side at 88.83, but no structure shift yet. Open bearish FVGs above (90.7\u201390.96). No bullish setup confirmed.",
+    "ict_agrees": false
+   },
+   {
+    "symbol": "BZ=F",
+    "bias": "bearish",
+    "setup_score": 20,
+    "note": "Ranging structure; DRG no signal. Bearish news dominates (G7 reserve release, rising Middle East flows ease supply fears). Backtest poor (hourly \u22120.8%, trend \u221247.9%). Avoid.",
+    "ict": "Ranging structure; price at 71% of 5d range (premium). Bearish sweep of buy-side at 102.91, no structure shift. Open bullish FVGs below (97\u201398) but price well above them in premium.",
+    "ict_agrees": false
+   },
+   {
+    "symbol": "NG=F",
+    "bias": "bearish",
+    "setup_score": 15,
+    "note": "Below 200-day MA; DRG exit signal active. Ranging structure, no bullish setup. News mixed (LNG concerns offset by mild weather, high supply). Backtest weak (\u22122.9% hourly). Avoid.",
+    "ict": "Ranging structure; price at 45% of 5d range (discount). Bearish sweep of buy-side at 3.021, no structure shift. Below 200-day average. No bullish setup.",
+    "ict_agrees": false
+   },
+   {
+    "symbol": "ZW=F",
+    "bias": "neutral",
+    "setup_score": 35,
+    "note": "Bullish structure but bearish sweep (no shift yet). News bullish (Russia escalation threat to Ukraine supply). DRG no signal. Wait for structure shift confirmation.",
+    "ict": "Bullish structure; price at 60% of 5d range (premium). Bearish sweep of buy-side at 689, no structure shift. No complete bullish setup yet.",
+    "ict_agrees": false
+   },
+   {
+    "symbol": "SI=F",
+    "bias": "neutral",
+    "setup_score": 25,
+    "note": "Ranging structure, no setup. DRG exit signal (likely volatility or trend broken). No clear catalyst today. Wait.",
+    "ict": "Ranging structure; price at 82% of 5d range (premium). Bearish sweep of buy-side at 62.015, no structure shift. No bullish setup.",
+    "ict_agrees": false
+   },
+   {
+    "symbol": "KC=F",
+    "bias": "neutral",
+    "setup_score": 20,
+    "note": "Ranging structure, no setup. DRG exit signal. Below 200-day MA. Backtest weak (\u22120.7% hourly). No catalyst today. Wait.",
+    "ict": "Ranging structure; price at 72% of 5d range (premium). Bearish sweep of buy-side at 291.5, no structure shift. Open bullish FVGs below (285\u2013287) but price well above in premium.",
+    "ict_agrees": false
+   }
+  ],
+  "watching": [
+   "Cocoa pullback into 5535\u20135567 FVG zone (currently at 5609)",
+   "Gold pullback into 4184\u20134187.5 FVG zone (currently at 4196)",
+   "Copper or Corn structure shift confirmation (swing off their bearish sweeps)",
+   "Oil: whether bearish supply news persists or reverses on geopolitical escalation",
+   "Fed rate cut odds and yield curve; any move below 5.2% on 10Y would help Gold"
+  ],
+  "blocked": [],
+  "thinking": "Let me work through this carefully, following the framework:\n\n## 1. ICT Read per Market\n\n**CL (WTI Crude)**\n- Bearish structure; price at 16% of 5d range (discount)\n- Buy-side liquidity above at 89.89; sell-side liquidity below at 88.83\n- Bullish sweep of sell-side at 88.83, but NO structure shift yet (this is key\u2014needs the shift for a complete setup)\n- Open bearish FVGs above at 90.7-90.8 and 90.83-90.96\n- No live bullish setup yet\n\n**BZ (Brent)**\n- Ranging structure; price at 71% of 5d range (premium)\n- Bearish sweep of buy-side at 102.91, no structure shift yet\n- Open bullish FVGs below at 97.38-98.45 and 97.04-97.12\n- No live bullish setup yet\n\n**NG (Natural Gas)**\n- Ranging structure; price at 45% of 5d range (discount)\n- Bearish sweep of buy-side at 3.021, no structure shift yet\n- Below 200-day average\n- DRG says exit (volatility too low or trend broken)\n- No live bullish setup\n\n**GC (Gold)**\n- Ranging structure; price at 46% of 5d range (discount)\n- Bullish sweep AND structure shift AND FVG at 4184.1-4187.5 \u2713\n- THIS IS A LIVE SETUP\u2014waiting for price to return to FVG zone\n- Price is at 4196.2, FVG is at 4184.1-4187.5 (below)\n- So price needs to pullback to enter\n\n**SI (Silver)**\n- Ranging structure; price at 82% of 5d range (premium)\n- Bearish sweep of buy-side at 62.015, no structure shift yet\n- No live bullish setup\n\n**HG (Copper)**\n- Bullish structure; price at 53% of 5d range (premium)\n- Bearish sweep of buy-side at 6.6325, sweep but no shift\n- No live setup yet\n\n**KC (Coffee)**\n- Ranging structure; price at 72% of 5d range (premium)\n- Bearish sweep of buy-side at 291.5, no shift\n- No live setup\n\nMoving on to ZW next.\n\nDRG fires a long signal (ema_50 > ema_200, volume fine, close above sma_100), but backtest data is mixed\u2014hourly ICT +4.9% over 11 trades looks decent, daily ICT only -1.0% on a single trade (too thin to trust), trend bot -19.9% on daily. Longer-term it's above the 200-day MA with 1y +50%, though currently -31% off highs and running 55% volatility. Seasonality is rough too: Oct -0.4%, Nov -8.0%. The conflict is real: ICT structure is still bearish with a sweep but no shift, while DRG says go long.\n\n**BZ (Brent)**\n- DRG: no entry signal here\n\nVolatility or trend criteria aren't met. Backtests confirm skepticism\u2014hourly ICT -0.8%, trend bot -47.9%, daily has zero trades to judge. Price sits above 200-day MA with 1y +59% but is -25% off its high. Kronos claims 85% odds of a rise, though there's no live track record to back that yet. Structure looks like it's ranging with no completed setup, so I'll pass on this one.\n\n**NG (Natural Gas)**\n- DRG: no entry, and exit rule is active (so close any existing position)\n\nBacktests are weak\u2014hourly ICT -2.9% over 11 trades, daily has no sample. Price is below the 200-day MA with poor returns overall. Not worth trading right now.\n\n**GC (Gold)**\n- DRG: no entry, exit rule triggered\n\nHourly ICT -1.2%, daily has no trades, but trend bot shows strong gains at +26.2% and +123.4%. Checking whether it's above the 200-day MA\u2014looks like it's actually below.\n\nBelow 200-day MA, weak backtests. Skip.\n\n**ZW (Wheat)**\n- DRG: NO ENTRY SIGNAL\n- Backtests: hourly ICT +0.6%, daily 0 trades\n- Bullish structure but bearish sweep without shift confirmed. Not live yet, skip.\n\n**ZC (Corn)**\n- DRG long signal active, decent hourly backtest (+0.9%, 11 trades) but weak daily\n- Ranging, discount zone, bearish sweep at 501.5 without shift - ICT incomplete, skip despite DRG signal.\n\n**CC (Cocoa)**\n- DRG flat, no trade history on backtests\n- ICT setup live: bullish sweep + shift + FVG 5535-5567, worth checking price against zone.\n\nPrice sits at 5609, premium territory above the entry zone - need a pullback before entering. Cocoa remains the lone live bullish ICT setup but the entry price isn't there yet.\n\nScanning news now: oil headlines (G7 reserve release, rising Middle East exports) all point bearish, confirming the bearish structure - no long trades there. Natural gas also leans bearish with LNG oversupply concerns and mild weather, sitting below the 200-day MA, so no action. Gold faces headwinds from yields and dollar strength short-term, though HSBC flags a possible 2027 rebound.\n\nSilver's up 2.74% but ranging without a clear setup - skip. Copper has bullish fundamentals (cooling rate hike bets, weak jobs data) but the ICT sweep lacks a shift, leaving the DRG signal incomplete - stay cautious. Coffee shows no catalysts worth acting on. Wheat has bullish supply risk from Russia's Ukraine threats, but again the ICT sweep isn't confirmed by a shift, so no completed setup there either.\n\nCorn faces similar elevated supply risk and a live DRG signal, yet the discount zone with unconfirmed sweep means no entry. Cocoa remains the one position already active, just waiting on a pullback - nothing new changes that.\n\nPulling it together: only Gold (4184-4187.5 FVG) and Cocoa (5535-5567 FVG) have fully completed bullish ICT setups, both pending pullback entries. Oil's bearish structure plus bearish news rules it out. Copper and Corn show promise fundamentally but their ICT confirmations aren't there yet. Best move is staying in cash and\n\nwaiting for pullbacks into Gold or Cocoa entry zones, or for ICT setups to complete in Copper/Corn.\n\nChecking risk parameters: \u00a3100,155 account, no open positions, no daily loss triggered, max 25% (\u00a325,038) per commodity, up to 4 positions allowed. Still, nothing justifies a trade today\u2014holding.\n\nMoving to news commentary. Oil's narrative is consistently bearish: near 4-week lows with bears hesitant, Hormuz flows exceeding pre-war levels signaling oversupply, and the strategic reserve release adding further pressure. Iraq-related item appears neutral-to-bearish too.\n\nFor BZ, the pattern repeats\u2014G7 reserve release and Middle East export normalization dominate as bearish drivers across several headlines (n1380db8d75, n173ecfb47b, n2f5e3fb7e6, n85ccc8b35c, ncc5914fce0, n87c89bf820). One outlier, nf27d11848e, is bullish\u2014Wall Street banks raising oil forecasts hints at potential upside.\n\n**Natural Gas (NG):** nd06ad6ba9c is bullish, European gas climbing on LNG supply worries. na1a20003fc is neutral, just a market report without clear direction. n78d7312bdf leans bullish long-term (Trump pushing Alaska LNG investment) but that's years out. n01dd6ebfa7 is bearish\u2014US gas easing on rising output and mild weather. nb7adbc4d6a is neutral, prices holding without new catalysts. n64c4a2f87d is bullish, crude strength lifting LNG producers like Santos. n83014b1532 is bullish too, war reshaping the global gas market with potential supply constraints.\n\n**Gold (GC):** nbc8d64a46a is bullish, possible 2027 rebound if Fed turns less aggressive. nb097e2b188 is bullish, rate-hike odds sitting at just 22% implies cuts coming. nd348193944 is bearish, rising yields and dollar strength weighing on gold. n98a7dea1b9 is bearish, gold falling in India per FXStreet data. n55e78692e8 is neutral, just a price chart. n3534fe3452 is neutral, Asian hoarding is structural, not a near-term price driver.\n\n**Silver (SI):** n2469e66738 is neutral\u2014silver up 2.09% but no clear reason given for the move.\n\n**Copper (HG):** n8db4520eb0 is bullish, copper rising as Fed rate-hike bets fade. n7eec255ee2 is bearish, slipping on demand worries plus energy costs. na3b5369fa3 is bullish, rallying after a weak jobs report eased Fed concerns. nb6910005c3, nda4fae545d, and nb699c162f3 are all neutral\u2014forecasts, structural minerals data, or predictions too far out to matter now.\n\n**Coffee (KC):** ncbd4891d27 is neutral, freight route data with no direct coffee impact.\n\n**Wheat (ZW):** nc8952\n\nWait, this thought is incomplete\u2014let me finish: nc8952a497c is bullish on Russia escalation threats pushing wheat higher. n05666a4077 is neutral, just a grain price guide with no new catalyst. n441459c4e0 is neutral too\u2014supply risks are elevated but already priced in. n6c93596074 is bullish, wheat edging toward $700 on Russia threats. nad4649b7ad is neutral, an opinion piece on food security without fresh catalyst. n349444c8e4 is bullish, rising after Russia's escalation warning.\n\n**Corn (ZC):** ndae935175c is neutral, just price data with no catalyst.\n\n**Cocoa (CC):** nothing new.\n\nNow scoring the setups, starting with Gold\u2014bullish sweep plus shift plus FVG at\n\n(sweep without shift)\n- News: Neutral\n- DRG: Entry signal LIVE\n- Backtest: Mixed hourly (+0.9%), weak daily (-1.1%)\n- Setup Score: 40 (DRG signal but ICT incomplete)\n\n**CL (Oil)**: Bearish structure, sweep without shift, bearish news (supply normalizing), DRG entry signal, mixed hourly (+4.9%)/weak daily (-1.0%) backtest. Setup Score: 25.\n\n**BZ (Brent)**: Ranging, sweep without shift, news mostly...\n\nbearish, no DRG signal, weak backtest. Setup Score: 20.\n\nEverything else scores 15-25 \u2014 no clean setups, backtests too weak to justify risk.\n\nNothing here clears the bar. Cocoa and Gold need to pull back into their FVG zones first, Copper/Corn need shift confirmation on ICT, and Oil's bearish news needs more conviction one way or the other. Staying in cash today.",
+  "reasoning": "Gold and Cocoa each show a completed sweep \u2192 structure shift \u2192 fair-value gap (FVG) setup on the ICT read, but both are trading in premium above their entry zones\u2014they need a pullback to trigger. Copper and Corn each show a DRG entry signal (50-200 MA bullish, volatility normalized), but their ICT reads show only a bearish sweep of buy-side liquidity without a structure shift, meaning the sweep hasn't yet reversed sentiment. Oil backtests poorly on the daily (\u22121.0% over 1 trade) and currently sits in a bearish structure with fresh supply news (G7 reserves, Middle East flows normal, strategic release); this conflicts with the DRG signal and argues for patience. News on gold is mixed (rate cuts coming, but yields and dollar still rising). No news catalyst aligns clearly with an incomplete ICT setup to warrant a forced entry.",
+  "summary": "Only two live ICT setups remain: Gold (FVG 4184\u20134187.5) and Cocoa (FVG 5535\u20135567), both waiting for pullbacks into their entry zones. Oil and natural gas show bearish structure and supply normalization news; Copper and Corn have DRG entry signals but incomplete ICT setups (sweep without the shift confirmation that signals a reversal). The disciplined move is to hold cash and wait for price to deliver a pullback into a live zone or for a structure shift to confirm a new setup.",
+  "state": "WAITING",
+  "trades": 0
  }
 ]
