@@ -199,5 +199,30 @@
   "source": "rules",
   "stop": null,
   "target": null
+ },
+ {
+  "t": 1791195790,
+  "symbol": "SI=F",
+  "name": "Silver",
+  "action": "SELL",
+  "qty": 210.6621,
+  "price": 62.005,
+  "value": 9877.82,
+  "reason": "20-bar average fell below 100-bar average",
+  "source": "rules",
+  "pnl": -14.09
+ },
+ {
+  "t": 1791195790,
+  "symbol": "CC=F",
+  "name": "Cocoa",
+  "action": "BUY",
+  "qty": 2.3491,
+  "price": 5582.0,
+  "value": 9916.04,
+  "reason": "20-bar average crossed above 100-bar average",
+  "source": "rules",
+  "stop": null,
+  "target": null
  }
 ]
