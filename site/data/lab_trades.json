@@ -1,1 +1,44 @@
-[]
+[
+ {
+  "t": 1791160224,
+  "symbol": "CL=F",
+  "name": "WTI crude",
+  "action": "BUY",
+  "qty": 148.6656,
+  "price": 90.69,
+  "value": 10183.59,
+  "reason": "Dual Regime Growth: entry rules met",
+  "source": "lab",
+  "stop": 81.7845,
+  "target": 110.7274,
+  "strategy": "s12"
+ },
+ {
+  "t": 1791160224,
+  "symbol": "HG=F",
+  "name": "Copper",
+  "action": "BUY",
+  "qty": 5018.3541,
+  "price": 6.5955,
+  "value": 25000.0,
+  "reason": "Dual Regime Growth: entry rules met",
+  "source": "lab",
+  "stop": 6.4007,
+  "target": 7.0338,
+  "strategy": "s12"
+ },
+ {
+  "t": 1791160224,
+  "symbol": "ZC=F",
+  "name": "Corn",
+  "action": "BUY",
+  "qty": 61.9729,
+  "price": 495.75,
+  "value": 23205.76,
+  "reason": "Dual Regime Growth: entry rules met",
+  "source": "lab",
+  "stop": 474.3868,
+  "target": 543.8173,
+  "strategy": "s12"
+ }
+]

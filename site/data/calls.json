@@ -4,42 +4,60 @@
   "symbol": "CL=F",
   "bias": "bullish",
   "score": 62,
-  "price": 92.91
+  "price": 92.91,
+  "checked": true,
+  "chg": -0.02002,
+  "right": false
  },
  {
   "t": 1790892415,
   "symbol": "BZ=F",
   "bias": "bullish",
   "score": 68,
-  "price": 102.21
+  "price": 102.21,
+  "checked": true,
+  "chg": 0.00411,
+  "right": true
  },
  {
   "t": 1790892415,
   "symbol": "NG=F",
   "bias": "bearish",
   "score": 55,
-  "price": 2.95
+  "price": 2.95,
+  "checked": true,
+  "chg": 0.01695,
+  "right": false
  },
  {
   "t": 1790892415,
   "symbol": "GC=F",
   "bias": "neutral",
   "score": 38,
-  "price": 4207.7998
+  "price": 4207.7998,
+  "checked": true,
+  "chg": -0.00756,
+  "right": null
  },
  {
   "t": 1790892415,
   "symbol": "SI=F",
   "bias": "neutral",
   "score": 35,
-  "price": 61.35
+  "price": 61.35,
+  "checked": true,
+  "chg": -0.00432,
+  "right": null
  },
  {
   "t": 1790892415,
   "symbol": "HG=F",
   "bias": "bearish",
   "score": 45,
-  "price": 6.5765
+  "price": 6.5765,
+  "checked": true,
+  "chg": 0.0016,
+  "right": false
  },
  {
   "t": 1790892415,
@@ -53,14 +71,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 42,
-  "price": 681.75
+  "price": 681.75,
+  "checked": true,
+  "chg": 0.00037,
+  "right": null
  },
  {
   "t": 1790892415,
   "symbol": "ZC=F",
   "bias": "bearish",
   "score": 48,
-  "price": 502.0
+  "price": 502.0,
+  "checked": true,
+  "chg": -0.01245,
+  "right": true
  },
  {
   "t": 1790892415,
@@ -74,42 +98,60 @@
   "symbol": "BZ=F",
   "bias": "bullish",
   "score": 62,
-  "price": 102.63
+  "price": 102.63,
+  "checked": true,
+  "chg": 0.0,
+  "right": false
  },
  {
   "t": 1790901039,
   "symbol": "CL=F",
   "bias": "bullish",
   "score": 55,
-  "price": 93.11
+  "price": 93.11,
+  "checked": true,
+  "chg": -0.02212,
+  "right": false
  },
  {
   "t": 1790901039,
   "symbol": "NG=F",
   "bias": "bearish",
   "score": 48,
-  "price": 2.946
+  "price": 2.946,
+  "checked": true,
+  "chg": 0.01833,
+  "right": false
  },
  {
   "t": 1790901039,
   "symbol": "GC=F",
   "bias": "neutral",
   "score": 35,
-  "price": 4198.3999
+  "price": 4198.3999,
+  "checked": true,
+  "chg": -0.00534,
+  "right": null
  },
  {
   "t": 1790901039,
   "symbol": "SI=F",
   "bias": "neutral",
   "score": 38,
-  "price": 61.275
+  "price": 61.275,
+  "checked": true,
+  "chg": -0.0031,
+  "right": null
  },
  {
   "t": 1790901039,
   "symbol": "HG=F",
   "bias": "bearish",
   "score": 28,
-  "price": 6.5795
+  "price": 6.5795,
+  "checked": true,
+  "chg": 0.00114,
+  "right": false
  },
  {
   "t": 1790901039,
@@ -123,14 +165,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 45,
-  "price": 681.5
+  "price": 681.5,
+  "checked": true,
+  "chg": 0.00073,
+  "right": null
  },
  {
   "t": 1790901039,
   "symbol": "ZC=F",
   "bias": "bearish",
   "score": 32,
-  "price": 500.0
+  "price": 500.0,
+  "checked": true,
+  "chg": -0.0085,
+  "right": true
  },
  {
   "t": 1790901039,
@@ -144,42 +192,60 @@
   "symbol": "CL=F",
   "bias": "bullish",
   "score": 62,
-  "price": 92.44
+  "price": 92.44,
+  "checked": true,
+  "chg": -0.01504,
+  "right": false
  },
  {
   "t": 1790915012,
   "symbol": "BZ=F",
   "bias": "bullish",
   "score": 65,
-  "price": 102.08
+  "price": 102.08,
+  "checked": true,
+  "chg": 0.00539,
+  "right": true
  },
  {
   "t": 1790915012,
   "symbol": "NG=F",
   "bias": "bearish",
   "score": 45,
-  "price": 2.928
+  "price": 2.928,
+  "checked": true,
+  "chg": 0.02459,
+  "right": false
  },
  {
   "t": 1790915012,
   "symbol": "GC=F",
   "bias": "neutral",
   "score": 35,
-  "price": 4214.2998
+  "price": 4214.2998,
+  "checked": true,
+  "chg": -0.00909,
+  "right": null
  },
  {
   "t": 1790915012,
   "symbol": "SI=F",
   "bias": "bearish",
   "score": 28,
-  "price": 61.525
+  "price": 61.525,
+  "checked": true,
+  "chg": -0.00715,
+  "right": true
  },
  {
   "t": 1790915012,
   "symbol": "HG=F",
   "bias": "bearish",
   "score": 25,
-  "price": 6.572
+  "price": 6.572,
+  "checked": true,
+  "chg": 0.00228,
+  "right": false
  },
  {
   "t": 1790915012,
@@ -193,14 +259,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 42,
-  "price": 679.5
+  "price": 679.5,
+  "checked": true,
+  "chg": 0.00368,
+  "right": null
  },
  {
   "t": 1790915012,
   "symbol": "ZC=F",
   "bias": "bearish",
   "score": 30,
-  "price": 499.5
+  "price": 499.5,
+  "checked": true,
+  "chg": -0.00751,
+  "right": true
  },
  {
   "t": 1790915012,
@@ -214,42 +286,60 @@
   "symbol": "CL=F",
   "bias": "neutral",
   "score": 35,
-  "price": 89.83
+  "price": 89.83,
+  "checked": true,
+  "chg": 0.01358,
+  "right": null
  },
  {
   "t": 1790929551,
   "symbol": "BZ=F",
   "bias": "neutral",
   "score": 40,
-  "price": 100.08
+  "price": 100.08,
+  "checked": true,
+  "chg": 0.02548,
+  "right": null
  },
  {
   "t": 1790929551,
   "symbol": "NG=F",
   "bias": "bearish",
   "score": 25,
-  "price": 2.928
+  "price": 2.928,
+  "checked": true,
+  "chg": 0.02459,
+  "right": false
  },
  {
   "t": 1790929551,
   "symbol": "GC=F",
   "bias": "neutral",
   "score": 45,
-  "price": 4217.0
+  "price": 4217.0,
+  "checked": true,
+  "chg": -0.00972,
+  "right": null
  },
  {
   "t": 1790929551,
   "symbol": "SI=F",
   "bias": "neutral",
   "score": 40,
-  "price": 61.655
+  "price": 61.655,
+  "checked": true,
+  "chg": -0.00924,
+  "right": null
  },
  {
   "t": 1790929551,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 30,
-  "price": 6.5975
+  "price": 6.5975,
+  "checked": true,
+  "chg": -0.00159,
+  "right": null
  },
  {
   "t": 1790929551,
@@ -263,14 +353,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 35,
-  "price": 686.75
+  "price": 686.75,
+  "checked": true,
+  "chg": -0.00692,
+  "right": null
  },
  {
   "t": 1790929551,
   "symbol": "ZC=F",
   "bias": "bearish",
   "score": 25,
-  "price": 500.25
+  "price": 500.25,
+  "checked": true,
+  "chg": -0.009,
+  "right": true
  },
  {
   "t": 1790929551,
@@ -284,42 +380,60 @@
   "symbol": "CL=F",
   "bias": "neutral",
   "score": 40,
-  "price": 89.3
+  "price": 89.3,
+  "checked": true,
+  "chg": 0.0196,
+  "right": null
  },
  {
   "t": 1790934861,
   "symbol": "BZ=F",
   "bias": "neutral",
   "score": 55,
-  "price": 99.51
+  "price": 99.51,
+  "checked": true,
+  "chg": 0.03135,
+  "right": null
  },
  {
   "t": 1790934861,
   "symbol": "NG=F",
   "bias": "bearish",
   "score": 30,
-  "price": 2.933
+  "price": 2.933,
+  "checked": true,
+  "chg": 0.02284,
+  "right": false
  },
  {
   "t": 1790934861,
   "symbol": "GC=F",
   "bias": "bullish",
   "score": 75,
-  "price": 4214.2002
+  "price": 4214.2002,
+  "checked": true,
+  "chg": -0.00906,
+  "right": false
  },
  {
   "t": 1790934861,
   "symbol": "SI=F",
   "bias": "bearish",
   "score": 35,
-  "price": 61.56
+  "price": 61.56,
+  "checked": true,
+  "chg": -0.00772,
+  "right": true
  },
  {
   "t": 1790934861,
   "symbol": "HG=F",
   "bias": "bearish",
   "score": 30,
-  "price": 6.556
+  "price": 6.556,
+  "checked": true,
+  "chg": 0.00473,
+  "right": false
  },
  {
   "t": 1790934861,
@@ -333,14 +447,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 45,
-  "price": 687.25
+  "price": 687.25,
+  "checked": true,
+  "chg": -0.00764,
+  "right": null
  },
  {
   "t": 1790934861,
   "symbol": "ZC=F",
   "bias": "bearish",
   "score": 25,
-  "price": 501.25
+  "price": 501.25,
+  "checked": true,
+  "chg": -0.01097,
+  "right": true
  },
  {
   "t": 1790934861,
@@ -354,42 +474,60 @@
   "symbol": "GC=F",
   "bias": "bullish",
   "score": 75,
-  "price": 4212.2002
+  "price": 4212.2002,
+  "checked": true,
+  "chg": -0.00859,
+  "right": false
  },
  {
   "t": 1790939209,
   "symbol": "CL=F",
   "bias": "bearish",
   "score": 65,
-  "price": 89.42
+  "price": 89.42,
+  "checked": true,
+  "chg": 0.01823,
+  "right": false
  },
  {
   "t": 1790939209,
   "symbol": "BZ=F",
   "bias": "neutral",
   "score": 40,
-  "price": 99.93
+  "price": 99.93,
+  "checked": true,
+  "chg": 0.02702,
+  "right": null
  },
  {
   "t": 1790939209,
   "symbol": "NG=F",
   "bias": "neutral",
   "score": 35,
-  "price": 2.923
+  "price": 2.923,
+  "checked": true,
+  "chg": 0.02634,
+  "right": null
  },
  {
   "t": 1790939209,
   "symbol": "SI=F",
   "bias": "neutral",
   "score": 30,
-  "price": 61.42
+  "price": 61.42,
+  "checked": true,
+  "chg": -0.00545,
+  "right": null
  },
  {
   "t": 1790939209,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 45,
-  "price": 6.565
+  "price": 6.565,
+  "checked": true,
+  "chg": 0.00335,
+  "right": null
  },
  {
   "t": 1790939209,
@@ -403,14 +541,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 55,
-  "price": 686.75
+  "price": 686.75,
+  "checked": true,
+  "chg": -0.00692,
+  "right": null
  },
  {
   "t": 1790939209,
   "symbol": "ZC=F",
   "bias": "bearish",
   "score": 35,
-  "price": 500.0
+  "price": 500.0,
+  "checked": true,
+  "chg": -0.0085,
+  "right": true
  },
  {
   "t": 1790939209,
@@ -424,42 +568,60 @@
   "symbol": "GC=F",
   "bias": "bullish",
   "score": 85,
-  "price": 4213.8999
+  "price": 4213.8999,
+  "checked": true,
+  "chg": -0.00899,
+  "right": false
  },
  {
   "t": 1790939738,
   "symbol": "CL=F",
   "bias": "bearish",
   "score": 30,
-  "price": 89.27
+  "price": 89.27,
+  "checked": true,
+  "chg": 0.01994,
+  "right": false
  },
  {
   "t": 1790939738,
   "symbol": "BZ=F",
   "bias": "neutral",
   "score": 40,
-  "price": 99.86
+  "price": 99.86,
+  "checked": true,
+  "chg": 0.02774,
+  "right": null
  },
  {
   "t": 1790939738,
   "symbol": "NG=F",
   "bias": "bearish",
   "score": 25,
-  "price": 2.921
+  "price": 2.921,
+  "checked": true,
+  "chg": 0.02705,
+  "right": false
  },
  {
   "t": 1790939738,
   "symbol": "SI=F",
   "bias": "neutral",
   "score": 35,
-  "price": 61.435
+  "price": 61.435,
+  "checked": true,
+  "chg": -0.0057,
+  "right": null
  },
  {
   "t": 1790939738,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 30,
-  "price": 6.5615
+  "price": 6.5615,
+  "checked": true,
+  "chg": 0.00389,
+  "right": null
  },
  {
   "t": 1790939738,
@@ -473,14 +635,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 35,
-  "price": 686.5
+  "price": 686.5,
+  "checked": true,
+  "chg": -0.00655,
+  "right": null
  },
  {
   "t": 1790939738,
   "symbol": "ZC=F",
   "bias": "bearish",
   "score": 25,
-  "price": 500.0
+  "price": 500.0,
+  "checked": true,
+  "chg": -0.0085,
+  "right": true
  },
  {
   "t": 1790939738,
@@ -494,35 +662,50 @@
   "symbol": "GC=F",
   "bias": "bullish",
   "score": 75,
-  "price": 4249.7002
+  "price": 4249.7002,
+  "checked": true,
+  "chg": -0.01734,
+  "right": false
  },
  {
   "t": 1790945394,
   "symbol": "SI=F",
   "bias": "neutral",
   "score": 45,
-  "price": 62.245
+  "price": 62.245,
+  "checked": true,
+  "chg": -0.01864,
+  "right": null
  },
  {
   "t": 1790945394,
   "symbol": "CL=F",
   "bias": "bearish",
   "score": 15,
-  "price": 89.21
+  "price": 89.21,
+  "checked": true,
+  "chg": 0.02063,
+  "right": false
  },
  {
   "t": 1790945394,
   "symbol": "BZ=F",
   "bias": "neutral",
   "score": 35,
-  "price": 99.37
+  "price": 99.37,
+  "checked": true,
+  "chg": 0.03281,
+  "right": null
  },
  {
   "t": 1790945394,
   "symbol": "NG=F",
   "bias": "neutral",
   "score": 30,
-  "price": 2.941
+  "price": 2.941,
+  "checked": true,
+  "chg": 0.02006,
+  "right": null
  },
  {
   "t": 1790945394,
@@ -536,21 +719,30 @@
   "symbol": "ZW=F",
   "bias": "bullish",
   "score": 55,
-  "price": 685.5
+  "price": 685.5,
+  "checked": true,
+  "chg": -0.00511,
+  "right": false
  },
  {
   "t": 1790945394,
   "symbol": "ZC=F",
   "bias": "bearish",
   "score": 25,
-  "price": 499.5
+  "price": 499.5,
+  "checked": true,
+  "chg": -0.00751,
+  "right": true
  },
  {
   "t": 1790945394,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 20,
-  "price": 6.5895
+  "price": 6.5895,
+  "checked": true,
+  "chg": -0.00038,
+  "right": null
  },
  {
   "t": 1790945394,
@@ -564,42 +756,60 @@
   "symbol": "GC=F",
   "bias": "bearish",
   "score": 20,
-  "price": 4168.1001
+  "price": 4168.1001,
+  "checked": true,
+  "chg": 0.0019,
+  "right": false
  },
  {
   "t": 1790961624,
   "symbol": "SI=F",
   "bias": "bearish",
   "score": 15,
-  "price": 60.485
+  "price": 60.485,
+  "checked": true,
+  "chg": 0.00992,
+  "right": false
  },
  {
   "t": 1790961624,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 35,
-  "price": 6.5495
+  "price": 6.5495,
+  "checked": true,
+  "chg": 0.00573,
+  "right": null
  },
  {
   "t": 1790961624,
   "symbol": "CL=F",
   "bias": "bearish",
   "score": 25,
-  "price": 91.44
+  "price": 91.44,
+  "checked": true,
+  "chg": -0.00427,
+  "right": true
  },
  {
   "t": 1790961624,
   "symbol": "BZ=F",
   "bias": "bearish",
   "score": 20,
-  "price": 102.26
+  "price": 102.26,
+  "checked": true,
+  "chg": 0.00362,
+  "right": false
  },
  {
   "t": 1790961624,
   "symbol": "NG=F",
   "bias": "neutral",
   "score": 20,
-  "price": 3.011
+  "price": 3.011,
+  "checked": true,
+  "chg": -0.00365,
+  "right": null
  },
  {
   "t": 1790961624,
@@ -613,14 +823,20 @@
   "symbol": "ZW=F",
   "bias": "bearish",
   "score": 25,
-  "price": 682.25
+  "price": 682.25,
+  "checked": true,
+  "chg": -0.00037,
+  "right": true
  },
  {
   "t": 1790961624,
   "symbol": "ZC=F",
   "bias": "neutral",
   "score": 20,
-  "price": 497.75
+  "price": 497.75,
+  "checked": true,
+  "chg": -0.00402,
+  "right": null
  },
  {
   "t": 1790961624,
@@ -634,42 +850,60 @@
   "symbol": "CL=F",
   "bias": "bearish",
   "score": 20,
-  "price": 91.43
+  "price": 91.43,
+  "checked": true,
+  "chg": -0.00416,
+  "right": true
  },
  {
   "t": 1790970887,
   "symbol": "BZ=F",
   "bias": "bearish",
   "score": 15,
-  "price": 102.81
+  "price": 102.81,
+  "checked": true,
+  "chg": -0.00175,
+  "right": true
  },
  {
   "t": 1790970887,
   "symbol": "NG=F",
   "bias": "neutral",
   "score": 35,
-  "price": 3.045
+  "price": 3.045,
+  "checked": true,
+  "chg": -0.01478,
+  "right": null
  },
  {
   "t": 1790970887,
   "symbol": "GC=F",
   "bias": "bearish",
   "score": 25,
-  "price": 4172.3999
+  "price": 4172.3999,
+  "checked": true,
+  "chg": 0.00086,
+  "right": false
  },
  {
   "t": 1790970887,
   "symbol": "SI=F",
   "bias": "bearish",
   "score": 25,
-  "price": 60.815
+  "price": 60.815,
+  "checked": true,
+  "chg": 0.00444,
+  "right": false
  },
  {
   "t": 1790970887,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 40,
-  "price": 6.584
+  "price": 6.584,
+  "checked": true,
+  "chg": 0.00046,
+  "right": null
  },
  {
   "t": 1790970887,
@@ -683,14 +917,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 30,
-  "price": 683.0
+  "price": 683.0,
+  "checked": true,
+  "chg": -0.00146,
+  "right": null
  },
  {
   "t": 1790970887,
   "symbol": "ZC=F",
   "bias": "neutral",
   "score": 25,
-  "price": 497.25
+  "price": 497.25,
+  "checked": true,
+  "chg": -0.00302,
+  "right": null
  },
  {
   "t": 1790970887,
@@ -704,42 +944,60 @@
   "symbol": "CL=F",
   "bias": "neutral",
   "score": 8,
-  "price": 91.26
+  "price": 91.26,
+  "checked": true,
+  "chg": -0.0023,
+  "right": null
  },
  {
   "t": 1790986918,
   "symbol": "BZ=F",
   "bias": "bearish",
   "score": 5,
-  "price": 102.7
+  "price": 102.7,
+  "checked": true,
+  "chg": -0.00068,
+  "right": true
  },
  {
   "t": 1790986918,
   "symbol": "NG=F",
   "bias": "neutral",
   "score": 12,
-  "price": 3.039
+  "price": 3.039,
+  "checked": true,
+  "chg": -0.01283,
+  "right": null
  },
  {
   "t": 1790986918,
   "symbol": "GC=F",
   "bias": "bearish",
   "score": 5,
-  "price": 4172.1001
+  "price": 4172.1001,
+  "checked": true,
+  "chg": 0.00093,
+  "right": false
  },
  {
   "t": 1790986918,
   "symbol": "SI=F",
   "bias": "bearish",
   "score": 8,
-  "price": 60.71
+  "price": 60.71,
+  "checked": true,
+  "chg": 0.00618,
+  "right": false
  },
  {
   "t": 1790986918,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 18,
-  "price": 6.579
+  "price": 6.579,
+  "checked": true,
+  "chg": 0.00122,
+  "right": null
  },
  {
   "t": 1790986918,
@@ -753,14 +1011,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 12,
-  "price": 683.0
+  "price": 683.0,
+  "checked": true,
+  "chg": -0.00146,
+  "right": null
  },
  {
   "t": 1790986918,
   "symbol": "ZC=F",
   "bias": "neutral",
   "score": 10,
-  "price": 497.25
+  "price": 497.25,
+  "checked": true,
+  "chg": -0.00302,
+  "right": null
  },
  {
   "t": 1790986918,
@@ -774,42 +1038,60 @@
   "symbol": "CL=F",
   "bias": "neutral",
   "score": 25,
-  "price": 91.11
+  "price": 91.11,
+  "checked": true,
+  "chg": -0.00066,
+  "right": null
  },
  {
   "t": 1791023330,
   "symbol": "BZ=F",
   "bias": "bearish",
   "score": 15,
-  "price": 102.25
+  "price": 102.25,
+  "checked": true,
+  "chg": 0.00372,
+  "right": false
  },
  {
   "t": 1791023330,
   "symbol": "NG=F",
   "bias": "neutral",
   "score": 30,
-  "price": 3.035
+  "price": 3.035,
+  "checked": true,
+  "chg": -0.01153,
+  "right": null
  },
  {
   "t": 1791023330,
   "symbol": "GC=F",
   "bias": "bearish",
   "score": 10,
-  "price": 4162.2998
+  "price": 4162.2998,
+  "checked": true,
+  "chg": 0.00329,
+  "right": false
  },
  {
   "t": 1791023330,
   "symbol": "SI=F",
   "bias": "bearish",
   "score": 15,
-  "price": 60.415
+  "price": 60.415,
+  "checked": true,
+  "chg": 0.01109,
+  "right": false
  },
  {
   "t": 1791023330,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 20,
-  "price": 6.549
+  "price": 6.549,
+  "checked": true,
+  "chg": 0.0058,
+  "right": null
  },
  {
   "t": 1791023330,
@@ -823,14 +1105,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 15,
-  "price": 683.0
+  "price": 683.0,
+  "checked": true,
+  "chg": -0.00146,
+  "right": null
  },
  {
   "t": 1791023330,
   "symbol": "ZC=F",
   "bias": "neutral",
   "score": 20,
-  "price": 497.75
+  "price": 497.75,
+  "checked": true,
+  "chg": -0.00402,
+  "right": null
  },
  {
   "t": 1791023330,
@@ -844,42 +1132,60 @@
   "symbol": "CL=F",
   "bias": "bearish",
   "score": 25,
-  "price": 91.11
+  "price": 91.11,
+  "checked": true,
+  "chg": -0.00066,
+  "right": true
  },
  {
   "t": 1791024039,
   "symbol": "BZ=F",
   "bias": "bearish",
   "score": 20,
-  "price": 102.25
+  "price": 102.25,
+  "checked": true,
+  "chg": 0.00372,
+  "right": false
  },
  {
   "t": 1791024039,
   "symbol": "NG=F",
   "bias": "bearish",
   "score": 15,
-  "price": 3.035
+  "price": 3.035,
+  "checked": true,
+  "chg": -0.01153,
+  "right": true
  },
  {
   "t": 1791024039,
   "symbol": "GC=F",
   "bias": "neutral",
   "score": 35,
-  "price": 4162.2998
+  "price": 4162.2998,
+  "checked": true,
+  "chg": 0.00329,
+  "right": null
  },
  {
   "t": 1791024039,
   "symbol": "SI=F",
   "bias": "bearish",
   "score": 20,
-  "price": 60.415
+  "price": 60.415,
+  "checked": true,
+  "chg": 0.01109,
+  "right": false
  },
  {
   "t": 1791024039,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 40,
-  "price": 6.549
+  "price": 6.549,
+  "checked": true,
+  "chg": 0.0058,
+  "right": null
  },
  {
   "t": 1791024039,
@@ -893,14 +1199,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 35,
-  "price": 683.0
+  "price": 683.0,
+  "checked": true,
+  "chg": -0.00146,
+  "right": null
  },
  {
   "t": 1791024039,
   "symbol": "ZC=F",
   "bias": "bearish",
   "score": 15,
-  "price": 497.75
+  "price": 497.75,
+  "checked": true,
+  "chg": -0.00402,
+  "right": true
  },
  {
   "t": 1791024039,
@@ -974,6 +1286,76 @@
  },
  {
   "t": 1791129629,
+  "symbol": "CC=F",
+  "bias": "bullish",
+  "score": 75,
+  "price": 5609.0
+ },
+ {
+  "t": 1791160224,
+  "symbol": "CL=F",
+  "bias": "neutral",
+  "score": 35,
+  "price": 90.69
+ },
+ {
+  "t": 1791160224,
+  "symbol": "BZ=F",
+  "bias": "neutral",
+  "score": 25,
+  "price": 102.14
+ },
+ {
+  "t": 1791160224,
+  "symbol": "NG=F",
+  "bias": "bearish",
+  "score": 5,
+  "price": 3.026
+ },
+ {
+  "t": 1791160224,
+  "symbol": "GC=F",
+  "bias": "bearish",
+  "score": 10,
+  "price": 4179.7998
+ },
+ {
+  "t": 1791160224,
+  "symbol": "SI=F",
+  "bias": "neutral",
+  "score": 40,
+  "price": 61.285
+ },
+ {
+  "t": 1791160224,
+  "symbol": "HG=F",
+  "bias": "neutral",
+  "score": 45,
+  "price": 6.5955
+ },
+ {
+  "t": 1791160224,
+  "symbol": "KC=F",
+  "bias": "bearish",
+  "score": 15,
+  "price": 290.75
+ },
+ {
+  "t": 1791160224,
+  "symbol": "ZW=F",
+  "bias": "neutral",
+  "score": 50,
+  "price": 682.0
+ },
+ {
+  "t": 1791160224,
+  "symbol": "ZC=F",
+  "bias": "neutral",
+  "score": 48,
+  "price": 495.75
+ },
+ {
+  "t": 1791160224,
   "symbol": "CC=F",
   "bias": "bullish",
   "score": 75,
