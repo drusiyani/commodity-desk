@@ -186,5 +186,18 @@
   "source": "rules",
   "stop": null,
   "target": null
+ },
+ {
+  "t": 1791192274,
+  "symbol": "ZW=F",
+  "name": "Wheat",
+  "action": "BUY",
+  "qty": 18.9018,
+  "price": 694.25,
+  "value": 9913.07,
+  "reason": "20-bar average crossed above 100-bar average",
+  "source": "rules",
+  "stop": null,
+  "target": null
  }
 ]

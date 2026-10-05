@@ -11,5 +11,32 @@
   "source": "kronos",
   "stop": 494.5357,
   "target": 500.9426
+ },
+ {
+  "t": 1791192274,
+  "symbol": "ZC=F",
+  "name": "Corn",
+  "action": "SELL",
+  "qty": 66.5016,
+  "price": 500.9426,
+  "value": 25165.68,
+  "reason": "Target hit at 500.943",
+  "source": "kronos",
+  "pnl": 140.6,
+  "r": 0.87,
+  "exit": "target"
+ },
+ {
+  "t": 1791192274,
+  "symbol": "KC=F",
+  "name": "Coffee",
+  "action": "BUY",
+  "qty": 112.3604,
+  "price": 294.95,
+  "value": 25035.15,
+  "reason": "Kronos: 95% chance of a rise, expected +1.64% in 24h",
+  "source": "kronos",
+  "stop": 290.3321,
+  "target": 299.7919
  }
 ]
