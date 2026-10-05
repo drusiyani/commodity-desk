@@ -148,5 +148,17 @@
   "source": "rules",
   "stop": null,
   "target": null
+ },
+ {
+  "t": 1791170553,
+  "symbol": "SI=F",
+  "name": "Silver",
+  "action": "SELL",
+  "qty": 212.0675,
+  "price": 61.3,
+  "value": 9844.83,
+  "reason": "20-bar average fell below 100-bar average",
+  "source": "rules",
+  "pnl": -64.02
  }
 ]
