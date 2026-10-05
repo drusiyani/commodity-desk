@@ -64,5 +64,33 @@
   "source": "kronos",
   "stop": 3.0546,
   "target": 3.0008
+ },
+ {
+  "t": 1791206789,
+  "symbol": "CL=F",
+  "name": "WTI crude",
+  "action": "COVER",
+  "qty": 366.7873,
+  "price": 89.4307,
+  "value": 24837.38,
+  "reason": "Target hit at 89.4307",
+  "source": "kronos",
+  "pnl": 245.78,
+  "r": 0.83,
+  "exit": "target"
+ },
+ {
+  "t": 1791206789,
+  "symbol": "NG=F",
+  "name": "Natural gas",
+  "action": "COVER",
+  "qty": 10951.5842,
+  "price": 3.0546,
+  "value": 25330.06,
+  "reason": "Stop hit at 3.0546",
+  "source": "kronos",
+  "pnl": -247.14,
+  "r": -1.26,
+  "exit": "stop"
  }
 ]
