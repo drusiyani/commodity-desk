@@ -1,5 +1,56 @@
 [
  {
+  "title": "Oil futures: Brent rebounds after Saudi attacks, G7 stock release",
+  "source": "Quantum Commodity Intelligence",
+  "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxOdDAwdmxYNldOWkpObTVpNmlEMlhvWnBfQm83Vm1pOFlLZGVVRGFBT2pnSFJOYV9MeXpTZ3NqUHYxNHVoY0h2T1NScEZXU0lRMmpQbHZrMG9QY0xtcmszaVhWYk92VEJodFpzeDF5Xzd2WnBRaUMxSGF6QTI0T2hjNlQzSGt4aVl4V3lDLUdWd0ppQS1OVDhEbHk5NjJaeDBRNXA0SkNKVmtkdw?oc=5",
+  "published": 1791200367,
+  "id": "na3c82844bf",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791201144,
+  "claude": {
+   "impact": "neutral",
+   "take": "Brent rebound post-Saudi attacks is a geopolitical bid, but G-7 stock release counters it. The range widens; no new directional signal until one side capitulates.",
+   "t": 1791201144
+  }
+ },
+ {
+  "title": "Current price of oil as of Oct. 5, 2026",
+  "source": "Fortune",
+  "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9EbkRLZjBkY2xqVUFPNEJaRy1ZR2wtZjA3RU5KaGZQTEdCX21HVy1ZWEFRNDcwTjdCMmFTYmhiSjVQNFNmcHp2aXk1cktBTUhXMVZLd0RzTkU0VHpZT3RQSU5R?oc=5",
+  "published": 1791198900,
+  "id": "n8c311c0a14",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791201144,
+  "claude": {
+   "impact": "neutral",
+   "take": "Routine price update; no new information.",
+   "t": 1791201144
+  }
+ },
+ {
+  "title": "Current price of silver as of Monday, Oct. 5, 2026",
+  "source": "Fortune",
+  "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE9adzhFdlI3RDRXWDQtdUp6YWNHbUtEZVZySWVyS1BPNGhqcTZDV2tpTlJydjh4Wkc4OFRUcjl0OGlDcXpVdTVtcmdDbnFYZ2QyZG0xZkJ3cWNOVWs5WG5uNzdfQXRzOU4tVmRNR2Q5NA?oc=5",
+  "published": 1791198900,
+  "id": "n50ef5ea40e",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1791201144,
+  "claude": {
+   "impact": "neutral",
+   "take": "Routine price update.",
+   "t": 1791201144
+  }
+ },
+ {
   "title": "SynMax Adds Demand to Hyperion, Bringing the Full U.S. Natural Gas Balance Into One Source",
   "source": "EIN News",
   "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxQczUyU1BvVWtrYlRodHFJN3pBYjY2Mjl2RzI4cTl3ZUxDTENudWNOLWpfczRockdqbGlVa3FRRHFxNC0tbC1ZUXRRbEpnSnZRbGZhY0xfWW83SHNSVmxFZDAxa0VSWXNzbDNQS1JJZThaRVlwOHVhb0ltVTdKakFHdU1hdGxvelNzR1h0b21Ca1htSFVvYzNxRXhlYXNyamdnQjZndFRqYjJ4c3RuTjBCM3pVeF8xLS16NkhqTjBRWWN5UVlPR2k3OGRCVQ?oc=5",
@@ -9,7 +60,12 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "neutral",
+   "take": "SynMax infrastructure addition is industry development, not a swing demand catalyst for NG prices.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Silver Price Forecast: XAG/USD jumps to near $61.80 as hawkish Fed bets recede",
@@ -21,7 +77,12 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bullish",
+   "take": "Silver jumps to near $61.80 as hawkish Fed bets recede\u2014positive catalyst for silver (lower rates, lower opportunity cost). Supports the 2.71% daily gain.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Oil price today: Why Brent stays above $100 despite G7 supply boost and rising Middle East war risks | Hindustan Times",
@@ -33,7 +94,12 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "neutral",
+   "take": "Headline suggests Brent resilience above $100, but the reason (Middle East war + G-7 offset) shows two equal forces. Price continues to range.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Europe\u2019s gas storage levels fall below seasonal average ahead of winter",
@@ -45,7 +111,12 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bullish",
+   "take": "European gas storage below seasonal average ahead of winter is a real supply tightness signal, but NG (NYMEX) is North American and reflects US supply/demand. Limited direct impact on US NG.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Silver Price Forecast 05/10: Tests Key $55\u2013$60 Support Zone",
@@ -57,7 +128,12 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bearish",
+   "take": "Testing key $55\u2013$60 support zone framing suggests vulnerability if this level breaks. However, current price is at $62.05, well above this zone, so it is a longer-term support level, not an immediate concern.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Chicago corn and soybeans fall Friday as wheat trades mixed",
@@ -70,7 +146,12 @@
    "ZW=F",
    "ZC=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bearish",
+   "take": "Chicago corn and soybeans fall; wheat trades mixed. Corn is under pressure from broad grain weakness. This aligns with the \u20134.58% 5d decline and argues against a bullish setup.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Grain under blockade: What is preventing Ukraine from expanding exports via the Danube",
@@ -82,7 +163,12 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bullish",
+   "take": "Grain blockade via Ukraine Danube restricts export supply, supporting wheat and corn prices structurally. However, this is a known constraint and may already be priced into the range.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Gold Price Forecast: XAU/USD languishes below $4,200 amid high US yields",
@@ -94,7 +180,12 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bearish",
+   "take": "Gold's weakness below $4,200 attributed to high US yields (5.27%). Rate-sensitive selling is active. This is a headwind to any near-term bullish setup.",
+   "t": 1791201144
+  }
  },
  {
   "title": "China's 1,700-Tonne Gold Pipeline Underpins Bullion as Traders Rethink October Fed Move",
@@ -106,7 +197,12 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bullish",
+   "take": "China's 1,700-tonne gold pipeline buying is a real long-term demand story and supports the bullish narrative. However, it is a slow-burn catalyst, not a 24-hour trigger.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Silver price today: Silver rises, according to FXStreet data",
@@ -118,7 +214,12 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bullish",
+   "take": "Silver rises confirmation of the intraday rally. Neutral on direction but consistent with the Fed rate-cut narrative.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Silver-nickel contacts cut TOPCon rear metallization costs by 11%",
@@ -130,7 +231,29 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bullish",
+   "take": "Silver-nickel contacts cutting TOPCon metallization costs by 11% is bullish for industrial silver demand in solar manufacturing. Long-term supportive.",
+   "t": 1791201144
+  }
+ },
+ {
+  "title": "Capstone Copper Corp. (CS.TO) Stock Price, News, Quote & History",
+  "source": "Yahoo! Finance Canada",
+  "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFB4Z1dNTHBRYktMajM4dDFiSWZxYU9KUGYxLUdOYnVETlRvOXJ1YjV6LVJhdENCekYwdjRYVHZiSlJ1Tlp2aVlMamNnejBEbXpMci00?oc=5",
+  "published": 1791192829,
+  "id": "nd7c6d90f3c",
+  "symbol": "HG=F",
+  "symbols": [
+   "HG=F"
+  ],
+  "seen": 1791201144,
+  "claude": {
+   "impact": "neutral",
+   "take": "Company stock price news; no impact on commodity price direction.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Gold Prices Gain as US Employment Data Lowers October Fed Hike Probability",
@@ -142,7 +265,12 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bullish",
+   "take": "Soft US jobs data lowering October Fed hike probability is bullish for gold (lower rates expected). This supports the bullish ICT setup, though gains are not yet materializing.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Oil and Gold: Price review for the week ahead",
@@ -154,7 +282,12 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791192274
+  "seen": 1791192274,
+  "claude": {
+   "impact": "neutral",
+   "take": "Routine weekly review; no specific directional signal.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Copper Price Forecast: Strong Dollar Limits Gains Despite Supply Risks",
@@ -166,7 +299,12 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791192274
+  "seen": 1791192274,
+  "claude": {
+   "impact": "bearish",
+   "take": "Strong dollar limits copper gains despite supply risks. USD strength is the dominant headwind, overriding positive supply-side news. Copper up 0.98% today but facing structural headwind.",
+   "t": 1791201144
+  }
  },
  {
   "title": "The crippling effect we\u2019re all feeling from the deadlock in Ukraine\u2019s war with Russia",
@@ -178,7 +316,12 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bullish",
+   "take": "Ukraine war deadlock continues to restrict grain exports and support prices. This is a long-standing bullish fundamental, but execution in prices (corn down 4.58%, wheat at resistance) suggests the supply story is not dominating demand weakness.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Gold price loses momentum as soft US jobs report fails to spark rebound",
@@ -190,7 +333,12 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791192274
+  "seen": 1791192274,
+  "claude": {
+   "impact": "bearish",
+   "take": "Soft jobs data failed to spark a gold rebound; instead, yields stayed high and gold lost momentum. This signals that the initial bullish catalyst was priced out quickly or offset by other sellers.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Agricultural prices today, October 5, 2026: New crop coffee prices difficult to predict; Pepper prices slightly increase; Trade tensions with the US cause Canadian manufacturing sector to lose momentum.",
@@ -202,7 +350,12 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791192274
+  "seen": 1791192274,
+  "claude": {
+   "impact": "bearish",
+   "take": "New crop coffee prices difficult to predict; El Ni\u00f1o 75% probability adds weather risk and uncertainty. Uncertainty typically pressures long-side trading, even if El Ni\u00f1o is a neutral-to-bullish medium-term factor for coffee supply.",
+   "t": 1791201144
+  }
  },
  {
   "title": "European Gas Prices Climb On LNG Supply Concerns",
@@ -231,7 +384,12 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791192274
+  "seen": 1791192274,
+  "claude": {
+   "impact": "neutral",
+   "take": "Volatility intensification is a market mechanic, not a directional signal. Reflects uncertainty.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Silver (XAGUSD) Is up 2.09% on Oct 5: What Changed in Supply and Demand?",
@@ -329,7 +487,12 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "neutral",
+   "take": "Freeport-McMoRan Q3 production report is factual update, not a surprise catalyst for spot prices.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Oil Prices Fall as G-7 Plans Crude, Diesel Release But Hormuz Shipping Risks Persist",
@@ -341,7 +504,12 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791192274
+  "seen": 1791192274,
+  "claude": {
+   "impact": "bearish",
+   "take": "G-7 crude and diesel release eases supply concerns in the near term, pressuring WTI; Hormuz shipping risks are real but already priced into the wide range. Supply normalization narrative dominates.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Silver Price Forecasts: XAG/USD pars losses but remains trading in range",
@@ -473,7 +641,12 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791192274
+  "seen": 1791192274,
+  "claude": {
+   "impact": "bearish",
+   "take": "Gold falls to seven-week low as rate-hike bets rise\u2014contradicting the jobs data (soft jobs should lower hike odds). This suggests either rate-hike expectations shifted post-jobs, or the market is digesting longer-term Fed guidance as more hawkish. Bearish for gold near-term.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Copper ticks up as Fed rate hike bets cool",
@@ -947,7 +1120,12 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791192274
+  "seen": 1791192274,
+  "claude": {
+   "impact": "bullish",
+   "take": "Copper gains as US jobs offer relief on Fed tightening\u2014supports the rate-cut narrative. Positive but intraday reaction, not a structural shift.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Middle East crude oil exports rise above pre-war levels but tanker attacks increase",
@@ -1043,7 +1221,8 @@
   "id": "n87c89bf820",
   "symbol": "BZ=F",
   "symbols": [
-   "BZ=F"
+   "BZ=F",
+   "CL=F"
   ],
   "seen": 1791181815,
   "claude": {
@@ -1085,6 +1264,23 @@
    "impact": "bearish",
    "take": "Gold and silver losing lustre in September (lagged data) reflects the recent underperformance vs. rising yields; confirms the headwind remains in place into October.",
    "t": 1791174149
+  }
+ },
+ {
+  "title": "Silver Price Forecast: Strong Dollar and High Yields Put $50 in Focus",
+  "source": "FXEmpire",
+  "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQNjY0eEZoTjRsSjJoYXdoVEd1RE9CWTFBNkhlVHhWMnR6YzN5SWVMYmd4S1V4Vk0xN1JNYTBNUVJOZ2JIcV9YWGk0Y1ZrTUdVcjY5M2IyaWpCWG1wZjA3bWlhSFhCem51eW4xc3lEMjEyV1o4LWxiWEJtZVZQMVRvWVFVbVVRYzBpSEFoR2RYMnh2MU9uZEUyZnpRRzdEYm5MREJfMkVPWlVYVmxXNHN4Y2x1MGplMHJob2tIS01iQWRXYzhz?oc=5",
+  "published": 1791162480,
+  "id": "n97a4a7213f",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1791201144,
+  "claude": {
+   "impact": "bearish",
+   "take": "Strong dollar and high yields put $50 in focus\u2014suggesting downside risk for silver if the dollar index or yields remain elevated. This is a structural headwind to silver.",
+   "t": 1791201144
   }
  },
  {
@@ -1302,7 +1498,12 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791199299
+  "seen": 1791199299,
+  "claude": {
+   "impact": "bearish",
+   "take": "NOAA 75% El Ni\u00f1o probability raises concerns about coffee production in key regions (Brazil, Central America can see drought stress). Medium-term bullish for supply concerns, but near-term increases volatility and risk aversion, pressuring positions.",
+   "t": 1791201144
+  }
  },
  {
   "title": "Europe's Diesel Woes Just Got Even Worse",
@@ -1512,6 +1713,23 @@
   }
  },
  {
+  "title": "US Natural Gas Falls on Warmer Outlook, Growing Storage Surplus",
+  "source": "EnergyNow.com",
+  "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPdkwwbHRfd1d6NDM3UmZQOEt5Tm5JYVVlNmg1TXFRX2NaOG9OTlR6YlQ3cHNKSnFkbkZMVzA2SWFtZ0hmaWxGcjFwMFhVZGpBdzY3T2ZBb2NjU2NEQnVwTy1oSVZ0RkFnR2FmTFR4Tlh5cmxSQjFwcGZCLVE2QW9JVGtmSzlqSFZyRjljbmMwT0I4N29YLU5KQQ?oc=5",
+  "published": 1791132284,
+  "id": "n507000d1e9",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1791201144,
+  "claude": {
+   "impact": "bearish",
+   "take": "Warmer outlook + growing US storage surplus are both bearish for NG prices. This dominates the European storage tightness signal for a global commodity.",
+   "t": 1791201144
+  }
+ },
+ {
   "title": "Core Differences Between West Texas Intermediate (WTI) and Brent Crude and the Affect of the Iran War",
   "source": "EnergyNow.com",
   "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQN1ZOVFVuUnFFYUstVktuczhxdzBYN1lUbUlqbTIwZEVnX2lCclN2dDZyeVJxUnFPLXdLLWhHcTd1MUUyM0kxTFBUZWJZSVlfN2RCZkRlRXhqT3ZfdUJTQkFjSkR1dDFsQ2Rmc19VTERhc1hsV2Nka2RDVEFvZ0FUcFdJQ0dCR21lcm5mZU12UzJZZHlyOFh3WGEzVWpCVDlUeHc?oc=5",
@@ -1560,75 +1778,6 @@
   "claude": {
    "impact": "bearish",
    "take": "OPEC+ holding November output steady rather than cutting is a bullish signal on paper (no supply cut), but in context of weak oil prices it means OPEC is accepting lower prices and not defending\u2014signals no urgency to support, bearish.",
-   "t": 1791129629
-  }
- },
- {
-  "title": "Silver (XAG) Forecast: Yield Reversal Sinks Payrolls Rally",
-  "source": "FXEmpire",
-  "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNRklvN1MtR1ZUX21telZnSThlM1FMcmhZWWNPaUFyVTJZLWhmNHJvRTY4QW85cHhHWlJyeGlNS0NVYU5iQ2JWTTR2LUlzOVJ5amU4Y01GWl95bkcyaVRHa1BWR181dXJWZ0xRVzQwVlVZSXByeDZBX0V6VFdBTkhDMDVCczVTT3JGM0tnOXlsSkk0aWpzdW1BTFJaLVhRTWRjbVVCMkdjWlNEUQ?oc=5",
-  "published": 1791122545,
-  "id": "nf9212741dd",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1791129629,
-  "claude": {
-   "impact": "bearish",
-   "take": "Silver yield reversal sinks payrolls rally: rising yields (5.277%, +0.76% today) are headwind for silver as they did for gold. Bearish for silver near-term.",
-   "t": 1791129629
-  }
- },
- {
-  "title": "Silver Rate Today in Ahmedabad 4th October 2026 : 1 KG, Todays Silver Price in Ahmedabad",
-  "source": "Business Today",
-  "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE02ak5PYWF0OGo3aVhfTXlRbUNNSTVIY0JJazdIQU56czJLcVZCbWpPa2FpcUdpa1EySURLc3J5c1Z2WHZCUXE5bUVRb3k2d3NycWRaVHlPMHJmWFFObGhpM0o4aVQycHlXaTRZLXFVYzh6eEVCYndLSA?oc=5",
-  "published": 1791120775,
-  "id": "nbd4977ea59",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1791129629,
-  "claude": {
-   "impact": "neutral",
-   "take": "Silver retail price in Ahmedabad: local market price reporting; not a global catalyst. Neutral.",
-   "t": 1791129629
-  }
- },
- {
-  "title": "Oil Climbs as U.S. Sends Another Aircraft Carrier to Middle East",
-  "source": "WSJ",
-  "link": "https://news.google.com/rss/articles/CBMi6wFBVV95cUxPNmhPcVdsYXVvN2poOUlFX1dYN3htRTFkenA5T2VwekZleFZRZ0Uyb1ZUbWkzOXVzaUdlXzJKQWFzSDN6cURIMmUxbG00QWhvR2Utdy1acFplejVvU3hWTDlHRG5zZnNyalNnZ01DdEp1bUxBcWxLak9KTmhjbUw3VXJ5TFRodWExMEVETkNoRi1JemdmTF9IbGZBcGo2ZW5zREdjSjNlQ2R4X3hKbkNzb3REQl9CVEx4U2xIZDRvZDBCMUNOYVZzdHhZMkVXRDBQUmlrRnA1M3ZaSTFfX1l2M0t6bEZaT0treWMw?oc=5",
-  "published": 1791118886,
-  "id": "n7fee85ee6f",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F",
-   "CL=F"
-  ],
-  "seen": 1791129629,
-  "claude": {
-   "impact": "bullish",
-   "take": "US sends another aircraft carrier to Middle East: geopolitical risk escalation can support oil prices by raising supply disruption risk premium. Bullish for oil, but this is noise if overall market is pricing in no material supply loss.",
-   "t": 1791129629
-  }
- },
- {
-  "title": "Rabobank Expects Oil Prices To Ease In 2027: Oil Price Forecast",
-  "source": "Exchange Rates UK",
-  "link": "https://news.google.com/rss/articles/CBMivwFBVV95cUxPYXp0TFNJWVZxZXZWWW9DVzJnLXhvaDAtZVdrWkl1SjVnR1FpR1JkVndUM3VMRTQzS09Qb2ZacDMtZC1LSDAwSzc4TzkyY2xOMnpjYV85VzZFZjdoVmd5XzltVUk4d3pPY2RGTzl1ZjZCM1NFSDhFVWRKeS1RRFc4NExvbGYyYXF1NjZrbDFTUWg0STVrSXBuS292SU4yaC1mYVczaTNjZXVQTHM1cDh5aVgtNkl1WkgzcS03QnBsRQ?oc=5",
-  "published": 1791118800,
-  "id": "n5187a41c25",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1791129629,
-  "claude": {
-   "impact": "neutral",
-   "take": "Rabobank expects oil to ease in 2027: long-term forecast for 2027 prices has minimal bearing on today's entry. Neutral.",
    "t": 1791129629
   }
  },
@@ -1855,23 +2004,6 @@
   }
  },
  {
-  "title": "Europe is Running Out of Energy\u2014and Ideas",
-  "source": "persuasion.community",
-  "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1wMXVnVHhHeklHNDMwZ3lLYTVabVhhVDlGVlVzZ01SUHhYMUxCLXRzSi1LSUtRWTQ1dm84ejZiekNjY19DRG1hVFIzdDlCSFFxUENoMkJWU2hVMlktdlp6VzBkbnZEMlllZER6ZzZNNnQ4emw0TnhrQQ?oc=5",
-  "published": 1791068140,
-  "id": "n963251f8b0",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
-  ],
-  "seen": 1791129629,
-  "claude": {
-   "impact": "bullish",
-   "take": "Europe running out of energy and ideas: bullish sentiment on European energy scarcity; signals demand concerns and willingness to pay for supply. Supports gas and LNG prices.",
-   "t": 1791129629
-  }
- },
- {
   "title": "Global X Copper Miners xStock (COPXX) Price Prediction for 2026 to 2031",
   "source": "Bybit",
   "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTFBSejdWdktMdFljZlJoNDdUcjJRSzFKUWJGTjdUM2pNcVItbi12S2FYczExSUhmM1FQTFIxUGxlRmpmeGdKb1E3NTdBWUgzRWZpbURMclRRWDRuYlR2LUhuN0t2NUhxUElsX2U2X2xLenRySW9aY1d3d0JvMFM?oc=5",
@@ -1889,21 +2021,16 @@
   }
  },
  {
-  "title": "3 Trends That Will Push Copper Higher in 2028",
-  "source": "The Motley Fool",
-  "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPVjZzeUtWYTNHSDhEVjBnOHpyZl8xTW5Pb3RIQ0xPZmQ1SGE3U2dCenFHOHNrTDFqandIdjFmRTVNWnpiME5fR29lT2R3Rnp2Yk5jOGl0dHZpRi1aZlV3SVozNUdoQ3BYVEtnMXRqMVBFLWVsOFpuWFdIZGhqQVM3WG5QUUJhaVVjYlMwOTR0VXJLdw?oc=5",
-  "published": 1791059400,
-  "id": "n7315607605",
-  "symbol": "HG=F",
+  "title": "CBOT wheat steadies near six-week low; corn and soybean futures fall",
+  "source": "brecorder.com",
+  "link": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBLaHlKbGhYUUVwdXJYR01kUlU1Rm55dVRwZVhPaE96Vm83OHN6YVZmbUpGYXd5RmpiVk9KV0docXgwQy1DM3A5QkNxdzFXRmh4QnNMWlhB0gFWQVVfeXFMUEtoeUpsaFhRRXB1clhHTWRSVTVGbnl1VHBlWE9oT3pWbzc4c3phVmZtSkZhd3lGamJWT0pXR2hxeDBDLUMzcDlCQ3F3MVdGaHhCc0xaWEE?oc=5",
+  "published": 1791062581,
+  "id": "naa3d5b95b8",
+  "symbol": "ZC=F",
   "symbols": [
-   "HG=F"
+   "ZC=F"
   ],
-  "seen": 1791129629,
-  "claude": {
-   "impact": "neutral",
-   "take": "3 trends to push copper higher in 2028: long-term outlook article, not near-term catalyst. Neutral for immediate trading.",
-   "t": 1791129629
-  }
+  "seen": 1791201144
  },
  {
   "title": "Brent Crude Oil Futures North Sea MI Dec '26 Futures Price History",

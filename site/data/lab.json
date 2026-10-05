@@ -47,7 +47,7 @@
     "HG=F": 1791086400,
     "ZC=F": 1791086400
    },
-   "last_run": 1791199299
+   "last_run": 1791201144
   }
  },
  "strategies": {
@@ -82,10 +82,10 @@
     "z": null,
     "retire": null
    },
-   "equity": 100289.42,
+   "equity": 100247.19,
    "weight": 1.0
   }
  },
- "last_run": 1791199299,
+ "last_run": 1791201144,
  "allocation_t": 1791148666
 }
