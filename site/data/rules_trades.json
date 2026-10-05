@@ -224,5 +224,18 @@
   "source": "rules",
   "stop": null,
   "target": null
+ },
+ {
+  "t": 1791199299,
+  "symbol": "SI=F",
+  "name": "Silver",
+  "action": "BUY",
+  "qty": 211.3068,
+  "price": 62.175,
+  "value": 9937.58,
+  "reason": "20-bar average crossed above 100-bar average",
+  "source": "rules",
+  "stop": null,
+  "target": null
  }
 ]

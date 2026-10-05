@@ -38,5 +38,31 @@
   "source": "kronos",
   "stop": 290.3321,
   "target": 299.7919
+ },
+ {
+  "t": 1791199299,
+  "symbol": "CL=F",
+  "name": "WTI crude",
+  "action": "SHORT",
+  "qty": 366.7873,
+  "price": 90.5,
+  "value": 25108.13,
+  "reason": "Kronos: 10% chance of a rise, expected -1.18% in 24h",
+  "source": "kronos",
+  "stop": 91.5639,
+  "target": 89.4307
+ },
+ {
+  "t": 1791199299,
+  "symbol": "NG=F",
+  "name": "Natural gas",
+  "action": "SHORT",
+  "qty": 10951.5842,
+  "price": 3.031,
+  "value": 25108.13,
+  "reason": "Kronos: 10% chance of a rise, expected -1.00% in 24h",
+  "source": "kronos",
+  "stop": 3.0546,
+  "target": 3.0008
  }
 ]
