@@ -1,4 +1,5 @@
 {
   "paused": false,
-  "close_all": false
+  "close_all": false,
+  "core_fraction": 0.4
 }

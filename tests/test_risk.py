@@ -79,12 +79,29 @@ def test_stop_above_price_is_not_valid():
     assert p["positions"]["GC=F"]["stop"] < 2000
 
 
-def test_stop_moved_below_the_sweep_low():
+def test_stop_moved_below_the_sweep_low_when_ict_was_the_reason():
     reads = {"GC=F": {"setups": [{"side": "long", "state": "entry", "extreme": 1960.0}]}}
     p = pf()
-    filled, blocked = decide(p, buy(stop=1970, target=2200), reads=reads)
+    filled, blocked = decide(p, buy(stop=1970, target=2200, stop_basis="ict"), reads=reads)
     assert p["positions"]["GC=F"]["stop"] == pytest.approx(1960 * 0.999, abs=1e-4)
     assert any("below the sweep low" in b for b in blocked)
+    assert filled[0]["stop_basis"] == "ict"
+
+
+@pytest.mark.parametrize("basis", ["atr", "structure", None])
+def test_stop_left_alone_when_ict_was_not_the_reason(basis):
+    reads = {"GC=F": {"setups": [{"side": "long", "state": "entry", "extreme": 1960.0}]}}
+    p = pf()
+    filled, blocked = decide(p, buy(stop=1970, target=2200, stop_basis=basis), reads=reads)
+    assert p["positions"]["GC=F"]["stop"] == 1970 and blocked == []
+    assert filled[0]["stop_basis"] == (basis or "given")
+
+
+def test_missing_stop_uses_two_daily_atrs():
+    p = pf()
+    filled, blocked = E.apply_decision(p, {"trades": [buy(stop=None, target=2400)]}, LAST, FX, T0, None, {"GC=F": 30.0})
+    assert p["positions"]["GC=F"]["stop"] == pytest.approx(2000 - 2 * 30)
+    assert filled[0]["stop_basis"] == "atr" and "2 daily ATRs" in blocked[0]
 
 
 def test_not_enough_cash():
