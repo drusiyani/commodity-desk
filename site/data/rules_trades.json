@@ -237,5 +237,18 @@
   "source": "rules",
   "stop": null,
   "target": null
+ },
+ {
+  "t": 1791217380,
+  "symbol": "HG=F",
+  "name": "Copper",
+  "action": "BUY",
+  "qty": 1973.8385,
+  "price": 6.6485,
+  "value": 9934.82,
+  "reason": "20-bar average crossed above 100-bar average",
+  "source": "rules",
+  "stop": null,
+  "target": null
  }
 ]
