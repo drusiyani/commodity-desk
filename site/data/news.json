@@ -1,5 +1,30 @@
 [
  {
+  "title": "Shipping Market Outlook: Q4 2026",
+  "source": "Hellenic Shipping News",
+  "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE12YzZtQ0tidXFWcnk2WlVfWEI0dVliVGY5Yl95Zy1STE9kWk1NUFZWQVN0bmw4ckhaNEV5eTdtS3pIa3JKVVJaQjhYeGw2dEhnbXBqV3d3aWJ5QlllUFU2S1VfMXFRXzB4STRFM2c5aHA2Q2pobU9yOA?oc=5",
+  "published": 1791240027,
+  "id": "ne832940a8f",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791242292
+ },
+ {
+  "title": "Natural Gas, WTI Oil, Brent Oil Forecasts \u2013 Oil Dives As Saudi Aramco Cuts Prices For Asian Buyers",
+  "source": "FXEmpire",
+  "link": "https://news.google.com/rss/articles/CBMi3gFBVV95cUxPMHVWTF9wTGpKZ0F1a1hMdnZjZHJYbnhxcHJWdjE5bzc5cjVOWWhaS0JwcGlmR21FTmRXS2hZcktqUFVRWHNLdHlDMmphUUpFMjNWNDJmdUgwbXdwVWRqWDJ0T1o4MDY2ZU9YT0hjaDhqaHJ1VDJ4bUkzNGlFT1c3ZDlZYTRoemNmSHNtbjVuZktaTmlKbW95TjVlN2taZ0IwOUdNZjMzaGwxaUxmVjQ1S3hHU0t3cEZZRzVtMGlLQUhBcWxhcW5yZEd2elhFWUJwTEh2LXpwMk1hcEIzd1E?oc=5",
+  "published": 1791239726,
+  "id": "nbfadcce2a4",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F",
+   "BZ=F"
+  ],
+  "seen": 1791242292
+ },
+ {
   "title": "Wheat Futures Rebound as Corn Stalls and Soybeans Edge Higher on Export Demand",
   "source": "AgroLatam",
   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPOFY3YzNoV3Z2VlA3eDQ0VVhOMzgxY256UWpodVFqSnhaZUdUalZQWFAwcXZfVG5pLW1UZW0tN3p3OWhDd3hXZG1qTmJjV2NPTF9heTh5Tm9OSW9la2RHWThCakpSNnozODRfa3dnTktEN0hNdGt0ejg2WFFYQWgyRks0elVPRFIxLVRUR0p3cjFXUQ?oc=5",
@@ -34,6 +59,30 @@
    "take": "Silver surplus coming as solar demand drops is a structural supply/demand shift to the bearish side. Confirms no entry in Silver and supports stay-out despite Trend bot long and moderate consensus.",
    "t": 1791238803
   }
+ },
+ {
+  "title": "Wheat prices climb as Russia, Ukraine seek export workarounds",
+  "source": "Farm Progress",
+  "link": "https://news.google.com/rss/articles/CBMipAFBVV95cUxNYldLcDU3LWE0dE90THhYcDNHdVNGa1pHWlNXOTU2SFZvcVhzc0N5eEdYTU9hMFJQeEVFQjBENkwzVnRZZTRPWUJWNGVwdDREVWgxOEpPTlczY3Awb3VmUDRJWmk1Q0ZLZm5zby00R2J6MVMwUV85UElEWFl2NF9meU0wMm1FMTBnWUhhaThpVlotcV90dFVMcThPbHRDakh2TVB6YQ?oc=5",
+  "published": 1791234979,
+  "id": "n40b887c225",
+  "symbol": "ZW=F",
+  "symbols": [
+   "ZW=F"
+  ],
+  "seen": 1791242292
+ },
+ {
+  "title": "Goldman Lowers Oil Price Forecasts on Deal to Reopen Strait of Hormuz",
+  "source": "EnergyNow.com",
+  "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQYjhVM2FKUElUMkRPM2ZESFZ6ZTFrMnYxSy1Qc3VyU2Y2VmcydXF2NDM4Vk11RjNJVnpqVGNDYzdJWVR0VjM0REQ2eWF3ZkJSZXpwMTcyOHN4VDdLMlJuUVdJbElRZXlFRmlWSEZDMjdmdmp1andOMFl2ekE3U2ZuUVFOM0JBbjhDRlB2b2dtMkhFMUVSVVNFdzFGSWY5c1YwdHc?oc=5",
+  "published": 1791232376,
+  "id": "nd8c7f2d725",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F"
+  ],
+  "seen": 1791242292
  },
  {
   "title": "USDA Crop Progress: Corn, Soybean Harvests Ahead of Pace - News and Statistics",
@@ -1808,6 +1857,18 @@
   }
  },
  {
+  "title": "Why gold is rising above $4,150 despite an 87% chance of a December Fed hike",
+  "source": "Invezz",
+  "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQUEUwTUZRc3dnblh5TnJPV19yMHNoaVVHaUItYXdoN3FTeDFuT1VpVzNpVmxUR2s2c3h6cTFnN2NzaktnUUhQVTdWMkJqZExEYzcwZVBnb1NudWR6QW9uZTF6anRXd0t1ZXlVUzZ6dnN2R0dudlZ3UTV6d1pINEFZZ2huRGlaSUFqOWlQOGR6cUpJYThJak5pc0p2dEhDVXhzSDF3Z2VaSXJ1VGk4dUE?oc=5",
+  "published": 1791185149,
+  "id": "n8918e92504",
+  "symbol": "GC=F",
+  "symbols": [
+   "GC=F"
+  ],
+  "seen": 1791242292
+ },
+ {
   "title": "Freeport-McMoRan reported third-quarter 2026 consolidated copper produ",
   "source": "Shanghai Metals Market",
   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxQR2ZNVzFncVhyN3ZBNl9HYV9MaTJYVndLcF9KWXhfd05wTnJMNHRTVlBEM2xnMHBNNm0wZjRnbUEyWHN4M01idHR1TXJIWFVmNlJyN0M4dVVtV3h6N1VyMWdub2RuNzBVbWJoRXJ5TnlBdEtIUUxyQnQ5d1ZaOXdCbDJBMTBpcUdNbWFRWVRacVVJQUluMWw3OWh2eFRzTzVWY1prWmlWYzNISXg0aVNhaGV6bnV3eUpRWW1ocXdYTFdZNm5NV1lQY1BR?oc=5",
@@ -2010,40 +2071,6 @@
   "claude": {
    "impact": "bearish",
    "take": "Copper slips 2% on demand concerns and higher energy costs; this directly contradicts the rate-cut bullishness and suggests near-term weakness is dominant. Mixed message.",
-   "t": 1791188618
-  }
- },
- {
-  "title": "Oil Prices Fall as G7 Reserve Deal and Higher Middle East Exports Ease Supply Concerns",
-  "source": "\u041c\u0435\u0436\u0430. \u041d\u043e\u0432\u0438\u043d\u0438 \u0423\u043a\u0440\u0430\u0457\u043d\u0438.",
-  "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE55NThfM0U1MWMxQnZyb2tEUUY2UEZiNUJPS21JWjQ4YWdnMDhUb2JiUDhHdlhTTkRjUGRVSHlRM2hiOXpPS3l6ZFJMTno0NXJjdE41akJIMTR4OFdRU0MxWnhB?oc=5",
-  "published": 1791180813,
-  "id": "n2f5e3fb7e6",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1791185043,
-  "claude": {
-   "impact": "bearish",
-   "take": "G7 deal plus Middle East exports rising both ease supply concerns, a double bearish hit for crude. Confirmation of the supply normalization trend.",
-   "t": 1791188618
-  }
- },
- {
-  "title": "Gold Steadies at $4,144 as Traders Slash October Rate-Hike Odds to 22%",
-  "source": "AD HOC NEWS",
-  "link": "https://news.google.com/rss/articles/CBMi1wFBVV95cUxQR2Y5ZnRtWG9iQlZfUlFUdXR4OXNGdndDaFc3dnlERlZyejhXbk92ZUhoVFZLb1hpM3F0akhuQXJ5WWh3aFVTWGZIM015T04xclNvVGFQR3FQOGlOaUNnRnFFeWdmemxfZjZMSkF1TnRiTzdTNjBvNWp5aGVuQWg5cnF4TVhWYURPa0xzZHhyOXdPRmY0ZXEtUWZyR01NRUtxbnc2clhEb1Z4eEluYXhvMDdsa3JXaURlUGpZMmcwZ0lYQUpTYnJlQS1SV2FZekx4eTJ0cDVObw?oc=5",
-  "published": 1791180655,
-  "id": "nb097e2b188",
-  "symbol": "GC=F",
-  "symbols": [
-   "GC=F"
-  ],
-  "seen": 1791181815,
-  "claude": {
-   "impact": "bullish",
-   "take": "October rate-hike odds falling to 22% is a sharp shift toward rate cuts, directly bullish for gold. This supports the case for a pullback into the 4184\u20134187.5 FVG as the entry point.",
    "t": 1791188618
   }
  },
@@ -2290,40 +2317,6 @@
   }
  },
  {
-  "title": "Wheat Futures Rise After Russia Warns It Will Step Up Strikes",
-  "source": "Briefs Finance",
-  "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNNGk1S0poYzM3d21sZTJvS3JlcWc3UEtJTGVaU0M3dU9ZRndpU2NsMzAyRFVWVmRpNXkyM3lSSk1SY1NIYnVaM2ZTRExBdk92X3pKSHVlM3FwX2s1WFJ5Y1poWi1KemNqQUlXb0MtRjdBaF9UZ2lCVV91R3J4eWJuQU5YTm4tbzQweW10b3RxOHExdw?oc=5",
-  "published": 1791157500,
-  "id": "n349444c8e4",
-  "symbol": "ZW=F",
-  "symbols": [
-   "ZW=F"
-  ],
-  "seen": 1791188618,
-  "claude": {
-   "impact": "bullish",
-   "take": "Wheat rises after Russia warns of escalation; confirms the geopolitical bullish driver. Still waiting for ICT structure shift before entry.",
-   "t": 1791188618
-  }
- },
- {
-  "title": "Oil prices split as Brent tops $102, Murban hits $110 per barrel on Oct. 5, 2026",
-  "source": "Gulf News",
-  "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNeFRaa3NFdGRLbWR5SGpGbndVU29oX2w5bXNZcUotemdsb1pmek4yRWhzQTBsS3o2M2UyRmJEM1lKSlBYZGlFVlNpcUNVYmZPd1B5eGF2WXlGcUUwcXVfWWNXU0p3X1ZEdmJveEtCSnc3aTFHSERGb3FfVFlZdWdPZmVmbVBES3lfV1lTOXo1a2TSAaMBQVVfeXFMTTk3SnZwTzJLelRCMUFFRmR4VFpuVm9vbHdodk9KS0hKNE44X25FbzZnRWpBd2ozVHVJcHE5V0kycnRqSG1PR2hTeVl5cC05SnhYTTF4b05iSi1ESnNMRFNSUTZlZ0t2UjFwcWtGU0dodzN1aFZPSjUwMU5sWTdvZUJCbDFCaFFtdWlrXzZtYmRRYndKSFRkZnRXSlZSa2piM2M3RQ?oc=5",
-  "published": 1791157420,
-  "id": "nf43913a105",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F"
-  ],
-  "seen": 1791160224,
-  "claude": {
-   "impact": "bullish",
-   "take": "Brent topping $102 and Murban hitting $110 show divergence; Brent strength is real but WTI weakness (see next headline) suggests regional oversupply. Mild bullish for energy complex overall but not enough to override WTI's bearish structure.",
-   "t": 1791160224
-  }
- },
- {
   "title": "BTCUSD Futures Contract (Mar 2027) Trade Ideas \u2014 BTSE:BTCUSDH2027",
   "source": "TradingView",
   "link": "https://news.google.com/rss/articles/CBMimgFBVV95cUxOLW1lSlpZRi16ZlVnaGp5cUtEdEd5Wjh5bG1hSF9qVHpqV21IcDdjUkFlT2FGYkdWVEV6QU1Qb05kTkY5U1hJVWRtLXFLMGFPMDl1T281LVJtbk5GOHpHVG1tUXM5a1hpQXhYbnN5a080REdRMlBCU1lDN21RQTR4ZDJ0aTA5RmVQcUVzbHV6eUJGSlBoQmRaazJR?oc=5",
@@ -2338,24 +2331,6 @@
    "impact": "neutral",
    "take": "BTCUSD Futures: unrelated to commodity markets I trade. Ignore.",
    "t": 1791207892
-  }
- },
- {
-  "title": "Oil News: Diesel Release Pressures WTI as OPEC+ Shortfall Keeps Brent Firm",
-  "source": "fxempire.com",
-  "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxOMkd6ZHFlbWRHOE9KRVVSeG9Cb01Ianh6UF82WXRXUzl5bE10NF94ZFByZUJ3dUdSdnNNVk1VNmdLREl6T1Bkd2lIcEZYcnFTc3phT0xYaEpfM0xnX2FhU2RlVUxVVFR2NUNZN3NyU1psZ3JRZFhaOXJaQzVQSEw1SmRRNFpyYk02aUQ1eGZVOUNQY251NjdyUm9vWTdQNzExVy1rc3ZqYWtad1BFNmtENTNtVV9MTDNtY0MtbmdsX0VFbXFiOHlyaXB5OA?oc=5",
-  "published": 1791156607,
-  "id": "n2e7fa08f6f",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F",
-   "BZ=F"
-  ],
-  "seen": 1791160224,
-  "claude": {
-   "impact": "bearish",
-   "take": "Diesel release directly pressures WTI through domestic glut. This is a near-term supply headwind and supports the bearish ICT structure I see in crude. Reinforces 'wait' signal on WTI.",
-   "t": 1791160224
   }
  },
  {
