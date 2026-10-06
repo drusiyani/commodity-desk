@@ -4,8 +4,9 @@ Argon is a commodity paper-trading system. Claude, an AI, trades ten commodity f
 crops) on a fake £100k account, racing several rule-based bots and an AI forecasting model that each have their own
 £100k. Everything runs on GitHub Actions and the website is served by GitHub Pages. No real money.
 
-The website shows the charts, the news (with Claude's comment on every headline), every trade, how each competitor
-is doing, the strategy lab and the backtests.
+The website has four tabs, each with its own link: **Live** (`#live`: the charts, Claude's decisions, the news with
+Claude's comment on every headline, every trade and how each competitor is doing), **Strategy lab** (`#lab`),
+**Backtest** (`#backtest`) and **Data** (`#data`: where the prices come from and each market's futures rolls).
 
 ## The race
 
