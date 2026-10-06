@@ -18,13 +18,16 @@ jobs:
           import rolls as R
           now = time.time()
           for sym in list(R.MARKETS)[:10]:
-              y, m = R.active(sym, now)
-              cs = R.contracts(sym, __import__("datetime").date(y, m, 1), __import__("datetime").date(y + 2, m, 1))[:4]
+              cs, t = [], now
+              for _ in range(4):
+                  c = R.active(sym, t)
+                  cs.append(c)
+                  t = __import__("datetime").datetime.combine(R.roll_date(sym, *c), __import__("datetime").time(), __import__("datetime").timezone.utc).timestamp() + 86400
               out = []
               for c in cs:
                   t = R.ticker(sym, *c)
                   try:
-                      df = yf.Ticker(t).history(period="5y", interval="1d").dropna()
+                      df = yf.Ticker(t).history(period="1mo", interval="1d").dropna()
                       out.append(f"{t}: {len(df)} days from {df.index[0].date() if len(df) else '-'} last {df['Close'].iloc[-1] if len(df) else '-'}")
                   except Exception as e:
                       out.append(f"{t}: error {str(e)[:60]}")
