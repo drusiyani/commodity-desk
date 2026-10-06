@@ -1,5 +1,41 @@
 [
  {
+  "title": "100+ Oil Execs Predict Future WTI Oil Prices",
+  "source": "Rigzone",
+  "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxObGU4Q25uSHZmSU14V09EbGMzMzhncFBUbEgxZHFzbEIzMy1tM3N2Njc1YVM4SmxoaEtLQ3R2ODhmNWJ6UUNhb09xdFdaclVaZDF0QkkwNXBZcEtGZWZtR1ZqVlJaQk9YNjhiZ2dWNzFXSGxZT2g4X0lCSnI4ZmpFRmlqQzFsS1BwY2pHSlJOS19GRjFzSnI2S1pqVHJ3UXZOelE?oc=5",
+  "published": 1791288462,
+  "id": "n4bea809bb4",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F"
+  ],
+  "seen": 1791289213
+ },
+ {
+  "title": "Current price of silver as of Tuesday, October 6, 2026",
+  "source": "fortune.com",
+  "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTFBZaGtVU1FxZ3JmSFBhX1Y3TjRoeWFYYzRmazNNaHJvRjMtOTNZT3NDZEhUazQta1NtYUg0MDVMNFV3Rk9UWDhVY1B3VXM3RkRacXJIZ0RVY1UyWGxRekpvTzRUNXl1UDhmSEw1V293TQ?oc=5",
+  "published": 1791287100,
+  "id": "n475bee99e0",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1791289213
+ },
+ {
+  "title": "Silver Price Forecast: XAG/USD rebounds to near $61.00 as US Dollar comes under pressure",
+  "source": "FXStreet",
+  "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOZldjMVhRc3c4SlNGQzM3THcxdW9takV4Z1d1ME44STA1THM4LU5xcXNYMmJUZUI5elUtNFJkV3lOSThKSTY4cnA5dWNZVmJaWU1udW95RndaWEREanFZbkYyTWxIOHdJZXM4dFo1RlBOZml2MU5jdmo0RDFXeWZEelpxMjRTVG81NjZTMTF2SW9xeF9SZ1NhQnNoZ1RzcUFKYW5WeW1OSkVucjJQYVVJZ3g3U214OTg5Z3V6ZEV0N2N4V2o5MkdB?oc=5",
+  "published": 1791285843,
+  "id": "n4f2bc3a178",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1791289213
+ },
+ {
   "title": "First Thing Today | Grains boosted by condition worries, slow harvest",
   "source": "profarmer.com",
   "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxQU2FrVGMwcGhPZzJSdkllZEZhRUhWeVg4aTVxZmx5QlJzTThyVE5QU3ZrR1RlQlBjaXZnRERkalFUTTBwZEJKdUtkUlZrbFlESDEwNWtBR0FBRVFOckxFeC1JeXc4SDkybWxlMEtLb2x1RUtsbWhsMzFMZHczSXlRYW1TV1ZUUjVHb1piVVNSYlJpN2h1enlUSWRubllWTXdvLUdxSmI2cnJBc1dsX09ELVNn?oc=5",
@@ -48,6 +84,18 @@
   "seen": 1791285638
  },
  {
+  "title": "Corn Ethanol and Soybean Crush Strengthen Domestic Crop Demand",
+  "source": "rfdtv.com",
+  "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxPWVhCX3N5aXdfS0lVbVkyRjZUYmtUaXl2MVRCeFVnT081Yms3NEVNRWhVNmJvNXVESWl2LU1GQi1NeDNfTTM1Yk9kcTZZcHd2Vk1TLVNjN1JjbGdfRGRpMkR6WHVVYV96QmptNmRDMDFkcjBpM0dRczhySkVManJhZ3JUVkMzME9wY1dwNQ?oc=5",
+  "published": 1791282441,
+  "id": "n8f449502b5",
+  "symbol": "ZC=F",
+  "symbols": [
+   "ZC=F"
+  ],
+  "seen": 1791289213
+ },
+ {
   "title": "Brent Crude Falls Below $100 as Oil Price Retreat Accelerates",
   "source": "Share Talk",
   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQUldFZDYyU3BxaWFIVTRNTjRpSmhEY2M0WXpUa3c0OXpzNUNDbWI3UHJEWlNoMVFXRHVaWTkzU3lfckx1VDA2dlRGWmZuVmY2cndGUkV0TWk5OTFXa1lUOW5vOFEySmRNMzJnOFdxeWRpQ0s1eXJndDdKek5YWnRaR1hxc0ZRN2lQVkpPVThPNjVzUQ?oc=5",
@@ -57,12 +105,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791282096,
-  "claude": {
-   "impact": "bearish",
-   "take": "Brent below $100 after price retreat accelerates; combined with rising Middle East exports and G7 stockpile release, structural supply glut is forming. Stay in cash on crude.",
-   "t": 1791282096
-  }
+  "seen": 1791282096
  },
  {
   "title": "ClarkSea Index reaches all-time high, with \u201cexceptional\u201d cash position ahead \u2014 SMI DIGITAL",
@@ -74,12 +117,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791282096,
-  "claude": {
-   "impact": "neutral",
-   "take": "ClarkSea high and exceptional cash position reflect shipping market strength, not commodity direction. Noted but not a price driver for crude or Brent today.",
-   "t": 1791282096
-  }
+  "seen": 1791282096
  },
  {
   "title": "Gold Advances as Lower Oil Prices Shift Focus to U.S. Rate Outlook",
@@ -103,12 +141,7 @@
   "symbols": [
    "CC=F"
   ],
-  "seen": 1791282096,
-  "claude": {
-   "impact": "bullish",
-   "take": "Drought in Ivory Coast pushes cocoa prices higher again: NEW structural bullish driver. Reinforces ICT bullish setup + seasonality. Increases conviction to wait for pullback entry into FVG.",
-   "t": 1791282096
-  }
+  "seen": 1791282096
  },
  {
   "title": "Brent seeks a new equilibrium as supply recovers and costs rise",
@@ -120,12 +153,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791278539,
-  "claude": {
-   "impact": "bearish",
-   "take": "Oil seeking equilibrium as supply recovers and costs rise: supply-side pressure outweighs cost support. Bearish directional signal. Brent still vulnerable.",
-   "t": 1791282096
-  }
+  "seen": 1791278539
  },
  {
   "title": "Veson Nautical Q4 2026 Shipping Outlook: Tanker rates surge",
@@ -161,12 +189,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791278539,
-  "claude": {
-   "impact": "bullish",
-   "take": "Vietnam: domestic coffee prices may see upward movements. Suggests supply/demand shift toward buyers in key producing region. Keep cocoa/coffee on watch.",
-   "t": 1791282096
-  }
+  "seen": 1791278539
  },
  {
   "title": "Wheat and soybeans rise in Chicago on Monday, while corn slips",
@@ -178,12 +201,7 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791278539,
-  "claude": {
-   "impact": "bullish",
-   "take": "Wheat and soybeans rise on Monday, corn slips: mixed session but wheat holding strength supports above 200-day average position. Corn still weak; confirm wait.",
-   "t": 1791282096
-  }
+  "seen": 1791278539
  },
  {
   "title": "Oil Prices Fall as Middle East Exports Recover, Shipping Risks Persist",
@@ -195,12 +213,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791274970,
-  "claude": {
-   "impact": "bearish",
-   "take": "Middle East exports recovering and shipping risks persisting: supply fears are easing while logistical cost concerns fade into background. Headwind for crude.",
-   "t": 1791282096
-  }
+  "seen": 1791274970
  },
  {
   "title": "Oil Price Forecast: Rising Middle East Exports Limit the Rebound",
@@ -213,12 +226,7 @@
    "BZ=F",
    "CL=F"
   ],
-  "seen": 1791274970,
-  "claude": {
-   "impact": "bearish",
-   "take": "Rising Middle East exports directly cap rebound in WTI and Brent. Structural supply floor being lifted. Overrides any technical bounce setup.",
-   "t": 1791282096
-  }
+  "seen": 1791274970
  },
  {
   "title": "Gold Price Forecast: XAU/USD Holds $4,112 as Fed Pause Bets Rise, but $4,172 Caps Recovery",
@@ -242,12 +250,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791282096,
-  "claude": {
-   "impact": "neutral",
-   "take": "ICO free platform for coffee market data: transparency tool for market structure, not a price signal. Useful for longer-term monitoring.",
-   "t": 1791282096
-  }
+  "seen": 1791282096
  },
  {
   "title": "Gold (XAUUSD) & Silver Price Forecast: Bond Selloff Pressures Gold, Is $4,075 Next?",
@@ -259,12 +262,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791274970,
-  "claude": {
-   "impact": "bearish",
-   "take": "Bond selloff pressures both gold and silver. Yield surge (US 10y +0.64%) is an active headwind. Suggests wait until yield stabilizes before gold/silver entries.",
-   "t": 1791282096
-  }
+  "seen": 1791274970
  },
  {
   "title": "Agricultural product prices today 6.10: Unchanged",
@@ -276,12 +274,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791271317,
-  "claude": {
-   "impact": "neutral",
-   "take": "Agricultural prices unchanged forecast: no directional signal. Market waiting for crop reports or weather news.",
-   "t": 1791282096
-  }
+  "seen": 1791271317
  },
  {
   "title": "Benchmark\u2019s Commodity Updates: Cobalt and Phosphate",
@@ -293,12 +286,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791271317,
-  "claude": {
-   "impact": "neutral",
-   "take": "Cobalt and phosphate updates are supply-chain context for copper; not direct drivers today. Copper's tech/EV demand and price momentum are primary.",
-   "t": 1791282096
-  }
+  "seen": 1791271317
  },
  {
   "title": "Copper Price: Navigating Near-Term Volatility and Long-Term Bullish Trends",
@@ -310,12 +298,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791271317,
-  "claude": {
-   "impact": "bullish",
-   "take": "Copper navigating volatility with long-term bullish trends intact: aligns with DRG buy and my hold decision. Supports staying long via core position.",
-   "t": 1791282096
-  }
+  "seen": 1791271317
  },
  {
   "title": "Gold price slides as yields surge, but SPDR holdings tell a different story",
@@ -327,12 +310,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791274970,
-  "claude": {
-   "impact": "neutral",
-   "take": "Gold slides as yields surge, but SPDR holdings tell different story (accumulation despite falling price). Mixed signal; wait for price structure clarity rather than yield moves alone.",
-   "t": 1791282096
-  }
+  "seen": 1791274970
  },
  {
   "title": "Copper Slips Despite Chile at 15-Year Low, Leaving Smelters Short of Ore",
@@ -344,12 +322,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791271317,
-  "claude": {
-   "impact": "bullish",
-   "take": "Copper slips despite Chile at 15-year low (ore supply squeeze): supply pinch under price volatility is bullish medium term. Supports my copper hold.",
-   "t": 1791282096
-  }
+  "seen": 1791271317
  },
  {
   "title": "Gold Eases Below $4,150: Why American Hartford Gold Says The Bullion Floor Won't Break",
@@ -361,12 +334,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791274970,
-  "claude": {
-   "impact": "neutral",
-   "take": "$4,150 called as bullion floor suggests support is being respected, not broken. ICT setup and FVG pullback likely offer entry, but not at current premium price.",
-   "t": 1791282096
-  }
+  "seen": 1791274970
  },
  {
   "title": "Coffee prices rose for the third consecutive session to $6,449 per ton.",
@@ -378,12 +346,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791267970,
-  "claude": {
-   "impact": "bullish",
-   "take": "Coffee prices climbed to $6,449/ton on the third consecutive session up. Momentum bullish and supply concern being repriced. Supports coffee upside.",
-   "t": 1791267970
-  }
+  "seen": 1791267970
  },
  {
   "title": "Gold Prices to Hit Record High in 2027, Averaging $5,330, Metals Focus Forecasts",
@@ -395,12 +358,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791278539,
-  "claude": {
-   "impact": "bullish",
-   "take": "Long-term bullish: gold $5,330 avg in 2027 and silver record forecasts keep fundamental bid alive beneath short-term yield pressure. Supports waiting for pullback entries.",
-   "t": 1791282096
-  }
+  "seen": 1791278539
  },
  {
   "title": "America\u2019s Defense Industrial Base Begins at the Mine",
@@ -412,12 +370,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791267970,
-  "claude": {
-   "impact": "bullish",
-   "take": "US defense industrial base dependent on mines signals growing strategic demand for copper and metals in semiconductors and defense. Bullish backdrop for copper thesis.",
-   "t": 1791267970
-  }
+  "seen": 1791267970
  },
  {
   "title": "WTI Price Forecast: Bulls seem hesitant near $89.00 amid easing supply risks",
@@ -429,12 +382,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791274970,
-  "claude": {
-   "impact": "bearish",
-   "take": "Bulls hesitant at $89 confirms the supply-overhang story. Lack of momentum on a relief bounce is a classic reversal signal. Reinforces stay out of crude.",
-   "t": 1791282096
-  }
+  "seen": 1791274970
  },
  {
   "title": "Copper price is unchanged\u2013 Forecast today \u2013 6-10-2026",
@@ -446,12 +394,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791274970,
-  "claude": {
-   "impact": "neutral",
-   "take": "Copper price unchanged forecast: consensus neutral near-term. My trade has edge from DRG + structure, not from forecasters.",
-   "t": 1791282096
-  }
+  "seen": 1791274970
  },
  {
   "title": "Crude Oil Forecast: WTI Tries to Build a Bottom Near $88, but Bulls Still Face $90-$91 Resistance",
@@ -463,12 +406,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791267970,
-  "claude": {
-   "impact": "bearish",
-   "take": "WTI trying to build a bottom near $88 with $90\u201391 resistance ahead signals weakness. Fails to hold above key levels and reinforces the case to avoid new longs despite DRG signal.",
-   "t": 1791267970
-  }
+  "seen": 1791267970
  },
  {
   "title": "Oil Prices Slip as Middle East Exports Hold Up and G7 Releases Emergency Reserves",
@@ -480,12 +418,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791264051,
-  "claude": {
-   "impact": "bearish",
-   "take": "Mideast exports holding up plus G7 reserves supply the market despite geopolitical risk. Structural oversupply. Reinforces wait.",
-   "t": 1791267970
-  }
+  "seen": 1791264051
  },
  {
   "title": "Gold Price on 05 October 2026",
@@ -497,12 +430,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791264051,
-  "claude": {
-   "impact": "neutral",
-   "take": "Gold price data only. No new information.",
-   "t": 1791267970
-  }
+  "seen": 1791264051
  },
  {
   "title": "Silver (XAG/USD) Price Forecast: $59.69 Support Holds Key to Recovery",
@@ -514,12 +442,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791260517,
-  "claude": {
-   "impact": "bearish",
-   "take": "Silver forecasts support at $59.69, implying price may test lower lows. Technical breakdown signal. Reinforces wait.",
-   "t": 1791267970
-  }
+  "seen": 1791260517
  },
  {
   "title": "Silver Price Forecast: XAG/USD falls to near $60.50 as US Treasury yields rise",
@@ -531,12 +454,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791260517,
-  "claude": {
-   "impact": "bearish",
-   "take": "Silver falls on rising yields. Direct causality: higher rates hurt non-yielding assets. Further headwind for long silver.",
-   "t": 1791267970
-  }
+  "seen": 1791260517
  },
  {
   "title": "Volatility Monthly: The Summer Crude Shock",
@@ -548,12 +466,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791260517,
-  "claude": {
-   "impact": "bearish",
-   "take": "Volatility and summer crude shock context suggests instability and supply overhang. Supports caution on oil positions.",
-   "t": 1791267970
-  }
+  "seen": 1791260517
  },
  {
   "title": "Gold Price Outlook: Bears Target 4,000 Before a Potential Rebound",
@@ -565,12 +478,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791274970,
-  "claude": {
-   "impact": "bearish",
-   "take": "Bears targeting $4,000 before rebound: implies further downside risk before ICT FVG entry becomes valuable. Price could test that before reversing; wait for structure.",
-   "t": 1791282096
-  }
+  "seen": 1791274970
  },
  {
   "title": "Wheat gains, continuing to watch Black Sea exports",
@@ -582,12 +490,7 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791264051,
-  "claude": {
-   "impact": "bullish",
-   "take": "Wheat gains as Black Sea export uncertainty rises. Supply risk being repriced higher. Bullish for wheat on geopolitical premium.",
-   "t": 1791267970
-  }
+  "seen": 1791264051
  },
  {
   "title": "WTI falls to near $88.50 on G7 reserve release",
@@ -599,12 +502,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791256833,
-  "claude": {
-   "impact": "bearish",
-   "take": "G7 emergency reserve release is direct supply pressure. Confirms bearish tone and lowers conviction on oil rallies.",
-   "t": 1791267970
-  }
+  "seen": 1791256833
  },
  {
   "title": "Oil gains as traders weigh Gulf tensions against strong Mideast exports",
@@ -616,12 +514,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791267970,
-  "claude": {
-   "impact": "neutral",
-   "take": "Gulf tensions offset by strong mideast exports creates a stalemate. Neither bullish nor bearish directionally; traders are hedging both risks.",
-   "t": 1791267970
-  }
+  "seen": 1791267970
  },
  {
   "title": "Oil slips as Mideast exports, G7 stockpile ease supply concerns",
@@ -633,12 +526,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791278539,
-  "claude": {
-   "impact": "bearish",
-   "take": "Mideast exports holding up and G7 stockpile release easing supply concerns: the narrative has shifted from geopolitical fear to supply glut. Bearish for both crudes.",
-   "t": 1791282096
-  }
+  "seen": 1791278539
  },
  {
   "title": "Copper Prices Keep Climbing As Tech Hopes Lift Metals",
@@ -650,12 +538,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791282096,
-  "claude": {
-   "impact": "bullish",
-   "take": "Copper climbing on tech/AI hopes: foundational bullish driver for my held position. Reinforces DRG + consensus +78 rating.",
-   "t": 1791282096
-  }
+  "seen": 1791282096
  },
  {
   "title": "Silver shortage to surplus by 2027: Deutsche outlook for mine planners",
@@ -667,12 +550,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791256833,
-  "claude": {
-   "impact": "bearish",
-   "take": "Deutsche forecast of silver surplus by 2027 flips the long-term supply story from bullish to bearish. Structural headwind for multi-month longs.",
-   "t": 1791267970
-  }
+  "seen": 1791256833
  },
  {
   "title": "Oil price on the rise?",
@@ -684,12 +562,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791249622,
-  "claude": {
-   "impact": "neutral",
-   "take": "Tentative headline asking whether oil is rising. Lack of conviction. Does not change the bearish weight of other headlines.",
-   "t": 1791267970
-  }
+  "seen": 1791249622
  },
  {
   "title": "Cargill Profit Slumps on Cattle and Cocoa Costs",
@@ -701,12 +574,7 @@
   "symbols": [
    "CC=F"
   ],
-  "seen": 1791264051,
-  "claude": {
-   "impact": "bearish",
-   "take": "Cargill profit slumps on cattle and cocoa costs rising. Cocoa cost inflation erodes margins for end-users, pressuring demand. Suggests pullback risk; reinforces waiting for better entry in FVG zone.",
-   "t": 1791267970
-  }
+  "seen": 1791264051
  },
  {
   "title": "Shipping Market Outlook: Q4 2026",
@@ -718,12 +586,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791242292,
-  "claude": {
-   "impact": "neutral",
-   "take": "Shipping Q4 2026 outlook is cyclical context, not a near-term price driver. Noted for seasonal demand, but today's supply recovery signal is more powerful.",
-   "t": 1791282096
-  }
+  "seen": 1791242292
  },
  {
   "title": "CTD Shifts Could Push Long Treasury Yields Higher",
@@ -735,12 +598,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791256833,
-  "claude": {
-   "impact": "neutral",
-   "take": "CTD shifts and treasury yield moves are macro backdrop. Not coffee-specific. Macro support for growth assets but secondary here.",
-   "t": 1791267970
-  }
+  "seen": 1791256833
  },
  {
   "title": "Natural Gas, WTI Oil, Brent Oil Forecasts \u2013 Oil Dives As Saudi Aramco Cuts Prices For Asian Buyers",
@@ -753,12 +611,19 @@
    "CL=F",
    "BZ=F"
   ],
-  "seen": 1791242292,
-  "claude": {
-   "impact": "bearish",
-   "take": "Saudi Aramco cutting prices for Asian buyers signals competitive pressure and demand concern. Bearish for global oil direction.",
-   "t": 1791267970
-  }
+  "seen": 1791242292
+ },
+ {
+  "title": "Silver 10kg SLV Dec '26 Futures Price History",
+  "source": "Barchart.com",
+  "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE9vRXBwNEhUNlJfX2ZlX1NjeG1EWVJLcmMxeV9mVElDQnZqaENaVGxON3lSZF9QOHZzSm9OMFMxV04wa0VYengwbmlPb29tNDRwNjRxZVBpbDlNQmx0RXplazFqdmtvWTVDaUVMU2RmYVNIRGhXa0pCa3E5dkJfZnM?oc=5",
+  "published": 1791239435,
+  "id": "n852df3567f",
+  "symbol": "KC=F",
+  "symbols": [
+   "KC=F"
+  ],
+  "seen": 1791289213
  },
  {
   "title": "Gold.com, Inc. (GOLD) stock price, news, quote and history",
@@ -770,12 +635,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791256833,
-  "claude": {
-   "impact": "neutral",
-   "take": "Generic gold stock coverage. No material update on fundamentals or direction.",
-   "t": 1791267970
-  }
+  "seen": 1791256833
  },
  {
   "title": "Hogs Rally to Start the Week",
@@ -787,12 +647,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791267970,
-  "claude": {
-   "impact": "neutral",
-   "take": "Hogs rally is unrelated to commodity positions tracked. Ignore.",
-   "t": 1791267970
-  }
+  "seen": 1791267970
  },
  {
   "title": "Wheat Futures Rebound as Corn Stalls and Soybeans Edge Higher on Export Demand",
@@ -805,12 +660,7 @@
    "ZW=F",
    "ZC=F"
   ],
-  "seen": 1791238803,
-  "claude": {
-   "impact": "mixed",
-   "take": "Wheat rebounds as Corn stalls; this suggests Wheat strength but Corn weakness. Supports bearish outlook on Corn and stay-out; Wheat shows some structure but no DRG signal so still wait.",
-   "t": 1791238803
-  }
+  "seen": 1791238803
  },
  {
   "title": "Deutsche Bank: Silver Surplus Coming as Solar Demand Drops - News and Statistics",
@@ -823,12 +673,7 @@
    "SI=F",
    "HG=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bearish",
-   "take": "Silver surplus coming as solar demand drops is a structural supply/demand shift to the bearish side. Confirms no entry in Silver and supports stay-out despite Trend bot long and moderate consensus.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Wheat prices climb as Russia, Ukraine seek export workarounds",
@@ -840,12 +685,19 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791242292,
-  "claude": {
-   "impact": "neutral",
-   "take": "Wheat climbs as Russia and Ukraine seek export workarounds. Mixed: supply risks support price, but workarounds may offset the bullish tension. Net neutral.",
-   "t": 1791267970
-  }
+  "seen": 1791242292
+ },
+ {
+  "title": "RANKED: The Top Crude Oil Producers in 2025 \u2013 Visual Capitalist \u2013 See How Countries Rank",
+  "source": "EnergyNow.com",
+  "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQc043cHk1ZjIxLWc2RVJUX2p1NnRHMmpRamNpNkVJNTBkNjliR1Z4amtCdkdVUzkzUnBRQ2ZpWFhHdGRUUWtybzFieTY2ek9qazdPaG5Ec0d3akx6a24wMlYzaDdnbjZrbmNVdTdZdXZSYlhGTVFUOHJoTGZhQ1RJR2tyaDNGckF0OWM0QW1ta2lVbnFoOFE?oc=5",
+  "published": 1791232717,
+  "id": "nbef71a2740",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F"
+  ],
+  "seen": 1791289213
  },
  {
   "title": "Goldman Lowers Oil Price Forecasts on Deal to Reopen Strait of Hormuz",
@@ -857,12 +709,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791242292,
-  "claude": {
-   "impact": "bearish",
-   "take": "Goldman Sachs lowering oil price forecasts is a high-credibility bearish signal from a major bank. Outweighs near-term technical bounces.",
-   "t": 1791267970
-  }
+  "seen": 1791242292
  },
  {
   "title": "Morgan Stanley Lowers Oil Price Forecasts After US-Iran Peace Deal",
@@ -874,12 +721,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791278539,
-  "claude": {
-   "impact": "bearish",
-   "take": "Morgan Stanley lowers oil price forecasts after US-Iran peace deal removes geopolitical premium. Removes a key bull catalyst. Bearish momentum shift.",
-   "t": 1791282096
-  }
+  "seen": 1791278539
  },
  {
   "title": "USDA Crop Progress: Corn, Soybean Harvests Ahead of Pace - News and Statistics",
@@ -891,12 +733,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bearish",
-   "take": "USDA Crop Progress shows Corn harvest ahead of pace; suggests oversupply risk and pressure on prices. Conflicts with DRG long signal and backs wait on Corn entry.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Natural Gas Settles Higher on Storage Build Projections",
@@ -908,12 +745,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bullish",
-   "take": "Storage build projections signal rising inventory and demand consumption; supportive for Natural Gas near-term, but no DRG signal and weak consensus prevent entry.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Deutsche Bank: Gold Oversold and Underpositioned, 2027 Allocation Environment Will Be More Favorable",
@@ -925,12 +757,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bullish",
-   "take": "Deutsche Bank call on Gold oversold and favorable 2027 allocation environment adds contrarian bullish tone, but Trend bot is out, consensus is weak (+9), and no DRG signal. Not enough for entry.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "The Bond Market Moves Gold More Than the Fed Does",
@@ -942,12 +769,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "neutral",
-   "take": "Bond market moves gold more than Fed does: context that confirms yields are the key driver (10-year just up +0.64% on day). Mixed headwind when rates rising but neutral directionally.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Silver Price Forecast: XAG/USD builds base above $60, eyes $64",
@@ -959,12 +781,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bullish",
-   "take": "Silver building base above $60 with eyes on $64 is a technical bullish setup, but conflicts with surplus warning and lack of DRG signal; technical setup alone is not enough without regime and structure confirmation.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Why the US rare earth supply chain remains vulnerable",
@@ -976,12 +793,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791256833,
-  "claude": {
-   "impact": "bullish",
-   "take": "US rare earth supply chain vulnerability highlights geopolitical need for domestic and allied metal production. Supports long-term structural demand for copper.",
-   "t": 1791267970
-  }
+  "seen": 1791256833
  },
  {
   "title": "Pan American Silver Corp. (PAAS) stock price, news, quote and history",
@@ -993,12 +805,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791264051,
-  "claude": {
-   "impact": "neutral",
-   "take": "Pan American Silver (PAAS) stock news is sector sentiment, not direct price signal. Noted for mining sector context but not actionable intraday.",
-   "t": 1791282096
-  }
+  "seen": 1791264051
  },
  {
   "title": "Grain Bulls Are on the Ropes After Corn Prices Plunged to a 6-Week Low",
@@ -1011,12 +818,7 @@
    "ZC=F",
    "KC=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bearish",
-   "take": "Grain bulls on ropes after Corn plunged to 6-week low signals sentiment shift to bearish. Reinforces rejection of Corn despite DRG signal; wait for structure to improve.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Copper Price October 5 2026",
@@ -1028,12 +830,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "neutral",
-   "take": "Copper price update (4h ago): dated headline, reflects current price. No new directional insight beyond the market data already in consensus and DRG signal.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Brazilian Real Strength Supports Coffee Prices",
@@ -1045,12 +842,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791264051,
-  "claude": {
-   "impact": "bullish",
-   "take": "Brazilian Real strength supports coffee prices by lowering USD cost to importers. Confirms bullish bias on coffee, though DRG signal still required for entry.",
-   "t": 1791267970
-  }
+  "seen": 1791264051
  },
  {
   "title": "Corn Market Outlook: Can Prices Reclaim the $5.00 Threshold?",
@@ -1074,12 +866,7 @@
   "symbols": [
    "CC=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bullish",
-   "take": "Cocoa supply squeeze from weather threats is the key bullish driver for the +4.33% jump and supports the ICT setup completion. Reinforces watch for pullback into FVG for entry.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Record U.S. Corn Carryout Reshapes the Farm Profit Equation for 2027",
@@ -1091,12 +878,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791224738,
-  "claude": {
-   "impact": "bearish",
-   "take": "Record US corn carryout reshapes farm profit equation\u2014supply oversupply is a structural headwind that will weigh on pricing through season.",
-   "t": 1791224738
-  }
+  "seen": 1791224738
  },
  {
   "title": "Cocoa prices are climbing again. Here\u2019s why this time is different",
@@ -1108,12 +890,7 @@
   "symbols": [
    "CC=F"
   ],
-  "seen": 1791224738,
-  "claude": {
-   "impact": "bullish",
-   "take": "Cocoa climbing, why different this time\u2014market explaining higher prices as supply-constrained (rain delays, not demand) validates structural bid.",
-   "t": 1791224738
-  }
+  "seen": 1791224738
  },
  {
   "title": "Silver shortage could flip to surplus in 2027: Deutsche",
@@ -1125,12 +902,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791224738,
-  "claude": {
-   "impact": "bearish",
-   "take": "Deutsche forecast of silver shortage flip to surplus in 2027 is a structural headwind; market will discount future oversupply and cap near-term rally.",
-   "t": 1791224738
-  }
+  "seen": 1791224738
  },
  {
   "title": "Oil Prices Fall as Market Awaits Possible US-Iran Ceasefire Deal",
@@ -1142,12 +914,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bearish",
-   "take": "Iran ceasefire deal removes geopolitical risk premium that has supported crude. Reduces near-term supply anxiety and pressures WTI and Brent lower, aligning with completed bearish ICT setups.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "U.S. natural gas prices hold near one-week high as demand forecasts rise",
@@ -1159,12 +926,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791249622,
-  "claude": {
-   "impact": "bullish",
-   "take": "US natural gas demand forecasts rising provides some support for NG. Aligns with ICT bullish setup but still waits for DRG confirmation.",
-   "t": 1791267970
-  }
+  "seen": 1791249622
  },
  {
   "title": "USDA Grain Bid Reports: Mixed Cash Basis and Futures Settlements",
@@ -1176,12 +938,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791224738,
-  "claude": {
-   "impact": "neutral",
-   "take": "USDA grain bid reports are spot data, no directional signal without trend.",
-   "t": 1791224738
-  }
+  "seen": 1791224738
  },
  {
   "title": "Corn Holding Steady to Start the Week",
@@ -1193,12 +950,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791224738,
-  "claude": {
-   "impact": "neutral",
-   "take": "Corn holding steady to start week is intraday choppy; no decision point.",
-   "t": 1791224738
-  }
+  "seen": 1791224738
  },
  {
   "title": "Gold price rises as Europe debt risks boost appeal of haven assets",
@@ -1210,12 +962,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "bullish",
-   "take": "Europe debt risks boost haven demand for gold; flight-to-safety narrative is live and offers a medium-term bid.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "USDA Grain Stocks report show more corn than expected how",
@@ -1227,12 +974,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "bearish",
-   "take": "USDA grain stocks show more corn than expected; oversupply shock reinforces carryout pressure, near-term bearish.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "US Oil and Gas Executives Weigh In on SPR \u2018Tank Bottom\u2019 Risk, Year-End Oil Prices",
@@ -1244,12 +986,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "neutral",
-   "take": "Oil execs discussing SPR 'tank bottom' risk is a technical concern, not a fundamental demand or supply shift. Uncertainty about year-end prices reflects current equilibrium, not a new edge.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "First Thing Today | Grains rebound overnight",
@@ -1261,12 +998,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "bullish",
-   "take": "Grains rebound overnight is a short-term bounce; follow-through needed to confirm reversal.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "Copper price firms on reduced likelihood of higher US interest rates",
@@ -1278,12 +1010,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "bullish",
-   "take": "Reduced likelihood of higher US interest rates is a strong positive for copper demand (lower discount rates on capex); directly supports DRG long.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "Black Sea uncertainty boosts wheat market",
@@ -1295,12 +1022,7 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "bullish",
-   "take": "Black Sea uncertainty is a real supply concern that supports wheat valuations; geopolitical premium intact.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "Baker Hughes Signs Deals to Boost Venezuela\u2019s Natural Gas, LNG Sector",
@@ -1312,12 +1034,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "bearish",
-   "take": "Venezuela LNG deals are long-dated and slow to ramp; in the near term, US glut persists with no relief.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "Critical minerals (5/6): Africa is stepping up local processing\u2026 with China\u2019s support",
@@ -1329,12 +1046,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bullish",
-   "take": "Africa stepping up local processing with China support strengthens supply-chain diversification and demand for copper. Supports bullish DRG signal and holds Copper trade.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "What Farmers Need to Know Before the October WASDE Report",
@@ -1346,12 +1058,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "neutral",
-   "take": "Preview of October WASDE is housekeeping; actual report data will matter more than advance chatter.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "Can Strong Global LNG Demand Drive More Upside for Venture Global?",
@@ -1363,12 +1070,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bullish",
-   "take": "Global LNG demand strength from big future buyers is bullish for NG long-term structure, but current environment lacks volatility regime confirmation from DRG and weak consensus makes entry risky.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "OPEC+ Loses Oil Market Sway in Iran War as China Gains Influence",
@@ -1380,12 +1082,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bearish",
-   "take": "OPEC+ losing influence to China in oil markets suggests global supplies may rise and cartel support is weakening. Structural headwind for crude prices; reinforces wait on Oil.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Sugar Extends Rally to Highest Level Since 2024 on Weather Risks",
@@ -1397,12 +1094,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "bullish",
-   "take": "Sugar extending rally to highest level since 2024 on weather risks suggests ag complex bullish tone spilling into Coffee. Coffee news is bullish but structure not yet confirmed; still waiting for structure shift.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "While Asia and Europe Scramble for Natural Gas, the US Glut Has Nowhere to Go",
@@ -1414,12 +1106,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791224738,
-  "claude": {
-   "impact": "bearish",
-   "take": "Asia and Europe scramble for gas while US has nowhere to put supply is a structural bearish signal: US export economics are broken.",
-   "t": 1791224738
-  }
+  "seen": 1791224738
  },
  {
   "title": "US-China trade rivalry fuels demand for copper stockpiles",
@@ -1431,12 +1118,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "bullish",
-   "take": "US-China trade rivalry fueling copper stockpile demand is a real structural buyer; geopolitical supply-chain concern boosts prices.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "LONG TERM LNG: Prices Down, Demand Up from Big Future Buyers",
@@ -1448,12 +1130,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791235950,
-  "claude": {
-   "impact": "neutral",
-   "take": "Prices down but demand up from future LNG buyers suggests a structural surplus in the near term conflicting with long-term demand. Mixed signal; reinforces wait.",
-   "t": 1791238803
-  }
+  "seen": 1791235950
  },
  {
   "title": "Cocoa Prices Climb as Excessive Ivory Coast Rains Slow Cocoa Deliveries",
@@ -1465,12 +1142,7 @@
   "symbols": [
    "CC=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "bullish",
-   "take": "Excessive Ivory Coast rains slowing cocoa deliveries is a real supply constraint; the fundamental reason for price strength and the reason to wait for pullback into FVG.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "Crude oil prices and refinery margins generally increased throughout the third quarter",
@@ -1482,12 +1154,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "bullish",
-   "take": "Higher refinery margins in Q3 signal strong demand and pricing power, a structural positive for crude.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "Gold\u2019s 42% Share of New Mines Links Demand to Mine Investment",
@@ -1499,12 +1166,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "neutral",
-   "take": "42% of new mines linking demand to investment is structural info, not a near-term price catalyst; long-dated supply elasticity.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "Surging Brazilian Real Boosts Coffee Prices",
@@ -1516,12 +1178,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "bullish",
-   "take": "Surging Brazilian Real boosts coffee prices via FX tailwind; direct near-term support for rally.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "Oil market turmoil could last for years, executives say",
@@ -1533,12 +1190,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791256833,
-  "claude": {
-   "impact": "bearish",
-   "take": "\"Oil market turmoil could last for years\" is a long structural bearish signal, not a short-term bounce setup. Argues against DRG entry even though it's signaling.",
-   "t": 1791282096
-  }
+  "seen": 1791256833
  },
  {
   "title": "Cattle Fall with Technicals, Lower Beef: Hogs and Grains Bounce",
@@ -1550,12 +1202,19 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "neutral",
-   "take": "Cross-commodity bounce (cattle, hogs, grains) is general risk-on sentiment, not a specific corn catalyst.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
+ },
+ {
+  "title": "Dark clouds ahead: Energy outlooks for winter",
+  "source": "European Union Institute for Security Studies |",
+  "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOZG0xV2s2cnp2eVNBUDBlZzE5Z19xZUtEckpKWkFPcFRaSG94Y24xTHBreXRhRV9ENmdsZFU2WXlKeEtxQlVMSGM2VFBMcC1oQnhtUWQ2OVA3c0pNUkFuTFJMNmp2SzJaVW1wemlfZTczOHdXWjNGc0FwczVIZjNJRUpZcFpGLU1KczdkNnoxNzQ5OVQ3?oc=5",
+  "published": 1791212745,
+  "id": "ndce08d89b3",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1791289213
  },
  {
   "title": "Weekly Natural Gas Spot Prices Sputter as Mild East Weather Saps Demand",
@@ -1567,12 +1226,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "bearish",
-   "take": "Mild East weather + low demand is a classic NG headwind; seasonal demand ramp is delayed.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "Gold vs Bitcoin in Q4 2026: Which Asset Has the Stronger Macro Setup?",
@@ -1584,12 +1238,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791213869,
-  "claude": {
-   "impact": "neutral",
-   "take": "Gold vs Bitcoin Q4 2026 comparison is thematic but does not change the gold price driver (yields, macro, safety) in the next 4 weeks.",
-   "t": 1791224738
-  }
+  "seen": 1791213869
  },
  {
   "title": "Can High Oil Prices Drive More Upside for EQNR's Upstream Operations?",
@@ -1601,12 +1250,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "bullish",
-   "take": "EQNR upside from high oil prices confirms that elevated crude supports upstream economics and producer capex.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "The Cost to Ship Oil Just Exploded 3,900% \u2014 and Americans Could End Up Paying for It",
@@ -1618,12 +1262,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "bullish",
-   "take": "3,900% surge in shipping costs is a supply constraint on oil delivery; raises effective marginal cost and supports prices.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "Weaner Pig Breakeven at $22.46, Up $12.25 From Last Week",
@@ -1635,12 +1274,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791210356,
-  "claude": {
-   "impact": "neutral",
-   "take": "Weaner pig breakeven data is pork-specific, no corn impact.",
-   "t": 1791224738
-  }
+  "seen": 1791210356
  },
  {
   "title": "Gold Still Pressured By High Yields",
@@ -1652,12 +1286,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "neutral",
-   "take": "Gold still pressured by yields is a cross-asset observation, not a copper catalyst.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "US Natgas Falls 4% to 8-Week Low on Milder Weather Outlook, Lower LNG Export Flows",
@@ -1669,12 +1298,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791224738,
-  "claude": {
-   "impact": "bearish",
-   "take": "4% fall to 8-week low on mild outlook and lower LNG flows confirms demand destruction; technical break below support.",
-   "t": 1791224738
-  }
+  "seen": 1791224738
  },
  {
   "title": "5 Best Copper Stocks for 2026 and How to Invest",
@@ -1687,12 +1311,7 @@
    "HG=F",
    "SI=F"
   ],
-  "seen": 1791224738,
-  "claude": {
-   "impact": "bullish",
-   "take": "Best copper stocks coverage is positive sentiment and algos buying; confirms bullish momentum backdrop.",
-   "t": 1791224738
-  }
+  "seen": 1791224738
  },
  {
   "title": "Single Axis Solar Tracker Market To 2035: Utility-Scale Solar Demand Drives Growth - News and Statistics",
@@ -1704,12 +1323,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "bullish",
-   "take": "Utility-scale solar tracker growth drives industrial silver demand; real positive for multi-year thesis, though not immediate.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "USDA Feeder & Stocker Summary: Auction Results, Futures, Slaughter Data - Oct 5, 2026 - News and Statistics",
@@ -1721,12 +1335,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791210356,
-  "claude": {
-   "impact": "neutral",
-   "take": "USDA feeder & stocker summary is livestock data, not grain-relevant.",
-   "t": 1791224738
-  }
+  "seen": 1791210356
  },
  {
   "title": "Silver Price Today In The UK, 5 October 2026",
@@ -1738,12 +1347,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791213869,
-  "claude": {
-   "impact": "neutral",
-   "take": "UK silver prices today is spot reporting, no news.",
-   "t": 1791224738
-  }
+  "seen": 1791213869
  },
  {
   "title": "Why gold prices are fluctuating sharply this year",
@@ -1755,12 +1359,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791210356,
-  "claude": {
-   "impact": "neutral",
-   "take": "Why gold fluctuates sharply is educational; explains volatility but not direction or entry.",
-   "t": 1791224738
-  }
+  "seen": 1791210356
  },
  {
   "title": "Oil Heads for Weekly Gains as Middle East Supply Risks Persist",
@@ -1772,12 +1371,7 @@
   "symbols": [
    "BZ=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "bullish",
-   "take": "Weekly gains despite G7 release shows geopolitical premium (Middle East supply risks) is offsetting macro oversupply headwinds.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "Natural Gas News: 50-Day MA Holds as Mild Weather Limits November Gas",
@@ -1789,12 +1383,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791210356,
-  "claude": {
-   "impact": "bearish",
-   "take": "50-day MA holding is a temporary floor, not a reversal; mild weather forecast still in effect, demand pressure persists.",
-   "t": 1791224738
-  }
+  "seen": 1791210356
  },
  {
   "title": "Gold Under Pressure as Bond Yields and Dollar Stay Elevated, Speculators Cut Longs",
@@ -1806,12 +1395,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791207892,
-  "claude": {
-   "impact": "bearish",
-   "take": "Gold pressured by bond yields and strong dollar; speculators cutting longs. This is the structural headwind. Fed rate-cut hopes are noise against real yields near 5.3%.",
-   "t": 1791207892
-  }
+  "seen": 1791207892
  },
  {
   "title": "Today's agricultural news (October 5th): Coffee prices rise slightly.",
@@ -1823,12 +1407,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791238803,
-  "claude": {
-   "impact": "bullish",
-   "take": "Coffee prices rising slightly reflects the broader bullish ag sentiment from sugar rally and weather risks. Supports Cocoa view but Coffee itself lacks DRG signal and structure shift.",
-   "t": 1791238803
-  }
+  "seen": 1791238803
  },
  {
   "title": "Ukraine: the new military, economic and fiscal challenges",
@@ -1840,12 +1419,7 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791210356,
-  "claude": {
-   "impact": "bullish",
-   "take": "Ukraine military, economic, and fiscal challenges signal prolonged supply disruption risk; structural support for grains.",
-   "t": 1791224738
-  }
+  "seen": 1791210356
  },
  {
   "title": "Crude Oil Price Forecast \u2013 More Crude, Less Gasoline",
@@ -1858,12 +1432,7 @@
    "CL=F",
    "BZ=F"
   ],
-  "seen": 1791206789,
-  "claude": {
-   "impact": "neutral",
-   "take": "Crude outlook commentary; does not shift today's supply/demand balance. Consistent with the bearish month-to-date tone but not a new driver.",
-   "t": 1791207892
-  }
+  "seen": 1791206789
  },
  {
   "title": "BTC Futures Contract (Oct 2026) Trade Ideas \u2014 COINBASE:BTCUSD06V2026",
@@ -1875,12 +1444,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791271317,
-  "claude": {
-   "impact": "neutral",
-   "take": "BTC futures October 2026 trade ideas: outside commodities scope and live account mandate. Not actionable here.",
-   "t": 1791282096
-  }
+  "seen": 1791271317
  },
  {
   "title": "Copper Climbs As Fed Hike Odds Fade And Chile Risks Rise",
@@ -1892,12 +1456,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791206789,
-  "claude": {
-   "impact": "bullish",
-   "take": "Copper climbing as Fed hike odds fade and Chile risks rise. This is exactly the confluence I need: macro relief + supply risk. Supports Copper long.",
-   "t": 1791207892
-  }
+  "seen": 1791206789
  },
  {
   "title": "Natural Gas Futures Launch Trading Week Fighting to Retain $3 Handle",
@@ -1909,12 +1468,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791206789,
-  "claude": {
-   "impact": "bearish",
-   "take": "Natural Gas holding $3 'as bears wary'\u2014phrasing suggests support is thin and bears are in control. Below 200-day MA already. No bullish catalyst yet.",
-   "t": 1791207892
-  }
+  "seen": 1791206789
  },
  {
   "title": "Fuel Switch Snapshot: Gas slide narrows LNG and LBM premiums over fuel oil \u2013 ENGINE",
@@ -1926,12 +1480,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "bearish",
-   "take": "LNG and LBM premiums narrowing over fuel oil reduces the urgency for gas; oversupply spreading to shipping economics.",
-   "t": 1791224738
-  }
+  "seen": 1791217380
  },
  {
   "title": "Coffee price tests USX299.77 resistance as buyers drive breakout attempt",
@@ -1943,12 +1492,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791206789,
-  "claude": {
-   "impact": "bullish",
-   "take": "Coffee testing resistance at $299.77; breakout attempt underway. But price is already at 89% of 5-day range in premium. Buyers running out of room; wait for pullback.",
-   "t": 1791207892
-  }
+  "seen": 1791206789
  },
  {
   "title": "Trying to Push Back Higher on Monday AM Trade",
@@ -1960,12 +1504,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791206789,
-  "claude": {
-   "impact": "neutral",
-   "take": "Corn 'pushing back higher on Monday AM trade'\u2014intraday bounce. Doesn't confirm structural shift from ranging to uptrend. Patience needed.",
-   "t": 1791207892
-  }
+  "seen": 1791206789
  },
  {
   "title": "Arable Market Report \u2013 5 October 2026",
@@ -1978,12 +1517,7 @@
    "ZW=F",
    "ZC=F"
   ],
-  "seen": 1791206789,
-  "claude": {
-   "impact": "neutral",
-   "take": "AHDB Arable Market Report: U.K. farm data; affects Wheat and Corn sentiment but no specific bullish/bearish tilt from headline alone. Markets pricing in seasonal themes.",
-   "t": 1791207892
-  }
+  "seen": 1791206789
  },
  {
   "title": "Oil (USCrude) Price Forecast for Today, Tomorrow, Next Week, and Next 30 Days",
@@ -1995,12 +1529,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791213869,
-  "claude": {
-   "impact": "neutral",
-   "take": "Generic price forecast with no new data; does not change the directional case.",
-   "t": 1791224738
-  }
+  "seen": 1791213869
  },
  {
   "title": "Saudi Arabia, six OPEC nations maintain oil output targets amid U.S.-Iran war",
@@ -2012,12 +1541,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791203245,
-  "claude": {
-   "impact": "bearish",
-   "take": "Saudi and OPEC nations holding output targets signals no surprise supply cuts. Removes upside hope for Oil; reinforces the G7 release signal. Supports staying out of Oil.",
-   "t": 1791207892
-  }
+  "seen": 1791203245
  },
  {
   "title": "Natural Gas Ends Week Lower as Traders Eye Winter Demand",
@@ -2029,12 +1553,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791207892,
-  "claude": {
-   "impact": "bearish",
-   "take": "Gas ends week lower despite winter demand approach. Traders not convinced of seasonal lift yet. Weak setup; wait for cold or supply surprise.",
-   "t": 1791207892
-  }
+  "seen": 1791207892
  },
  {
   "title": "Gold Rebounds Modestly as Fed Rate-Hike Odds Collapse and Banks Trim 2026 Targets",
@@ -2046,12 +1565,7 @@
   "symbols": [
    "GC=F"
   ],
-  "seen": 1791203245,
-  "claude": {
-   "impact": "bullish",
-   "take": "Fed rate-hike odds collapsing, banks trimming 2026 targets. This is long-term relief for Gold. But it's a slow fade, not an immediate buy signal today at 4176.",
-   "t": 1791207892
-  }
+  "seen": 1791203245
  },
  {
   "title": "Palm oil rebounds after six-session losing streak",
@@ -2063,12 +1577,7 @@
   "symbols": [
    "ZC=F"
   ],
-  "seen": 1791203245,
-  "claude": {
-   "impact": "neutral",
-   "take": "Palm oil rebounds after losing streak. Not in my mandate; tangential.",
-   "t": 1791207892
-  }
+  "seen": 1791203245
  },
  {
   "title": "Faraday Copper Corp. (TSX:FDY) Rises 3.77% as Positive Momentum and Company Catalysts Lift Investor Optimism",
@@ -2080,29 +1589,7 @@
   "symbols": [
    "HG=F"
   ],
-  "seen": 1791203245,
-  "claude": {
-   "impact": "bullish",
-   "take": "Faraday Copper up on positive momentum and catalysts. Sector-level support for Copper upside; consistent with my long thesis.",
-   "t": 1791207892
-  }
- },
- {
-  "title": "Iowa Farmers Union, Solar Group Sues USDA Over Changes to Renewable Energy Funding Program",
-  "source": "Successful Farming",
-  "link": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOUW5SMGRobS1OYk5jbmhhdFpNMHFtOXc4WVk5UWpGTzZNVnVMMmNDMGozdm9zNUZWWVBrT2JFejl6M2NoTXdQUVc3b1dfdnlveU5pclJraEhjbUZDRGJqaFN4QWhaR0hHZm1kcVd2Wm1rUllhVGsxQXJFOWxZbmxlTEFGX2dTcWk5bTVnOU9vQkJTaWpsdnZHdnpjbjZiR3h4RUxHd1RuV1BZeUdzc0R3VnBZSjBLdlFtUXVvdUlFcng0djZ5UVotaDNHTTlqWnFV?oc=5",
-  "published": 1791200657,
-  "id": "n3ce61bdde0",
-  "symbol": "ZC=F",
-  "symbols": [
-   "ZC=F"
-  ],
-  "seen": 1791207892,
-  "claude": {
-   "impact": "neutral",
-   "take": "Iowa Farmers Union renewable energy lawsuit: political/regulatory noise, not a near-term Corn price driver.",
-   "t": 1791207892
-  }
+  "seen": 1791203245
  },
  {
   "title": "Silver prices today, Monday, October 5, 2026: Silver prices rising steadily off morning lows",
@@ -2114,12 +1601,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791224738,
-  "claude": {
-   "impact": "bullish",
-   "take": "Prices rising off morning lows is intraday bounce; suggests some bidding interest, though consensus still muted.",
-   "t": 1791224738
-  }
+  "seen": 1791224738
  },
  {
   "title": "Current price of silver as of Monday, Oct. 5, 2026",
@@ -2131,12 +1613,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791201144,
-  "claude": {
-   "impact": "neutral",
-   "take": "Routine price update.",
-   "t": 1791201144
-  }
+  "seen": 1791201144
  },
  {
   "title": "SynMax Adds Demand to Hyperion, Bringing the Full U.S. Natural Gas Balance Into One Source",
@@ -2148,12 +1625,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "neutral",
-   "take": "SynMax infrastructure addition is industry development, not a swing demand catalyst for NG prices.",
-   "t": 1791201144
-  }
+  "seen": 1791199299
  },
  {
   "title": "Silver Price Forecast: XAG/USD jumps to near $61.80 as hawkish Fed bets recede",
@@ -2165,12 +1637,7 @@
   "symbols": [
    "SI=F"
   ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "bullish",
-   "take": "Silver jumps to near $61.80 as hawkish Fed bets recede\u2014positive catalyst for silver (lower rates, lower opportunity cost). Supports the 2.71% daily gain.",
-   "t": 1791201144
-  }
+  "seen": 1791199299
  },
  {
   "title": "Core Differences Between West Texas Intermediate (WTI) and Brent Crude and the Affect of the Iran War",
@@ -2182,12 +1649,7 @@
   "symbols": [
    "CL=F"
   ],
-  "seen": 1791220788,
-  "claude": {
-   "impact": "neutral",
-   "take": "Educational comparison of WTI vs Brent spreads; Iran war context is priced in, no new catalyst.",
-   "t": 1791224738
-  }
+  "seen": 1791220788
  },
  {
   "title": "Europe\u2019s gas storage levels fall below seasonal average ahead of winter",
@@ -2199,12 +1661,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "bullish",
-   "take": "European gas storage below seasonal average ahead of winter is a real supply tightness signal, but NG (NYMEX) is North American and reflects US supply/demand. Limited direct impact on US NG.",
-   "t": 1791201144
-  }
+  "seen": 1791199299
  },
  {
   "title": "Asia\u2019s LNG Imports Recover, Drawing Cargoes From Needy Europe: Russell",
@@ -2216,29 +1673,7 @@
   "symbols": [
    "NG=F"
   ],
-  "seen": 1791210356,
-  "claude": {
-   "impact": "neutral",
-   "take": "Asia LNG imports recovering is structural rebalancing, not demand surge; simply moves cargoes from Europe to Asia, no net supply tightening.",
-   "t": 1791224738
-  }
- },
- {
-  "title": "Silver Price Forecast 05/10: Tests Key $55\u2013$60 Support Zone",
-  "source": "DailyForex",
-  "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxQOWl4N1BWN2Jla1FJNV9uaHVFSmNtYVFzY0pPdjgwc0Jzb05VYXd4b2dib3VLNnRfd0Z3dlJGN3BYaWw5d1htaExva0FhZ2otWWJudFRpVHg2NEVFVWJhZWZ4c1dYMlJIMTV2WjlCdDBtcFV0UXdlN21vbldYaHZNZjF6V2ZIZnQySW53Tl9QVnFUcmxmdEdCbWdrcUZsVUNuRWx5bHpn?oc=5",
-  "published": 1791194536,
-  "id": "n92d4792790",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "bearish",
-   "take": "Testing key $55\u2013$60 support zone framing suggests vulnerability if this level breaks. However, current price is at $62.05, well above this zone, so it is a longer-term support level, not an immediate concern.",
-   "t": 1791201144
-  }
+  "seen": 1791210356
  },
  {
   "title": "Chicago corn and soybeans fall Friday as wheat trades mixed",
@@ -2251,12 +1686,7 @@
    "ZW=F",
    "ZC=F"
   ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "bearish",
-   "take": "Chicago corn and soybeans fall; wheat trades mixed. Corn is under pressure from broad grain weakness. This aligns with the \u20134.58% 5d decline and argues against a bullish setup.",
-   "t": 1791201144
-  }
+  "seen": 1791199299
  },
  {
   "title": "Grain under blockade: What is preventing Ukraine from expanding exports via the Danube",
@@ -2268,29 +1698,7 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "bullish",
-   "take": "Grain blockade via Ukraine Danube restricts export supply, supporting wheat and corn prices structurally. However, this is a known constraint and may already be priced into the range.",
-   "t": 1791201144
-  }
- },
- {
-  "title": "Silver price today: Silver rises, according to FXStreet data",
-  "source": "Mitrade",
-  "link": "https://news.google.com/rss/articles/CBMigwFBVV95cUxNSGlPX3hrZ0ljeGN1c2NVNlRwN2NmMmlhOVZZSXN5R0VxQ3JsY0VrOVRrRGItVGxsTF80XzluejZWRGJyQnhSaUxac3Facm5tRkZObTAzdS1kLVhDMFZCQXZtTEtfcGNYQ0h5eUNOQTNtM0o1NlNsN2Zrak52c3FHWkN4dw?oc=5",
-  "published": 1791193358,
-  "id": "nafea3d4924",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "bullish",
-   "take": "Silver rises confirmation of the intraday rally. Neutral on direction but consistent with the Fed rate-cut narrative.",
-   "t": 1791201144
-  }
+  "seen": 1791199299
  },
  {
   "title": "The crippling effect we\u2019re all feeling from the deadlock in Ukraine\u2019s war with Russia",
@@ -2302,12 +1710,7 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "bullish",
-   "take": "Ukraine war deadlock continues to restrict grain exports and support prices. This is a long-standing bullish fundamental, but execution in prices (corn down 4.58%, wheat at resistance) suggests the supply story is not dominating demand weakness.",
-   "t": 1791201144
-  }
+  "seen": 1791199299
  },
  {
   "title": "Agricultural prices today, October 5, 2026: New crop coffee prices difficult to predict; Pepper prices slightly increase; Trade tensions with the US cause Canadian manufacturing sector to lose momentum.",
@@ -2319,29 +1722,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791192274,
-  "claude": {
-   "impact": "bearish",
-   "take": "New crop coffee prices difficult to predict; El Ni\u00f1o 75% probability adds weather risk and uncertainty. Uncertainty typically pressures long-side trading, even if El Ni\u00f1o is a neutral-to-bullish medium-term factor for coffee supply.",
-   "t": 1791201144
-  }
- },
- {
-  "title": "European Gas Prices Climb On LNG Supply Concerns",
-  "source": "dmarketforces.com",
-  "link": "https://news.google.com/rss/articles/CBMigAFBVV95cUxPZHI2dlJhVXcxaWJPWjJaSC01N2JYeGlRdFpvSDQ5Yy1IR0V3ZUtSY2pNWGdZLU1fV2sxV2RMTkdMclV1OVcwQk5iVm82RDlXS0RaTXdHbFhRX0owajFrNWp2a1JxNjl0NE5aMzBfLXl3UGwxSDZ4ZEdxUVZRZjFYQw?oc=5",
-  "published": 1791188163,
-  "id": "nd06ad6ba9c",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
-  ],
-  "seen": 1791188618,
-  "claude": {
-   "impact": "bullish",
-   "take": "European gas prices climbing on LNG supply concerns is a genuine bullish catalyst for natural gas if the concern spreads. However, NG is already below 200-day MA and ranging; not enough for a long entry without a completed ICT setup.",
-   "t": 1791188618
-  }
+  "seen": 1791192274
  },
  {
   "title": "Wheat edges higher on Russia\u2019s threats to escalate Ukraine war",
@@ -2354,30 +1735,7 @@
    "ZW=F",
    "ZC=F"
   ],
-  "seen": 1791188618,
-  "claude": {
-   "impact": "bullish",
-   "take": "Wheat edges higher on Russia threats to escalate Ukraine war; this is a classic bullish catalyst for wheat (supply disruption risk). However, ICT shows no completed bullish setup yet, so wait for structure shift.",
-   "t": 1791188618
-  }
- },
- {
-  "title": "Oil Prices Fall as G-7 Plans Crude, Diesel Release But Hormuz Shipping Risks Persist",
-  "source": "WSJ",
-  "link": "https://news.google.com/rss/articles/CBMizAFBVV95cUxPOFA5UUZFdndtdnBodnFleklOcmpCZmdBUzlROTlFSkFiWkZsNG5sMHU4M0VoR2ZLNFVNYlhKbmpjYlc4Q0NObmdDdFNLenRmU0VQdVZfWXU1YU44NWFUcnlWeUNtQkhBMlAyZGpDemdPY3VkY3NzdDRpNWlOcTlabURzNE1udEdkOVVYeW5qcmhndjM3VHVHYVFSZy0yQzYyR1VnSnJGWVdZdEZTUV9IeF84OXpEaFcyNUxzNFIwaFAybGplVHN3cTM1THc?oc=5",
-  "published": 1791184920,
-  "id": "nbdd2fb8392",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F",
-   "BZ=F"
-  ],
-  "seen": 1791192274,
-  "claude": {
-   "impact": "bearish",
-   "take": "G-7 crude and diesel release eases supply concerns in the near term, pressuring WTI; Hormuz shipping risks are real but already priced into the wide range. Supply normalization narrative dominates.",
-   "t": 1791201144
-  }
+  "seen": 1791188618
  },
  {
   "title": "Get the best grain prices: Watch weather, WASDE, yields, demand",
@@ -2390,12 +1748,7 @@
    "ZW=F",
    "ZC=F"
   ],
-  "seen": 1791185043,
-  "claude": {
-   "impact": "neutral",
-   "take": "Guide to grain prices watching weather and WASDE; no new forecast or catalyst in the headline itself.",
-   "t": 1791188618
-  }
+  "seen": 1791185043
  },
  {
   "title": "Elevated Supply Risks Continue to Influence Grain Markets",
@@ -2407,29 +1760,7 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791188618,
-  "claude": {
-   "impact": "neutral",
-   "take": "Elevated supply risks continue to influence grain markets; this is known and already reflected in the price structure. No new catalyst.",
-   "t": 1791188618
-  }
- },
- {
-  "title": "WTI Forecast: Holds near four-week low around $89.00 as bears wary",
-  "source": "FXStreet",
-  "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxNckxVN0cyMXVZVzhRbGVIbXczSWZLSS1xRG8ybENUaDJIRkhrYXRBcUpBNmd3bHNUV3N1ejJRZlNXS2FPWWdVU2k4Yjl0bWxRTmU5Ny14Sk94bUx1cDZMbldlUUVOM3JCS1p1X2lUdlRnRFByTnBBUWFXZ2JIcTQ0RVdzakhPSXo0T2F2OEwzbjV3NXpKd3I2aFQyeDQ0QjY0ZDJKaDRZNVpKNXVSLUUtczMwM1Y2UE1NSXh4Q1RZMUR3MTA?oc=5",
-  "published": 1791182661,
-  "id": "na92e2f0a9c",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F"
-  ],
-  "seen": 1791185043,
-  "claude": {
-   "impact": "bearish",
-   "take": "WTI holding near four-week lows with bears wary signals low conviction for upside and continued pressure. Fits the bearish supply backdrop and ICT structure; reinforces avoidance of oil long.",
-   "t": 1791188618
-  }
+  "seen": 1791188618
  },
  {
   "title": "Wheat Futures Edges Higher Toward $700 as Russia Threatens Ukraine Escalation",
@@ -2441,12 +1772,7 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791185043,
-  "claude": {
-   "impact": "bullish",
-   "take": "Wheat edges toward $700 on Russia threats to escalate; reinforces the geopolitical bullish case. Same supply-risk theme as earlier, no new wrinkle.",
-   "t": 1791188618
-  }
+  "seen": 1791185043
  },
  {
   "title": "HDPE High Density Polyethylene PCW Calendar Swap Futures Oct '26 Futures Price History",
@@ -2458,12 +1784,7 @@
   "symbols": [
    "KC=F"
   ],
-  "seen": 1791256833,
-  "claude": {
-   "impact": "neutral",
-   "take": "HDPE polyethylene futures: outside core ten commodities watched. Not relevant to this account.",
-   "t": 1791282096
-  }
+  "seen": 1791256833
  },
  {
   "title": "My Say: Russia\u2019s war on global food security",
@@ -2475,29 +1796,6 @@
   "symbols": [
    "ZW=F"
   ],
-  "seen": 1791181815,
-  "claude": {
-   "impact": "neutral",
-   "take": "Opinion piece on Russia's war and food security; no new price catalyst or forecast.",
-   "t": 1791188618
-  }
- },
- {
-  "title": "Freight Route TC17 Baltic Futures Oct '26 Futures Price History",
-  "source": "Barchart.com",
-  "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1vMWdhMEVRQU9HT3pxa3c3NXNqRDlqLVdPdXdmQVg2djdzeUo3Z0FaS1JxNVBOWDdNVUhfTm5HRUw2cFdTSHhaaUR1MTdKQWtOa0QzbVZhLTYwS1I3RGI5UzBHcVRmVmFKRV91Y0ZzSnJrbC1hRTJwcldkTUhiTDA?oc=5",
-  "published": 1791168227,
-  "id": "ncbd4891d27",
-  "symbol": "KC=F",
-  "symbols": [
-   "KC=F",
-   "ZW=F"
-  ],
-  "seen": 1791181815,
-  "claude": {
-   "impact": "neutral",
-   "take": "Freight route data (Baltic TC17) is relevant to shipping costs but not a direct driver of coffee spot prices.",
-   "t": 1791188618
-  }
+  "seen": 1791181815
  }
 ]

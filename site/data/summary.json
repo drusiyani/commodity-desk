@@ -1,0 +1,127 @@
+{
+ "t": 1791289213,
+ "perf": {
+  "equity": {
+   "ret": -0.00216,
+   "buys": 2,
+   "closed": 1,
+   "win": 1.0,
+   "realised": 154.57,
+   "dd": -0.00493
+  },
+  "lab": {
+   "ret": -0.00102,
+   "buys": 4,
+   "closed": 0,
+   "win": null,
+   "realised": 0,
+   "dd": -0.0051
+  },
+  "ict": {
+   "ret": 0.0,
+   "buys": 0,
+   "closed": 0,
+   "win": null,
+   "realised": 0,
+   "dd": 0.0
+  },
+  "kronos": {
+   "ret": -0.00595,
+   "buys": 9,
+   "closed": 6,
+   "win": 0.5,
+   "realised": -372.02,
+   "dd": -0.00998
+  },
+  "rules": {
+   "ret": -0.01018,
+   "buys": 17,
+   "closed": 11,
+   "win": 0.0,
+   "realised": -1687.94,
+   "dd": -0.01234
+  },
+  "benchmark": {
+   "ret": 0.0005,
+   "buys": 0,
+   "closed": 0,
+   "win": null,
+   "realised": 0,
+   "dd": -0.01075
+  }
+ },
+ "report": {
+  "all": [
+   44,
+   91
+  ],
+  "bullish": [
+   16,
+   28
+  ],
+  "bearish": [
+   28,
+   63
+  ],
+  "high": [
+   13,
+   24
+  ],
+  "groups": {
+   "Energy": [
+    15,
+    36
+   ],
+   "Metals": [
+    6,
+    25
+   ],
+   "Agriculture": [
+    23,
+    30
+   ]
+  },
+  "pending": 60
+ },
+ "lab_live": {
+  "s8": {
+   "joined": 1791024039,
+   "name": "Seasonal Trend Expansion",
+   "timeframe": "daily",
+   "check": {
+    "trades": 0,
+    "expected_r": 0.12,
+    "avg_r": null,
+    "dd": 0.0,
+    "dd_limit": null,
+    "z": null,
+    "retire": null
+   },
+   "equity": null,
+   "weight": null,
+   "trades": 0
+  },
+  "s12": {
+   "joined": 1791160224,
+   "name": "Dual Regime Growth",
+   "timeframe": "daily",
+   "check": {
+    "trades": 0,
+    "expected_r": 0.32,
+    "avg_r": null,
+    "dd": 0.0,
+    "dd_limit": -13.6,
+    "z": null,
+    "retire": null
+   },
+   "equity": 99897.99,
+   "weight": 1.0,
+   "trades": 0
+  }
+ },
+ "claude": {
+  "t": 1791289213,
+  "paused": false,
+  "positions": 1
+ }
+}

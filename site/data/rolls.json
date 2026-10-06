@@ -1,0 +1,211 @@
+{
+ "t": 1791289213,
+ "applied": {
+  "CL=F": 1789430400,
+  "BZ=F": 1790121600,
+  "NG=F": 1789948800,
+  "GC=F": 1785708000,
+  "SI=F": 1787529600,
+  "HG=F": 1787529600
+ },
+ "roll_days": 5,
+ "markets": {
+  "CL=F": {
+   "contract": "Nov 2026",
+   "ticker": "CLX26.NYM",
+   "priced_from": "contract",
+   "method": "mixed",
+   "next_roll": 1791849600,
+   "next_contract": "Dec 2026",
+   "note": "holding Nov 2026 (CLX26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "rolls": [
+    {
+     "t": 1787522400,
+     "ratio": 0.992413,
+     "how": "detected",
+     "from": "Sep 2026",
+     "to": "Oct 2026"
+    },
+    {
+     "t": 1789430400,
+     "ratio": 0.956343,
+     "how": "contracts",
+     "from": "Oct 2026",
+     "to": "Nov 2026"
+    }
+   ]
+  },
+  "BZ=F": {
+   "contract": "Dec 2026",
+   "ticker": "BZZ26.NYM",
+   "priced_from": "contract",
+   "method": "mixed",
+   "next_roll": 1792713600,
+   "next_contract": "Jan 2027",
+   "note": "holding Dec 2026 (BZZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 2 estimated from the jump on Yahoo's switch date",
+   "rolls": [
+    {
+     "t": 1785740400,
+     "ratio": 0.928158,
+     "how": "detected",
+     "from": "Sep 2026",
+     "to": "Oct 2026"
+    },
+    {
+     "t": 1788127200,
+     "ratio": 1.022584,
+     "how": "detected",
+     "from": "Oct 2026",
+     "to": "Nov 2026"
+    },
+    {
+     "t": 1790121600,
+     "ratio": 0.961179,
+     "how": "contracts",
+     "from": "Nov 2026",
+     "to": "Dec 2026"
+    }
+   ]
+  },
+  "NG=F": {
+   "contract": "Nov 2026",
+   "ticker": "NGX26.NYM",
+   "priced_from": "contract",
+   "method": "mixed",
+   "next_roll": 1792540800,
+   "next_contract": "Dec 2026",
+   "note": "holding Nov 2026 (NGX26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 2 estimated from the jump on Yahoo's switch date",
+   "rolls": [
+    {
+     "t": 1785276000,
+     "ratio": 1.001119,
+     "how": "detected",
+     "from": "Aug 2026",
+     "to": "Sep 2026"
+    },
+    {
+     "t": 1788127200,
+     "ratio": 1.003462,
+     "how": "detected",
+     "from": "Sep 2026",
+     "to": "Oct 2026"
+    },
+    {
+     "t": 1789948800,
+     "ratio": 1.04818,
+     "how": "contracts",
+     "from": "Oct 2026",
+     "to": "Nov 2026"
+    }
+   ]
+  },
+  "GC=F": {
+   "contract": "Dec 2026",
+   "ticker": "GCZ26.CMX",
+   "priced_from": "contract",
+   "method": "detected",
+   "next_roll": 1795392000,
+   "next_contract": "Feb 2027",
+   "note": "holding Dec 2026 (GCZ26.CMX), priced from that contract's own prices; 0 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "rolls": [
+    {
+     "t": 1785708000,
+     "ratio": 1.005823,
+     "how": "detected",
+     "from": "Aug 2026",
+     "to": "Oct 2026"
+    }
+   ]
+  },
+  "SI=F": {
+   "contract": "Dec 2026",
+   "ticker": "SIZ26.CMX",
+   "priced_from": "contract",
+   "method": "mixed",
+   "next_roll": 1795392000,
+   "next_contract": "Mar 2027",
+   "note": "holding Dec 2026 (SIZ26.CMX), priced from that contract's own prices; 1 roll measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "rolls": [
+    {
+     "t": 1785376800,
+     "ratio": 1.001296,
+     "how": "detected",
+     "from": "Jul 2026",
+     "to": "Aug 2026"
+    },
+    {
+     "t": 1787529600,
+     "ratio": 1.011749,
+     "how": "contracts",
+     "from": "Sep 2026",
+     "to": "Dec 2026"
+    }
+   ]
+  },
+  "HG=F": {
+   "contract": "Dec 2026",
+   "ticker": "HGZ26.CMX",
+   "priced_from": "contract",
+   "method": "mixed",
+   "next_roll": 1795392000,
+   "next_contract": "Mar 2027",
+   "note": "holding Dec 2026 (HGZ26.CMX), priced from that contract's own prices; 1 roll measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "rolls": [
+    {
+     "t": 1785348000,
+     "ratio": 1.000397,
+     "how": "detected",
+     "from": "Jul 2026",
+     "to": "Aug 2026"
+    },
+    {
+     "t": 1787529600,
+     "ratio": 1.014804,
+     "how": "contracts",
+     "from": "Sep 2026",
+     "to": "Dec 2026"
+    }
+   ]
+  },
+  "KC=F": {
+   "contract": "Dec 2026",
+   "ticker": "KCZ26.NYB",
+   "priced_from": "contract",
+   "method": "none",
+   "next_roll": 1794528000,
+   "next_contract": "Mar 2027",
+   "note": "holding Dec 2026 (KCZ26.NYB), priced from that contract's own prices; no rolls in this stretch",
+   "rolls": []
+  },
+  "ZW=F": {
+   "contract": "Dec 2026",
+   "ticker": "ZWZ26.CBT",
+   "priced_from": "contract",
+   "method": "none",
+   "next_roll": 1795392000,
+   "next_contract": "Mar 2027",
+   "note": "holding Dec 2026 (ZWZ26.CBT), priced from that contract's own prices; no rolls in this stretch",
+   "rolls": []
+  },
+  "ZC=F": {
+   "contract": "Dec 2026",
+   "ticker": "ZCZ26.CBT",
+   "priced_from": "contract",
+   "method": "none",
+   "next_roll": 1795392000,
+   "next_contract": "Mar 2027",
+   "note": "holding Dec 2026 (ZCZ26.CBT), priced from that contract's own prices; no rolls in this stretch",
+   "rolls": []
+  },
+  "CC=F": {
+   "contract": "Dec 2026",
+   "ticker": "CCZ26.NYB",
+   "priced_from": "contract",
+   "method": "none",
+   "next_roll": 1794268800,
+   "next_contract": "Mar 2027",
+   "note": "holding Dec 2026 (CCZ26.NYB), priced from that contract's own prices; no rolls in this stretch",
+   "rolls": []
+  }
+ }
+}
