@@ -19,3 +19,4 @@ for run in ("hourly", "daily"):
               f"{pct(a.get('trend', {}).get('return'))} -> {pct(m['trend']['return'])} | ICT {pct(a.get('ict', {}).get('return'))} -> "
               f"{pct(m['ict']['return'])} | {m['data']['rolls']} rolls ({m['data']['from_contracts']} from contracts, "
               f"{m['data']['detected']} estimated)")
+# rerun 1791287473
