@@ -1404,42 +1404,60 @@
   "symbol": "CL=F",
   "bias": "neutral",
   "score": 35,
-  "price": 90.69
+  "price": 90.69,
+  "checked": true,
+  "chg": -0.01389,
+  "right": null
  },
  {
   "t": 1791160224,
   "symbol": "BZ=F",
   "bias": "neutral",
   "score": 25,
-  "price": 102.14
+  "price": 102.14,
+  "checked": true,
+  "chg": -0.01704,
+  "right": null
  },
  {
   "t": 1791160224,
   "symbol": "NG=F",
   "bias": "bearish",
   "score": 5,
-  "price": 3.026
+  "price": 3.026,
+  "checked": true,
+  "chg": 0.01652,
+  "right": false
  },
  {
   "t": 1791160224,
   "symbol": "GC=F",
   "bias": "bearish",
   "score": 10,
-  "price": 4179.7998
+  "price": 4179.7998,
+  "checked": true,
+  "chg": -0.00043,
+  "right": true
  },
  {
   "t": 1791160224,
   "symbol": "SI=F",
   "bias": "neutral",
   "score": 40,
-  "price": 61.285
+  "price": 61.285,
+  "checked": true,
+  "chg": 0.00326,
+  "right": null
  },
  {
   "t": 1791160224,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 45,
-  "price": 6.5955
+  "price": 6.5955,
+  "checked": true,
+  "chg": 0.01251,
+  "right": null
  },
  {
   "t": 1791160224,
@@ -1453,14 +1471,20 @@
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 50,
-  "price": 682.0
+  "price": 682.0,
+  "checked": true,
+  "chg": 0.01503,
+  "right": null
  },
  {
   "t": 1791160224,
   "symbol": "ZC=F",
   "bias": "neutral",
   "score": 48,
-  "price": 495.75
+  "price": 495.75,
+  "checked": true,
+  "chg": 0.00151,
+  "right": null
  },
  {
   "t": 1791160224,

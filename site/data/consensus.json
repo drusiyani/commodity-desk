@@ -1,5 +1,5 @@
 {
- "t": 1791246643,
+ "t": 1791249622,
  "markets": {
   "CL=F": {
    "score": 41,
@@ -27,8 +27,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "60% chance up",
-     "signal": 0.2,
+     "now": "30% chance up",
+     "signal": -0.4,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -83,8 +83,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "75% chance up",
-     "signal": 0.5,
+     "now": "70% chance up",
+     "signal": 0.4,
      "evidence": 0.0,
      "skill": 1.0,
      "weight": 0.0,
@@ -139,8 +139,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "35% chance up",
-     "signal": -0.3,
+     "now": "25% chance up",
+     "signal": -0.5,
      "evidence": 0.0,
      "skill": 0.0,
      "weight": 0.0,
@@ -197,11 +197,11 @@
      "bot": "Kronos",
      "now": "50% chance up",
      "signal": 0.0,
-     "evidence": 0.0,
-     "skill": 1.0,
-     "weight": 0.0,
-     "n": 1,
-     "record": "1 checked, 100% right"
+     "evidence": 0.001,
+     "skill": 0.5,
+     "weight": 0.001,
+     "n": 2,
+     "record": "2 checked, 50% right"
     },
     {
      "bot": "Lab 'Dual Regime Growth'",
@@ -251,8 +251,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "65% chance up",
-     "signal": 0.3,
+     "now": "35% chance up",
+     "signal": -0.3,
      "evidence": 0.0,
      "skill": 1.0,
      "weight": 0.0,
@@ -307,8 +307,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "25% chance up",
-     "signal": -0.5,
+     "now": "45% chance up",
+     "signal": -0.1,
      "evidence": 0.0,
      "skill": 1.0,
      "weight": 0.0,
@@ -419,8 +419,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "45% chance up",
-     "signal": -0.1,
+     "now": "65% chance up",
+     "signal": 0.3,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -583,7 +583,7 @@
    "win_rate": 0.0,
    "pf": 0.0,
    "name": "Trend bot",
-   "ret": -0.007,
+   "ret": -0.0066,
    "backtest": {
     "trades": 1861,
     "pf": 0.8,
@@ -597,11 +597,11 @@
    "win_rate": 0.667,
    "pf": 1.56,
    "name": "Kronos bot",
-   "ret": 0.0003,
+   "ret": -0.0006,
    "forecasts": {
-    "checked": 6,
-    "direction": 0.8,
-    "inside": 0.5,
+    "checked": 7,
+    "direction": 0.667,
+    "inside": 0.571,
     "short_record": true
    }
   },
@@ -622,7 +622,7 @@
   },
   "hold": {
    "name": "Buy and hold",
-   "ret": 0.0064,
+   "ret": 0.0069,
    "n": 0,
    "wins": 0,
    "win_rate": null,

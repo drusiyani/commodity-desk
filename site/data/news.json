@@ -1,5 +1,17 @@
 [
  {
+  "title": "Oil price on the rise?",
+  "source": "The Star",
+  "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPcmxId29oamVoQm1fUHRBNGV2M3ZZaXFmd1hoQTBJWlVHRWZxV3l0V0Y4Y2ljeWQwUWZQR2xBRHZLT3MxcWdjSXBxM2xaa2xSV1d1eURjeFVZWGVzZWdYaHdQbjVWSlRzd3NYVWpDYU9DQVZkdWhpQ3dfOXZfQi14NE1CcS1WM3g1MGc?oc=5",
+  "published": 1791244041,
+  "id": "nbb77723b14",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791249622
+ },
+ {
   "title": "Shipping Market Outlook: Q4 2026",
   "source": "Hellenic Shipping News",
   "link": "https://news.google.com/rss/articles/CBMieEFVX3lxTE12YzZtQ0tidXFWcnk2WlVfWEI0dVliVGY5Yl95Zy1STE9kWk1NUFZWQVN0bmw4ckhaNEV5eTdtS3pIa3JKVVJaQjhYeGw2dEhnbXBqV3d3aWJ5QlllUFU2S1VfMXFRXzB4STRFM2c5aHA2Q2pobU9yOA?oc=5",
@@ -287,6 +299,18 @@
    "take": "Iran ceasefire deal removes geopolitical risk premium that has supported crude. Reduces near-term supply anxiety and pressures WTI and Brent lower, aligning with completed bearish ICT setups.",
    "t": 1791238803
   }
+ },
+ {
+  "title": "U.S. natural gas prices hold near one-week high as demand forecasts rise",
+  "source": "Pipeline and Gas Journal",
+  "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPVXRlUFQ5bnV2U1dxdmlWblBOQVBqMFRZZmJVZ0hCLXpkbjJxMnB3NTAxeUUxamNrZzZYY2Z1dWg1bzZ5aGg1QjU5eVBpX2pnYmNXaVFudVF5SkxBcFBRbXV2QmFMdm5yQlVXZmUzRHRaaFR1Mk1HSGN6TGNmSGkyQ2FrX20tYi1HNzJjV3dHb0xUSDlVLTNteGlDR0trOXBWbllzdDlvMjFsZXNfbUhN?oc=5",
+  "published": 1791222783,
+  "id": "n108555ac72",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1791249622
  },
  {
   "title": "USDA Grain Bid Reports: Mixed Cash Basis and Futures Settlements",
@@ -789,7 +813,8 @@
   "id": "n309282194c",
   "symbol": "HG=F",
   "symbols": [
-   "HG=F"
+   "HG=F",
+   "SI=F"
   ],
   "seen": 1791224738,
   "claude": {
@@ -1788,23 +1813,6 @@
   }
  },
  {
-  "title": "Cryogenic Pipe Insulants Market Size, Share, Trends 2036",
-  "source": "Future Market Insights",
-  "link": "https://news.google.com/rss/articles/CBMiggFBVV95cUxOR2kyWXMyUngyb09GNTZMUXlnTFRCckt3bjdIRXNHam9vR1d5WGhhRC1kdDJLQURkN3pHNTNsM3J2ZjViaFVsMTJISlZvZmNZVll6bS1kRVdrUnlDV1FQMFBpMWEzc2NYY0xuZHQ0XzI2SFktLVVWbXdMYUJKNF91U19B?oc=5",
-  "published": 1791185984,
-  "id": "na1a20003fc",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
-  ],
-  "seen": 1791188618,
-  "claude": {
-   "impact": "neutral",
-   "take": "Market report on cryogenic pipe insulants for LNG infrastructure is structural but not a directional catalyst for spot prices.",
-   "t": 1791188618
-  }
- },
- {
   "title": "Brent crude slips as G7 oil reserve release eases supply concerns",
   "source": "Anadolu Ajans\u0131",
   "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPNTZPbkJFNE42bHF0S0xtODhDWXY0Z3NNZTc4bExjR1V5Ry1vY3BnNjd3eXRPSGIta2VPTDJBNkVNYzhnLTlUNlp5Q05YMHVSVUREX3ZlYjhTT29tTWxxSHdNWjExSzJzZmpZT2hqdldWNmhqUkNJMWFXX000dDRDWnZMc3ZUaExmTU5UZUtrdEs0anQ3OUQ0a3VmOEpWYVc1S3RLR1AzLVpWMTA?oc=5",
@@ -2021,23 +2029,6 @@
    "impact": "bearish",
    "take": "Gold falls to seven-week low as rate-hike bets rise\u2014contradicting the jobs data (soft jobs should lower hike odds). This suggests either rate-hike expectations shifted post-jobs, or the market is digesting longer-term Fed guidance as more hawkish. Bearish for gold near-term.",
    "t": 1791201144
-  }
- },
- {
-  "title": "Brent Crude Remains Above $100 as Middle East Tensions Persist",
-  "source": "PUKmedia \u06cc\u06d5\u06a9\u06ce\u062a\u06cc\u06cc \u0646\u06cc\u0634\u062a\u0645\u0627\u0646\u06cc\u06cc \u06a9\u0648\u0631\u062f\u0633\u062a\u0627\u0646",
-  "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1vYTQtSUZrUEhLak9qR2VkdHNZT21nNER5a2s0NFZYelFPZERKaENhc1A2WGFZR29rblRudTJIQXRoTmxlVlUwYnNQeEdpSEpuLVdj?oc=5",
-  "published": 1791181740,
-  "id": "n40951f818c",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1791203245,
-  "claude": {
-   "impact": "neutral",
-   "take": "Headline says Brent above $100 due to tensions. Price is there (~101.63) but the broader flow (other headlines, G7 release, Morgan Stanley downgrade, exports normal) suggests momentum is down. Await follow-through.",
-   "t": 1791207892
   }
  },
  {
