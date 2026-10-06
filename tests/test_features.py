@@ -146,3 +146,16 @@ def test_describe():
     text = F.describe(dict(good(), target_atr=4, max_bars=10))
     assert text.startswith("Long when rsi_14 < 30")
     assert "stop 2 ATR, target 4 ATR, give up after 10 bars" in text
+
+
+def test_liquidity_sweep_features():
+    import features as F
+    from conftest import bars_from
+    bars = bars_from([(100, 101, 99, 100), (100, 102, 99, 101), (101, 101.5, 100, 101), (101, 102.5, 100.5, 101.5),
+                      (101.5, 101.8, 98.5, 99.5)])
+    s = F.Series(bars)
+    assert s.get("sweep_high_3")[3] == 1          # above the 3-bar high (102) and closed back below it
+    assert s.get("sweep_high_2")[2] == 0          # 101.5 never got above the 2-bar high (102)
+    assert s.get("sweep_low_4")[4] == 1           # below the 4-bar low (99) and closed back above it (99.5)
+    F.validate({"name": "x", "timeframe": "hourly", "markets": ["all"], "long": {"entry": [{"left": "pdl_sweep", "op": ">", "right": 0}],
+                "exit": [{"left": "lit_short", "op": ">", "right": 0}]}, "short": None, "stop_atr": 2, "target_atr": 3, "max_bars": 10})

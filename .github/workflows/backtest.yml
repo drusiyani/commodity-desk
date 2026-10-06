@@ -30,7 +30,7 @@ jobs:
         run: |
           git config user.name "paper-trader-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add site/data/backtest.json
+          git add site/data/backtest.json site/data/lit_audit.json
           if git diff --cached --quiet; then exit 0; fi
           git commit -m "Backtest $(date -u +%FT%TZ)"
           git pull --rebase --autostash

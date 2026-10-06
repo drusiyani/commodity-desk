@@ -13,11 +13,13 @@ Prices are back-adjusted for futures rolls (rolls.py), so the contract switches 
 every position held across a roll (buy and hold included) pays the cost of rolling it.
 Run it from the Actions tab ("Run backtest"); results go to site/data/backtest.json.
 """
+import json
 import time
 
 import core as C
 import engine as E
 import ict
+import lit as LIT
 import rolls as R
 
 START = C.START
@@ -127,6 +129,91 @@ def run(period, interval, label):
     return {"label": label, "interval": interval, "markets": markets, "combined": combined}
 
 
+# ---------- the LIT bot: 15-minute candles, the last ~60 days (all Yahoo keeps) ----------
+AUDIT_TYPES = ("level", "inducement", "sweep", "confirm", "broken", "gap", "breakout", "cancelled", "expired")
+
+
+def lit_trades(fills):
+    """Fills -> one row per trade: entry, every exit, result."""
+    open_, rows = {}, []
+    for f in fills:
+        if f["action"] in ("BUY", "SHORT"):
+            open_[f["symbol"]] = dict(f, exits=[])
+            rows.append(open_[f["symbol"]])
+        elif f["symbol"] in open_:
+            tr = open_[f["symbol"]]
+            tr["exits"].append({k: f[k] for k in ("t", "price", "contracts", "exit", "reason", "pnl")})
+            if "trade_pnl" in f:
+                tr.update(pnl=f["trade_pnl"], r=f["trade_r"], closed=f["t"])
+                open_.pop(f["symbol"])
+    return rows
+
+
+def run_lit(fx):
+    """Backtest the LIT bot on every 15-minute candle Yahoo has (about 60 days), with costs and slippage, through
+    the same code as live. Returns (the run for backtest.json, the audit trail for the site's LIT audit view)."""
+    print("--- LIT bot, 15-minute, last 60 days ---")
+    series, notes = {}, {}
+    for sym in LIT.MARKETS:
+        try:
+            got = fetch_series(sym, "60d", "15m")
+        except Exception as e:
+            print(f"{sym}: download failed ({e})")
+            continue
+        if len(got["bars"]) > 200:
+            series[sym], notes[sym] = got["bars"], roll_note(sym, got)
+    if not series:
+        return None, None
+    book, fills, curve, dets = LIT.run(series, fx)
+    rows = lit_trades(fills)
+    t0, t1 = min(b[0]["time"] for b in series.values()), max(b[-1]["time"] for b in series.values())
+    weeks = (t1 - t0) / (7 * 86400)
+    markets, audit = {}, {"generated": int(time.time()), "fx": fx, "markets": {}}
+    for sym, D in dets.items():
+        ev = [e for e in D.events if e["type"] in AUDIT_TYPES]
+        mine = [r for r in rows if r["symbol"] == sym]
+        done = [r for r in mine if "pnl" in r]
+        count = lambda kind: sum(1 for e in ev if e["type"] == kind)
+        sweeps = [e for e in ev if e["type"] == "sweep"]
+        markets[sym] = dict({k: LIT.SPECS[sym][k] for k in ("name", "micro", "exchange")},
+                            data=notes[sym], bars=len(D.bars), trades=len(mine),
+                            wins=sum(1 for r in done if r["pnl"] > 0),
+                            win_rate=round(sum(1 for r in done if r["pnl"] > 0) / len(done), 3) if done else None,
+                            avg_r=round(sum(r["r"] for r in done) / len(done), 2) if done else None,
+                            pnl=round(sum(r["pnl"] for r in done), 2),
+                            per_week={"levels": round(count("level") / weeks, 1), "sweeps": round(len(sweeps) / weeks, 1),
+                                      "with_inducement": round(sum(1 for e in sweeps if e["inducement"]) / weeks, 1),
+                                      "confirmations": round(count("confirm") / weeks, 1),
+                                      "trades": round(len(mine) / weeks, 2)})
+        audit["markets"][sym] = {"name": LIT.SPECS[sym]["name"], "tick": LIT.SPECS[sym]["tick"],
+                                 "levels": [{"id": lv["id"], "kind": lv["kind"], "side": lv["side"], "price": lv["price"],
+                                             "from": D.bars[lv["avail"]]["time"] if lv["avail"] < len(D.bars) else D.bars[-1]["time"],
+                                             "to": lv.get("end", D.bars[-1]["time"]), "how": lv["state"]}
+                                            for lv in D.levels],
+                                 "bars": [[b["time"], round(b["open"], 4), round(b["high"], 4), round(b["low"], 4),
+                                           round(b["close"], 4)] for b in D.bars],
+                                 "events": [{k: v for k, v in e.items() if k != "i"} for e in ev],
+                                 "trades": mine}
+        print(f"{sym}: {len(D.bars)} candles, {len(mine)} trades, per week: {markets[sym]['per_week']}")
+    closed = [r for r in rows if "pnl" in r]
+    years = (t1 - t0) / (365.25 * 86400)
+    daily = {}
+    for t, v in curve:
+        daily[t // 86400 * 86400] = v
+    stats_ = C.stats([v for _, v in curve], [{"pnl": r["pnl"], "r": r["r"]} for r in closed], years)
+    run = {"label": "LIT bot, 15-minute, last 60 days", "interval": "15m", "from": t0, "to": t1, "weeks": round(weeks, 1),
+           "fx": fx, "markets": markets, "trades": len(rows),
+           "combined": {"lit": {"curve": sample([{"time": t, "value": round(v, 2)} for t, v in sorted(daily.items())]),
+                                "stats": stats_}},
+           "settings": {k: getattr(LIT, k) for k in ("EQ_TOL", "IND_DIST", "IND_BARS", "SWEEP_MAX", "CONFIRM_BARS",
+                                                      "STOP_BUF", "TP1_R", "RISK", "MAX_OPEN", "FEE")},
+           "caveat": (f"Only {len(rows)} trades in {weeks:.0f} weeks: far too few to tell skill from luck. Yahoo keeps "
+                      f"about 60 days of 15-minute candles, so this result is not reliable yet; it gets more meaningful "
+                      f"as the live record grows.")}
+    print(f"LIT combined: {len(rows)} trades, return {stats_['return']:+.2%}, win rate {stats_['win_rate']}")
+    return run, audit
+
+
 def main():
     out = {"generated": int(time.time()), "cost_per_side": COST,
            "settings": {"swing": ict.SWING_N, "range_bars": ict.RANGE_BARS, "setup_bars": ict.SETUP_BARS,
@@ -140,6 +227,12 @@ def main():
         r = run(period, interval, label)
         if r:
             out["runs"][key] = r
+    fx = E.load("status.json", {}).get("fx") or 1.3   # the latest GBP/USD the trader saw
+    lit_run, audit = run_lit(fx)
+    if lit_run:
+        out["runs"]["lit"] = lit_run
+        E.DATA.mkdir(parents=True, exist_ok=True)  # compact: it's only downloaded when someone opens the audit view
+        (E.DATA / "lit_audit.json").write_text(json.dumps(audit, separators=(",", ":")))
     E.save("backtest.json", out)
     print("Saved site/data/backtest.json")
 

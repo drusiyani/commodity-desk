@@ -17,6 +17,7 @@ Claude's comment on every headline, every trade and how each competitor is doing
 | **ICT bot** | Trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. |
 | **Kronos bot** | Trades the forecasts of Kronos, an open-source AI model that reads price charts (see below). |
 | **Trend bot** | Holds a market while its 20-hour average is above its 100-hour average. |
+| **LIT bot** | Trades the S&P 500, Nasdaq 100, Dow and Russell 2000 index futures and gold on 15-minute candles, LIT ("liquidity inducement") style: it waits for price to run the stops beyond a well-known high or low (yesterday's, the Asia or London session's, or equal highs and lows) and snap back, then trades the snap-back in the London or New York morning window, in micro contracts, risking 0.5% per trade. Every rule is defined exactly in [`docs/lit.md`](docs/lit.md). |
 | **Buy and hold** | The benchmark: an equal slice of every market, bought at the start and never touched. |
 
 Every trade, for every competitor, goes through one shared trading core (`core.py`), so live trading and the
@@ -41,6 +42,26 @@ GitHub Pages and a public repo can be read by anyone, so private data is **encry
   repo's git history**. Encryption protects everything from now on. Removing the old copies would mean rewriting
   the repository's history (for example with `git filter-repo`) and force-pushing, which breaks other clones; if
   that matters, make the repo private instead, or start a fresh repo from the current files.
+
+## The LIT bot
+
+- **Rules:** [`docs/lit.md`](docs/lit.md) defines every concept (sessions, liquidity, equal highs and lows,
+  inducement, sweep, confirmation, entry, stop, exits) with exact candle conditions and numbers, and what does not
+  count. `lit.py` follows it line by line. The numbers are round values chosen before any backtest, not tuned.
+- **No hindsight:** a swing only exists once the 2 candles after it have closed, and a test checks that adding
+  later candles never changes what the bot saw or did on an earlier one.
+- **Data:** 15-minute candles (Yahoo keeps about 60 days) for `ES=F`, `NQ=F`, `YM=F`, `RTY=F` and `GC=F`, back-adjusted
+  for rolls like everything else (index futures roll quarterly, 5 business days before the third-Friday expiry).
+  Every hourly run steps through each 15-minute candle since the last run, so none is missed.
+- **Money:** its own £100k, sized in micro contracts (MES $5, MNQ $2, MYM $0.50, M2K $5 and MGC $10 a point), with
+  $0.62 a contract each way and a tick of slippage on every market order.
+- **Backtest and audit:** "Run backtest" also tests it on the ~60 days of 15-minute candles and writes
+  `site/data/lit_audit.json`. The Backtest tab shows the results (with how few trades that is), the sanity numbers
+  (levels, sweeps and trades per market per week), and the **LIT audit**: a 15-minute chart with every level,
+  inducement, sweep, confirmation, entry and exit drawn on it, and tables of every trade and event; click one to jump
+  the chart to it.
+- **Strategy lab:** the lab's rule language gained `sweep_high_N`, `sweep_low_N`, `pdh_sweep`, `pdl_sweep`,
+  `lit_long` and `lit_short`, so Claude can build strategies on the same ideas.
 
 ## Futures rolls
 
@@ -146,7 +167,7 @@ times over. From those 20 paths come an **expected move**, a **likely range** (t
 |---|---|---|
 | **Run trader** (`trader.yml`) | Every hour, Monday to Friday, and by hand | Prices, news, Kronos forecasts, the risk engine, Claude (every 4 hours; every time when run by hand), all the bots; saves the data and publishes the site. |
 | **Run strategy lab** (`research.yml`) | Sunday evenings, and by hand | Claude invents strategies; they're tested; the passing ones and their weights are saved. Tick "recheck only" to re-run the checks on the existing strategies without asking Claude (free). |
-| **Run backtest** (`backtest.yml`) | By hand | Backtests the ICT and trend bots: hourly for 2 years, daily for 5. |
+| **Run backtest** (`backtest.yml`) | By hand | Backtests the ICT and trend bots (hourly for 2 years, daily for 5) and the LIT bot (15-minute, the last 60 days). |
 | **Tests** (`tests.yml`) | Every push and pull request | Runs the automatic tests (no API calls, no model download). |
 | **Kronos check** (`kronos-check.yml`) | Pull requests that touch Kronos, and by hand | Installs and runs the real Kronos model on saved prices, to catch a problem before it reaches the hourly trader. |
 
@@ -182,6 +203,7 @@ Edit `config.json` in the repo:
 - `consensus.py`: what each bot is doing in each market and how much its evidence earns it.
 - `rolls.py`: futures roll calendars, back-adjusted prices and roll gaps.
 - `vault.py`: encryption of the private data.
+- `lit.py`: the LIT bot (detection and trading); its rules are in `docs/lit.md`.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
 - `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups).
 - `kronos_model.py` + `kronos_bot.py`: running Kronos, and the Kronos bot's rules and track record.
