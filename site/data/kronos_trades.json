@@ -105,5 +105,18 @@
   "source": "kronos",
   "stop": 495.0089,
   "target": 500.3427
+ },
+ {
+  "t": 1791253213,
+  "symbol": "BZ=F",
+  "name": "Brent crude",
+  "action": "BUY",
+  "qty": 328.0864,
+  "price": 100.68,
+  "value": 24993.46,
+  "reason": "Kronos: 90% chance of a rise, expected +1.20% in 24h",
+  "source": "kronos",
+  "stop": 99.6814,
+  "target": 101.8922
  }
 ]

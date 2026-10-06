@@ -2007,5 +2007,15 @@
   },
   "state": "MANAGING",
   "trades": 0
+ },
+ {
+  "t": 1791253213,
+  "paused": false,
+  "markets": [],
+  "watching": [],
+  "blocked": [],
+  "summary": "Claude couldn't be reached this run (unsupported format string passed to NoneType.__format__). No new trades.",
+  "state": "MANAGING",
+  "trades": 0
  }
 ]
