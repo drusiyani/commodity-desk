@@ -5,7 +5,7 @@ Argon: a commodity paper-trading system where Claude, an AI, trades against rule
   3. risk engine: closes positions that hit their stop or target
   4. asks Claude for a structured decision
   5. checks Claude's orders against the risk rules, fills them on a fake £100k account
-  6. runs the bots (Claude's strategies, Kronos, the LIT bot) on their own accounts
+  6. runs the bots (Claude's strategies, Kronos, the Quant bot, the LIT bot) on their own accounts
   7. writes JSON for the website
 
 All fills go through core.py, the same code the backtests use, and pay the same costs.
@@ -33,6 +33,7 @@ import consensus as CS
 import core as C
 import kronos_bot as KB
 import lit as LIT
+import quant as Q
 import rolls as R
 import validation as V
 import vault
@@ -45,7 +46,8 @@ STATE = ROOT / "state"       # the private data, encrypted (vault.py); never sto
 PRIVATE = {"portfolio.json", "trades.json", "decisions.json", "calls.json", "news_takes.json", "consensus.json",
            "lit.json", "lit_trades.json",
            "rules.json", "rules_trades.json", "ict.json", "ict_trades.json", "lab.json", "lab_trades.json",
-           "kronos_bot.json", "kronos_trades.json", "kronos_index_bot.json", "kronos_index_trades.json"}
+           "kronos_bot.json", "kronos_trades.json", "kronos_index_bot.json", "kronos_index_trades.json",
+           "quant.json", "quant_trades.json"}
 SITE_PRIVATE = "private.enc.json"   # the one encrypted bundle the website can unlock with the password
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 
@@ -838,6 +840,76 @@ def roll_index_book(book, rolls, iprices, fx, now):
     return out
 
 
+# ---------- the Quant bot: four classic strategies on daily candles (quant.py) ----------
+def next_contract(sym, now):
+    """The contract after the one held now, and how many months apart they are."""
+    held = R.active(sym, now)
+    t = int(dt_utc(R.roll_date(sym, *held)).timestamp()) + 86400
+    nxt = R.active(sym, t)
+    return held, nxt, (nxt[0] - held[0]) * 12 + nxt[1] - held[1]
+
+
+def dt_utc(d):
+    import datetime as dt
+    return dt.datetime.combine(d, dt.time(), dt.timezone.utc)
+
+
+def get_carry(prices, now, cached=None):
+    """Annualised carry per commodity: the contract held now (its latest price) against the next contract month's
+    latest daily close from Yahoo. Fetched once a day; a market Yahoo has no next-month price for is left out."""
+    today = time.strftime("%Y-%m-%d", time.gmtime(now))
+    if cached and cached.get("date") == today:
+        return cached
+    out = {"date": today, "values": {}, "contracts": {}}
+    for sym in COMMODITIES:
+        if sym not in prices or sym not in R.MARKETS:
+            continue
+        try:
+            held, nxt, months = next_contract(sym, now)
+            bars = yahoo(R.ticker(sym, *nxt), "5d", "1d")
+        except Exception as e:
+            print(f"carry failed for {sym}: {e}")
+            continue
+        if bars:
+            front = prices[sym]["bars"][-1]["close"]
+            out["values"][sym] = Q.annual_carry(front, bars[-1]["close"], months)
+            out["contracts"][sym] = [R.label(*held), R.label(*nxt), round(bars[-1]["close"], 4)]
+    return out
+
+
+def quant_record(t, fx):
+    """A Quant fill -> a trade-history row like the other bots'."""
+    sym = t["symbol"]
+    row = record(t["t"], sym, t["action"], t["qty"], t["price"], t["value"], t["reason"], "quant",
+                 strategy=t["strategy"], side=t["side"], cost=t["cost"])
+    if "pnl" in t:
+        row["pnl"] = t["pnl"]
+    return row
+
+
+def run_quant(qb, prices, history, fx, now):
+    """The Quant bot's hourly step (see quant.run_live): marks every run, decides once per finished daily candle."""
+    daily = {s: m["daily"] for s, m in history.get("markets", {}).items() if m.get("daily") and s in prices}
+    marks = {s: p["bars"][-1]["close"] for s, p in prices.items()}
+    qb["carry_data"] = get_carry(prices, now, qb.get("carry_data"))
+    fills, info = Q.run_live(qb, daily, marks, fx, now, qb["carry_data"]["values"])
+    return [quant_record(f, fx) for f in fills]
+
+
+def roll_quant(qb, rolls, prices, fx, now):
+    """Futures rolls for the Quant bot's positions: same face value in the new contract, both legs paid."""
+    out = []
+    for sym, gaps in rolls.items():
+        for g in gaps:
+            held = sum(1 for sl in qb["sleeves"].values() if sym in sl["pos"])
+            px = roll_price(prices[sym], g)
+            paid = Q.roll(qb, sym, g["ratio"], px, fx)
+            if held:
+                out.append(record(now, sym, "ROLL", 0, px, paid, f"Rolled the Quant bot's {held} position(s) from the "
+                                  f"{g['from']} to the {g['to']} contract; costs £{paid:,.2f}", "quant"))
+    return out
+
+
 def kronos_text(sym, kronos, kacc):
     f = (kronos or {}).get("markets", {}).get(sym)
     if not f:
@@ -939,6 +1011,11 @@ def bot_records(trade_lists, eq_hist, kronos_acc, strats, lb_trades):
     out = {}
     out["kronos"] = dict(CS.trade_record(trade_lists["kronos"]), name="Kronos bot", ret=ret("kronos"))
     out["kronos"]["forecasts"] = {k: v for k, v in (kronos_acc or KB.accuracy([])).items() if k != "markets"}
+    if "quant" in trade_lists:
+        q = comb("quant", "quant")
+        out["quant"] = dict(CS.trade_record(trade_lists["quant"]), name="Quant bot", ret=ret("quant"),
+                            backtest={"trades": q.get("trades"), "pf": q.get("profit_factor"), "win_rate": q.get("win_rate"),
+                                      "ret": q.get("return"), "daily": True} if q else None)
     for st in strats:
         te = st["results"]["test"]["combined"]
         out["lab:" + st["id"]] = dict(CS.trade_record([t for t in lb_trades if t.get("strategy") == st["id"]]),
@@ -963,7 +1040,7 @@ def records_text(recs):
         if r["name"] == "Buy and hold" and b:
             live += f"; 5-year daily backtest {pct(b['cagr'])} a year"
         elif b and b.get("trades"):
-            live += (f"; {'walk-forward test' if b.get('walk_forward') else 'hourly 2-year backtest'} "
+            live += (f"; {'walk-forward test' if b.get('walk_forward') else '5-year daily backtest' if b.get('daily') else 'hourly 2-year backtest'} "
                      f"{b['trades']} trades, profit factor {b['pf']}, {b['win_rate']:.0%} wins")
         if r.get("forecasts"):
             live += f"; forecasts: {KB.record_text(r['forecasts'])}; never backtested"
@@ -971,7 +1048,7 @@ def records_text(recs):
     return "\n".join(lines)
 
 
-def market_bots(sym, prices, kb, lb, strats, sigs, kronos, kacc, trade_lists, lb_trades):
+def market_bots(sym, prices, kb, lb, strats, sigs, kronos, kacc, trade_lists, lb_trades, qb=None):
     """Every bot's position or signal in one market, with the evidence behind it (see consensus.py)."""
     bars = prices[sym]["bars"]
     px = bars[-1]["close"]
@@ -992,6 +1069,15 @@ def market_bots(sym, prices, kb, lb, strats, sigs, kronos, kacc, trade_lists, lb
     rows.append(CS.row("Kronos", pos[0], pos[1], acc["checked"], CS.skill_direction(acc["direction"]),
                        f"{acc['checked']} checked" + (f", {acc['direction']:.0%} right" if acc["direction"] is not None else ""),
                        ev=CS.kronos_evidence(acc["checked"])))
+    # the Quant bot (its net position here across its four strategies)
+    if qb is not None:
+        sig, words = Q.net_view(qb, sym, px)
+        q = (bt.get("quant") or {}).get("combined", {}).get("quant", {}).get("stats") or {}
+        live = CS.trade_record(trade_lists.get("quant", []))
+        n = live["n"] + (q.get("trades") or 0)
+        pf = CS.pooled_pf(live, {"pf": q.get("profit_factor"), "n": q.get("trades")})
+        rows.append(CS.row("Quant bot", sig, words, n, CS.skill_pf(pf),
+                           f"{n} trades (all markets)" + (f", PF {pf:.2f}" if pf is not None else "")))
     # Claude's lab strategies
     for st in strats:
         sig = (sigs or {}).get(st["id"], {}).get(sym)
@@ -1089,7 +1175,7 @@ def report_card(calls):
 
 
 def public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf, decisions,
-                   lit_trades=(), ki_trades=()):
+                   lit_trades=(), ki_trades=(), q_trades=(), qb=None, fx=1.0):
     last = decisions[-1] if decisions else {}
     return {"t": now,
             "perf": {"equity": perf([t for t in trades if t.get("source") != "core"], "equity", eq_hist),
@@ -1097,8 +1183,10 @@ def public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_tra
                      "kronos": perf(kb_trades, "kronos", eq_hist), "rules": perf(rb_trades, "rules", eq_hist),
                      "lit": perf([dict(t, pnl=t.get("trade_pnl")) if "pnl" in t else t for t in lit_trades], "lit", eq_hist),
                      "kronos_idx": perf(ki_trades, "kronos_idx", eq_hist),
+                     "quant": perf(q_trades, "quant", eq_hist),
                      "benchmark": perf([], "benchmark", eq_hist)},
             "report": report_card(calls),
+            "quant": Q.summary(qb, fx) if qb else None,
             "lab_live": {sid: {k: v for k, v in x.items() if k != "r"} | {"trades": len(x.get("r") or [])}
                          for sid, x in lb.get("strategies", {}).items()},
             "claude": {"t": last.get("t"), "paused": bool(last.get("paused")), "positions": len(pf["positions"])}}
@@ -1430,6 +1518,7 @@ def main():
     kb, kb_trades = load("kronos_bot.json", None) or new_kronos_book(now), load("kronos_trades.json", [])
     litb, lit_trades = load("lit.json", None) or LIT.new_book(START_CASH), load("lit_trades.json", [])
     kib = load("kronos_index_bot.json", None) or KB.new_index_book(START_CASH, now)
+    qb, q_trades = load("quant.json", None) or Q.new_book(START_CASH), load("quant_trades.json", [])
     ki_trades = load("kronos_index_trades.json", [])
     if not pf or pf.get("version") != 3:  # fresh start
         pf, trades, decisions, eq_hist = new_portfolio(), [], [], []
@@ -1446,6 +1535,7 @@ def main():
                         + [(sl, lb_trades, "lab", {"strategy": sid}) for sid, sl in lb["sleeves"].items()], fx, now,
                         since=eq_hist[0]["time"] if eq_hist else now)
     ki_trades += roll_index_book(kib, irolls, iprices, fx, now)
+    q_trades += roll_quant(qb, rolls, prices, fx, now)
     for sym, gaps in {**rolls, **irolls}.items():
         roll_state[sym] = gaps[-1]["t"]
     if rolled:
@@ -1473,8 +1563,8 @@ def main():
         filled += close_core(pf, last_usd, fx, now, "Closed by you (close_all in config.json)")
 
     atrs = {s: daily_atr(s, prices, history["markets"]) for s in prices}
-    trade_lists = {"kronos": kb_trades}
-    bot_args = (kb, lb, strats, sigs, kronos, kacc, trade_lists, lb_trades)
+    trade_lists = {"kronos": kb_trades, "quant": q_trades}
+    bot_args = (kb, lb, strats, sigs, kronos, kacc, trade_lists, lb_trades, qb)
     claude_due = os.environ.get("GITHUB_EVENT_NAME") != "schedule" or now - pf.get("last_claude", 0) >= CLAUDE_EVERY - 600
     entry = {"t": now, "paused": paused, "markets": [], "watching": [], "blocked": []}
     prev_health = load("status.json", {}).get("health", {})
@@ -1528,6 +1618,12 @@ def main():
     lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now, lab_state().get("allocation"))
     kb_trades += run_kronos_bot(kb, prices, cfc, last_usd, fx, now)
     ki_trades += KB.run_index_bot(kib, iprices, ifc, fx, now)
+    try:
+        q_trades += run_quant(qb, prices, history, fx, now)
+        health["quant"] = True
+    except Exception as e:   # the Quant bot must never take the hourly run down
+        print("Quant step failed:", e)
+        health["quant"] = False
     more, lit_dets = run_lit_bot(litb, {s: x["m15"]["bars"] for s, x in lit_info.items()}, fx, now)
     lit_trades += more
     calls = evaluate_calls(calls, prices, now)[-5000:]
@@ -1541,7 +1637,8 @@ def main():
     row = {"time": now, "equity": round(total_equity(pf, last_usd, fx), 2), "benchmark": round(bench, 2),
            "core": round(equity(pf["core"], last_usd, fx), 2), "active": round(equity(pf, last_usd, fx), 2),
            "lab": round(lab_equity(lb, last_usd, fx), 2), "kronos": round(equity(kb, last_usd, fx), 2),
-           "lit": round(lit_equity(litb, fx), 2), "kronos_idx": round(KB.index_equity(kib, fx), 2)}
+           "lit": round(lit_equity(litb, fx), 2), "kronos_idx": round(KB.index_equity(kib, fx), 2),
+           "quant": round(Q.equity(qb, qb.get("marks"), fx), 2)}
     for key, book in (("rules", rb), ("ict", ib)):  # a retired bot's curve ends with the run that closed it
         if not was_retired[key]:
             row[key] = round(equity(book, last_usd, fx), 2)
@@ -1574,6 +1671,8 @@ def main():
     save("kronos_index_calls.json", kicalls)
     save("kronos_index_bot.json", kib)
     save("kronos_index_trades.json", ki_trades)
+    save("quant.json", qb)
+    save("quant_trades.json", q_trades[-3000:])
     save("rolls.json", {"t": now, "applied": roll_state, "roll_days": R.ROLL_DAYS,
                         "markets": {s: {k: v for k, v in p.items() if k in ("contract", "ticker", "priced_from",
                                         "method", "next_roll", "next_contract", "note", "rolls")}
@@ -1582,11 +1681,12 @@ def main():
                  "records": bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)}
     save("consensus.json", consensus)
     save("summary.json", public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf,
-                                        decisions, lit_trades, ki_trades))
+                                        decisions, lit_trades, ki_trades, q_trades, qb, fx))
     save_site_bundle({"portfolio": pf, "trades": trades, "decisions": decisions, "calls": calls, "news_takes": takes,
                       "consensus": consensus, "rules_trades": rb_trades, "ict_trades": ib_trades,
                       "kronos_trades": kb_trades, "lab": lb, "lab_trades": lb_trades, "lit": litb,
-                      "lit_trades": lit_trades, "kronos_idx": kib, "kronos_idx_trades": ki_trades})
+                      "lit_trades": lit_trades, "kronos_idx": kib, "kronos_idx_trades": ki_trades,
+                      "quant": qb, "quant_trades": q_trades[-3000:]})
     save("history.json", {"date": history["date"], "fetched": history.get("fetched", 0), "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})
