@@ -1,8 +1,8 @@
 {
- "t": 1791292956,
+ "t": 1791296121,
  "perf": {
   "equity": {
-   "ret": -0.0025,
+   "ret": -0.00205,
    "buys": 2,
    "closed": 1,
    "win": 1.0,
@@ -10,7 +10,7 @@
    "dd": -0.0052
   },
   "lab": {
-   "ret": -0.00077,
+   "ret": -0.00043,
    "buys": 4,
    "closed": 0,
    "win": null,
@@ -26,23 +26,31 @@
    "dd": 0.0
   },
   "kronos": {
-   "ret": -0.00707,
+   "ret": -0.00162,
    "buys": 10,
-   "closed": 8,
-   "win": 0.5,
-   "realised": -531.84,
+   "closed": 9,
+   "win": 0.556,
+   "realised": -207.38,
    "dd": -0.0111
   },
   "rules": {
-   "ret": -0.01115,
+   "ret": -0.0098,
    "buys": 17,
    "closed": 11,
    "win": 0.0,
    "realised": -1687.94,
    "dd": -0.01234
   },
+  "lit": {
+   "ret": 0.0,
+   "buys": 0,
+   "closed": 0,
+   "win": null,
+   "realised": 0,
+   "dd": 0.0
+  },
   "benchmark": {
-   "ret": 0.00048,
+   "ret": 0.00201,
    "buys": 0,
    "closed": 0,
    "win": null,
@@ -52,20 +60,20 @@
  },
  "report": {
   "all": [
-   44,
-   91
+   45,
+   92
   ],
   "bullish": [
-   16,
-   28
+   17,
+   29
   ],
   "bearish": [
    28,
    63
   ],
   "high": [
-   13,
-   24
+   14,
+   25
   ],
   "groups": {
    "Energy": [
@@ -73,15 +81,15 @@
     36
    ],
    "Metals": [
-    6,
-    25
+    7,
+    26
    ],
    "Agriculture": [
     23,
     30
    ]
   },
-  "pending": 60
+  "pending": 62
  },
  "lab_live": {
   "s8": {
@@ -114,13 +122,13 @@
     "z": null,
     "retire": null
    },
-   "equity": 99922.71,
+   "equity": 99956.97,
    "weight": 1.0,
    "trades": 0
   }
  },
  "claude": {
-  "t": 1791289213,
+  "t": 1791296121,
   "paused": false,
   "positions": 1
  }
