@@ -1,0 +1,32 @@
+name: Probe contract months
+on:
+  push:
+    branches: [claude/commodity-trading-v2-z09y0m-probe]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - run: |
+          python - <<'PY'
+          import time, yfinance as yf
+          import rolls as R
+          now = time.time()
+          for sym in list(R.MARKETS)[:10]:
+              y, m = R.active(sym, now)
+              cs = R.contracts(sym, __import__("datetime").date(y, m, 1), __import__("datetime").date(y + 2, m, 1))[:4]
+              out = []
+              for c in cs:
+                  t = R.ticker(sym, *c)
+                  try:
+                      df = yf.Ticker(t).history(period="5y", interval="1d").dropna()
+                      out.append(f"{t}: {len(df)} days from {df.index[0].date() if len(df) else '-'} last {df['Close'].iloc[-1] if len(df) else '-'}")
+                  except Exception as e:
+                      out.append(f"{t}: error {str(e)[:60]}")
+              print(sym, " | ".join(out), flush=True)
+          PY
