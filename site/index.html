@@ -66,6 +66,17 @@ main { display: grid; gap: 14px; padding: 0 24px 28px; grid-template-columns: mi
 main.page { display: flex; flex-direction: column; gap: 14px; max-width: 1240px; margin: 0 auto; padding: 4px 24px 32px; }
 main.page section { padding: 18px 22px; }
 .intro { border-color: var(--accent-line); }
+.doc ul { margin: 0; padding-left: 20px; } .doc li { margin: 6px 0; max-width: 90ch; line-height: 1.55; }
+.doc dl { margin: 0; display: grid; grid-template-columns: 170px 1fr; gap: 8px 20px; }
+.doc dt { font-weight: 600; } .doc dd { margin: 0; max-width: 90ch; line-height: 1.55; }
+.doc > p { margin: 0; max-width: 90ch; line-height: 1.6; }
+.dl { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: center; padding: 10px 0; border-top: 1px solid var(--soft); }
+.dl:first-child { border-top: 0; }
+.dl .what { font-size: 14px; } .dl .what small { display: block; color: var(--muted); font-size: 12px; font-family: Inter, system-ui, sans-serif; }
+.dl .btns { display: flex; gap: 6px; }
+.dl a { font-family: Inter, system-ui, sans-serif; font-size: 12px; text-decoration: none; color: var(--ink); border: 1px solid var(--line);
+  border-radius: 6px; padding: 5px 10px; transition: background-color .15s ease, border-color .15s ease; }
+.dl a:hover { background: var(--soft); border-color: var(--accent-line); }
 .intro h2 { font-size: 18px; margin-bottom: 6px; }
 .intro p { margin: 0; max-width: 78ch; color: var(--ink); font-size: 15px; line-height: 1.6; }
 #view-backtest #btChart { height: 400px; }
@@ -213,7 +224,23 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
 
 #setup { max-width: 560px; margin: 60px auto; padding: 0 24px; }
 
+/* private sections: a padlock and a password box until the password is entered */
+.lock { display: flex; gap: 14px; align-items: flex-start; padding: 16px; border: 1px dashed var(--accent-line); border-radius: 8px; background: var(--soft); }
+.lockicon { color: var(--brass); flex: none; margin-top: 1px; }
+.lock strong { display: block; font-size: 15px; margin-bottom: 4px; }
+.lock p { margin: 0 0 10px; font-size: 13px; color: var(--muted); max-width: 60ch; }
+.lockform { display: flex; gap: 8px; flex-wrap: wrap; }
+.lockform input { font: inherit; font-family: Inter, system-ui, sans-serif; font-size: 13px; color: var(--ink); background: var(--panel);
+  border: 1px solid var(--line); border-radius: 6px; padding: 7px 10px; min-width: 0; flex: 1 1 160px; max-width: 260px; }
+.lockform input:focus-visible { outline: 2px solid var(--brass); outline-offset: 1px; }
+.lockform button { font: inherit; font-family: Inter, system-ui, sans-serif; font-size: 13px; cursor: pointer; color: var(--bg);
+  background: var(--brass); border: 0; border-radius: 6px; padding: 7px 14px; transition: opacity .15s ease, transform .1s ease; }
+.lockform button:hover { opacity: .88; } .lockform button:active { transform: scale(.96); } .lockform button:disabled { opacity: .6; cursor: wait; }
+.lockerr { color: var(--down) !important; margin: 8px 0 0 !important; min-height: 1em; }
+.lockerr:empty { display: none; }
+
 @media (max-width: 600px) { .grid2 { grid-template-columns: 1fr; }
+  .doc dl { grid-template-columns: 1fr; gap: 2px; } .doc dd { margin-bottom: 8px; }
   .views { flex: 1; } .views a { flex: 1; text-align: center; padding: 6px 4px; }
   main.page section { padding: 14px 16px; } }
 @media (max-width: 1000px) {
@@ -478,15 +505,73 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
   <div class="view" id="view-data" hidden>
   <main class="page">
     <section class="intro">
-      <h2>The data</h2>
-      <p>Prices come free from Yahoo Finance and can be delayed by 10 to 30 minutes. Each market is a futures
-      contract, and contracts expire, so Argon rolls to the next contract month a few days before expiry, like a real
-      trader. Older prices are adjusted so the switch doesn't show as a fake jump. Here is what each market is priced
-      from right now.</p>
+      <h2>About Argon and its data</h2>
+      <p>Argon is an experiment: Claude, an AI made by Anthropic, trades ten commodity futures (oil, gas, metals and
+      crops) on a pretend £100,000 account, against several simple trading robots and an AI forecasting model, each
+      with its own pretend £100,000. It runs by itself every hour on GitHub. <strong>No real money is involved</strong>,
+      and nothing here is investment advice.</p>
     </section>
+
+    <section class="doc">
+      <h2>Where the data comes from</h2>
+      <ul>
+        <li><strong>Prices</strong>: Yahoo Finance, free and delayed by 10 to 30 minutes. Hourly bars for the last 60 days, daily bars for 5 years.</li>
+        <li><strong>News</strong>: Google News headlines, two searches per market, every hour.</li>
+        <li><strong>Related markets</strong>: the US dollar index, US 10-year yield, GBP/USD and the S&amp;P 500, also from Yahoo.</li>
+        <li><strong>Kronos</strong>: an open-source AI model that reads price charts and forecasts the next 24 hours. It runs on GitHub's computers.</li>
+        <li><strong>Claude</strong>: Anthropic's API, every 4 hours on weekdays, plus once a week for the strategy lab.</li>
+      </ul>
+    </section>
+
+    <section class="doc">
+      <h2>How each competitor works</h2>
+      <dl>
+        <dt>Claude</dt><dd>Keeps 40% of its account in a core holding spread equally across all ten markets, and trades the
+        rest itself. It reads each market's 5-year history, the news, an ICT chart read, Kronos's forecast, its own lab
+        strategies and what the other bots are doing, then decides. Long only. Hard risk limits are enforced in code.</dd>
+        <dt>Claude's strategies</dt><dd>Rules Claude invents in the weekly lab. Only ones that pass strict tests on data they
+        were never fitted on trade live, together, on one £100k account.</dd>
+        <dt>ICT bot</dt><dd>Trades a chart pattern called "liquidity sweep, structure shift, fair value gap", long and short,
+        risking 1% per trade.</dd>
+        <dt>Kronos bot</dt><dd>Trades Kronos's forecasts when a move looks clearly likely and big enough to cover costs; closes
+        after 24 hours.</dd>
+        <dt>Trend bot</dt><dd>Holds a market while its 20-hour average is above its 100-hour average.</dd>
+        <dt>Buy and hold</dt><dd>The yardstick: an equal slice of every market, bought at the start and never traded.</dd>
+      </dl>
+      <p class="hint">Every competitor pays 0.05% in costs on every trade, and a stop that price jumps through fills at the
+      worse price, as it would for real.</p>
+    </section>
+
+    <section class="doc">
+      <h2>The honest caveats</h2>
+      <ul>
+        <li><strong>Paper money.</strong> No real orders are placed. Real trading would face slippage, margin calls and fees this doesn't fully capture.</li>
+        <li><strong>Free, delayed prices.</strong> Yahoo's data can be late, gappy or occasionally wrong, and a whole market can be missing for an hour.</li>
+        <li><strong>Futures rolls.</strong> Contracts expire, so positions are rolled to the next month a few days before, as real traders do. Older prices are adjusted so the switch doesn't look like a price move. Yahoo only keeps contracts that are still trading, so the size of older rolls is estimated from the jump in its continuous series (see the table below).</li>
+        <li><strong>Small samples.</strong> A few weeks and a handful of trades prove almost nothing; luck dominates. Treat early results, good or bad, with suspicion.</li>
+        <li><strong>Backtests aren't the future.</strong> They show how simple rules would have done on past prices, after costs. Kronos is never backtested, because it may have seen that history in its training.</li>
+        <li><strong>AI can be wrong.</strong> Claude and Kronos make mistakes, and their reasoning can sound more confident than it should.</li>
+      </ul>
+    </section>
+
     <section id="dataSec">
       <h2>Markets and futures rolls <small id="rollsWhen"></small></h2>
       <div id="dataBody"></div>
+    </section>
+
+    <section class="doc">
+      <h2>Download the data</h2>
+      <p class="hint" style="margin-top:0">Everything public, as spreadsheets (CSV) or as data files (JSON). Prices are back-adjusted for futures rolls; the latest prices are the real ones.</p>
+      <div id="downloads"></div>
+    </section>
+
+    <section class="doc">
+      <h2>What's private</h2>
+      <p>Claude's individual trades, its open positions, its decisions and the thinking behind them, its comments on the
+      news, and every bot's trade list are private. They're stored encrypted (AES-256 with a key made from a password),
+      both in the code repository and on this site, so they can't be read without the password; this page decrypts them
+      in your browser, and the password never leaves your device. Everyone can see the returns, the race chart, the lab's
+      results, the backtests and the downloads above.</p>
     </section>
   </main>
   </div>
@@ -574,21 +659,20 @@ async function init() {
   showView(viewFromHash(), true);
   skeletons();
   const scriptsReady = document.readyState === "loading" ? new Promise(r => document.addEventListener("DOMContentLoaded", r, { once: true })) : null;
-  [D.prices, D.news, D.trades, D.equity, D.pf, D.status, D.decisions, D.context, D.rbTrades, D.calls, D.ictTrades, D.ict, D.history, D.lab, D.labTrades, D.labBook, D.kronos, D.kronosTrades, D.consensus, D.rolls] = await Promise.all([
-    getJSON("prices.json", null), getJSON("news.json", []), getJSON("trades.json", []), getJSON("equity.json", []),
-    getJSON("portfolio.json", null), getJSON("status.json", {}), getJSON("decisions.json", []), getJSON("context.json", {}),
-    getJSON("rules_trades.json", []), getJSON("calls.json", []), getJSON("ict_trades.json", []), getJSON("ict_now.json", {}),
-    getJSON("history.json", { markets: {} }), getJSON("strategies.json", null), getJSON("lab_trades.json", []), getJSON("lab.json", null),
-    getJSON("kronos.json", null), getJSON("kronos_trades.json", []), getJSON("consensus.json", null),
-    getJSON("rolls.json", null),
+  [D.prices, D.news, D.equity, D.status, D.context, D.ict, D.history, D.lab, D.kronos, D.rolls, D.summary, D.private] = await Promise.all([
+    getJSON("prices.json", null), getJSON("news.json", []), getJSON("equity.json", []), getJSON("status.json", {}),
+    getJSON("context.json", {}), getJSON("ict_now.json", {}), getJSON("history.json", { markets: {} }),
+    getJSON("strategies.json", null), getJSON("kronos.json", null), getJSON("rolls.json", null),
+    getJSON("summary.json", null), openPrivate(),
   ]);
+  usePrivate(D.private);
   await scriptsReady;  // the chart library loads in parallel with the data
   if (!D.prices || !Object.keys(D.prices).length) { $("#app").hidden = true; $("#setup").hidden = false; return; }
   $("#tabs").replaceChildren();
   document.querySelectorAll("#app .sk").forEach(x => { if (!x.closest("#labBody, #btBody")) x.remove(); });
   D.fx = D.status.fx || 1;
   D.last = Object.fromEntries(Object.entries(D.prices).map(([s, p]) => [s, p.bars.at(-1).close]));
-  D.latest = D.decisions.at(-1) || {};
+  D.latest = D.decisions.at(-1) || (D.summary?.claude ? { paused: D.summary.claude.paused, t: D.summary.claude.t } : {});
   sym = Object.keys(D.prices)[0];
 
   renderHeader(); renderTabs(); makeCharts(); renderCockpit(); renderContext(); renderRisk();
@@ -607,6 +691,7 @@ async function init() {
   renderBacktest("hourly");
   renderLab();
   renderData();
+  renderDownloads();
   reveal(...document.querySelectorAll("main.page > section"));
   $("#themeBtn").onclick = () => setTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark", true);
   setTheme(document.documentElement.dataset.theme || "dark");
@@ -617,6 +702,85 @@ async function init() {
     if (e.key === "ArrowLeft") select(keys[(i - 1 + keys.length) % keys.length]);
     if (e.key === "Escape") $("#detail").hidden = true;
   });
+}
+
+// ---------- private data: encrypted on GitHub, unlocked here with the password (Web Crypto, nothing leaves the device) ----------
+const KEY = "argon-key";  // the derived key (not the password), kept for this browser session only
+const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+const b64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+const store = { get: () => { try { return JSON.parse(sessionStorage.getItem(KEY)); } catch { return null; } },
+                set: v => { try { sessionStorage.setItem(KEY, JSON.stringify(v)); } catch {} },
+                clear: () => { try { sessionStorage.removeItem(KEY); } catch {} } };
+
+async function deriveKey(password, blob) {
+  // PBKDF2-SHA256 with the bundle's salt and rounds, then AES-256-GCM: the same steps as vault.py on GitHub
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(password), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", salt: unb64(blob.salt), iterations: blob.iter, hash: "SHA-256" },
+    base, { name: "AES-GCM", length: 256 }, true, ["decrypt"]);
+}
+
+async function openBox(blob, key) {
+  const plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: unb64(blob.iv) }, key, unb64(blob.ct));
+  return JSON.parse(new TextDecoder().decode(plain));
+}
+
+async function openPrivate() {
+  // only fetched when this session already has the key, so public visitors never download the locked file
+  const saved = store.get();
+  if (!saved || !window.crypto?.subtle) return null;
+  const blob = await getJSON("private.enc.json", null);
+  if (!blob || blob.salt !== saved.salt) { store.clear(); return null; }
+  try {
+    const key = await crypto.subtle.importKey("raw", unb64(saved.key), "AES-GCM", false, ["decrypt"]);
+    return await openBox(blob, key);
+  } catch { store.clear(); return null; }
+}
+
+async function unlock(password) {
+  if (!window.crypto?.subtle) throw new Error("This browser can't decrypt here (it needs a secure https page).");
+  const blob = await getJSON("private.enc.json", null);
+  if (!blob) throw new Error("There's no private data on the site yet. It appears after the next hourly run.");
+  const key = await deriveKey(password, blob);
+  try { await openBox(blob, key); } catch { throw new Error("That password didn't work."); }
+  store.set({ salt: blob.salt, key: b64(await crypto.subtle.exportKey("raw", key)) });
+}
+
+function usePrivate(p) {
+  // unlocked: the full data; locked: empty lists, and the public summary where the page needs totals
+  D.unlocked = !!p;
+  D.pf = p?.portfolio || null; D.trades = p?.trades || []; D.decisions = p?.decisions || []; D.calls = p?.calls || [];
+  D.consensus = p?.consensus || null; D.rbTrades = p?.rules_trades || []; D.ictTrades = p?.ict_trades || [];
+  D.kronosTrades = p?.kronos_trades || []; D.labTrades = p?.lab_trades || [];
+  D.labBook = p?.lab || { strategies: D.summary?.lab_live || {} };
+  const takes = p?.news_takes || {};
+  for (const n of D.news) if (takes[n.id]) n.claude = takes[n.id];
+}
+
+const PADLOCK = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
+
+function lockCard(title, text) {
+  // the password box shown in place of each private section
+  const input = el("input", { type: "password", placeholder: "Password", autocomplete: "current-password", required: true });
+  input.setAttribute("aria-label", "Password");
+  const btn = el("button", { type: "submit", textContent: "Unlock" });
+  const err = el("p", { className: "lockerr", role: "alert" });
+  const form = el("form", { className: "lockform" }, [input, btn]);
+  form.onsubmit = async e => {
+    e.preventDefault();
+    btn.disabled = true; btn.textContent = "Unlocking…"; err.textContent = "";
+    try { await unlock(input.value); location.reload(); }
+    catch (x) { err.textContent = x.message; btn.disabled = false; btn.textContent = "Unlock"; input.select(); }
+  };
+  const icon = el("span", { className: "lockicon" }); icon.innerHTML = PADLOCK;
+  return el("div", { className: "lock" }, [icon, el("div", {}, [el("strong", { textContent: title }),
+    el("p", { textContent: text || "Claude's trades, positions and reasoning are private. Enter the password to see them on this device; it's remembered until you close the browser." }),
+    form, err])]);
+}
+
+function locked(sec, title, text, keep = "h2") {
+  // swap a section's contents for the password box, keeping its heading
+  const head = keep && sec.querySelector(keep);
+  sec.replaceChildren(...(head ? [head] : []), lockCard(title, text));
 }
 
 // ---------- pages: Live, Strategy lab, Backtest, Data (each has its own link, and the back button works) ----------
@@ -681,7 +845,12 @@ function renderHeader() {
   countUp(tone($("#sIct"), ir), ir, pct);
   const kr = eq?.kronos ? eq.kronos / START - 1 : 0;
   countUp(tone($("#sKronos"), kr), kr, pct);
-  if (D.pf) countUp($("#sCash"), D.pf.cash, money); else $("#sCash").textContent = "";
+  if (D.pf) countUp($("#sCash"), D.pf.cash, money); else $("#sCash").closest(".stat").hidden = true;
+  if (D.unlocked && !$("#lockBtn")) {  // a way to lock it again on this device
+    const b = el("button", { className: "themebtn", id: "lockBtn", type: "button", textContent: "Lock", title: "Forget the password on this device",
+      onclick: () => { store.clear(); location.reload(); } });
+    $("#themeBtn").before(b);
+  }
 }
 
 function change24(bars) {
@@ -1120,6 +1289,7 @@ function influence(which) {
 }
 
 function renderDrivers(which = "avg") {
+  if (!D.unlocked) { $("#driverSeg")?.remove(); locked($("#driversSec"), "Claude's reasons are private"); return; }
   const box = $("#drivers");
   box.replaceChildren();
   const got = influence(which);
@@ -1193,6 +1363,58 @@ function renderData() {
     el("p", { className: "hint", textContent: `Argon rolls ${R.roll_days || 5} business days before each contract's last trading day or first notice day. ` +
       "A positive gap means the next month cost more (contango): holding through the roll earns less than the front-month chart shows. " +
       "\"Estimated\" means Yahoo didn't have the contracts' own prices, so the gap was read from the jump in its continuous series." }));
+}
+
+// ---------- downloads (public data only), built in the browser ----------
+const iso = t => new Date(t * 1000).toISOString().replace(".000Z", "Z");
+const csvCell = v => v == null ? "" : typeof v === "number" ? String(v) : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v);
+const toCSV = (head, rows) => [head, ...rows].map(r => r.map(csvCell).join(",")).join("\n") + "\n";
+
+function datasets() {
+  const bt = D.bt?.runs || {}, P = D.summary?.perf || {};
+  const perfRows = [["Claude", "equity"], ["Claude's strategies", "lab"], ["ICT bot", "ict"], ["Kronos bot", "kronos"], ["Trend bot", "rules"], ["Buy and hold", "benchmark"]]
+    .map(([n, k]) => [n, P[k] || {}]);
+  return [
+    ["prices", "Prices", "Hourly bars for the last 60 days, every market (back-adjusted for rolls)",
+      () => toCSV(["market", "name", "time_utc", "open", "high", "low", "close"], Object.entries(D.prices).flatMap(([s, p]) => p.bars.map(b => [s, p.name, iso(b.time), b.open, b.high, b.low, b.close]))),
+      () => Object.fromEntries(Object.entries(D.prices).map(([s, p]) => [s, { name: p.name, unit: p.unit, exchange: p.exchange, contract: p.contract, bars: p.bars }]))],
+    ["equity", "Equity curves", "Every competitor's account value, every hour since the start (£)",
+      () => toCSV(["time_utc", "claude", "claude_active", "claude_core", "claudes_strategies", "ict_bot", "kronos_bot", "trend_bot", "buy_and_hold"],
+        D.equity.map(e => [iso(e.time), e.equity, e.active, e.core, e.lab, e.ict, e.kronos, e.rules, e.benchmark])),
+      () => D.equity],
+    ["performance", "Performance", "Return, trades, win rate, realised profit and worst drawdown per competitor",
+      () => toCSV(["competitor", "return", "trades_opened", "closed_trades", "win_rate", "realised_pnl_gbp", "max_drawdown"],
+        perfRows.map(([n, x]) => [n, x.ret, x.buys, x.closed, x.win, x.realised, x.dd])),
+      () => D.summary?.perf || {}],
+    ["backtest", "Backtest results", "Per market and combined, hourly (2 years) and daily (5 years)",
+      () => toCSV(["run", "market", "name", "bot", "return", "cagr", "max_drawdown", "trades", "win_rate", "profit_factor", "avg_r", "rolls"],
+        Object.entries(bt).flatMap(([run, r]) => [...Object.entries(r.markets).flatMap(([s, m]) => ["ict", "trend", "hold"].map(k => [run, s, m.name, k, m[k].return, m[k].cagr, m[k].max_dd, m[k].trades, m[k].win_rate, m[k].profit_factor, m[k].avg_r, m.data?.rolls])),
+          ...["ict", "trend", "hold"].map(k => { const x = r.combined[k].stats; return [run, "combined", "All markets", k, x.return, x.cagr, x.max_dd, x.trades, x.win_rate, x.profit_factor, x.avg_r, ""]; })])),
+      () => D.bt],
+    ["lab", "Strategy lab results", "Every strategy Claude has invented and how it did on data it was never fitted on",
+      () => toCSV(["id", "name", "timeframe", "passed", "live", "test_trades", "test_profit_factor", "test_avg_r", "train_profit_factor", "windows_up", "windows_traded", "luck_after_correction", "idea"],
+        (D.lab?.strategies || []).map(x => { const te = x.results?.test?.combined || {}, tr = x.results?.train?.combined || {}, v = x.validation || {};
+          return [x.id, x.name, x.timeframe, !!x.passed, (D.lab.portfolio || []).includes(x.id), te.trades, te.profit_factor, te.avg_r, tr.profit_factor, v.windows_up, v.windows_traded, v.adj_p, x.idea]; })),
+      () => D.lab],
+  ];
+}
+
+function renderDownloads() {
+  const box = $("#downloads");
+  box.replaceChildren();
+  const link = (label, name, make, type) => el("a", { href: "#", textContent: label, onclick: e => {
+    e.preventDefault();
+    const url = URL.createObjectURL(new Blob([make()], { type }));
+    const a = el("a", { href: url, download: name }); document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  } });
+  for (const [id, title, what, csv, json] of datasets()) {
+    box.append(el("div", { className: "dl" }, [
+      el("div", { className: "what" }, [title, el("small", { textContent: what })]),
+      el("div", { className: "btns" }, [link("CSV", `argon-${id}.csv`, csv, "text/csv"),
+        link("JSON", `argon-${id}.json`, () => JSON.stringify(json(), null, 1), "application/json")]),
+    ]));
+  }
 }
 
 function renderLong() {
@@ -1291,6 +1513,11 @@ function growBar(score) {
 }
 
 function renderCockpit() {
+  if (!D.unlocked) {
+    $("#cockpit").replaceChildren(el("h2", { textContent: "Claude's decisions" }),
+      lockCard("Claude's decisions and thinking are private", "Every few hours Claude reads the markets, the news, the bots and its own strategies, and decides. Enter the password to see its decisions, its reasoning and how it sees each market."));
+    return;
+  }
   const L = D.latest;
   const [label, color] = STATE[L.state] || ["No decision yet", "--muted"];
   $("#state").textContent = label;
@@ -1337,6 +1564,12 @@ function renderContext() {
 }
 
 function renderRisk() {
+  if (!D.unlocked) {
+    const e = D.equity.at(-1) || {};
+    $("#risk").replaceChildren(...(e.core != null ? [kv("Active, managed by Claude", money(e.active)), kv("Core holding", money(e.core))] : []),
+      el("p", { className: "hint", textContent: "Positions, exposure and today's P&L are private." }));
+    return;
+  }
   const r = D.status.rules || {}, pf = D.pf || { cash: START, positions: {}, day: {} };
   const eq = equityNow(), pos = Object.entries(pf.positions);
   const exposure = pos.reduce((a, [s, p]) => a + p.qty * (D.last[s] ?? 0) / D.fx, 0);
@@ -1372,6 +1605,7 @@ function renderRisk() {
 }
 
 function renderActivity() {
+  if (!D.unlocked) { locked($("#activitySec"), "Claude's activity is private"); return; }
   const list = $("#activity");
   const seen = new Set(D.decisions.map(d => d.t));
   const extra = [...new Set(D.trades.filter(t => (t.source === "core" || t.action === "ROLL") && !seen.has(t.t)).map(t => t.t))]
@@ -1398,6 +1632,11 @@ function renderActivity() {
 }
 
 function renderBook() {
+  if (!D.unlocked) {
+    $("#bookSec h2").textContent = "Positions and trades";
+    locked($("#bookSec"), "Every trade is private", "Claude's positions and trades, and every bot's trades, are private. The returns above and the race chart below are public.");
+    return;
+  }
   const pos = D.pf ? Object.entries(D.pf.positions) : [];
   const box = $("#positions");
   if (!pos.length) box.append(el("p", { className: "empty", textContent: D.pf?.core ? "No open trades. The active part is all cash." : "No open positions. All cash." }));
@@ -1464,7 +1703,7 @@ function newsItem(n, list, withMarket) {
   if (imp === "bearish") dot.style.background = "var(--down)";
   const tags = withMarket ? newsSyms(n).filter(s => D.prices[s]).map(s => el("span", { className: "mtag", textContent: D.prices[s].name })) : [];
   const meta = el("div", { className: "meta" }, [n.claude ? dot : "", `${n.source || "Unknown source"}, ${ago(n.published)}`,
-    n.claude ? "" : el("span", { className: "newbadge", textContent: "New" })]);
+    n.claude || !D.unlocked ? "" : el("span", { className: "newbadge", textContent: "New" })]);
   const li = el("li", { className: "item", tabIndex: 0 }, [el("div", { className: "title" }, [...tags, n.title]), meta]);
   const toggle = () => {
     const open = li.querySelector(".bubwrap:not(.closed)");
@@ -1473,7 +1712,7 @@ function newsItem(n, list, withMarket) {
     const label = imp ? `Claude thinks this is ${imp}` : "Claude's take";
     const wrap = el("div", { className: "bubwrap closed" }, [el("div", {}, [el("div", { className: "bubble" }, [
       el("div", { className: "who", textContent: label }),
-      el("div", { textContent: n.claude?.take || "Claude hasn't read this one yet. It comments on new headlines every 4 hours." }),
+      el("div", { textContent: n.claude?.take || (D.unlocked ? "Claude hasn't read this one yet. It comments on new headlines every 4 hours." : "Claude's comment on this headline is private. Unlock with the password on the Live tab to read it.") }),
       el("a", { href: n.link, target: "_blank", rel: "noopener", textContent: "Read the article", onclick: e => e.stopPropagation() }),
     ])])]);
     li.append(wrap); li.classList.add("open");
@@ -1506,7 +1745,7 @@ function renderFeed(group = "all") {
   const list = $("#feed"); list.replaceChildren();
   const inGroup = n => group === "all" || newsSyms(n).some(s => D.prices[s]?.group === group);
   const items = D.news.filter(inGroup).sort((a, b) => b.published - a.published);
-  $("#feedCount").textContent = items.length ? `${items.length} headlines, ${items.filter(n => n.claude).length} with Claude's comment` : "";
+  $("#feedCount").textContent = !items.length ? "" : D.unlocked ? `${items.length} headlines, ${items.filter(n => n.claude).length} with Claude's comment` : `${items.length} headlines`;
   if (!items.length) { list.append(el("li", { className: "empty", textContent: "No recent headlines." })); return; }
   for (const n of items) list.append(newsItem(n, list, true));
 }
@@ -1521,7 +1760,10 @@ function stats(trades, key) {
 }
 
 function renderPerf() {
-  const cols = [["Claude", stats(D.trades.filter(t => t.source !== "core"), "equity")], ...(labLive() ? [["Claude's strategies", stats(D.labTrades, "lab")]] : []), ["ICT bot", stats(D.ictTrades, "ict")], ["Kronos bot", stats(D.kronosTrades, "kronos")], ["Trend bot", stats(D.rbTrades, "rules")], ["Buy and hold", stats([], "benchmark")]];
+  // locked: the totals published for visitors (no individual trades); unlocked: worked out from the trades
+  const S = !D.unlocked && D.summary?.perf;
+  const st = (trades, key) => S ? (S[key] || stats([], key)) : stats(trades, key);
+  const cols = [["Claude", st(D.trades.filter(t => t.source !== "core"), "equity")], ...(labLive() || S?.lab?.buys ? [["Claude's strategies", st(D.labTrades, "lab")]] : []), ["ICT bot", st(D.ictTrades, "ict")], ["Kronos bot", st(D.kronosTrades, "kronos")], ["Trend bot", st(D.rbTrades, "rules")], ["Buy and hold", st([], "benchmark")]];
   const c = n => n > 0 ? "up" : n < 0 ? "down" : "";
   const rows = [
     ["Return", s => pct(s.ret), s => c(s.ret)],
@@ -1539,7 +1781,17 @@ function renderPerf() {
 }
 
 function renderReport() {
-  const box = $("#report");
+  const box = $("#report"), R = !D.unlocked && D.summary?.report;
+  if (R) {  // locked: the published totals
+    const n = ([r, k]) => k ? `${Math.round(r / k * 100)}% of ${k}` : "—";
+    if (!R.all[1]) { box.append(el("p", { className: "empty", textContent: `No calls checked yet. ${R.pending} waiting.` })); return; }
+    box.append(
+      countUp(el("div", { className: "big" }), R.all[0] / R.all[1] * 100, v => Math.round(v) + "%"),
+      el("p", { className: "muted", style: "margin:2px 0 8px", textContent: "of Claude's bullish and bearish calls were right after 24 hours. A coin flip would get about 50%." }),
+      kv("Bullish calls", n(R.bullish)), kv("Bearish calls", n(R.bearish)), kv("High conviction (score 60+)", n(R.high)),
+      ...Object.entries(R.groups).map(([g, x]) => kv(g, n(x))), kv("Waiting to be checked", R.pending));
+    return;
+  }
   const done = D.calls.filter(x => x.checked && x.right != null), pending = D.calls.filter(x => !x.checked).length;
   if (!done.length) {
     box.append(el("p", { className: "empty", textContent: `No calls checked yet. Each bullish or bearish call gets marked right or wrong 24 hours after Claude makes it. ${pending} waiting.` }));

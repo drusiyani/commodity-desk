@@ -35,9 +35,17 @@ import ict
 import kronos_bot as KB
 import rolls as R
 import validation as V
+import vault
 
 ROOT = Path(__file__).parent
 DATA = ROOT / "site" / "data"
+STATE = ROOT / "state"       # the private data, encrypted (vault.py); never stored in plain text
+# Private: Claude's trades, positions, decisions and thinking, its comments on the news, and every bot's trades and
+# positions. Everything else (prices, equity curves, backtests, the lab's results) is public.
+PRIVATE = {"portfolio.json", "trades.json", "decisions.json", "calls.json", "news_takes.json", "consensus.json",
+           "rules.json", "rules_trades.json", "ict.json", "ict_trades.json", "lab.json", "lab_trades.json",
+           "kronos_bot.json", "kronos_trades.json"}
+SITE_PRIVATE = "private.enc.json"   # the one encrypted bundle the website can unlock with the password
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 
 START_CASH = 100_000      # GBP
@@ -82,14 +90,54 @@ CONTEXT = {
 
 
 # ---------- storage ----------
+def salt():
+    """This deployment's salt for the key derivation, created once and kept in state/ (a salt needn't be secret)."""
+    p = STATE / "salt.txt"
+    if not p.exists():
+        STATE.mkdir(parents=True, exist_ok=True)
+        p.write_text(__import__("base64").b64encode(os.urandom(16)).decode())
+    return __import__("base64").b64decode(p.read_text().strip())
+
+
 def load(name, default):
+    if name in PRIVATE:
+        enc = STATE / (name + ".enc")
+        if enc.exists():
+            return vault.decrypt(json.loads(enc.read_text()), vault.password())
+        # versions before encryption kept it in site/data in plain text: read it this once; save() encrypts it
+        # into state/ and deletes the plain copy
     p = DATA / name
     return json.loads(p.read_text()) if p.exists() else default
 
 
 def save(name, obj):
+    if name in PRIVATE:
+        STATE.mkdir(parents=True, exist_ok=True)
+        (STATE / (name + ".enc")).write_text(json.dumps(vault.encrypt(obj, vault.password(), salt())))
+        (DATA / name).unlink(missing_ok=True)
+        return
     DATA.mkdir(parents=True, exist_ok=True)
     (DATA / name).write_text(json.dumps(obj, indent=1))
+
+
+def save_site_bundle(parts):
+    """Everything private the website shows, as one encrypted file it can unlock with the password."""
+    DATA.mkdir(parents=True, exist_ok=True)
+    (DATA / SITE_PRIVATE).write_text(json.dumps(vault.encrypt(dict(parts, t=int(time.time())), vault.password(), salt())))
+
+
+def split_news(news):
+    """The headlines are public; Claude's comments on them are private."""
+    takes = {n["id"]: n["claude"] for n in news if n.get("claude")}
+    return [{k: v for k, v in n.items() if k != "claude"} for n in news], takes
+
+
+def join_news(news, takes):
+    for n in news:
+        nid = n.get("id") or news_id(n.get("title", ""))
+        if nid in takes and not n.get("claude"):
+            n["claude"] = takes[nid]
+    return news
 
 
 def load_config():
@@ -1025,6 +1073,46 @@ def daily_atr(sym, prices, history):
     return a
 
 
+# ---------- what public visitors see instead of the private data: totals only, no individual trades ----------
+def perf(trades, key, eq_hist):
+    """One competitor's headline numbers, worked out the same way as the website's table."""
+    closed = [t for t in trades if t.get("pnl") is not None]
+    peak, dd = START_CASH, 0.0
+    vals = [e[key] for e in eq_hist if e.get(key) is not None]
+    for v in vals:
+        peak = max(peak, v)
+        dd = min(dd, v / peak - 1)
+    return {"ret": round(vals[-1] / START_CASH - 1, 5) if vals else 0.0,
+            "buys": sum(1 for t in trades if t.get("action") in ("BUY", "SHORT")), "closed": len(closed),
+            "win": round(sum(1 for t in closed if t["pnl"] > 0) / len(closed), 3) if closed else None,
+            "realised": round(sum(t["pnl"] for t in closed), 2), "dd": round(dd, 5)}
+
+
+def report_card(calls):
+    done = [c for c in calls if c.get("checked") and c.get("right") is not None]
+    pair = lambda xs: [sum(1 for c in xs if c["right"]), len(xs)]
+    groups = {}
+    for c in done:
+        groups.setdefault(COMMODITIES.get(c["symbol"], {}).get("group", "Other"), []).append(c)
+    return {"all": pair(done), "bullish": pair([c for c in done if c["bias"] == "bullish"]),
+            "bearish": pair([c for c in done if c["bias"] == "bearish"]),
+            "high": pair([c for c in done if (c.get("score") or 0) >= 60]),
+            "groups": {g: pair(xs) for g, xs in groups.items()}, "pending": sum(1 for c in calls if not c.get("checked"))}
+
+
+def public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf, decisions):
+    last = decisions[-1] if decisions else {}
+    return {"t": now,
+            "perf": {"equity": perf([t for t in trades if t.get("source") != "core"], "equity", eq_hist),
+                     "lab": perf(lb_trades, "lab", eq_hist), "ict": perf(ib_trades, "ict", eq_hist),
+                     "kronos": perf(kb_trades, "kronos", eq_hist), "rules": perf(rb_trades, "rules", eq_hist),
+                     "benchmark": perf([], "benchmark", eq_hist)},
+            "report": report_card(calls),
+            "lab_live": {sid: {k: v for k, v in x.items() if k != "r"} | {"trades": len(x.get("r") or [])}
+                         for sid, x in lb.get("strategies", {}).items()},
+            "claude": {"t": last.get("t"), "paused": bool(last.get("paused")), "positions": len(pf["positions"])}}
+
+
 # ---------- report card: were Claude's calls right 24 hours later? ----------
 def evaluate_calls(calls, prices, now):
     for c in calls:
@@ -1221,6 +1309,7 @@ Use empty lists for "trades" and "adjust" if nothing to do."""
 # ---------- main ----------
 def main():
     now = int(time.time())
+    vault.password()  # stop now, before trading, if the private data can't be read or saved (see vault.py)
     config = load_config()
     health = {}
 
@@ -1232,7 +1321,7 @@ def main():
     fx = get_fx()
     context = get_context()
     health["context"] = bool(context)
-    news, health["news"] = get_news(load("news.json", []), now)
+    news, health["news"] = get_news(join_news(load("news.json", []), load("news_takes.json", {})), now)
     history = get_history(prices)
     health["history"] = len(history["markets"]) >= len(COMMODITIES) - 1
     kronos = get_kronos(prices, now)
@@ -1379,7 +1468,9 @@ def main():
 
     save("prices.json", prices)
     save("context.json", context)
-    save("news.json", news)
+    public_news, takes = split_news(news)
+    save("news.json", public_news)
+    save("news_takes.json", takes)
     save("portfolio.json", pf)
     save("trades.json", trades)
     save("decisions.json", decisions)
@@ -1400,8 +1491,14 @@ def main():
                         "markets": {s: {k: v for k, v in p.items() if k in ("contract", "ticker", "priced_from",
                                         "method", "next_roll", "next_contract", "note", "rolls")}
                                     for s, p in prices.items()}})
-    save("consensus.json", {"t": now, "markets": all_market_bots(prices, *bot_args),
-                            "records": bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)})
+    consensus = {"t": now, "markets": all_market_bots(prices, *bot_args),
+                 "records": bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)}
+    save("consensus.json", consensus)
+    save("summary.json", public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf,
+                                        decisions))
+    save_site_bundle({"portfolio": pf, "trades": trades, "decisions": decisions, "calls": calls, "news_takes": takes,
+                      "consensus": consensus, "rules_trades": rb_trades, "ict_trades": ib_trades,
+                      "kronos_trades": kb_trades, "lab": lb, "lab_trades": lb_trades})
     save("history.json", {"date": history["date"], "fetched": history.get("fetched", 0), "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})
