@@ -96,7 +96,8 @@ def test_risk_limits_use_the_active_part():
     E.rebalance_core(p, LAST, FX, JUNE, 0.4)
     p["day"] = {"date": "today", "start_equity": E.equity(p, LAST, FX)}
     E.apply_decision(p, {"trades": [{"symbol": "GC=F", "action": "BUY", "amount_gbp": 90_000, "stop": 95,
-                                     "target": 120}]}, LAST, FX, JUNE)
+                                     "target": 120, "thesis": "t", "opposite": "o", "invalidation": "i",
+                                     "confidence": 50}]}, LAST, FX, JUNE)
     value = p["positions"]["GC=F"]["qty"] * 100 / FX
     assert value == pytest.approx(E.MAX_POSITION * 60_000, rel=1e-3)
 
@@ -201,9 +202,14 @@ def test_prompt_has_no_ict_and_asks_for_influence(monkeypatch):
     p = book()
     E.rebalance_core(p, {"GC=F": 2000.0}, FX, JUNE, 0.4)
     bots = {"GC=F": {"rows": [CS.row("Lab 'X'", 1.0, "signal long", 200, 0.8, "200 trades, PF 1.30")]}}
-    E.ask_claude(prices, {}, [], p, {"GC=F": 2000.0}, FX, [], [], {}, bots=bots, atrs={"GC=F": 31.5})
+    lessons = {"lessons": [{"id": "L1", "text": "I chase breakouts in gold", "support": 4}]}
+    E.ask_claude(prices, {}, [], p, {"GC=F": 2000.0}, FX, [], [], {}, bots=bots, atrs={"GC=F": 31.5}, lessons=lessons,
+                 card={"calls": 5, "lean": 20, "rows": [{"name": "Kronos", "pointed": 5, "right": 0.4, "leaned": 2,
+                                                        "right_leaned": 0.5, "claude_right_leaned": 0.5}]})
     t = seen["p"]
     assert "none of them is a gatekeeper" in t
+    assert "I chase breakouts in gold (supported by 4" in t and "Kronos: right 40% of 5 times" in t
+    assert all(k in t for k in ('"thesis"', '"opposite"', '"invalidation"', '"confidence"'))
     assert "ICT" not in t and "Trend bot" not in t and "trend bot" not in t
     assert '"stop_basis"' in t and '"influence"' in t and "daily ATR 31.5" in t
     assert "Bots now: Lab 'X' signal long [w 0.70: 200 trades, PF 1.30]" in t and "consensus +" in t

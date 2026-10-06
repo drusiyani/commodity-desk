@@ -16,8 +16,13 @@ def pf(**kw):
     return C.normalize(p)
 
 
+WHY = {"thesis": "Gold breaks out on a weaker dollar.", "opposite": "Rates could rise and stall it.",
+       "invalidation": "A daily close back under 1950.", "confidence": 62}
+
+
 def buy(sym="GC=F", amount=10_000, stop=1950.0, target=2100.0, **kw):
-    return dict({"symbol": sym, "action": "BUY", "amount_gbp": amount, "stop": stop, "target": target, "reason": "test"}, **kw)
+    return dict({"symbol": sym, "action": "BUY", "amount_gbp": amount, "stop": stop, "target": target, "reason": "test",
+                 **WHY}, **kw)
 
 
 def decide(p, *trades, adjust=()):
@@ -141,3 +146,18 @@ def test_hourly_check_ignores_bars_from_before_the_last_run():
     p["last_run"] = T0 + 5 * HOUR
     prices = {"GC=F": {"bars": [bar(1, 2000, 2001, 1900, 1990), bar(5, 2000, 2005, 1995, 2000)]}}
     assert E.check_exits(p, prices, FX, T0 + 6 * HOUR) == []
+
+
+@pytest.mark.parametrize("drop", ["thesis", "opposite", "invalidation", "confidence"])
+def test_every_buy_needs_its_four_part_reasoning(drop):
+    p = pf()
+    filled, blocked = decide(p, buy(**{drop: None}))
+    assert filled == [] and drop in blocked[0] and "GC=F" not in p["positions"]
+
+
+def test_the_reasoning_is_saved_with_the_trade_and_confidence_must_be_0_to_100():
+    p = pf()
+    filled, _ = decide(p, buy())
+    assert {k: filled[0][k] for k in WHY} == WHY
+    assert decide(pf(), buy(confidence=140))[0] == [] and decide(pf(), buy(confidence="high"))[0] == []
+    assert decide(pf(), buy(thesis="   "))[0] == []
