@@ -158,7 +158,12 @@ def retest_old(lab, data):
 
 def finish(lab, data):
     """Pick the live portfolio from the passing strategies and size it."""
-    retired = {sid: x for sid, x in E.load("lab.json", {}).get("strategies", {}).items() if x.get("retired")}
+    try:
+        book = E.load("lab.json", {})
+    except E.vault.Locked as e:  # the hourly engine keeps retired strategies out of trading anyway
+        print("Couldn't read which strategies were retired:", e)
+        book = {}
+    retired = {sid: x for sid, x in book.get("strategies", {}).items() if x.get("retired")}
     for st in lab["strategies"]:
         if st["id"] in retired:
             st["retired"] = {"t": retired[st["id"]]["retired"], "reason": retired[st["id"]].get("reason")}

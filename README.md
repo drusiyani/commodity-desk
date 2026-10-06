@@ -23,6 +23,25 @@ Every trade, for every competitor, goes through one shared trading core (`core.p
 backtests fill orders exactly the same way: 0.05% costs per side, and a stop that price gaps through fills at the
 bar's open, not at the stop.
 
+## Public and private data
+
+GitHub Pages and a public repo can be read by anyone, so private data is **encrypted**, not just hidden:
+
+- **Private:** Claude's trades, open positions, decisions and thinking, its comments on the news, and every bot's
+  trades and positions. They're stored in `state/` as encrypted files (`*.json.enc`); the site gets one encrypted
+  bundle, `site/data/private.enc.json`.
+- **How:** a key is made from `ARGON_PASSWORD` with PBKDF2-SHA256 (600,000 rounds, to make guessing slow), and each
+  file is sealed with AES-256-GCM (which also detects tampering). See `vault.py`. Each run decrypts the state at the
+  start and encrypts it again at the end; the trader refuses to commit if a plain-text private file ever reappears.
+- **On the site:** private sections show a padlock and a password box. The browser decrypts the bundle itself
+  (Web Crypto API), so the password never leaves your device, and remembers the key until you close the browser.
+- **Public:** the header returns, the race chart, totals for each competitor (`site/data/summary.json`, no
+  individual trades), the strategy lab, the backtests and the Data tab with its downloads.
+- **Older versions:** before encryption, the private files were committed in plain text, and **they're still in the
+  repo's git history**. Encryption protects everything from now on. Removing the old copies would mean rewriting
+  the repository's history (for example with `git filter-repo`) and force-pushing, which breaks other clones; if
+  that matters, make the repo private instead, or start a fresh repo from the current files.
+
 ## Futures rolls
 
 A futures contract is for one delivery month and stops trading when that month arrives, so anyone holding
@@ -113,8 +132,12 @@ times over. From those 20 paths come an **expected move**, a **likely range** (t
 1. Put this repo on GitHub (a **public** repo keeps GitHub Actions free; see costs below).
 2. **Settings → Secrets and variables → Actions → New repository secret**: name `ANTHROPIC_API_KEY`, value: your
    key from console.anthropic.com. This is the only key Argon uses.
-3. **Settings → Pages → Source:** choose **GitHub Actions**.
-4. **Actions tab → Run trader → Run workflow.** After a few minutes your site is live at
+3. Add a second secret, `ARGON_PASSWORD`: a long password of your choice. It encrypts the private data (below) and
+   is what you type on the website to see it. The trader and the strategy lab stop with a clear message if it's
+   missing. If you ever change it, the old encrypted files can't be read any more, so change it only together
+   with a fresh start.
+4. **Settings → Pages → Source:** choose **GitHub Actions**.
+5. **Actions tab → Run trader → Run workflow.** After a few minutes your site is live at
    `https://<your-username>.github.io/<repo-name>/`.
 
 ### The workflows (all in the Actions tab)
@@ -158,6 +181,7 @@ Edit `config.json` in the repo:
 - `engine.py`: the hourly live run: data, news, Kronos, Claude, the core holding and the bots.
 - `consensus.py`: what each bot is doing in each market and how much its evidence earns it.
 - `rolls.py`: futures roll calendars, back-adjusted prices and roll gaps.
+- `vault.py`: encryption of the private data.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
 - `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups).
 - `kronos_model.py` + `kronos_bot.py`: running Kronos, and the Kronos bot's rules and track record.
