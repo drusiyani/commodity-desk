@@ -61,6 +61,9 @@ header .topbar { justify-self: end; }
 #iRead { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
 #iLive #perfSec { grid-column: 1 / -1; }
 header .stats { grid-column: 1 / -1; }
+/* switching desk: the other desk's numbers fade in */
+@keyframes statsIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+.motion .stats.enter { animation: statsIn .45s cubic-bezier(.2, .7, .2, 1) both; }
 h1 { font-size: 21px; font-weight: 600; margin: 0 0 6px; }
 .pills { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); }
 .pill::before { content: ""; display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; background: var(--c, var(--up)); vertical-align: 1px; }
@@ -237,6 +240,7 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
 .newslist li.item { cursor: pointer; }
 .newslist .title { line-height: 1.35; }
 .newslist li.item:hover .title { text-decoration: underline; }
+.ver { display: inline-block; margin-left: 8px; font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 5px; white-space: nowrap; }
 .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; background: var(--muted); }
 .bubble { position: relative; margin-top: 10px; padding: 10px 12px; border: 1px solid var(--accent-line); border-radius: 8px; background: var(--soft); font-size: 14px; }
 .bubble::before { content: ""; position: absolute; top: -7px; left: 18px; width: 12px; height: 12px; background: var(--soft);
@@ -375,15 +379,18 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       </nav>
       <button class="themebtn" id="themeBtn" type="button"></button>
     </div>
-    <div class="stats">
+    <div class="stats only-commodities" id="cStats">
       <div class="stat"><div class="v" id="sEquity"></div><div class="k">Portfolio value</div></div>
       <div class="stat"><div class="v" id="sReturn"></div><div class="k">Claude's return</div></div>
       <div class="stat" id="sLabWrap" hidden><div class="v" id="sLab"></div><div class="k">Claude's strategies</div></div>
       <div class="stat"><div class="v" id="sKronos"></div><div class="k">Kronos bot</div></div>
-      <div class="stat" id="sQuantWrap" hidden><div class="v" id="sQuant"></div><div class="k">Quant bot</div></div>
-      <div class="stat" id="sLitWrap" hidden><div class="v" id="sLit"></div><div class="k">LIT bot</div></div>
+      <div class="stat"><div class="v" id="sQuant"></div><div class="k">Quant</div></div>
       <div class="stat"><div class="v" id="sBench"></div><div class="k">Buy and hold</div></div>
       <div class="stat"><div class="v" id="sCash"></div><div class="k">Cash</div></div>
+    </div>
+    <div class="stats only-indices" id="iStats">
+      <div class="stat"><div class="v" id="sLit"></div><div class="k">LIT bot</div></div>
+      <div class="stat"><div class="v" id="sKidx"></div><div class="k">Kronos indices bot</div></div>
     </div>
   </header>
 
@@ -771,7 +778,7 @@ function skeletons() {
   const sk = (cls = "line") => el("span", { className: "sk " + cls, ariaHidden: "true" });
   const lines = (sel, n) => $(sel)?.replaceChildren(...Array.from({ length: n }, (_, i) => sk(["line", "mid", "short"][i % 3])));
   $("#themeBtn").textContent = document.documentElement.dataset.theme === "dark" ? "Light mode" : "Dark mode";
-  ["#sEquity", "#sReturn", "#sKronos", "#sBench", "#sCash", "#state"].forEach(x => $(x).replaceChildren(sk("")));
+  ["#sEquity", "#sReturn", "#sKronos", "#sQuant", "#sBench", "#sCash", "#sLit", "#sKidx", "#state"].forEach(x => $(x).replaceChildren(sk("")));
   $("#tabs").replaceChildren(...["Energy", "Metals", "Agriculture"].map(g => el("div", { className: "group" }, [el("span", { className: "glabel", textContent: g }),
     el("div", { className: "gbtns" }, Array.from({ length: g === "Agriculture" ? 4 : 3 }, () => el("span", { className: "sk", style: "width:112px;height:46px;margin:0" })))])));
   $("#chartTitle").replaceChildren(el("span", { className: "sk", style: "display:inline-block;width:260px;margin:0" }));
@@ -953,6 +960,10 @@ function showDesk(next, first) {
     showDesk.timer = setTimeout(() => root.classList.remove("theming"), 450);
   }
   root.dataset.desk = next;
+  if (!first) {   // the header's numbers are the desk's own: fade the new set in
+    const g = $(next === "indices" ? "#iStats" : "#cStats");
+    g.classList.remove("enter"); void g.offsetWidth; g.classList.add("enter");
+  }
   document.querySelectorAll("#deskSwitch button").forEach(b => b.setAttribute("aria-pressed", b.dataset.desk === next));
   document.querySelectorAll("#views a").forEach(a => a.href = `#${next}/${a.dataset.view}`);
   const perf = $("#perfSec");  // the race belongs to both desks: move it into the one showing
@@ -1011,6 +1022,7 @@ function renderHeader() {
     ["Kronos", h.kronos == null ? "not run yet" : h.kronos ? (D.kronos?.status === "partial" ? "partial" : "live") : "error",
       h.kronos == null ? "--muted" : h.kronos ? (D.kronos?.status === "partial" ? "--brass" : "--up") : "--down"],
     ["Risk engine", "on", "--up"],
+    ...(D.status.prompt_version ? [[`${shortModel(D.status.model)}, prompt v${D.status.prompt_version}`, "", "--muted"]] : []),
     [`Last run ${D.status.updated ? ago(D.status.updated) : "unknown"}`, late ? "late" : "", late ? "--down" : "--up"],
   ];
   $("#pills").replaceChildren(...pills.map(([k, v, c]) => { const p = el("span", { className: "pill", textContent: v ? `${k} ${v}` : k }); p.style.setProperty("--c", `var(${c})`); return p; }));
@@ -1023,8 +1035,10 @@ function renderHeader() {
   markRetired();
   const kr = eq?.kronos ? eq.kronos / START - 1 : 0;
   countUp(tone($("#sKronos"), kr), kr, pct);
-  if (eq?.quant != null) { $("#sQuantWrap").hidden = false; const qr = eq.quant / START - 1; countUp(tone($("#sQuant"), qr), qr, pct); }
-  if (eq?.lit != null) { $("#sLitWrap").hidden = false; const lr = eq.lit / START - 1; countUp(tone($("#sLit"), lr), lr, pct); }
+  for (const [id, key] of [["#sQuant", "quant"], ["#sLit", "lit"], ["#sKidx", "kronos_idx"]]) {
+    if (eq?.[key] == null) { $(id).replaceChildren(el("span", { className: "muted", textContent: "next run" })); continue; }
+    const x = eq[key] / START - 1; countUp(tone($(id), x), x, pct);
+  }
   if (D.pf) countUp($("#sCash"), D.pf.cash, money); else $("#sCash").closest(".stat").hidden = true;
   if (D.unlocked && !$("#lockBtn")) {  // a way to lock it again on this device
     const b = el("button", { className: "themebtn", id: "lockBtn", type: "button", textContent: "Lock", title: "Forget the password on this device",
@@ -1326,18 +1340,17 @@ function renderBacktest(key) {
   const f = (v, fmt) => v == null ? "—" : fmt(v);
   const cols = [["ICT bot (retired)", "ict"], ["Trend bot (retired)", "trend"], ["Buy and hold", "hold"]];
   const rows = [
-    ["Total return", s => f(s.return, pct), s => c(s.return)],
-    ["Per year", s => f(s.cagr, pct), s => c(s.cagr)],
-    ["Max drawdown", s => f(s.max_dd, pct), s => c(s.max_dd)],
+    ["Total return", s => f(s.return, pct), s => c(s.return), true],
+    ...MEASURES.slice(0, 6),
     ["Trades", s => s.trades || "—"],
-    ["Win rate", s => f(s.win_rate, v => Math.round(v * 100) + "%")],
-    ["Profit factor", s => f(s.profit_factor, v => v.toFixed(2))],
+    ...MEASURES.slice(6, 9),
     ["Average R per trade", s => f(s.avg_r, v => (v > 0 ? "+" : "") + v.toFixed(2) + "R"), s => c(s.avg_r)],
+    ...MEASURES.slice(9),
   ];
   const combined = el("table", {}, [
     el("thead", {}, [el("tr", {}, [el("th", { textContent: "All markets combined" }), ...cols.map(([n]) => el("th", { className: "num", textContent: n }))])]),
     el("tbody", {}, rows.map(([label, fn, cl]) => el("tr", {}, [el("td", { className: "muted", textContent: label }),
-      ...cols.map(([, k]) => { const s = run.combined[k].stats; return el("td", { className: "num " + (cl ? cl(s) : ""), textContent: k === "hold" && !["Total return", "Per year", "Max drawdown"].includes(label) ? "—" : fn(s) }); })]))),
+      ...cols.map(([, k]) => { const s = run.combined[k].stats; return el("td", { className: "num " + (cl ? cl(s) : ""), textContent: k === "hold" && (!rows.find(r => r[0] === label)[3] || label.startsWith("Correlation")) ? "—" : fn(s) }); })]))),
   ]);
   const per = el("table", {}, [
     el("thead", {}, [el("tr", {}, ["Market", "ICT return", "ICT trades", "ICT win rate", "Trend return", "Buy and hold"].map((x, i) => el("th", { className: i ? "num" : "", textContent: x })))]),
@@ -1598,6 +1611,7 @@ function renderLit() {
       kv("Return, all markets", pct(st.return), c(st.return)), kv("Trades", st.trades),
       kv("Win rate", st.win_rate == null ? "—" : Math.round(st.win_rate * 100) + "%"), kv("Average per trade", fmtR(st.avg_r)),
       kv("Profit factor", st.profit_factor ?? "—"), kv("Worst drawdown", pct(st.max_dd), c(st.max_dd)),
+      ...MEASURES.filter(([n]) => !["Max drawdown", "Win rate", "Profit factor"].includes(n)).map(([n, fn, cl]) => kv(n, fn(st), cl ? cl(st) : "")),
     ]),
     el("div", { id: "litCurve" }),
   );
@@ -1655,9 +1669,7 @@ function renderQuantBt() {
   $("#quantWhen").textContent = `${new Date(r.from * 1000).toLocaleDateString("en-GB", { month: "short", year: "numeric" })} to ${new Date(r.to * 1000).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}`;
   const c = n => n > 0 ? "up" : n < 0 ? "down" : "", f = (v, fmt) => v == null ? "—" : fmt(v);
   const cols = [["Combined", r.combined.quant.stats, "--quant"], ...Object.entries(r.strategies).map(([k, x]) => [QSTRAT[k], x.stats, QCOLOR[k]])];
-  const rows = [["Total return", s => f(s.return, pct), s => c(s.return)], ["Per year", s => f(s.cagr, pct), s => c(s.cagr)],
-    ["Max drawdown", s => f(s.max_dd, pct), s => c(s.max_dd)], ["Trades", s => s.trades], ["Win rate", s => f(s.win_rate, v => Math.round(v * 100) + "%")],
-    ["Profit factor", s => f(s.profit_factor, v => v.toFixed(2))]];
+  const rows = [["Total return", s => f(s.return, pct), s => c(s.return)], ...MEASURES.slice(0, 6), ["Trades", s => s.trades], ...MEASURES.slice(6)];
   box.append(
     el("p", { style: "margin:0 0 10px", textContent: "The Quant bot's four strategies on 5 years of daily candles, through the same code as live, with costs (0.05% a side), slippage (0.02% a side) and the cost of every futures roll. Back-adjusted prices mean the results include roll yield. Combined, the strategies share the risk equally; each is also shown on its own with the whole risk budget. The settings are the published defaults, chosen before the test." }),
     el("div", { className: "legend" }, cols.filter(x => x[1]).map(([n, , col]) => el("span", {}, [el("i", { style: `background:var(${col})` }), n]))),
@@ -2120,6 +2132,7 @@ function showDetail(t) {
       t.stop ? el("span", { textContent: `Stop ${price(t.stop)}` }) : "", t.target ? el("span", { textContent: `Target ${price(t.target)}` }) : "", pnl,
     ]),
     el("div", { textContent: t.reason || "No reason recorded." }),
+    versionTag(t) ? el("div", { className: "muted", textContent: `Decided by ${shortModel(t.model)}, prompt version ${t.prompt_v}` }) : "",
     t.evidence?.length ? el("ul", {}, t.evidence.map(x => el("li", { textContent: x }))) : "",
   );
   d.hidden = false;
@@ -2223,6 +2236,10 @@ function renderRisk() {
   );
 }
 
+// which model and prompt version a decision or trade ran under (tagged from prompt v1 on)
+const shortModel = m => String(m || "").replace(/^claude-/, "").replace(/-\d{8}$/, "");
+const versionTag = x => x?.prompt_v ? `${shortModel(x.model)} · prompt v${x.prompt_v}` : "";
+
 function renderActivity() {
   if (!D.unlocked) { locked($("#activitySec"), "Claude's activity is private"); return; }
   const list = $("#activity");
@@ -2234,7 +2251,8 @@ function renderActivity() {
   for (const d of ds) {
     const [label, color] = STATE[d.state] || ["", "--muted"];
     const tag = el("span", { className: "tag", textContent: label }); tag.style.color = `var(${color})`;
-    const li = el("li", {}, [el("div", { className: "top" }, [el("span", { textContent: when(d.t) }), tag]), el("div", { textContent: d.summary || "" })]);
+    const li = el("li", {}, [el("div", { className: "top" }, [el("span", {}, [when(d.t), versionTag(d) ? el("span", { className: "ver", textContent: versionTag(d) }) : ""]), tag]),
+      el("div", { textContent: d.summary || "" })]);
     const core = D.trades.filter(t => t.t === d.t && t.source === "core" && t.action !== "ROLL");
     if (core.length) {
       const sum = a => money(core.filter(t => t.action === a).reduce((x, t) => x + t.value, 0));
@@ -2307,7 +2325,7 @@ function renderHistory(k) {
       tone(el("td", { className: "tag", textContent: ACTION(t) }), SIGN(t)),
       el("td", { className: "num", textContent: price(t.price) }), el("td", { className: "num", textContent: money(t.value) }),
       t.pnl != null ? tone(el("td", { className: "num", textContent: signed(t.pnl) }), t.pnl) : el("td", { className: "num muted", textContent: "—" }),
-      el("td", { className: "reason", textContent: t.reason }),
+      el("td", { className: "reason" }, [t.reason || "", versionTag(t) ? el("span", { className: "ver", textContent: versionTag(t) }) : ""]),
     ]));
   }
 }
@@ -2378,10 +2396,27 @@ function stats(trades, key) {
            win: sells.length ? wins.length / sells.length : null, realised: sells.reduce((a, t) => a + t.pnl, 0), dd };
 }
 
+// the fuller measures (metrics.py): the same rows in the race's table and every backtest table
+const fx2 = v => v == null ? "—" : v.toFixed(2), pc = v => v == null ? "—" : pct(v), sgn = n => n > 0 ? "up" : n < 0 ? "down" : "";
+const MEASURES = [
+  ["Annual return", s => pc(s.ann_return ?? s.cagr), s => sgn(s.ann_return ?? s.cagr), true],
+  ["Volatility (a year)", s => pc(s.volatility), null, true],
+  ["Sharpe ratio", s => fx2(s.sharpe), s => sgn(s.sharpe), true],
+  ["Sortino ratio", s => fx2(s.sortino), s => sgn(s.sortino), true],
+  ["Max drawdown", s => pc(s.max_dd ?? s.dd), s => sgn(s.max_dd ?? s.dd), true],
+  ["Return / max drawdown", s => fx2(s.ret_dd), s => sgn(s.ret_dd), true],
+  ["Win rate", s => { const w = s.win_rate ?? s.win; return w == null ? "—" : Math.round(w * 100) + "%"; }],
+  ["Profit factor", s => fx2(s.profit_factor)],
+  ["Expectancy per trade", s => s.expectancy == null ? "—" : signed(s.expectancy), s => sgn(s.expectancy)],
+  ["Exposure (time in a position)", s => s.exposure == null ? "—" : Math.round(s.exposure * 100) + "%", null, true],
+  ["Correlation to buy and hold", s => fx2(s.corr_hold)],
+];
+
 function renderPerf() {
-  // locked: the totals published for visitors (no individual trades); unlocked: worked out from the trades
+  // locked: the totals published for visitors (no individual trades); unlocked: worked out from the trades. The fuller
+  // measures (annualised from daily values) come from the run's own summary either way.
   const S = !D.unlocked && D.summary?.perf;
-  const st = (trades, key) => S ? (S[key] || stats([], key)) : stats(trades, key);
+  const st = (trades, key) => ({ ...(D.summary?.perf?.[key] || {}), ...(S ? (S[key] || stats([], key)) : stats(trades, key)) });
   const cols = [["Claude", st(D.trades.filter(t => t.source !== "core"), "equity")], ...(labLive() || S?.lab?.buys ? [["Claude's strategies", st(D.labTrades, "lab")]] : []), [botName("ict"), st(D.ictTrades, "ict")], ["Kronos bot", st(D.kronosTrades, "kronos")], [botName("rules"), st(D.rbTrades, "rules")],
     ...(D.equity.some(e => e.lit != null) ? [["LIT bot", st(D.litTrades.map(t => ({ ...t, pnl: "trade_pnl" in t ? t.trade_pnl : null })), "lit")]] : []),
     ...(D.equity.some(e => e.quant != null) ? [["Quant bot", st(D.quantTrades, "quant")]] : []),
@@ -2389,18 +2424,19 @@ function renderPerf() {
     ["Buy and hold", st([], "benchmark")]];
   const c = n => n > 0 ? "up" : n < 0 ? "down" : "";
   const rows = [
-    ["Return", s => pct(s.ret), s => c(s.ret)],
+    ["Return", s => pct(s.ret), s => c(s.ret), true],
+    ...MEASURES.slice(0, 6),
     ["Trades opened", s => s.buys],
     ["Closed trades", s => s.closed],
-    ["Win rate", s => s.win == null ? "—" : Math.round(s.win * 100) + "%"],
+    ...MEASURES.slice(6, 9),
     ["Realised P&L", s => signed(s.realised), s => c(s.realised)],
-    ["Max drawdown", s => pct(s.dd), s => c(s.dd)],
+    ...MEASURES.slice(9),
   ];
   $("#perf").append(el("table", {}, [
     el("thead", {}, [el("tr", {}, [el("th"), ...cols.map(([n]) => el("th", { className: "num", textContent: n }))])]),
-    el("tbody", {}, rows.map(([label, f, cls]) => el("tr", {}, [el("td", { className: "muted", textContent: label }),
-      ...cols.map(([n, s]) => el("td", { className: "num " + (cls ? cls(s) : ""), textContent: n === "Buy and hold" && label !== "Return" && label !== "Max drawdown" ? "—" : f(s) }))]))),
-  ]));
+    el("tbody", {}, rows.map(([label, f, cls, hold]) => el("tr", {}, [el("td", { className: "muted", textContent: label }),
+      ...cols.map(([n, s]) => el("td", { className: "num " + (cls ? cls(s) : ""), textContent: n === "Buy and hold" && !hold || n === "Buy and hold" && label.startsWith("Correlation") ? "—" : f(s) }))]))),
+  ]), el("p", { className: "hint", textContent: "Annual figures are worked out from each day's closing value, as if the results so far carried on for a year; over a few weeks they are mostly noise. Sharpe and Sortino take no risk-free rate off (cash earns nothing here). Expectancy is the average result per closed trade. Exposure counts the hourly runs with at least one position open (recorded from this version on)." }));
 }
 
 function renderReport() {

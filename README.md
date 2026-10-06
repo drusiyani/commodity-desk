@@ -9,8 +9,9 @@ Claude's comment on every headline, every trade and how each competitor is doing
 **Backtest** (`#backtest`) and **Data** (`#data`: where the prices come from and each market's futures rolls).
 A switch in the middle of the header flips between two desks: **Commodities** (gold accent) and **Indices** (cyan
 accent: the US index futures, their session ranges and LIT levels, Kronos's forecasts for them, the LIT bot and the
-Kronos indices bot, the LIT backtest and the LIT audit). The
-desk is part of the link too, e.g. `#indices/backtest`; older links like `#lab` open the commodities desk.
+Kronos indices bot, the LIT backtest and the LIT audit). The header's numbers follow the desk: Commodities shows the
+portfolio value, Claude's return, Claude's strategies, the Kronos bot, the Quant bot, buy and hold and cash; Indices
+shows the LIT bot and the Kronos indices bot. The desk is part of the link too, e.g. `#indices/backtest`; older links like `#lab` open the commodities desk.
 
 ## The race
 
@@ -96,6 +97,10 @@ switch day: a move nobody could have traded. `rolls.py` deals with it:
   buy-and-hold benchmark and the backtests pay for rolls the same way.
 
 ## How Claude decides
+
+- **Versions.** Every decision and every trade in Claude's account is tagged with the model and a prompt version
+  (`PROMPT_VERSION` in `engine.py`, raised whenever the prompt or the way its answer is used changes), so results can
+  be split by version. The site shows the tag on each decision, trade and in the header.
 
 - **No single gatekeeper.** Every input is weighed on its merits; none is required.
 - **Stops.** Each buy says what its stop is based on: `atr` or `structure`. With no valid stop, the risk engine puts
@@ -240,6 +245,8 @@ Edit `config.json` in the repo:
 - `quant.py`: the Quant bot's four strategies, sizing, accounting, backtest and live step.
 - `lit.py`: the LIT bot (detection and trading); its rules are in `docs/lit.md`.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
+- `metrics.py`: the performance measures used everywhere (annual return, volatility, Sharpe, Sortino, max drawdown,
+  return / max drawdown, win rate, profit factor, expectancy, exposure, correlation to buy and hold).
 - `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups), used only by the
   retired ICT bot's backtest. The lab's `ict_long` / `ict_short` features are retired too (no strategy used them).
 - `kronos_model.py` + `kronos_bot.py`: running Kronos, and the Kronos bots' rules (commodities and indices) and track

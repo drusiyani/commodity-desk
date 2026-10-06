@@ -348,11 +348,12 @@ def enter(book, sym, rules, i, px, fx=1.0, now=0, bar_time=None, eq=None, max_op
     return f
 
 
-def backtest(bars, rules, start=0, end=None, cash=START, cost=COST, sym="X", rolls=()):
+def backtest(bars, rules, start=0, end=None, cash=START, cost=COST, sym="X", rolls=(), held=None):
     """Run one market's rules over bars[start:end] on its own account, exactly as live would trade it bar by bar:
     stops and targets checked on each bar, rule exits and entries at each close, anything open closed at the end.
     `rolls`: times when the futures contract was rolled (bars should be back-adjusted, see rolls.py); a position
-    held across one pays the cost of rolling it. Returns (equity curve, trades)."""
+    held across one pays the cost of rolling it. `held`: a list to append 1/0 to per bar (in a position or not).
+    Returns (equity curve, trades)."""
     end = len(bars) if end is None else end
     book = new_book(cash)
     curve, trades = [], []
@@ -372,6 +373,8 @@ def backtest(bars, rules, start=0, end=None, cash=START, cost=COST, sym="X", rol
         else:
             enter(book, sym, rules, i, b["close"], now=b["time"], bar_time=b["time"], cost=cost)
         curve.append(equity(book, {sym: b["close"]}))
+        if held is not None:
+            held.append(1 if book["positions"] else 0)
     return curve, trades
 
 

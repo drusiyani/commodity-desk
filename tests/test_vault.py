@@ -110,7 +110,9 @@ def test_public_summary_has_no_individual_trades():
     calls = [{"symbol": "GC=F", "bias": "bullish", "score": 70, "checked": True, "right": True}, {"symbol": "CL=F", "bias": "bearish", "checked": False}]
     lb = {"strategies": {"s1": {"name": "A", "r": [0.5, -1], "equity": 50_000}}}
     s = E.public_summary(3, eq, trades, [], [], [], [], calls, lb, {"positions": {}}, [])
-    assert s["perf"]["equity"] == {"ret": 0.01, "buys": 1, "closed": 1, "win": 1.0, "realised": 50.0, "dd": 0.0}
+    assert {k: s["perf"]["equity"][k] for k in ("ret", "buys", "closed", "win", "realised", "dd")} == {
+        "ret": 0.01, "buys": 1, "closed": 1, "win": 1.0, "realised": 50.0, "dd": 0.0}
+    assert s["perf"]["equity"]["expectancy"] == 50.0 and "sharpe" in s["perf"]["equity"]
     assert s["perf"]["benchmark"]["dd"] == pytest.approx(-0.01)
     assert s["report"]["all"] == [1, 1] and s["report"]["pending"] == 1 and s["report"]["groups"]["Metals"] == [1, 1]
     assert s["lab_live"]["s1"] == {"name": "A", "equity": 50_000, "trades": 2}

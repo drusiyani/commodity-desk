@@ -33,6 +33,7 @@ import consensus as CS
 import core as C
 import kronos_bot as KB
 import lit as LIT
+import metrics as M
 import quant as Q
 import rolls as R
 import validation as V
@@ -50,6 +51,9 @@ PRIVATE = {"portfolio.json", "trades.json", "decisions.json", "calls.json", "new
            "quant.json", "quant_trades.json"}
 SITE_PRIVATE = "private.enc.json"   # the one encrypted bundle the website can unlock with the password
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
+# Claude's prompt version: raise it by one whenever the trading prompt, or the way its answer is used, changes. Every
+# decision and every trade in Claude's account is tagged with it and the model, so results can be split by version.
+PROMPT_VERSION = 1
 
 START_CASH = 100_000      # GBP
 MAX_POSITION = C.MAX_POSITION  # max share of portfolio in one commodity (25%)
@@ -1149,17 +1153,24 @@ def daily_atr(sym, prices, history):
 
 # ---------- what public visitors see instead of the private data: totals only, no individual trades ----------
 def perf(trades, key, eq_hist):
-    """One competitor's headline numbers, worked out the same way as the website's table."""
+    """One competitor's numbers, the same way for everyone (metrics.py): return, trades, win rate, realised P&L,
+    drawdown, and annual return, volatility, Sharpe, Sortino, return / max drawdown, profit factor, expectancy,
+    exposure (share of hourly runs it held something; recorded from this version on) and correlation to buy and hold."""
     closed = [t for t in trades if t.get("pnl") is not None]
-    peak, dd = START_CASH, 0.0
-    vals = [e[key] for e in eq_hist if e.get(key) is not None]
+    rows = [e for e in eq_hist if e.get(key) is not None]
+    vals = [e[key] for e in rows]
+    start = START_CASH
+    peak, dd = start, 0.0
     for v in vals:
         peak = max(peak, v)
         dd = min(dd, v / peak - 1)
-    return {"ret": round(vals[-1] / START_CASH - 1, 5) if vals else 0.0,
-            "buys": sum(1 for t in trades if t.get("action") in ("BUY", "SHORT")), "closed": len(closed),
-            "win": round(sum(1 for t in closed if t["pnl"] > 0) / len(closed), 3) if closed else None,
-            "realised": round(sum(t["pnl"] for t in closed), 2), "dd": round(dd, 5)}
+    held = [key in e["open"] for e in rows if "open" in e] if key != "benchmark" else [True] * len(rows)
+    m = M.measures([e["time"] for e in rows], vals, closed, held or None,
+                   [e.get("benchmark") for e in rows] if key != "benchmark" else None, start=start)
+    return dict(m, ret=round(vals[-1] / START_CASH - 1, 5) if vals else 0.0,
+                buys=sum(1 for t in trades if t.get("action") in ("BUY", "SHORT")), closed=len(closed),
+                win=round(sum(1 for t in closed if t["pnl"] > 0) / len(closed), 3) if closed else None,
+                realised=round(sum(t["pnl"] for t in closed), 2), dd=round(dd, 5))
 
 
 def report_card(calls):
@@ -1526,6 +1537,7 @@ def main():
     rb = rb or {"cash": START_CASH, "positions": {}, "retired": now}   # a fresh start: retired from the outset
     if not ib:  # a fresh start: the ICT bot is retired, so its account just sits empty
         ib, ib_trades = {"cash": START_CASH, "positions": {}, "used": [], "last_run": now, "retired": now}, []
+    n_trades = len(trades)
     for book in (pf, rb, ib, kb):  # positions saved by older versions get the fields core.py expects
         C.normalize(book)
     core_book(pf)
@@ -1628,7 +1640,11 @@ def main():
     lit_trades += more
     calls = evaluate_calls(calls, prices, now)[-5000:]
     decisions = (decisions + ([entry] if entry else []))[-400:]
+    if entry is not None:
+        entry.update(model=MODEL, prompt_v=PROMPT_VERSION)
     trades += core_fills + filled
+    for t in trades[n_trades:]:   # every trade in Claude's account this run (rolls too): which model and prompt version
+        t.update(model=MODEL, prompt_v=PROMPT_VERSION)
     pf["last_run"] = now
 
     starts = pf["start_prices"]
@@ -1642,6 +1658,9 @@ def main():
     for key, book in (("rules", rb), ("ict", ib)):  # a retired bot's curve ends with the run that closed it
         if not was_retired[key]:
             row[key] = round(equity(book, last_usd, fx), 2)
+    row["open"] = [k for k, has in (("equity", pf["positions"]), ("lab", any(sl["positions"] for sl in lb["sleeves"].values())),
+                                    ("kronos", kb["positions"]), ("lit", litb["positions"]), ("kronos_idx", kib["positions"]),
+                                    ("quant", any(sl["pos"] for sl in qb["sleeves"].values()))) if has]
     eq_hist.append(row)
 
     save("prices.json", prices)
@@ -1690,7 +1709,7 @@ def main():
     save("history.json", {"date": history["date"], "fetched": history.get("fetched", 0), "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})
-    save("status.json", {"updated": now, "model": MODEL, "fx": fx, "health": health,
+    save("status.json", {"updated": now, "model": MODEL, "prompt_version": PROMPT_VERSION, "fx": fx, "health": health,
                          "last_claude": pf.get("last_claude"),
                          "retired": {k: b.get("retired") for k, b in (("ict", ib), ("rules", rb))},
                          "core": {"fraction": pf["core"].get("fraction"), "month": pf["core"].get("month"),
