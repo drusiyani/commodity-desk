@@ -145,5 +145,18 @@
   "source": "kronos",
   "stop": 87.5643,
   "target": 89.24
+ },
+ {
+  "t": 1791278539,
+  "symbol": "HG=F",
+  "name": "Copper",
+  "action": "SHORT",
+  "qty": 4931.289,
+  "price": 6.651,
+  "value": 24774.3,
+  "reason": "Kronos: 30% chance of a rise, expected -0.43% in 24h",
+  "source": "kronos",
+  "stop": 6.6772,
+  "target": 6.6226
  }
 ]

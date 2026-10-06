@@ -1464,7 +1464,10 @@
   "symbol": "KC=F",
   "bias": "bearish",
   "score": 15,
-  "price": 290.75
+  "price": 290.75,
+  "checked": true,
+  "chg": 0.01341,
+  "right": false
  },
  {
   "t": 1791160224,
@@ -1491,7 +1494,10 @@
   "symbol": "CC=F",
   "bias": "bullish",
   "score": 75,
-  "price": 5609.0
+  "price": 5609.0,
+  "checked": true,
+  "chg": 0.03904,
+  "right": true
  },
  {
   "t": 1791174149,
@@ -1558,7 +1564,10 @@
   "symbol": "KC=F",
   "bias": "bearish",
   "score": 10,
-  "price": 290.75
+  "price": 290.75,
+  "checked": true,
+  "chg": 0.01341,
+  "right": false
  },
  {
   "t": 1791174149,
@@ -1585,77 +1594,110 @@
   "symbol": "CC=F",
   "bias": "bullish",
   "score": 75,
-  "price": 5609.0
+  "price": 5609.0,
+  "checked": true,
+  "chg": 0.03904,
+  "right": true
  },
  {
   "t": 1791188618,
   "symbol": "CC=F",
   "bias": "bullish",
   "score": 65,
-  "price": 5609.0
+  "price": 5609.0,
+  "checked": true,
+  "chg": 0.03887,
+  "right": true
  },
  {
   "t": 1791188618,
   "symbol": "GC=F",
   "bias": "bullish",
   "score": 60,
-  "price": 4196.2002
+  "price": 4196.2002,
+  "checked": true,
+  "chg": -0.00434,
+  "right": false
  },
  {
   "t": 1791188618,
   "symbol": "HG=F",
   "bias": "neutral",
   "score": 45,
-  "price": 6.6055
+  "price": 6.6055,
+  "checked": true,
+  "chg": 0.00689,
+  "right": null
  },
  {
   "t": 1791188618,
   "symbol": "ZC=F",
   "bias": "neutral",
   "score": 40,
-  "price": 499.75
+  "price": 499.75,
+  "checked": true,
+  "chg": -0.0015,
+  "right": null
  },
  {
   "t": 1791188618,
   "symbol": "CL=F",
   "bias": "bearish",
   "score": 25,
-  "price": 89.44
+  "price": 89.44,
+  "checked": true,
+  "chg": -0.01744,
+  "right": true
  },
  {
   "t": 1791188618,
   "symbol": "BZ=F",
   "bias": "bearish",
   "score": 20,
-  "price": 100.76
+  "price": 100.76,
+  "checked": true,
+  "chg": -0.01886,
+  "right": true
  },
  {
   "t": 1791188618,
   "symbol": "NG=F",
   "bias": "bearish",
   "score": 15,
-  "price": 3.033
+  "price": 3.033,
+  "checked": true,
+  "chg": 0.01451,
+  "right": false
  },
  {
   "t": 1791188618,
   "symbol": "ZW=F",
   "bias": "neutral",
   "score": 35,
-  "price": 691.0
+  "price": 691.0,
+  "checked": true,
+  "chg": 0.00579,
+  "right": null
  },
  {
   "t": 1791188618,
   "symbol": "SI=F",
   "bias": "neutral",
   "score": 25,
-  "price": 62.07
+  "price": 62.07,
+  "checked": true,
+  "chg": -0.01104,
+  "right": null
  },
  {
   "t": 1791188618,
   "symbol": "KC=F",
   "bias": "neutral",
   "score": 20,
-  "price": 290.75
+  "price": 290.75,
+  "checked": true,
+  "chg": 0.01135,
+  "right": null
  },
  {
   "t": 1791201144,

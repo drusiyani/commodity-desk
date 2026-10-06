@@ -312,5 +312,30 @@
   "source": "rules",
   "stop": null,
   "target": null
+ },
+ {
+  "t": 1791278539,
+  "symbol": "BZ=F",
+  "name": "Brent crude",
+  "action": "SELL",
+  "qty": 131.0909,
+  "price": 98.86,
+  "value": 9789.2,
+  "reason": "20-bar average fell below 100-bar average",
+  "source": "rules",
+  "pnl": -145.94
+ },
+ {
+  "t": 1791278539,
+  "symbol": "SI=F",
+  "name": "Silver",
+  "action": "BUY",
+  "qty": 213.5382,
+  "price": 61.385,
+  "value": 9901.29,
+  "reason": "20-bar average crossed above 100-bar average",
+  "source": "rules",
+  "stop": null,
+  "target": null
  }
 ]

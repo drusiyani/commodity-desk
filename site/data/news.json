@@ -1,5 +1,41 @@
 [
  {
+  "title": "Brent seeks a new equilibrium as supply recovers and costs rise",
+  "source": "CMC Markets",
+  "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNYy15eDc5THdFLXlCb1FDTTAtMndpamR3TGVaMVAxWWg2V0UxVi1iVUhjZ25wRWVKMHVuUmV2TTBndHlUSzdueDBncXd4Q2dHT2ZHcU9fQ3NoejFReVljLUx6Z2s4VGNVTjVnSVRRTzlwSy1IUzRMMnFYQlBHZ0lpUXd1NU1uaVNIcFhVVXpMTzhaR0VpbUo4MWxMTV95YThsMDI1cktBb0dtV1RGdllYVHVrYkc?oc=5",
+  "published": 1791278056,
+  "id": "n206ada92f1",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791278539
+ },
+ {
+  "title": "Agricultural product prices today, October 6, 2026: Domestic coffee prices may see upward movements; Pepper prices unlikely to rise; Thai rice exports at risk of falling short of targets.",
+  "source": "Vietnam.vn",
+  "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxPY2VVVnl2eUh0ZzA5Smh6WGFldVNrd1VXTDVFbExzUk1VNWR3TTZVMDhuWDJiX21JX3BBN1lJWG1BaFhaSHNjdlJmX0tWeWNGR1JmU1NqdDhQbU1nakFwNDFDYVM2V193MG9aVFFmMTdOeUNfRXAtajg0dkctN1VseDIzWlZ4MHc1V0VOMWNsVEF0REp5dU91b2lUU29seGUtRFVGZEZWb3hPOFhJT05CRjVoY2xhTklIVy1jcjZsbjZDWWlpbWMzeDNxaGNCU2U1LXRqMDdoeDZHY2dQNmNhVk5NSFN1bW5ZNDY1NWRudUN1YXN1QTYxNWY5am9HUQ?oc=5",
+  "published": 1791275484,
+  "id": "n010327fe65",
+  "symbol": "KC=F",
+  "symbols": [
+   "KC=F"
+  ],
+  "seen": 1791278539
+ },
+ {
+  "title": "Wheat and soybeans rise in Chicago on Monday, while corn slips",
+  "source": "UkrAgroConsult",
+  "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxObUtGNE9oOWVLOEt6cUU5cDRFam03QmMzM083U1M4ZlZGTF9FNllWcDdlMGlIcGRCNW9nSUp3YmZ6bzRTZjBNVWdVbWVrZk42NTRlYTl0VzQ1R0JxMFI2TXJKQVlvbW5sOGwxVEZMZ0Nad3g2TWpfQ01sS3hza1BEOW9FSmxUdTN3X1V6ZGZ0NG5FMm9fazN6VnNCdmJ5UQ?oc=5",
+  "published": 1791275380,
+  "id": "nfbbd247e1f",
+  "symbol": "ZW=F",
+  "symbols": [
+   "ZW=F"
+  ],
+  "seen": 1791278539
+ },
+ {
   "title": "Oil Prices Fall as Middle East Exports Recover, Shipping Risks Persist",
   "source": "WSJ",
   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxONUtscjBad2NrYlFpckhZRUc0SUFnc3YzYjhqenRqaHlUUHE5Z1BpVGJlRjZWaE5BSzZxUWtoNnFoXzg1VVd5QlNWY3RMLVBiUW1QUXNaTUFBMExBMTNEaXQ3bU13QnlfbUJScW5yNUJDQTJ2SUJXMmo3NXZyOTBtb2FNOThkNjc1ZlgwU3JGRkRSclhaS25UQjk4QWNiZ2Y2bkpiMkJidk1LakNnTmNodTVYN0Q0cTg?oc=5",
@@ -19,7 +55,8 @@
   "id": "nbaa4659aa0",
   "symbol": "BZ=F",
   "symbols": [
-   "BZ=F"
+   "BZ=F",
+   "CL=F"
   ],
   "seen": 1791274970
  },
@@ -123,6 +160,18 @@
    "take": "Coffee prices climbed to $6,449/ton on the third consecutive session up. Momentum bullish and supply concern being repriced. Supports coffee upside.",
    "t": 1791267970
   }
+ },
+ {
+  "title": "Gold Prices to Hit Record High in 2027, Averaging $5,330, Metals Focus Forecasts",
+  "source": "finance.biggo.com",
+  "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTE14VGVMMkJiLW1sVld2TmVaUVhuRG5mOUJfTk9tLWhlMkYwdEE0SWludFhjTFRKd3RpSjBnN1pRREdNQndBTTB4QnpnQkxTQ01MazkyMUtCVHYzcFZDZVlKbnpjSU4wYU1wU2NHZzJVdTBDQS0tSWc?oc=5",
+  "published": 1791266700,
+  "id": "n566ed29403",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1791278539
  },
  {
   "title": "America\u2019s Defense Industrial Base Begins at the Mine",
@@ -331,6 +380,18 @@
   }
  },
  {
+  "title": "Oil slips as Mideast exports, G7 stockpile ease supply concerns",
+  "source": "Reuters",
+  "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNR2pUdllqZ01ILVZhYUF3SUxMbElJVnBReFhYeE8tUXVUYlVmMVE3WkVTWjJnVTBVMEg5M2Npd0lOM1BHTGVmaVFEbEtGZ2JmVUd4WWhFUzAwdU1zOTNGVFZNaWhORU1KTlN1M0llbXlTemtiVDd2a1pEeVQ0aDRYSW5rX0xYam10ek5xVTctY1dwZW1qUlRNOHZDeUFjWl91cXR5NVRQQ0ZXT1BBcnNjV0pXYWtIbVlHbmRTanpNaUszT1Rx?oc=5",
+  "published": 1791247140,
+  "id": "n44ce49e52e",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791278539
+ },
+ {
   "title": "Silver shortage to surplus by 2027: Deutsche outlook for mine planners",
   "source": "Geomechanics.io",
   "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxPMGFac3Z3UnlVa2pPakxFTV84MnZidmlQUTV2NWQtRnp3ci1tOWV1T051ckNKTE8tWHdwZFlpbUgzcTk3QlRJc0Fqd21UQ2FUVHdEeHQ4SVYyS2E5bDY2OU13dzgwaHRLd1p2UUY0ZFB4LWpWTXJsX1VsbzN0RXVzRGNiREVsbTRBdWI2eEE3c1Bsd1hxX2VqNF9GeVQ1NTVJOUs5VlVtV0h4a181bEpn?oc=5",
@@ -531,6 +592,18 @@
    "take": "Goldman Sachs lowering oil price forecasts is a high-credibility bearish signal from a major bank. Outweighs near-term technical bounces.",
    "t": 1791267970
   }
+ },
+ {
+  "title": "Morgan Stanley Lowers Oil Price Forecasts After US-Iran Peace Deal",
+  "source": "EnergyNow.com",
+  "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPSVctRUFVM1l4Z3VNRnhLZVN0dV9KMENjZW1wWWo4eXJycklOLTdJSkJNSm9qbTB4WDB5OUFsaktnUDc0V2JheDl0eUZoZk43bVpCMjhSTEFJeXNpeWhlc1FhZnhvOXN3Q3B4R0ppbkM3ZmJreFpEbUd3Y3A3WmxTY2Jla1RzSXUwekdNV1l4bnlZOEw3bG85TUt2S08wRm9FNkNlajRR?oc=5",
+  "published": 1791232197,
+  "id": "n5560f47395",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791278539
  },
  {
   "title": "USDA Crop Progress: Corn, Soybean Harvests Ahead of Pace - News and Statistics",
@@ -1809,23 +1882,6 @@
   }
  },
  {
-  "title": "Oil Slips as Rising Middle East Exports and G7 Reserve Release Add Supply, While Geopolitical Risks Limit Losses",
-  "source": "EnergyNow.com",
-  "link": "https://news.google.com/rss/articles/CBMi2gFBVV95cUxPQ2dXSlFpYXdTRTR1R2UzaldzUkxOM3Z0LXdLSzJPVFBTbzlCUkRGSUk0RkZCWFhjbEJMYlAyNng0WjNPbVROelpzcDZ0LWZxQ3lRWmpDTEdmc0p5VTgtMmwwZEcwM25NaldmaS0ySC1LVTQtbWRnMFllelNRS1l3ZUlwXzJHQk5mc0k5OUpfVW15RkxVQjBLRndSRTEzZ1U0Q25qRXd1VG9DbDZpbkp3TGMxWEtWY1FVMFk4RGtzWDFGcVA4UEd3ZlZvUnNwTVNJaHEzQkplMVpQQQ?oc=5",
-  "published": 1791199680,
-  "id": "n3ba528dc8e",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1791210356,
-  "claude": {
-   "impact": "bearish",
-   "take": "G7 reserve release + rising Middle East exports are both supply headwinds that outweigh geopolitical premium in the near term.",
-   "t": 1791224738
-  }
- },
- {
   "title": "Ero Copper Corp. (TSX:ERO) Jumps 6.50% as Positive Momentum Builds",
   "source": "kalkine.ca",
   "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNSmhlaEh5N01mTjNGSF9zMlFWbXg3ZUk2MjhERjBqbHNBY2F6WEFieElQclZPNUwxYU5QUDlfUWFUUmZGMTEtYkRXZnVsc3U1N1BHaWlKSWc0SXowZGVrTHdIMXZYNFNJZVNENjVIZkM0V0RVSTJBRzJsSU9OTVZRVl9mT3FlRG1rUVF5d1hpU2FDbWdvaWc?oc=5",
@@ -1840,23 +1896,6 @@
    "impact": "bullish",
    "take": "Ero Copper jumping on momentum. Another sign of sector bullish momentum. Reinforces Copper long entry.",
    "t": 1791207892
-  }
- },
- {
-  "title": "Current price of oil as of Oct. 5, 2026",
-  "source": "Fortune",
-  "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE9EbkRLZjBkY2xqVUFPNEJaRy1ZR2wtZjA3RU5KaGZQTEdCX21HVy1ZWEFRNDcwTjdCMmFTYmhiSjVQNFNmcHp2aXk1cktBTUhXMVZLd0RzTkU0VHpZT3RQSU5R?oc=5",
-  "published": 1791198900,
-  "id": "n8c311c0a14",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1791201144,
-  "claude": {
-   "impact": "neutral",
-   "take": "Routine price update; no new information.",
-   "t": 1791201144
   }
  },
  {
@@ -1925,23 +1964,6 @@
    "impact": "neutral",
    "take": "Educational comparison of WTI vs Brent spreads; Iran war context is priced in, no new catalyst.",
    "t": 1791224738
-  }
- },
- {
-  "title": "Oil price today: Why Brent stays above $100 despite G7 supply boost and rising Middle East war risks | Hindustan Times",
-  "source": "Hindustan Times",
-  "link": "https://news.google.com/rss/articles/CBMi_gFBVV95cUxOS1l6TGZVcTZmT3o2REtMYmJHd0VxRVdBSTkxVWEtY1VQSC1BRWdhRGFYQzZEUWpDc253V2VEQUhuODZuWEcxUTJwU2VzQU9wcWhwOUN0TVZsUDJMLTdMSjFwN19wa1JYck1SWE84SF9pNk1wNHRzVDRaSHduT2VaLUNXZS1WTkZkTVFzRnFtc21sOV9CTXVjTXBza1BvZkJfMWQ5c0l4UHlLMC1PUUhoczAzMFNxUTB6SnZWakE5cnEzRVp6Tmt6THZSZDV3RE9LTUtEdS1Nci1MTzFfR2VXUkc0VUVwNWV1SE8tWURVX3VoZDVid3NQVDlEclJTd9IBgwJBVV95cUxOanZIN3Y3VDR0WkF4VFJGbmR2VnVyQy1oWnUwNElvTndzY1BMLVJPSzd1Q3FKQURPMlBKWGxldTVLNkN1VzRtVHYyM3VzdndYT1lVR0dZNWl5QzFhNzlqalhqOGduS21TNGpVTDhHZnFIdmVuM0FMV2pQcFBBLUNyWDdubVJrRWJJcmwyRFlNUGNxYWhRX0JkV2lTWi0tS1c2Z3lhRlVaWE1tT08tZnR5VUMwTDA5bDlVbnpDcTBOQmdtNGZnNU9qb0JEWjYxbXBCaExuQUtQTG1RVVRkS05JVnlZU2FmZWx0UTFLSVhDVWM5MFlaWFBKbGdhN2JQVGszanRj?oc=5",
-  "published": 1791196856,
-  "id": "n3605f8f251",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "neutral",
-   "take": "Headline suggests Brent resilience above $100, but the reason (Middle East war + G-7 offset) shows two equal forces. Price continues to range.",
-   "t": 1791201144
   }
  },
  {
@@ -2096,23 +2118,6 @@
    "impact": "bullish",
    "take": "Silver rises confirmation of the intraday rally. Neutral on direction but consistent with the Fed rate-cut narrative.",
    "t": 1791201144
-  }
- },
- {
-  "title": "News & Analysis",
-  "source": "HF Markets",
-  "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQN1llMnlDM0sxallZbU9JVXJCa0NaMmpVVlZ3Wnptdl9oeUllNXl3bFB1LTRlSlZGYzVaVmRVRTlxall1RHpRS1Q2WlBmSVMyMGhZa1BPNnFJZldlWk9ONmlJY1cwa01JWjFZdTgtdEFhU05aRk5uQkJRaHFJdDVEQ2d2Rno4THVINDdUaHhPV0JONkwzR09reGg4YjhqdldMTi1MZWR3bUM0aU92dnpqc21uWnk0QQ?oc=5",
-  "published": 1791193153,
-  "id": "nd6e7e72b7f",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1791210356,
-  "claude": {
-   "impact": "neutral",
-   "take": "Generic news summary without new catalyst.",
-   "t": 1791224738
   }
  },
  {
@@ -2352,23 +2357,6 @@
   }
  },
  {
-  "title": "Russia\u2019s new drive to crush Ukraine",
-  "source": "Financial Times",
-  "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNSVRuZ1J4TnZvN1ZJcUs4ME5kM1hSaG5XMTByYUxQUmUxVFFxVDRXX1Z5cXp2QnpEenRCbDdOSGpDMnFUbEVfR3JWQm02RHI4cjMwTl9KUXFQbzNtZFJWbmh1Vldjb25mbFlnNXRXLU9IREpVN19HcVhKQTRZX2lEeF9HRjI?oc=5",
-  "published": 1791172812,
-  "id": "n313618a435",
-  "symbol": "ZW=F",
-  "symbols": [
-   "ZW=F"
-  ],
-  "seen": 1791174149,
-  "claude": {
-   "impact": "bearish",
-   "take": "Russia's intensified military drive in Ukraine raises geopolitical risk and threatens grain export corridors; structurally bullish for wheat and corn on supply concerns, but headline alone does not trigger a setup without ICT confirmation.",
-   "t": 1791174149
-  }
- },
- {
   "title": "Freight Route TC17 Baltic Futures Oct '26 Futures Price History",
   "source": "Barchart.com",
   "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1vMWdhMEVRQU9HT3pxa3c3NXNqRDlqLVdPdXdmQVg2djdzeUo3Z0FaS1JxNVBOWDdNVUhfTm5HRUw2cFdTSHhaaUR1MTdKQWtOa0QzbVZhLTYwS1I3RGI5UzBHcVRmVmFKRV91Y0ZzSnJrbC1hRTJwcldkTUhiTDA?oc=5",
@@ -2418,23 +2406,6 @@
    "impact": "neutral",
    "take": "BTCUSD Futures: unrelated to commodity markets I trade. Ignore.",
    "t": 1791207892
-  }
- },
- {
-  "title": "What NOAA's 75% El Ni\u00f1o Probability Means for Coffee, Food, and Remittances Across Latin America",
-  "source": "inkl.com",
-  "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOQUMySlFzY2lfaVB0ZnlwQ3ZLczNVaG1WMUNwRUZybEZmNDdtVGloNFNrNzI4TkZSaTVsbkdJM1BzbWl4N0VrS3FSZU5qOEtmb05iVDRNazkyNTFzUE5haFlSRTVlcl9UQXNqNVY3ZHRXRlhoSzUzZGQ2dG1pOTdDTEpiZzU3YkxBaDNIY1RWZUttZnJ2ek01d1loRFhSSXNfaG81OUZHRGNyQzBFYWdxc3kwYXp0aUlJZVE?oc=5",
-  "published": 1791149472,
-  "id": "n99757bebe7",
-  "symbol": "KC=F",
-  "symbols": [
-   "KC=F"
-  ],
-  "seen": 1791199299,
-  "claude": {
-   "impact": "bearish",
-   "take": "NOAA 75% El Ni\u00f1o probability raises concerns about coffee production in key regions (Brazil, Central America can see drought stress). Medium-term bullish for supply concerns, but near-term increases volatility and risk aversion, pressuring positions.",
-   "t": 1791201144
   }
  }
 ]
