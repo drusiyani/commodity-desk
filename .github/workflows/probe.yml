@@ -1,0 +1,19 @@
+name: Probe futures contracts (temporary)
+on:
+  push:
+    branches: [claude/commodity-trading-v2-z09y0m]
+    paths: [tools/probe_contracts.py, .github/workflows/probe.yml]
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: python tools/probe_contracts.py
+        env:
+          PYTHONPATH: .
