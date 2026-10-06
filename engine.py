@@ -46,7 +46,7 @@ STATE = ROOT / "state"       # the private data, encrypted (vault.py); never sto
 PRIVATE = {"portfolio.json", "trades.json", "decisions.json", "calls.json", "news_takes.json", "consensus.json",
            "lit.json", "lit_trades.json",
            "rules.json", "rules_trades.json", "ict.json", "ict_trades.json", "lab.json", "lab_trades.json",
-           "kronos_bot.json", "kronos_trades.json"}
+           "kronos_bot.json", "kronos_trades.json", "kronos_index_bot.json", "kronos_index_trades.json"}
 SITE_PRIVATE = "private.enc.json"   # the one encrypted bundle the website can unlock with the password
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 
@@ -827,6 +827,24 @@ def run_kronos_bot(kb, prices, forecasts, last_usd, fx, now):
     return run_bot(kb, prices, last_usd, fx, now, "kronos", rules_for)
 
 
+def index_prices(lit_info):
+    """The index futures' roll-adjusted hourly candles (fetched with the LIT bot's data), shaped like prices.json."""
+    return {s: dict({"name": LIT.SPECS[s]["name"], "bars": rounded(lit_info[s]["h1"]["bars"])}, **roll_info(s, lit_info[s]["h1"]))
+            for s in KB.INDEX_MARKETS if s in lit_info and lit_info[s]["h1"]["bars"]}
+
+
+def roll_index_book(book, rolls, iprices, fx, now):
+    """Move the Kronos indices bot's open trades to the next contract at each roll (see KB.index_roll)."""
+    out = []
+    for sym, gaps in rolls.items():
+        for g in gaps:
+            if sym in book["positions"] and book["positions"][sym]["opened"] < g["t"]:
+                r = KB.index_roll(book, sym, g["ratio"], roll_price(iprices[sym], g), fx, now, f"from {g['from']} to {g['to']}")
+                if r:
+                    out.append(r)
+    return out
+
+
 def kronos_text(sym, kronos, kacc):
     f = (kronos or {}).get("markets", {}).get(sym)
     if not f:
@@ -1103,13 +1121,14 @@ def report_card(calls):
 
 
 def public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf, decisions,
-                   lit_trades=()):
+                   lit_trades=(), ki_trades=()):
     last = decisions[-1] if decisions else {}
     return {"t": now,
             "perf": {"equity": perf([t for t in trades if t.get("source") != "core"], "equity", eq_hist),
                      "lab": perf(lb_trades, "lab", eq_hist), "ict": perf(ib_trades, "ict", eq_hist),
                      "kronos": perf(kb_trades, "kronos", eq_hist), "rules": perf(rb_trades, "rules", eq_hist),
                      "lit": perf([dict(t, pnl=t.get("trade_pnl")) if "pnl" in t else t for t in lit_trades], "lit", eq_hist),
+                     "kronos_idx": perf(ki_trades, "kronos_idx", eq_hist),
                      "benchmark": perf([], "benchmark", eq_hist)},
             "report": report_card(calls),
             "lab_live": {sid: {k: v for k, v in x.items() if k != "r"} | {"trades": len(x.get("r") or [])}
@@ -1413,17 +1432,27 @@ def main():
     news, health["news"] = get_news(join_news(load("news.json", []), load("news_takes.json", {})), now)
     history = get_history(prices)
     health["history"] = len(history["markets"]) >= len(COMMODITIES) - 1
-    kronos = get_kronos(prices, now)
+    lit_info = get_lit_data()
+    health["lit"] = len(lit_info) >= len(LIT.MARKETS) - 1
+    iprices = index_prices(lit_info)
+    kronos = get_kronos({**prices, **iprices}, now)   # 14 markets: the ten commodities and the four index futures
     health["kronos"] = kronos["status"] in ("ok", "partial")
+    ifc = {s: f for s, f in kronos["markets"].items() if s in KB.INDEX_MARKETS}
+    cfc = {s: f for s, f in kronos["markets"].items() if s not in KB.INDEX_MARKETS}
     roll_state = load("rolls.json", {}).get("applied", {})
     rolls = pending_rolls(prices, roll_state, now)
+    irolls = pending_rolls(iprices, roll_state, now)
     kcalls, calls = load("kronos_calls.json", []), load("calls.json", [])
+    kicalls = load("kronos_index_calls.json", [])
+    rescale_rolls(irolls, {}, now, kicalls, [])
+    kicalls = KB.record_calls(KB.check_calls(kicalls, iprices), ifc)
     eq_hist0 = load("equity.json", [])
     pf0 = load("portfolio.json", None) or {}
     rescale_rolls(rolls, pf0.get("start_prices", {}), eq_hist0[0]["time"] if eq_hist0 else now, kcalls, calls)
-    kcalls = KB.record_calls(KB.check_calls(kcalls, prices), kronos["markets"])
+    kcalls = KB.record_calls(KB.check_calls(kcalls, prices), cfc)
     kacc = {s: KB.accuracy(kcalls, s) for s in COMMODITIES}
     kronos["accuracy"] = dict(KB.accuracy(kcalls), markets=kacc)
+    kronos["index_accuracy"] = dict(KB.accuracy(kicalls), markets={s: KB.accuracy(kicalls, s) for s in KB.INDEX_MARKETS})
     last_usd = {s: p["bars"][-1]["close"] for s, p in prices.items()}
     last = {s: v / fx for s, v in last_usd.items()}
 
@@ -1443,6 +1472,8 @@ def main():
     ib, ib_trades = load("ict.json", None), load("ict_trades.json", [])
     kb, kb_trades = load("kronos_bot.json", None) or new_kronos_book(now), load("kronos_trades.json", [])
     litb, lit_trades = load("lit.json", None) or LIT.new_book(START_CASH), load("lit_trades.json", [])
+    kib = load("kronos_index_bot.json", None) or KB.new_index_book(START_CASH, now)
+    ki_trades = load("kronos_index_trades.json", [])
     if not pf or pf.get("version") != 3:  # fresh start
         pf, trades, decisions, eq_hist = new_portfolio(), [], [], []
         rb, rb_trades, calls, ib, ib_trades = None, [], [], None, []
@@ -1457,7 +1488,8 @@ def main():
                                         (kb, kb_trades, "kronos", {})]
                         + [(sl, lb_trades, "lab", {"strategy": sid}) for sid, sl in lb["sleeves"].items()], fx, now,
                         since=eq_hist[0]["time"] if eq_hist else now)
-    for sym, gaps in rolls.items():
+    ki_trades += roll_index_book(kib, irolls, iprices, fx, now)
+    for sym, gaps in {**rolls, **irolls}.items():
         roll_state[sym] = gaps[-1]["t"]
     if rolled:
         print("Rolled:", ", ".join(f"{s} ({src})" for s, src in rolled))
@@ -1542,9 +1574,8 @@ def main():
     rb_trades += run_rule_bot(rb, prices, last_usd, fx, now)
     ib_trades += run_ict_bot(ib, prices, last_usd, fx, now)
     lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now, lab_state().get("allocation"))
-    kb_trades += run_kronos_bot(kb, prices, kronos["markets"], last_usd, fx, now)
-    lit_info = get_lit_data()
-    health["lit"] = len(lit_info) >= len(LIT.MARKETS) - 1
+    kb_trades += run_kronos_bot(kb, prices, cfc, last_usd, fx, now)
+    ki_trades += KB.run_index_bot(kib, iprices, ifc, fx, now)
     more, lit_dets = run_lit_bot(litb, {s: x["m15"]["bars"] for s, x in lit_info.items()}, fx, now)
     lit_trades += more
     calls = evaluate_calls(calls, prices, now)[-5000:]
@@ -1559,7 +1590,7 @@ def main():
                     "core": round(equity(pf["core"], last_usd, fx), 2), "active": round(equity(pf, last_usd, fx), 2),
                     "rules": round(equity(rb, last_usd, fx), 2), "ict": round(equity(ib, last_usd, fx), 2),
                     "lab": round(lab_equity(lb, last_usd, fx), 2), "kronos": round(equity(kb, last_usd, fx), 2),
-                    "lit": round(lit_equity(litb, fx), 2)})
+                    "lit": round(lit_equity(litb, fx), 2), "kronos_idx": round(KB.index_equity(kib, fx), 2)})
 
     save("prices.json", prices)
     save("context.json", context)
@@ -1585,6 +1616,9 @@ def main():
     save("lit_trades.json", lit_trades)
     save("lit_now.json", lit_now(lit_info, lit_dets, lit_info, now))
     save("kronos_trades.json", kb_trades)
+    save("kronos_index_calls.json", kicalls)
+    save("kronos_index_bot.json", kib)
+    save("kronos_index_trades.json", ki_trades)
     save("rolls.json", {"t": now, "applied": roll_state, "roll_days": R.ROLL_DAYS,
                         "markets": {s: {k: v for k, v in p.items() if k in ("contract", "ticker", "priced_from",
                                         "method", "next_roll", "next_contract", "note", "rolls")}
@@ -1593,11 +1627,11 @@ def main():
                  "records": bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)}
     save("consensus.json", consensus)
     save("summary.json", public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf,
-                                        decisions, lit_trades))
+                                        decisions, lit_trades, ki_trades))
     save_site_bundle({"portfolio": pf, "trades": trades, "decisions": decisions, "calls": calls, "news_takes": takes,
                       "consensus": consensus, "rules_trades": rb_trades, "ict_trades": ib_trades,
                       "kronos_trades": kb_trades, "lab": lb, "lab_trades": lb_trades, "lit": litb,
-                      "lit_trades": lit_trades})
+                      "lit_trades": lit_trades, "kronos_idx": kib, "kronos_idx_trades": ki_trades})
     save("history.json", {"date": history["date"], "fetched": history.get("fetched", 0), "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})
@@ -1609,7 +1643,7 @@ def main():
                                    "daily_loss_limit": DAILY_LOSS_LIMIT, "min_rr": MIN_RR}})
     print(f"Done. Claude {'asked' if entry and entry.get('markets') else 'not asked'}, {len(filled)} fills, "
           f"portfolio £{total_equity(pf, last_usd, fx):,.0f} (core £{equity(pf['core'], last_usd, fx):,.0f}), ICT bot £{equity(ib, last_usd, fx):,.0f}, "
-          f"Kronos {kronos['status']} (bot £{equity(kb, last_usd, fx):,.0f})")
+          f"Kronos {kronos['status']} (bot £{equity(kb, last_usd, fx):,.0f}, indices bot £{KB.index_equity(kib, fx):,.0f})")
 
 
 if __name__ == "__main__":

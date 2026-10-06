@@ -8,8 +8,10 @@ Honesty note: Kronos is never backtested here. It was trained on years of market
 it, so a backtest would flatter it. It is judged on live results only.
 """
 import math
+import time
 
 import core as C
+import lit as LIT
 
 HORIZON = 24            # forecast the next 24 hourly candles
 PROB_EDGE = 0.65        # go long only if at least 65% of paths end higher (short: at most 35%)
@@ -134,3 +136,146 @@ def record_text(acc):
     return (f"direction right {acc['direction']:.0%} of {acc['checked']} checked forecasts, price inside its range "
             f"{acc['inside']:.0%} of the time (a coin flip gets about 50% on direction; a well-calibrated range "
             f"catches about 80%)" + ("; that is still a short record" if acc["short_record"] else ""))
+
+
+# ---------- the Kronos indices bot: the same rules on the US index futures, in micro contracts ----------
+# Entries, stops, targets, the 24-hour exit, 1% risk per trade, at most 4 open trades and the 3% daily loss limit are
+# the commodities Kronos bot's. What changes is how a trade is held: whole micro futures contracts (MES, MNQ, MYM,
+# M2K), with futures costs and futures accounting (profits and losses move the cash, the contracts' face value
+# doesn't). The commodities bot's "at most 25% of the account in one market" can't carry over: a single MNQ is
+# already worth about 40% of £100k. Futures are leveraged, so the cap becomes the LIT bot's: the open contracts'
+# total face value may never be more than 5 times the account.
+INDEX_MARKETS = ("ES=F", "NQ=F", "YM=F", "RTY=F")
+INDEX_RISK = C.RISK              # 1% of the account per trade, like the commodities bot
+INDEX_MAX_OPEN = C.MAX_OPEN      # at most 4 trades open (one per index)
+INDEX_DAILY_LOSS = 0.03          # no new trades after losing 3% in a day
+INDEX_MAX_NOTIONAL = LIT.MAX_NOTIONAL   # open face value at most 5x the account
+INDEX_FEE = LIT.FEE              # $0.62 per contract per side; one tick of slippage on every market order
+
+
+def new_index_book(cash, now):
+    return {"cash": cash, "positions": {}, "last_entry": {}, "last_run": now, "day": {}, "marks": {}}
+
+
+def index_equity(book, fx, marks=None):
+    """Cash plus the open trades' profit or loss at the latest prices."""
+    marks = book.get("marks", {}) if marks is None else marks
+    return book["cash"] + sum(p["dir"] * p["contracts"] * LIT.SPECS[s]["mult"] * (marks.get(s, p["entry"]) - p["entry"]) / fx
+                              for s, p in book["positions"].items())
+
+
+def _record(t, sym, action, n, px, fx, reason, **extra):
+    spec = LIT.SPECS[sym]
+    return dict({"t": t, "symbol": sym, "name": spec["name"], "action": action, "contracts": n, "micro": spec["micro"],
+                 "qty": n, "price": round(px, 4), "value": round(n * spec["mult"] * px / fx, 2),
+                 "reason": reason, "source": "kronos_idx"}, **extra)
+
+
+def index_close(book, sym, px, fx, t, reason, kind):
+    """Close the whole trade at px (slippage already in px). Returns the trade-history row with the trade's whole
+    profit or loss, after every cost (entry, exit and any roll)."""
+    pos = book["positions"].pop(sym)
+    n, spec = pos["contracts"], LIT.SPECS[sym]
+    gross = pos["dir"] * n * spec["mult"] * (px - pos["entry"]) / fx
+    fee = n * INDEX_FEE / fx
+    book["cash"] += gross - fee
+    pnl = pos.get("realised", 0.0) + gross - fee - pos["fees"]
+    return _record(t, sym, "COVER" if pos["dir"] < 0 else "SELL", n, px, fx, reason, side=pos["side"], exit=kind,
+                   pnl=round(pnl, 2), r=round(pnl * fx / pos["risk_usd"], 2) if pos["risk_usd"] else None,
+                   opened=pos["opened"])
+
+
+def index_roll(book, sym, ratio, px_new, fx, t, label=""):
+    """Move an open trade to the next contract, the way a trader does: sell the old contract (its profit or loss so
+    far is banked) and buy the new one, paying fees and a tick of slippage on both legs. Stop and target move with
+    the price (x ratio); the number of contracts stays the same. Returns the trade-history row or None."""
+    pos = book["positions"].get(sym)
+    if not pos or not ratio or ratio <= 0:
+        return None
+    spec, d, n = LIT.SPECS[sym], pos["dir"], pos["contracts"]
+    px_old = px_new / ratio
+    banked = d * n * spec["mult"] * (px_old - d * spec["tick"] - pos["entry"]) / fx
+    fees = 2 * n * INDEX_FEE / fx
+    book["cash"] += banked - fees
+    pos["realised"] = pos.get("realised", 0.0) + banked
+    pos["fees"] += fees
+    pos["entry"] = px_new + d * spec["tick"]
+    for k in ("stop", "target"):
+        if pos.get(k) is not None:
+            pos[k] = round(pos[k] * ratio, 4)
+    cost = n * (2 * INDEX_FEE + 2 * spec["tick"] * spec["mult"])
+    return _record(t, sym, "ROLL", n, px_new, fx,
+                   f"Rolled {label + ' ' if label else ''}to the next contract: sold the old one at {px_old:g} and bought "
+                   f"the new one at {px_new:g}, costs ${cost:,.2f} (fees and slippage on both legs)", side=pos["side"])
+
+
+def index_size(book, sym, px, stop, fx, eq):
+    """Whole micro contracts so the stop loses at most 1% of the account, within the 5x face-value cap."""
+    spec = LIT.SPECS[sym]
+    dist = abs(px - stop)
+    n = math.floor(INDEX_RISK * eq * fx / (dist * spec["mult"])) if dist > 0 else 0
+    face = sum(p["contracts"] * LIT.SPECS[s]["mult"] * book["marks"].get(s, p["entry"]) for s, p in book["positions"].items())
+    cap = math.floor((INDEX_MAX_NOTIONAL * eq * fx - face) / (spec["mult"] * px))
+    return max(0, min(n, cap))
+
+
+def run_index_bot(book, prices, forecasts, fx, now):
+    """One hourly step: stops and targets hit since the last run (on the hourly candles, gaps filled at the open),
+    the 24-hour exit, then new entries on this run's forecasts. prices: {sym: {"bars": hourly candles}}.
+    Returns the trade-history rows."""
+    out = []
+    book.setdefault("marks", {})
+    for s, p in prices.items():
+        if p.get("bars"):
+            book["marks"][s] = p["bars"][-1]["close"]
+    for sym in list(book["positions"]):
+        if sym not in prices or not prices[sym].get("bars"):
+            continue
+        pos, bars, tick = book["positions"][sym], prices[sym]["bars"], LIT.SPECS[sym]["tick"]
+        recent = [b for b in bars if b["time"] + 3600 > book.get("last_run", 0)] or bars[-1:]
+        hit = C.first_exit(pos, recent)
+        if hit:
+            b, px, kind = hit
+            gap = b["open"] == px and px != pos.get(kind)
+            fill = px - pos["dir"] * tick if kind == "stop" else px    # stops are market orders, targets limits
+            out.append(index_close(book, sym, fill, fx, now, f"{kind.capitalize()} {'gapped through, filled at the open' if gap else 'hit'} at {fill:g}", kind))
+            continue
+        held = sum(1 for b in bars if b["time"] > pos["opened"])   # candles begun since the entry, as for commodities
+        if held >= HORIZON:
+            fill = bars[-1]["close"] - pos["dir"] * tick
+            out.append(index_close(book, sym, fill, fx, now, f"{HORIZON} hours passed, the forecast window is over", "rule"))
+    eq = index_equity(book, fx)
+    today = time.strftime("%Y-%m-%d", time.gmtime(now))
+    if book.setdefault("day", {}).get("date") != today:
+        book["day"] = {"date": today, "start_equity": round(eq, 2)}
+    blocked = eq < book["day"]["start_equity"] * (1 - INDEX_DAILY_LOSS)
+    for sym in INDEX_MARKETS:
+        p, fc = prices.get(sym), (forecasts or {}).get(sym)
+        if blocked or not p or not p.get("bars") or not fc or sym in book["positions"]:
+            continue
+        bars = p["bars"]
+        if len(book["positions"]) >= INDEX_MAX_OPEN or fc.get("bar_time") != bars[-1]["time"]:
+            continue
+        if book["last_entry"].get(sym) == bars[-1]["time"]:   # one entry per forecast
+            continue
+        spec, px0 = LIT.SPECS[sym], bars[-1]["close"]
+        cost = (INDEX_FEE + spec["tick"] * spec["mult"]) / (spec["mult"] * px0)   # fee and a tick, per side
+        order = plan(fc, px0, atr(bars), cost=cost)
+        if not order:
+            continue
+        d = 1 if order["side"] == "long" else -1
+        px = px0 + d * spec["tick"]                              # one tick of slippage
+        n = index_size(book, sym, px, order["stop"], fx, eq)
+        if n < 1:
+            continue
+        book["cash"] -= n * INDEX_FEE / fx   # futures: only the fee leaves the cash, not the face value
+        book["last_entry"][sym] = bars[-1]["time"]
+        book["positions"][sym] = {"side": order["side"], "dir": d, "contracts": n, "entry": px,
+                                  "stop": round(order["stop"], 4), "target": round(order["target"], 4),
+                                  "risk_usd": abs(px - order["stop"]) * spec["mult"] * n, "fees": n * INDEX_FEE / fx,
+                                  "opened": now, "bar_time": bars[-1]["time"]}
+        out.append(_record(now, sym, "SHORT" if d < 0 else "BUY", n, px, fx,
+                           f"{order['reason']}: {n} {spec['micro']}, stop {order['stop']:g}, target {order['target']:g}",
+                           side=order["side"], stop=round(order["stop"], 4), target=round(order["target"], 4)))
+    book["last_run"] = now
+    return out

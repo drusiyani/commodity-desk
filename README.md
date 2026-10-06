@@ -8,7 +8,8 @@ The website has four tabs, each with its own link: **Live** (`#live`: the charts
 Claude's comment on every headline, every trade and how each competitor is doing), **Strategy lab** (`#lab`),
 **Backtest** (`#backtest`) and **Data** (`#data`: where the prices come from and each market's futures rolls).
 A switch in the middle of the header flips between two desks: **Commodities** (gold accent) and **Indices** (cyan
-accent: the US index futures, their session ranges and LIT levels, the LIT bot, its backtest and the LIT audit). The
+accent: the US index futures, their session ranges and LIT levels, Kronos's forecasts for them, the LIT bot and the
+Kronos indices bot, the LIT backtest and the LIT audit). The
 desk is part of the link too, e.g. `#indices/backtest`; older links like `#lab` open the commodities desk.
 
 ## The race
@@ -21,6 +22,7 @@ desk is part of the link too, e.g. `#indices/backtest`; older links like `#lab` 
 | **Kronos bot** | Trades the forecasts of Kronos, an open-source AI model that reads price charts (see below). |
 | **Trend bot** | Holds a market while its 20-hour average is above its 100-hour average. |
 | **LIT bot** | Trades the S&P 500, Nasdaq 100, Dow and Russell 2000 index futures and gold on 15-minute candles, LIT ("liquidity inducement") style: it waits for price to run the stops beyond a well-known high or low (yesterday's, the Asia or London session's, or equal highs and lows) and snap back, then trades the snap-back in the London or New York morning window, in micro contracts, risking 0.5% per trade. Every rule is defined exactly in [`docs/lit.md`](docs/lit.md). |
+| **Kronos indices bot** | The Kronos bot's rules on the S&P 500, Nasdaq 100, Dow and Russell 2000 index futures, on its own £100k, in micro contracts (MES, MNQ, MYM, M2K). Never backtested. |
 | **Buy and hold** | The benchmark: an equal slice of every market, bought at the start and never touched. |
 
 Every trade, for every competitor, goes through one shared trading core (`core.py`), so live trading and the
@@ -134,16 +136,22 @@ another chance, delete its entry under `"strategies"` in `site/data/lab.json`.
 
 [Kronos](https://github.com/shiyu-coder/Kronos) is a free, open-source AI model trained on years of price charts.
 Every hourly run, Argon feeds it each market's latest 256 hourly candles and has it imagine the next 24 hours 20
-times over. From those 20 paths come an **expected move**, a **likely range** (the 10th to 90th percentile) and the
+times over: 14 markets, the ten commodities and the four US index futures (roll-adjusted hourly candles). From those 20 paths come an **expected move**, a **likely range** (the 10th to 90th percentile) and the
 **chance of a rise**. It uses Kronos-mini, the smallest model, on GitHub's CPU (about 10 seconds per market, inside a
-3-minute budget).
+3-minute budget for all 14; `KRONOS_INDEX_SAMPLES` can give the index markets fewer paths if that ever gets tight,
+rather than skip any).
 
 - Claude sees each forecast together with Kronos's live accuracy, and is told to be sceptical while that record is
   short.
 - The Kronos bot goes long when at least 65% of paths end higher and the expected move is worth trading (at least
   twice the costs and 30% of a typical day's range); short on the mirror image; risks 1% per trade; closes after
   24 hours.
-- Every forecast is checked 24 candles later: was the direction right, and did the price land in the likely range?
+- The **Kronos indices bot** follows the same rules on the four index futures, on its own £100k, in whole micro
+  contracts with futures costs ($0.62 per contract each way plus a tick of slippage on market orders). The
+  commodities bot's "at most 25% of the account in one market" can't carry over (one MNQ is already worth about 40%
+  of £100k), so, like the LIT bot, its open contracts may be worth at most 5 times its account. A trade still open at
+  a quarterly roll moves to the next contract, paying fees and slippage on both legs.
+- Every forecast is checked 24 candles later (commodities and indices keep separate records): was the direction right, and did the price land in the likely range?
 - **Kronos is never backtested.** It was trained on years of market history and may already have seen it, so a
   backtest would flatter it. It is judged on live results only.
 - If Kronos fails to install, download or run, the run carries on without it and the "Kronos" status light on the
@@ -172,7 +180,7 @@ times over. From those 20 paths come an **expected move**, a **likely range** (t
 | **Run strategy lab** (`research.yml`) | Sunday evenings, and by hand | Claude invents strategies; they're tested; the passing ones and their weights are saved. Tick "recheck only" to re-run the checks on the existing strategies without asking Claude (free). |
 | **Run backtest** (`backtest.yml`) | By hand | Backtests the ICT and trend bots (hourly for 2 years, daily for 5) and the LIT bot (15-minute, the last 60 days). |
 | **Tests** (`tests.yml`) | Every push and pull request | Runs the automatic tests (no API calls, no model download). |
-| **Kronos check** (`kronos-check.yml`) | Pull requests that touch Kronos, and by hand | Installs and runs the real Kronos model on saved prices, to catch a problem before it reaches the hourly trader. |
+| **Kronos check** (`kronos-check.yml`) | Pull requests that touch Kronos, and by hand | Installs and runs the real Kronos model on saved prices for all 14 markets and times it against the hourly budget, to catch a problem before it reaches the hourly trader. |
 
 ### What it costs
 
@@ -209,7 +217,8 @@ Edit `config.json` in the repo:
 - `lit.py`: the LIT bot (detection and trading); its rules are in `docs/lit.md`.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
 - `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups).
-- `kronos_model.py` + `kronos_bot.py`: running Kronos, and the Kronos bot's rules and track record.
+- `kronos_model.py` + `kronos_bot.py`: running Kronos, and the Kronos bots' rules (commodities and indices) and track
+  record.
 - `research.py` + `features.py`: the strategy lab and its rule language; `validation.py`: walk-forward and luck
   checks; `allocation.py`: skfolio weights.
 - `backtest.py`: the bot backtests.
