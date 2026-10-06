@@ -208,6 +208,13 @@ def yahoo_switch(sym, year, month):
     raise ValueError(rule)
 
 
+def last_trade(sym, year, month):
+    """The contract's last trading day (approximately); Yahoo drops a contract's prices soon after it."""
+    if sym == "GC=F":  # COMEX gold: third last business day of the delivery month
+        return add_bdays(last_bday(year, month), -2)
+    return yahoo_switch(sym, year, month)
+
+
 def yahoo_rolls(sym, start, end):
     """When Yahoo's continuous ticker switches contract (start < t <= end), each at 00:00 UTC on its switch day.
     Used to find the jump when individual contracts aren't available."""
@@ -298,7 +305,6 @@ def detect(bars, rolls, window=4 * 86400):
 
 
 # ---------- building a market's series ----------
-CONTRACT_DAYS = 420   # only ask Yahoo for contracts that expired within this many days (it drops older ones)
 COVER_GAP = 4 * 86400  # a contract's bars must start within this long of when we'd hold it to be used
 
 
@@ -331,12 +337,13 @@ def build(sym, cont, get_contract, now=None):
     sched = schedule(sym, start, end)
     held = [active(sym, start)] + [s["to"] for s in sched]
     cuts = [s["t"] for s in sched]
-    cutoff = dt.datetime.fromtimestamp(now, dt.timezone.utc).date() - dt.timedelta(days=CONTRACT_DAYS)
+    today = dt.datetime.fromtimestamp(now, dt.timezone.utc).date()
     segs = []
     for i, c in enumerate(held):
         lo = cuts[i - 1] if i else start
         hi = cuts[i] if i < len(cuts) else end + 1
-        full = get_contract(*c) if i > 0 and anchor_date(sym, *c) >= cutoff else []
+        # Yahoo only has contracts that are still trading, so don't ask for (or get rate-limited on) the others
+        full = get_contract(*c) if i > 0 and last_trade(sym, *c) >= today else []
         seg = [b for b in full if lo <= b["time"] < hi]
         use = i > 0 and _covers(seg, lo, min(hi, end))  # the first stretch always comes from the continuous series
         segs.append({"c": c, "lo": lo, "hi": hi, "full": full, "bars": seg if use else [b for b in cont if lo <= b["time"] < hi],

@@ -195,7 +195,8 @@ def recheck():
         t1 = st["results"]["test"]["combined"]
         print(f"RECHECK {st['name'][:34]:34} | {'PASS' if p0 else 'fail'} {t0.get('trades', 0):4} PF {f(t0.get('profit_factor'))} "
               f"R {f(t0.get('avg_r'))} | {'PASS' if st['passed'] else 'fail'} {t1.get('trades', 0):4} "
-              f"PF {f(t1.get('profit_factor'))} R {f(t1.get('avg_r'))}")
+              f"PF {f(t1.get('profit_factor'))} R {f(t1.get('avg_r'))}"
+              + ("" if st["passed"] else " | fails: " + ", ".join(k for k, ok in st["validation"]["checks"].items() if not ok)))
     print(f"Recheck done: {len(passed)} pass. Live: {lab['portfolio']}")
 
 
