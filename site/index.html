@@ -1089,6 +1089,7 @@ function renderLong() {
       kv(`${months[s.month - 1]} historically`, season("season", s.month), c(s.season?.avg)),
       kv(`${months[s.month % 12]} historically`, season("next_season", s.month % 12 + 1), c(s.next_season?.avg)),
     ]),
+    m.data ? el("p", { className: "hint", textContent: `5-year data: back-adjusted for futures rolls; ${m.data}.` }) : "",
   );
 }
 

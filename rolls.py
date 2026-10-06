@@ -336,7 +336,7 @@ def build(sym, cont, get_contract, now=None):
     for i, c in enumerate(held):
         lo = cuts[i - 1] if i else start
         hi = cuts[i] if i < len(cuts) else end + 1
-        full = get_contract(*c) if anchor_date(sym, *c) >= cutoff else []
+        full = get_contract(*c) if i > 0 and anchor_date(sym, *c) >= cutoff else []
         seg = [b for b in full if lo <= b["time"] < hi]
         use = i > 0 and _covers(seg, lo, min(hi, end))  # the first stretch always comes from the continuous series
         segs.append({"c": c, "lo": lo, "hi": hi, "full": full, "bars": seg if use else [b for b in cont if lo <= b["time"] < hi],
@@ -345,8 +345,10 @@ def build(sym, cont, get_contract, now=None):
     for i in range(1, len(segs)):  # where the series changes source, measure the gap from both sources' prices
         new, old = segs[i], segs[i - 1]
         incoming = new["full"] if new["own"] else cont
-        pn, po = _price_before(incoming, new["lo"]), _price_before(old["bars"], new["lo"])
-        if not (pn and po and pn["close"] > 0 and po["close"] > 0):
+        pn = _price_before(incoming, new["lo"])          # both prices at the same moment: the new contract may
+        po = _price_before(old["bars"], pn["time"] + 1) if pn else None   # trade less often than the old one
+        if not (pn and po and pn["close"] > 0 and po["close"] > 0 and new["lo"] - pn["time"] <= COVER_GAP
+                and pn["time"] - po["time"] <= 86400):
             if new["own"]:  # can't measure it: stay on the continuous series for this stretch
                 new["own"], new["bars"] = False, [b for b in cont if new["lo"] <= b["time"] < new["hi"]]
             continue

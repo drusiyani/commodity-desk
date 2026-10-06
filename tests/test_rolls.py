@@ -241,3 +241,15 @@ def test_positions_from_older_versions_use_the_account_start():
     book["positions"]["KC=F"].pop("opened")
     assert E.roll_books({"KC=F": [g]}, {"KC=F": market([g], [200] * 3)}, [(book, [], "rules", {})], 1.0,
                         ts(2026, 10, 9), since=ts(2026, 10, 2)) == []
+
+
+def test_gap_is_measured_at_the_same_moment_when_the_new_contract_trades_thinly():
+    cont, per, roll, _ = two_contracts()
+    thin = {k: list(v) for k, v in per.items()}
+    thin[(2026, 12)] = [b for b in thin[(2026, 12)] if not roll - 3 * DAY < b["time"] < roll]  # no trades for 2 days
+    out = R.build("CL=F", cont, lambda y, m: thin.get((y, m), []), now=ts(2026, 10, 26))
+    g = next(x for x in out["gaps"] if x["t"] == roll)
+    t = roll - 3 * DAY
+    nov = next(b["close"] for b in per[(2026, 11)] if b["time"] == t)
+    dec = next(b["close"] for b in per[(2026, 12)] if b["time"] == t)
+    assert g["ratio"] == pytest.approx(dec / nov)   # both from the same day, not December's stale price vs a later November
