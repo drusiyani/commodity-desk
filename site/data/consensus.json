@@ -1,5 +1,5 @@
 {
- "t": 1791256833,
+ "t": 1791260517,
  "markets": {
   "CL=F": {
    "score": 41,
@@ -27,8 +27,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "35% chance up",
-     "signal": -0.3,
+     "now": "45% chance up",
+     "signal": -0.1,
      "evidence": 0.003,
      "skill": 0.0,
      "weight": 0.0,
@@ -139,8 +139,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "50% chance up",
-     "signal": 0.0,
+     "now": "35% chance up",
+     "signal": -0.3,
      "evidence": 0.003,
      "skill": 0.0,
      "weight": 0.0,
@@ -195,8 +195,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "50% chance up",
-     "signal": 0.0,
+     "now": "45% chance up",
+     "signal": -0.1,
      "evidence": 0.005,
      "skill": 1.0,
      "weight": 0.005,
@@ -226,7 +226,7 @@
    ]
   },
   "SI=F": {
-   "score": 10,
+   "score": 11,
    "weight": 2.43,
    "rows": [
     {
@@ -251,8 +251,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "40% chance up",
-     "signal": -0.2,
+     "now": "60% chance up",
+     "signal": 0.2,
      "evidence": 0.003,
      "skill": 1.0,
      "weight": 0.003,
@@ -419,8 +419,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "55% chance up",
-     "signal": 0.1,
+     "now": "70% chance up",
+     "signal": 0.4,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -531,8 +531,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "50% chance up",
-     "signal": 0.0,
+     "now": "55% chance up",
+     "signal": 0.1,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -622,7 +622,7 @@
   },
   "hold": {
    "name": "Buy and hold",
-   "ret": 0.0062,
+   "ret": 0.006,
    "n": 0,
    "wins": 0,
    "win_rate": null,

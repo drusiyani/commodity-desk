@@ -1,5 +1,41 @@
 [
  {
+  "title": "Silver (XAG/USD) Price Forecast: $59.69 Support Holds Key to Recovery",
+  "source": "FXEmpire",
+  "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPaUsxSlkyVGEyMTF1S1ktWk9IbkM5S3dkRHp6dkQxS21wX25FczBzeUNXM3FsQW1hQWxQbjlheGZJcmM1WngwS3pyTUh1RTh4eXlUS0ZRNHUxRzVnY0ZRZmtQNnc0WDU1T3FSVjFERWtudmJKZlVrY2VfRnlkdHMtNHJVQ0RlN2RuUl9XZDlab0FKTndkLXJONWl0V25rRjdHLU4wazhRdW9HNjNadll5TXVHU2Q1X2c?oc=5",
+  "published": 1791256795,
+  "id": "nd4e06bb74c",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1791260517
+ },
+ {
+  "title": "Silver Price Forecast: XAG/USD falls to near $60.50 as US Treasury yields rise",
+  "source": "FXStreet",
+  "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxPalFMektOU0tjaHNqVmZxQkdXaTlQclNjQ0xDWFVaZFd5MzN5bWVDN1lza05id3ZMa0VmOWtqVlQ1amFoTUlNTlE2U1QzdEpDTC1CLVJiQmsxcVFoQklpQXRLWXNTcEwtMHZpZjI1YUFzZWtSZzY3RkhFYTJDR1B1VUp1UkNwTUMzQlc3UVJOYld0UFoxUUxvcnpzTXBzTG9NdTdBZkNBZjVha0FCaDhaOUFvR2MxUlBtLUE?oc=5",
+  "published": 1791253546,
+  "id": "n4aac8f289f",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1791260517
+ },
+ {
+  "title": "Volatility Monthly: The Summer Crude Shock",
+  "source": "CME Group",
+  "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxObURBQXYwWGI3YlV3NkFZVnRQX2ViblVKc3NLWWtzQk5XUGlKSzRvek1OVm01MzB5XzdlX3FvcDcxVFB6YUF0ZmpSMHlHSi1IVmtCQzFIMkFDa3FxVkpxaUV2ZkVXSU9ybmVyeDVsbFRLSHc5N1UwNlh6QnBvdWtJRDAzVEp2cXIxeFU4?oc=5",
+  "published": 1791253285,
+  "id": "n73a1ce75d7",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F"
+  ],
+  "seen": 1791260517
+ },
+ {
   "title": "WTI falls to near $88.50 on G7 reserve release",
   "source": "FXStreet",
   "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxORG9kdkdtdnZiLUtBOFdWaXVVbHc5N2piU05HeTZ2dlVhTUJUcy1ObFE3cjRCVGJVVXAtcjRWYzZjSVdpaGhnaHVzLXJmT21XTHczV1ZEYlc3RG55UEdackh3UHo5Z3RldnZMSjRDQWVQMU1DeTlKYmtvaDMzd2dVdGV3djhzSGFoanp0blN5SkY?oc=5",
@@ -249,7 +285,8 @@
   "id": "n4d9b430c18",
   "symbol": "ZC=F",
   "symbols": [
-   "ZC=F"
+   "ZC=F",
+   "KC=F"
   ],
   "seen": 1791235950,
   "claude": {
@@ -1272,6 +1309,18 @@
   }
  },
  {
+  "title": "Brent Crude Remains Above $100 as Middle East Tensions Persist",
+  "source": "PUKmedia \u06cc\u06d5\u06a9\u06ce\u062a\u06cc\u06cc \u0646\u06cc\u0634\u062a\u0645\u0627\u0646\u06cc\u06cc \u06a9\u0648\u0631\u062f\u0633\u062a\u0627\u0646",
+  "link": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9QS05yQ3hxeW5kaGhnQ3NwV1UxTHhvZkFSejI1eFhsYmxfVFdPMnVmYUVNdFdvd0I5b045SGJVcjI0T0hXLVpmRUU5dVZRdw?oc=5",
+  "published": 1791201327,
+  "id": "n40951f818c",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791260517
+ },
+ {
   "title": "Faraday Copper Corp. (TSX:FDY) Rises 3.77% as Positive Momentum and Company Catalysts Lift Investor Optimism",
   "source": "kalkine.ca",
   "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOak05MEozZ3V5amo2N3Q4SS0xUER2UElXNDEtVF9pNVR4UzcwQ2Mtc0R1ZnZ1QUJiOFRRank2RHRIM0lKWjY3WTRtYW1SanRXcTg3X2ZRbVpaZFpqbmdWby1yREM5a1NVRkIyNkhfajA4NnZKUnBVdWRBa19IdjdtdDdYUU9RZk93VDMyek5lWEYxc0gwWG1xbHdtVmZwdi0zcTA1dlZ0ZFVlenVJbUEzUURfLUxESGpnWUlDX09XbWVIMUV1ZVdEMC1Kajk1Zw?oc=5",
@@ -1868,23 +1917,6 @@
   }
  },
  {
-  "title": "Silver (XAGUSD) Is up 2.09% on Oct 5: What Changed in Supply and Demand?",
-  "source": "tradingkey.com",
-  "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxNVDlabC03b3NIdjBfaG56Rno3d3Q5V3JTVGc1eG1mS2ZWcEVoeHJCdDZkQWFKNWVXclFJMUJqRFZiS2dOU01sZm5pdVJidDNDZDlpUGIxNm41cnBRT2ZWejNaLTlnU1AwYzd2ZzBZSFJzVm5IMTRvRHMybWVhYklhd1pEQnUzT2tKQ2Z5MDR3?oc=5",
-  "published": 1791186313,
-  "id": "n2469e66738",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1791188618,
-  "claude": {
-   "impact": "neutral",
-   "take": "Silver up 2.09% with the article asking what changed in supply and demand; the answer is unclear from the headline alone. Suggests the move lacks a clear fundamental driver.",
-   "t": 1791188618
-  }
- },
- {
   "title": "Brent crude slips as G7 oil reserve release eases supply concerns",
   "source": "Anadolu Ajans\u0131",
   "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPNTZPbkJFNE42bHF0S0xtODhDWXY0Z3NNZTc4bExjR1V5Ry1vY3BnNjd3eXRPSGIta2VPTDJBNkVNYzhnLTlUNlp5Q05YMHVSVUREX3ZlYjhTT29tTWxxSHdNWjExSzJzZmpZT2hqdldWNmhqUkNJMWFXX000dDRDWnZMc3ZUaExmTU5UZUtrdEs0anQ3OUQ0a3VmOEpWYVc1S3RLR1AzLVpWMTA?oc=5",
@@ -1898,23 +1930,6 @@
   "claude": {
    "impact": "bearish",
    "take": "G7 reserve release explicitly easing supply concerns directly undermines the bullish case for Brent. Confirms structural bearishness in crude complex.",
-   "t": 1791188618
-  }
- },
- {
-  "title": "Oil Is Finally Dropping. Do Not Call the War Over",
-  "source": "Money Morning",
-  "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQMDNvcTgyUFk0eXRVMHJZcXMyeElBZ2YxUGREODlBWmVIMXh4dXEwUHdGQUJZTWJIN0R1bEtFb1RGVlNOVW9uR1RDSjdZd2NYOGFpUmVMTW94Rk4yX3l2WkdsaG5zek8wLV93WWh3bndFNkV3UWJnNEtoUmo0dHJaOEp3R3BGZUdsU3d3V2MwbXY?oc=5",
-  "published": 1791185475,
-  "id": "n173ecfb47b",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1791188618,
-  "claude": {
-   "impact": "bearish",
-   "take": "Oil dropping with comment that war is not 'over' but supply normalizing means geopolitical premium is fading. Removes tail-risk upside for oil longs.",
    "t": 1791188618
   }
  },
@@ -1981,23 +1996,6 @@
    "impact": "bearish",
    "take": "G-7 crude and diesel release eases supply concerns in the near term, pressuring WTI; Hormuz shipping risks are real but already priced into the wide range. Supply normalization narrative dominates.",
    "t": 1791201144
-  }
- },
- {
-  "title": "Silver Price Forecasts: XAG/USD pars losses but remains trading in range",
-  "source": "FXStreet",
-  "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOODVDUFpfX0FkYUE3V25aR2dFTGVQRTVsdnllMlFWaDNOUy1rQy1HNU1MUVRZOW1qdUhEalE2ZWRyY1RyeGN3dmVkaGs4RGgtd3FRbkFhYzNxV0p6MDZhVG9LYktaVzZPM1ppTjlBc0FwZGlEVFo2d0FxZDJsZGpqME5MZEdDdTY4aUNYSEpsNklGUmhoZFhyVERLQk9rcVlhTmxBQ1QtYW9OSFpyVmZrTUVBNXA?oc=5",
-  "published": 1791184371,
-  "id": "n2a6ccde44e",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1791185043,
-  "claude": {
-   "impact": "neutral",
-   "take": "Silver in a trading range with no imminent breakout expected; confirms no new setup or catalyst today.",
-   "t": 1791188618
   }
  },
  {
@@ -2232,23 +2230,6 @@
    "impact": "bearish",
    "take": "Russia's intensified military drive in Ukraine raises geopolitical risk and threatens grain export corridors; structurally bullish for wheat and corn on supply concerns, but headline alone does not trigger a setup without ICT confirmation.",
    "t": 1791174149
-  }
- },
- {
-  "title": "OPEC+ Keeps November Oil Output Targets Unchanged as War Limits Supply",
-  "source": "Egypt Oil & Gas",
-  "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxNRU1zajRFcms1dW1ST0ZDRGVXcFdvcDhYeFhnazlyVXpQRGxWdmR2eGc5SnQ1U0VyeGtEdEZiTTlGdE9ZQXNnMkZ5eDlKYXFYQ2xSbi1KaUp3dHNlOVluRGRFc0w4U01McDRwRjJESVdTZldOSDJwZl9OOHpIYTFNa3FMTm1RR2ZVZ2l3YlhoaXJ5OG1KNUhUU0Jfb3VtRTZSUWc?oc=5",
-  "published": 1791168525,
-  "id": "ne472c2693d",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F"
-  ],
-  "seen": 1791217380,
-  "claude": {
-   "impact": "bearish",
-   "take": "OPEC+ holds output targets unchanged\u2014no supply cut to support prices. With G7 reserve release concurrent, downside pressure persists.",
-   "t": 1791224738
   }
  },
  {
