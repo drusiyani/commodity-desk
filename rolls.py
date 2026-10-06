@@ -43,6 +43,8 @@ Exchange rules used (business days are Monday to Friday; exchange holidays are i
                          of the delivery month.
   CC (ICE US cocoa):     Mar, May, Jul, Sep, Dec; first notice = 10 business days before the first business day
                          of the delivery month.
+  ES, NQ, RTY (CME), YM (CBOT) equity index futures: Mar, Jun, Sep, Dec; cash-settled, last trade = the third Friday
+                         of the contract month (Yahoo's series moves on after it, checked in October 2026).
 """
 import calendar
 import datetime as dt
@@ -52,6 +54,7 @@ ROLL_DAYS = 5          # roll this many business days before the last trade / fi
 CODES = "FGHJKMNQUVXZ"  # futures month codes, January to December
 ALL = tuple(range(1, 13))
 HMNUZ = (3, 5, 7, 9, 12)
+HMUZ = (3, 6, 9, 12)
 
 MARKETS = {
     "CL=F": {"root": "CL", "suffix": "NYM", "months": ALL, "rule": "cl", "anchor": "last trading day"},
@@ -64,6 +67,10 @@ MARKETS = {
     "ZW=F": {"root": "ZW", "suffix": "CBT", "months": HMNUZ, "rule": "month_end", "anchor": "first notice day"},
     "ZC=F": {"root": "ZC", "suffix": "CBT", "months": HMNUZ, "rule": "month_end", "anchor": "first notice day"},
     "CC=F": {"root": "CC", "suffix": "NYB", "months": HMNUZ, "rule": "ice10", "anchor": "first notice day"},
+    "ES=F": {"root": "ES", "suffix": "CME", "months": HMUZ, "rule": "third_friday", "anchor": "last trading day"},
+    "NQ=F": {"root": "NQ", "suffix": "CME", "months": HMUZ, "rule": "third_friday", "anchor": "last trading day"},
+    "YM=F": {"root": "YM", "suffix": "CBT", "months": HMUZ, "rule": "third_friday", "anchor": "last trading day"},
+    "RTY=F": {"root": "RTY", "suffix": "CME", "months": HMUZ, "rule": "third_friday", "anchor": "last trading day"},
 }
 
 
@@ -75,6 +82,7 @@ YAHOO = {
     "SI=F": (ALL, "ltd_metal"), "HG=F": (ALL, "ltd_metal"),
     "ZW=F": (HMNUZ, "ltd_grain"), "ZC=F": (HMNUZ, "ltd_grain"),
     "KC=F": (HMNUZ, "ltd_kc"), "CC=F": (HMNUZ, "ltd_cc"),
+    "ES=F": (HMUZ, "anchor"), "NQ=F": (HMUZ, "anchor"), "YM=F": (HMUZ, "anchor"), "RTY=F": (HMUZ, "anchor"),
 }
 
 
@@ -133,6 +141,9 @@ def anchor_date(sym, year, month):
         return add_bdays(first_bday(year, month), -7)
     if rule == "ice10":
         return add_bdays(first_bday(year, month), -10)
+    if rule == "third_friday":
+        d = dt.date(year, month, 1)
+        return d + dt.timedelta(days=(4 - d.weekday()) % 7 + 14)
     raise ValueError(rule)
 
 

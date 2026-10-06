@@ -33,6 +33,7 @@ import consensus as CS
 import core as C
 import ict
 import kronos_bot as KB
+import lit as LIT
 import rolls as R
 import validation as V
 import vault
@@ -43,6 +44,7 @@ STATE = ROOT / "state"       # the private data, encrypted (vault.py); never sto
 # Private: Claude's trades, positions, decisions and thinking, its comments on the news, and every bot's trades and
 # positions. Everything else (prices, equity curves, backtests, the lab's results) is public.
 PRIVATE = {"portfolio.json", "trades.json", "decisions.json", "calls.json", "news_takes.json", "consensus.json",
+           "lit.json", "lit_trades.json",
            "rules.json", "rules_trades.json", "ict.json", "ict_trades.json", "lab.json", "lab_trades.json",
            "kronos_bot.json", "kronos_trades.json"}
 SITE_PRIVATE = "private.enc.json"   # the one encrypted bundle the website can unlock with the password
@@ -1100,17 +1102,104 @@ def report_card(calls):
             "groups": {g: pair(xs) for g, xs in groups.items()}, "pending": sum(1 for c in calls if not c.get("checked"))}
 
 
-def public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf, decisions):
+def public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf, decisions,
+                   lit_trades=()):
     last = decisions[-1] if decisions else {}
     return {"t": now,
             "perf": {"equity": perf([t for t in trades if t.get("source") != "core"], "equity", eq_hist),
                      "lab": perf(lb_trades, "lab", eq_hist), "ict": perf(ib_trades, "ict", eq_hist),
                      "kronos": perf(kb_trades, "kronos", eq_hist), "rules": perf(rb_trades, "rules", eq_hist),
+                     "lit": perf([dict(t, pnl=t.get("trade_pnl")) if "pnl" in t else t for t in lit_trades], "lit", eq_hist),
                      "benchmark": perf([], "benchmark", eq_hist)},
             "report": report_card(calls),
             "lab_live": {sid: {k: v for k, v in x.items() if k != "r"} | {"trades": len(x.get("r") or [])}
                          for sid, x in lb.get("strategies", {}).items()},
             "claude": {"t": last.get("t"), "paused": bool(last.get("paused")), "positions": len(pf["positions"])}}
+
+
+# ---------- the LIT bot: index futures and gold, 15-minute candles (rules in lit.py and docs/lit.md) ----------
+LIT_SHOW_15M = 5 * 96      # the site gets the last ~5 days of 15-minute candles...
+LIT_SHOW_1H = 30 * 24      # ...and ~30 days of hourly ones (the full 60 days are in the backtest's audit file)
+
+
+def get_lit_data():
+    """60 days of 15-minute candles (and hourly ones for context) per LIT market, back-adjusted for rolls."""
+    out = {}
+    for sym in LIT.MARKETS:
+        try:
+            m15 = R.fetch(sym, "60d", "15m", download=yahoo)
+            h1 = R.fetch(sym, "60d", "1h", download=yahoo)
+        except Exception as e:
+            print(f"LIT data failed for {sym}: {e}")
+            continue
+        if m15["bars"]:
+            out[sym] = {"m15": m15, "h1": h1}
+    return out
+
+
+def run_lit_bot(book, series, fx, now):
+    """Step the LIT bot through every closed 15-minute candle since its last run, all markets in time order, so no
+    candle is missed between hourly runs. On its first run it just starts the clock. Returns (fills, detections)."""
+    dets = {s: LIT.detect(bars, LIT.SPECS[s]["tick"]) for s, bars in series.items() if bars}
+    tr = LIT.Trader(book, fx)
+    order = []
+    for s, D in dets.items():
+        closed = [i for i, b in enumerate(D.bars) if b["time"] + LIT.BAR <= now]
+        if not closed:
+            continue
+        last = book["last_bar"].get(s)
+        if last is None:  # first run for this market: start from the latest closed candle
+            book["last_bar"][s] = D.bars[closed[-1]]["time"]
+            tr.last[s] = D.bars[closed[-1]]["close"]
+            continue
+        seen = [i for i in closed if D.bars[i]["time"] <= last]
+        tr.last[s] = D.bars[seen[-1]]["close"] if seen else D.bars[closed[0]]["open"]
+        order += [(D.bars[i]["time"], s, i) for i in closed if D.bars[i]["time"] > last]
+    fills = []
+    for t, s, i in sorted(order):
+        for f in tr.step(s, i, dets[s]):
+            spec = LIT.SPECS[s]
+            f.update(name=spec["name"], source="lit", value=round(f["contracts"] * spec["mult"] * f["price"] / fx, 2))
+            fills.append(f)
+    book["marks"] = dict(book.get("marks", {}), **tr.last)
+    return fills, dets
+
+
+def lit_equity(book, fx):
+    return LIT.equity(book, book.get("marks", {}), fx)
+
+
+def session_ranges(bars, day):
+    """Today's Asia, London and New York morning ranges so far (for the chart and the LIT read)."""
+    out = {}
+    for b in bars:
+        if str(LIT.trading_day(b["time"])) != day:
+            continue
+        s = LIT.session_of(b["time"])
+        if s:
+            r = out.setdefault(s, {"name": LIT.SESSION_NAMES[s], "high": b["high"], "low": b["low"], "from": b["time"]})
+            r.update(high=max(r["high"], b["high"]), low=min(r["low"], b["low"]), to=b["time"] + LIT.BAR)
+    return out
+
+
+def lit_now(series, dets, info, now):
+    """The public LIT read per market: candles for the chart, active liquidity levels, today's session ranges and
+    the latest things the detector saw. (The bot's own positions and trades are private.)"""
+    out = {"t": now, "markets": {}}
+    for s, D in dets.items():
+        if not D.bars:
+            continue
+        b = D.bars
+        compact = lambda xs: [[x["time"], round(x["open"], 4), round(x["high"], 4), round(x["low"], 4), round(x["close"], 4)]
+                              for x in xs]
+        day = str(LIT.trading_day(b[-1]["time"]))
+        out["markets"][s] = dict(
+            {k: LIT.SPECS[s][k] for k in ("name", "micro", "mult", "tick", "exchange")},
+            m15=compact(b[-LIT_SHOW_15M:]), h1=compact(info[s]["h1"]["bars"][-LIT_SHOW_1H:]),
+            levels=D.active[-1], sessions=session_ranges(b, day), atr=D.atr[-1],
+            events=[{k: v for k, v in e.items() if k != "i"} for e in D.events if e["type"] != "swing"][-60:],
+            **{k: v for k, v in roll_info(s, info[s]["m15"]).items() if k in ("contract", "ticker", "next_roll", "note")})
+    return out
 
 
 # ---------- report card: were Claude's calls right 24 hours later? ----------
@@ -1353,6 +1442,7 @@ def main():
             print(f"Strategy {st.get('name')} signals failed:", e)
     ib, ib_trades = load("ict.json", None), load("ict_trades.json", [])
     kb, kb_trades = load("kronos_bot.json", None) or new_kronos_book(now), load("kronos_trades.json", [])
+    litb, lit_trades = load("lit.json", None) or LIT.new_book(START_CASH), load("lit_trades.json", [])
     if not pf or pf.get("version") != 3:  # fresh start
         pf, trades, decisions, eq_hist = new_portfolio(), [], [], []
         rb, rb_trades, calls, ib, ib_trades = None, [], [], None, []
@@ -1453,6 +1543,10 @@ def main():
     ib_trades += run_ict_bot(ib, prices, last_usd, fx, now)
     lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now, lab_state().get("allocation"))
     kb_trades += run_kronos_bot(kb, prices, kronos["markets"], last_usd, fx, now)
+    lit_info = get_lit_data()
+    health["lit"] = len(lit_info) >= len(LIT.MARKETS) - 1
+    more, lit_dets = run_lit_bot(litb, {s: x["m15"]["bars"] for s, x in lit_info.items()}, fx, now)
+    lit_trades += more
     calls = evaluate_calls(calls, prices, now)[-5000:]
     decisions = (decisions + ([entry] if entry else []))[-400:]
     trades += core_fills + filled
@@ -1464,7 +1558,8 @@ def main():
     eq_hist.append({"time": now, "equity": round(total_equity(pf, last_usd, fx), 2), "benchmark": round(bench, 2),
                     "core": round(equity(pf["core"], last_usd, fx), 2), "active": round(equity(pf, last_usd, fx), 2),
                     "rules": round(equity(rb, last_usd, fx), 2), "ict": round(equity(ib, last_usd, fx), 2),
-                    "lab": round(lab_equity(lb, last_usd, fx), 2), "kronos": round(equity(kb, last_usd, fx), 2)})
+                    "lab": round(lab_equity(lb, last_usd, fx), 2), "kronos": round(equity(kb, last_usd, fx), 2),
+                    "lit": round(lit_equity(litb, fx), 2)})
 
     save("prices.json", prices)
     save("context.json", context)
@@ -1486,6 +1581,9 @@ def main():
     save("kronos.json", kronos)
     save("kronos_calls.json", kcalls)
     save("kronos_bot.json", kb)
+    save("lit.json", litb)
+    save("lit_trades.json", lit_trades)
+    save("lit_now.json", lit_now(lit_info, lit_dets, lit_info, now))
     save("kronos_trades.json", kb_trades)
     save("rolls.json", {"t": now, "applied": roll_state, "roll_days": R.ROLL_DAYS,
                         "markets": {s: {k: v for k, v in p.items() if k in ("contract", "ticker", "priced_from",
@@ -1495,10 +1593,11 @@ def main():
                  "records": bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)}
     save("consensus.json", consensus)
     save("summary.json", public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf,
-                                        decisions))
+                                        decisions, lit_trades))
     save_site_bundle({"portfolio": pf, "trades": trades, "decisions": decisions, "calls": calls, "news_takes": takes,
                       "consensus": consensus, "rules_trades": rb_trades, "ict_trades": ib_trades,
-                      "kronos_trades": kb_trades, "lab": lb, "lab_trades": lb_trades})
+                      "kronos_trades": kb_trades, "lab": lb, "lab_trades": lb_trades, "lit": litb,
+                      "lit_trades": lit_trades})
     save("history.json", {"date": history["date"], "fetched": history.get("fetched", 0), "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})

@@ -36,9 +36,18 @@ FEATURES = {
     "season": "average return of this calendar month in previous years (only years before this bar)",
     "ict_long": "1 if a bullish ICT sweep -> structure shift -> FVG entry is live on this bar, else 0",
     "ict_short": "1 if a bearish ICT setup entry is live on this bar, else 0",
+    "sweep_high_N": "1 if this bar traded above the highest high of the previous N bars and closed back below it "
+                    "(a liquidity sweep of that high), else 0",
+    "sweep_low_N": "1 if this bar traded below the lowest low of the previous N bars and closed back above it, else 0",
+    "pdh_sweep": "1 if this bar traded above the previous New York trading day's high and closed back below it, else 0",
+    "pdl_sweep": "1 if this bar traded below the previous New York trading day's low and closed back above it, else 0",
+    "lit_long": "1 if the LIT bot's full rules (liquidity, inducement, sweep, confirmation; see docs/lit.md) confirm a "
+                "buy on this bar, else 0",
+    "lit_short": "1 if the LIT bot's full rules confirm a sell on this bar, else 0",
 }
 OPS = ("<", ">", "<=", ">=", "crosses_above", "crosses_below")
-NAME_RE = re.compile(r"^(close|month|season|ict_long|ict_short|(sma|ema|rsi|atr|ret|zscore|rangepos|vol|volratio|high|low)_(\d+))$")
+NAME_RE = re.compile(r"^(close|month|season|ict_long|ict_short|pdh_sweep|pdl_sweep|lit_long|lit_short|"
+                     r"(sma|ema|rsi|atr|ret|zscore|rangepos|vol|volratio|high|low|sweep_high|sweep_low)_(\d+))$")
 
 
 class Series:
@@ -69,6 +78,10 @@ class Series:
             return self._season()
         if name in ("ict_long", "ict_short"):
             return self._ict(name.endswith("long"))
+        if name in ("pdh_sweep", "pdl_sweep"):
+            return self._pd_sweep(name == "pdh_sweep")
+        if name in ("lit_long", "lit_short"):
+            return self._lit(name.endswith("long"))
         kind, p = m.group(2), int(m.group(3))
         if not 2 <= p <= 500:
             raise ValueError(f"{name}: N must be between 2 and 500")
@@ -138,7 +151,35 @@ class Series:
         elif kind == "low":
             for i in range(p, n):
                 out[i] = min(l[i - p: i])
+        elif kind in ("sweep_high", "sweep_low"):
+            for i in range(p, n):
+                if kind == "sweep_high":
+                    lvl = max(h[i - p: i])
+                    out[i] = 1 if h[i] > lvl and c[i] < lvl else 0
+                else:
+                    lvl = min(l[i - p: i])
+                    out[i] = 1 if l[i] < lvl and c[i] > lvl else 0
         return out
+
+    def _pd_sweep(self, high):
+        import lit
+        out, prev, cur, day = [None] * len(self.bars), None, None, None
+        for i, b in enumerate(self.bars):
+            d = lit.trading_day(b["time"])
+            if d != day:
+                prev, cur, day = cur, [b["high"], b["low"]], d
+            else:
+                cur = [max(cur[0], b["high"]), min(cur[1], b["low"])]
+            if prev:
+                lvl = prev[0] if high else prev[1]
+                hit = (b["high"] > lvl and b["close"] < lvl) if high else (b["low"] < lvl and b["close"] > lvl)
+                out[i] = 1 if hit else 0
+        return out
+
+    def _lit(self, long):
+        import lit
+        D = lit.detect(self.bars)
+        return [1 if any(s["side"] == ("long" if long else "short") for s in x) else 0 for x in D.signals]
 
     def _season(self):
         months = {}

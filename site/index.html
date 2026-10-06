@@ -17,6 +17,7 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentEl
   --bg: #000; --panel: #000; --ink: #ebe9e4; --muted: #8f8c86; --line: #232220; --soft: #131211;
   --brass: #d4a94a; --up: #3cb489; --down: #e2675c; --blue: #7aaee6;
   --accent-line: #3a3220; --warn-bg: #1a1306; --violet: #b08ae6; --teal: #4fc7c7; --kronos: #9c169c;
+  --lit: #e8873a;
   --f-ict: #0c71cf; --f-kronos: #c1420e; --f-news: #8d3cc5; --f-long_term: #e16255; --f-lab: #8a7eef; --f-consensus: #a1942f; --f-risk: #a54870;
 }
 :root[data-theme="light"] {
@@ -24,6 +25,7 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentEl
   --bg: #f5f4ef; --panel: #ffffff; --ink: #1f1e1b; --muted: #6b6862; --line: #e2dfd7; --soft: #efede7;
   --brass: #8f6b12; --up: #1d7656; --down: #b4402f; --blue: #2d68ad;
   --accent-line: #d9c8a0; --warn-bg: #f7efdc; --violet: #7346b8; --teal: #127c7c; --kronos: #5c235a;
+  --lit: #b4581a;
   --f-ict: #115ca7; --f-kronos: #d4562a; --f-news: #ae5beb; --f-long_term: #ab241e; --f-lab: #684ed9; --f-consensus: #90831d; --f-risk: #fb57a3;
 }
 * { box-sizing: border-box; }
@@ -80,6 +82,13 @@ main.page section { padding: 18px 22px; }
 .intro h2 { font-size: 18px; margin-bottom: 6px; }
 .intro p { margin: 0; max-width: 78ch; color: var(--ink); font-size: 15px; line-height: 1.6; }
 #view-backtest #btChart { height: 400px; }
+#auditChart { height: 460px; margin: 6px 0 8px; }
+.warnbox { margin: 0; padding: 10px 12px; background: var(--warn-bg); border-radius: 6px; color: var(--brass); font-size: 14px; }
+#litCurve { height: 220px; margin: 8px 0; }
+.sanity td.num { font-variant-numeric: tabular-nums; }
+#auditBody .tablewrap { max-height: 360px; }
+#auditBody tr.on td { background: var(--soft); }
+.evtype { font-family: Inter, system-ui, sans-serif; font-size: 12px; font-weight: 600; }
 #view-lab table, #view-backtest table { font-size: 13.5px; }
 #view-lab td, #view-backtest td { padding: 8px 10px; }
 /* page tabs, top right of the header */
@@ -348,6 +357,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <div class="stat"><div class="v" id="sIct"></div><div class="k">ICT bot</div></div>
       <div class="stat"><div class="v" id="sKronos"></div><div class="k">Kronos bot</div></div>
       <div class="stat"><div class="v" id="sRules"></div><div class="k">Trend bot</div></div>
+      <div class="stat" id="sLitWrap" hidden><div class="v" id="sLit"></div><div class="k">LIT bot</div></div>
       <div class="stat"><div class="v" id="sBench"></div><div class="k">Buy and hold</div></div>
       <div class="stat"><div class="v" id="sCash"></div><div class="k">Cash</div></div>
     </div>
@@ -412,7 +422,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <h2>Open positions</h2>
       <div class="tablewrap" id="positions"></div>
       <h3 style="display:flex;justify-content:space-between;align-items:center">Trade history
-        <span class="seg" id="bookSeg"><button data-k="claude" aria-pressed="true">Claude</button><button data-k="lab" aria-pressed="false">Claude's strategies</button><button data-k="ict" aria-pressed="false">ICT bot</button><button data-k="kronos" aria-pressed="false">Kronos bot</button><button data-k="rules" aria-pressed="false">Trend bot</button></span></h3>
+        <span class="seg" id="bookSeg"><button data-k="claude" aria-pressed="true">Claude</button><button data-k="lab" aria-pressed="false">Claude's strategies</button><button data-k="ict" aria-pressed="false">ICT bot</button><button data-k="kronos" aria-pressed="false">Kronos bot</button><button data-k="rules" aria-pressed="false">Trend bot</button><button data-k="lit" aria-pressed="false">LIT bot</button></span></h3>
       <div class="tablewrap">
         <table>
           <thead><tr><th>When</th><th>Commodity</th><th>Action</th><th class="num">Price</th><th class="num">Value (£)</th><th class="num">P&amp;L (£)</th><th>Why</th></tr></thead>
@@ -441,11 +451,11 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
 
     <section id="perfSec">
       <h2>Claude vs the bots vs buy and hold
-        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--teal)"></i>Claude's strategies</span><span><i style="background:var(--violet)"></i>ICT bot</span><span><i style="background:var(--kronos)"></i>Kronos bot</span><span><i style="background:var(--blue)"></i>Trend bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
+        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--teal)"></i>Claude's strategies</span><span><i style="background:var(--violet)"></i>ICT bot</span><span><i style="background:var(--kronos)"></i>Kronos bot</span><span><i style="background:var(--blue)"></i>Trend bot</span><span><i style="background:var(--lit)"></i>LIT bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
       </h2>
       <div id="equity"></div>
       <div class="tablewrap" id="perf" style="margin-top:12px"></div>
-      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k, each on a slice sized by its risk. The ICT bot trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. The trend bot holds a market while its 20-hour average is above its 100-hour average. The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. Claude weighs the 5-year picture, the news, the ICT read, Kronos, its lab strategies and what the other bots are doing (each bot counted by how much evidence its record gives), and keeps a slice of its account in a core holding spread across all ten markets like buy and hold. If Claude can't beat the bots, it isn't adding much.</p>
+      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k, each on a slice sized by its risk. The ICT bot trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. The trend bot holds a market while its 20-hour average is above its 100-hour average. The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. The LIT bot trades the US index futures and gold on 15-minute candles: it waits for price to run the stops beyond a well-known high or low and snap back, then trades the snap-back in micro contracts (rules in docs/lit.md). Claude weighs the 5-year picture, the news, the ICT read, Kronos, its lab strategies and what the other bots are doing (each bot counted by how much evidence its record gives), and keeps a slice of its account in a core holding spread across all ten markets like buy and hold. If Claude can't beat the bots, it isn't adding much.</p>
     </section>
 
     <section id="reportSec">
@@ -499,6 +509,20 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       </h2>
       <div id="btBody"></div>
     </section>
+
+    <section id="litSec">
+      <h2>LIT bot: index futures and gold, 15-minute candles <small id="litWhen"></small></h2>
+      <div id="litBody"></div>
+    </section>
+
+    <section id="auditSec">
+      <h2>LIT audit <small>every level, inducement, sweep, confirmation and trade the bot saw (New York time)</small>
+        <span class="toggle" role="group" aria-label="Market" id="auditSeg"></span>
+      </h2>
+      <div id="auditChart"></div>
+      <div class="legend" id="auditLegend"></div>
+      <div id="auditBody"></div>
+    </section>
   </main>
   </div>
 
@@ -536,6 +560,10 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
         <dt>Kronos bot</dt><dd>Trades Kronos's forecasts when a move looks clearly likely and big enough to cover costs; closes
         after 24 hours.</dd>
         <dt>Trend bot</dt><dd>Holds a market while its 20-hour average is above its 100-hour average.</dd>
+        <dt>LIT bot</dt><dd>Trades the S&amp;P 500, Nasdaq 100, Dow and Russell 2000 index futures and gold on 15-minute
+        candles. It marks where traders' stop orders cluster (yesterday's high and low, the Asia and London session
+        ranges, equal highs and lows), waits for price to run those stops and snap back, and trades the snap-back in
+        the London and New York morning windows, in micro contracts, risking 0.5% per trade.</dd>
         <dt>Buy and hold</dt><dd>The yardstick: an equal slice of every market, bought at the start and never traded.</dd>
       </dl>
       <p class="hint">Every competitor pays 0.05% in costs on every trade, and a stop that price jumps through fills at the
@@ -689,6 +717,8 @@ async function init() {
     renderBacktest(b.dataset.k); flash($("#btBody"));
   });
   renderBacktest("hourly");
+  renderLit();
+  if (view === "backtest") loadAudit();
   renderLab();
   renderData();
   renderDownloads();
@@ -751,6 +781,7 @@ function usePrivate(p) {
   D.pf = p?.portfolio || null; D.trades = p?.trades || []; D.decisions = p?.decisions || []; D.calls = p?.calls || [];
   D.consensus = p?.consensus || null; D.rbTrades = p?.rules_trades || []; D.ictTrades = p?.ict_trades || [];
   D.kronosTrades = p?.kronos_trades || []; D.labTrades = p?.lab_trades || [];
+  D.litTrades = p?.lit_trades || [];
   D.labBook = p?.lab || { strategies: D.summary?.lab_live || {} };
   const takes = p?.news_takes || {};
   for (const n of D.news) if (takes[n.id]) n.claude = takes[n.id];
@@ -799,6 +830,7 @@ function showView(next, first) {
     if (MOTION() && !first) { el2.classList.remove("entering"); void el2.offsetWidth; el2.classList.add("entering"); }
   };
   view = next;
+  if (next === "backtest" && D.ready) loadAudit();
   if (old && MOTION() && !first) { old.classList.add("leaving"); setTimeout(swap, 140); } else swap();
 }
 addEventListener("hashchange", () => showView(viewFromHash()));
@@ -845,6 +877,7 @@ function renderHeader() {
   countUp(tone($("#sIct"), ir), ir, pct);
   const kr = eq?.kronos ? eq.kronos / START - 1 : 0;
   countUp(tone($("#sKronos"), kr), kr, pct);
+  if (eq?.lit != null) { $("#sLitWrap").hidden = false; const lr = eq.lit / START - 1; countUp(tone($("#sLit"), lr), lr, pct); }
   if (D.pf) countUp($("#sCash"), D.pf.cash, money); else $("#sCash").closest(".stat").hidden = true;
   if (D.unlocked && !$("#lockBtn")) {  // a way to lock it again on this device
     const b = el("button", { className: "themebtn", id: "lockBtn", type: "button", textContent: "Lock", title: "Forget the password on this device",
@@ -906,6 +939,8 @@ function makeCharts() {
   eqSeries.ict.setData(D.equity.filter(e => e.ict != null).map(e => ({ time: e.time, value: e.ict })));
   eqSeries.kronos = eqChart.addLineSeries({ color: css("--kronos"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
   eqSeries.kronos.setData(D.equity.filter(e => e.kronos != null).map(e => ({ time: e.time, value: e.kronos })));
+  eqSeries.lit = eqChart.addLineSeries({ color: css("--lit"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
+  eqSeries.lit.setData(D.equity.filter(e => e.lit != null).map(e => ({ time: e.time, value: e.lit })));
   eqSeries.lab = eqChart.addLineSeries({ color: css("--teal"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
   eqSeries.lab.setData(labLive() ? D.equity.filter(e => e.lab != null).map(e => ({ time: e.time, value: e.lab })) : []);
   eqChart.timeScale().fitContent();
@@ -933,7 +968,9 @@ function setTheme(theme, animate) {
   $("#themeBtn").textContent = theme === "dark" ? "Light mode" : "Dark mode";
   if (!chart) return;
   chart.applyOptions(chartOpts()); eqChart.applyOptions(chartOpts());
-  eqSeries.bench.applyOptions({ color: css("--muted") }); eqSeries.claude.applyOptions({ color: css("--brass") }); eqSeries.rules.applyOptions({ color: css("--blue") }); eqSeries.ict.applyOptions({ color: css("--violet") }); eqSeries.lab.applyOptions({ color: css("--teal") }); eqSeries.kronos.applyOptions({ color: css("--kronos") });
+  eqSeries.bench.applyOptions({ color: css("--muted") }); eqSeries.claude.applyOptions({ color: css("--brass") }); eqSeries.rules.applyOptions({ color: css("--blue") }); eqSeries.ict.applyOptions({ color: css("--violet") }); eqSeries.lab.applyOptions({ color: css("--teal") }); eqSeries.kronos.applyOptions({ color: css("--kronos") }); eqSeries.lit.applyOptions({ color: css("--lit") });
+  if (audit.chart) { audit.chart.applyOptions(chartOpts()); auditMarket(audit.sym); }
+  if (D.litCurveChart) renderLit();
   drawChart();
   if (D.bt) renderBacktest(document.querySelector("#btSeg button[aria-pressed=true]")?.dataset.k || "hourly");
 }
@@ -1164,6 +1201,162 @@ function renderBacktest(key) {
     el("p", { className: "hint", textContent: `Each market is tested on its own £100k and "combined" is an equal-weight mix of them. Costs of ${(D.bt.cost_per_side * 100).toFixed(2)}% are charged each way. No Claude in this test, so there's no hindsight from its training. Past results don't guarantee future ones.` }));
 }
 
+// ---------- the LIT bot on the Backtest tab: results, sanity numbers and the audit chart ----------
+const nyFmt = new Intl.DateTimeFormat("en-GB", { timeZone: "America/New_York", weekday: "short", day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const nyDay = new Intl.DateTimeFormat("en-GB", { timeZone: "America/New_York", day: "numeric", month: "short" });
+const nyHM = new Intl.DateTimeFormat("en-GB", { timeZone: "America/New_York", hour: "2-digit", minute: "2-digit" });
+const nyTime = t => nyFmt.format(new Date(t * 1000));
+const LIT_NAMES = { "ES=F": "S&P 500", "NQ=F": "Nasdaq 100", "YM=F": "Dow", "RTY=F": "Russell 2000", "GC=F": "Gold" };
+const fmtR = x => x == null ? "—" : (x > 0 ? "+" : "") + x.toFixed(2) + "R";
+
+function renderLit() {
+  const box = $("#litBody"), r = D.bt?.runs?.lit;
+  box.replaceChildren();
+  if (!r) {
+    box.append(el("p", { className: "empty", textContent: "No LIT backtest yet. On GitHub, open Actions, choose Run backtest, then Run workflow." }));
+    $("#auditSec").hidden = true;
+    return;
+  }
+  $("#auditSec").hidden = false;
+  $("#litWhen").textContent = `${r.weeks} weeks, ${nyDay.format(new Date(r.from * 1000))} to ${nyDay.format(new Date(r.to * 1000))}`;
+  const st = r.combined.lit.stats, c = n => n > 0 ? "up" : n < 0 ? "down" : "";
+  box.append(
+    el("p", { className: "warnbox", textContent: r.caveat }),
+    el("p", { style: "margin:10px 0", textContent: "The LIT bot looks for places where traders' stop orders cluster (yesterday's high and low, the Asia and London session ranges, equal highs and lows), waits for price to run those stops and snap back, and trades the snap-back, but only in the London and New York morning windows. It risks 0.5% of its own £100k per trade in micro futures contracts, with costs and a tick of slippage on every order. Every rule is written out exactly in docs/lit.md." }),
+    el("div", { className: "grid2" }, [
+      kv("Return, all markets", pct(st.return), c(st.return)), kv("Trades", st.trades),
+      kv("Win rate", st.win_rate == null ? "—" : Math.round(st.win_rate * 100) + "%"), kv("Average per trade", fmtR(st.avg_r)),
+      kv("Profit factor", st.profit_factor ?? "—"), kv("Worst drawdown", pct(st.max_dd), c(st.max_dd)),
+    ]),
+    el("div", { id: "litCurve" }),
+  );
+  const cols = ["Market", "Contract", "Trades", "Win rate", "Avg", "P&L (£)", "Levels / wk", "Sweeps / wk", "…with inducement", "Confirmed / wk", "Trades / wk"];
+  box.append(el("h3", { textContent: "Per market, and the sanity numbers" }), el("div", { className: "tablewrap", style: "max-height:none" }, [el("table", { className: "sanity" }, [
+    el("thead", {}, [el("tr", {}, cols.map((h, i) => el("th", { className: i > 1 ? "num" : "", textContent: h })))]),
+    el("tbody", {}, Object.entries(r.markets).map(([s, m]) => el("tr", {}, [
+      el("td", {}, [m.name + " ", el("span", { className: "muted", textContent: m.exchange })]), el("td", { textContent: m.micro }),
+      el("td", { className: "num", textContent: m.trades }), el("td", { className: "num", textContent: m.win_rate == null ? "—" : Math.round(m.win_rate * 100) + "%" }),
+      el("td", { className: "num", textContent: fmtR(m.avg_r) }), tone(el("td", { className: "num", textContent: signed(m.pnl) }), m.pnl),
+      ...["levels", "sweeps", "with_inducement", "confirmations", "trades"].map(k => el("td", { className: "num", textContent: m.per_week[k] })),
+    ]))),
+  ])]), el("p", { className: "hint", textContent: "The sanity numbers show the rules are neither seeing setups everywhere nor almost never: about 40 liquidity levels and 15 sweeps a week per market, of which a few have a proper inducement, and well under one confirmed trade a week per market." }));
+  const ch = LightweightCharts.createChart($("#litCurve"), { ...chartOpts(), handleScroll: false, handleScale: false });
+  const line = ch.addLineSeries({ color: css("--lit"), lineWidth: 2, priceLineVisible: false });
+  line.setData(r.combined.lit.curve);
+  ch.timeScale().fitContent();
+  D.litCurveChart = ch;
+}
+
+const audit = { data: null, chart: null, series: null, lines: [], sym: null, filter: "key" };
+const EV = { level: "Level", inducement: "Inducement", sweep: "Sweep", confirm: "Confirmation", broken: "Broken", gap: "Gap", breakout: "Breakout", cancelled: "Cancelled", expired: "Expired" };
+const LV_COLOR = k => k.startsWith("PD") ? "--brass" : k.startsWith("Asia") ? "--teal" : k.startsWith("London") ? "--blue" : "--violet";
+
+async function loadAudit() {
+  if (audit.loading) return;
+  audit.loading = true;
+  $("#auditBody").replaceChildren(el("p", { className: "empty", textContent: "Loading the 60 days of 15-minute candles…" }));
+  audit.data = await getJSON("lit_audit.json", null);
+  if (!audit.data?.markets) { $("#auditBody").replaceChildren(el("p", { className: "empty", textContent: "No audit trail yet: it's written by the Run backtest workflow." })); return; }
+  const syms = Object.keys(audit.data.markets);
+  $("#auditSeg").replaceChildren(...syms.map(s => {
+    const b = el("button", { type: "button", textContent: LIT_NAMES[s] || s });
+    b.dataset.s = s; b.onclick = () => { auditMarket(s); flash($("#auditChart")); };
+    return b;
+  }));
+  $("#auditLegend").replaceChildren(...[["--brass", "Previous day high / low"], ["--teal", "Asia range"], ["--blue", "London range"], ["--violet", "Equal highs / lows, inducement"]]
+    .map(([c, t]) => el("span", {}, [el("i", { style: `background:var(${c})` }), t])));
+  auditMarket(syms[0]);
+}
+
+function auditChart() {
+  if (audit.chart) return audit.chart;
+  audit.chart = LightweightCharts.createChart($("#auditChart"), { ...chartOpts(),
+    localization: { timeFormatter: t => nyTime(t) },
+    timeScale: { ...chartOpts().timeScale, tickMarkFormatter: (t, type) => type <= 2 ? nyDay.format(new Date(t * 1000)) : nyHM.format(new Date(t * 1000)) } });
+  audit.chart.timeScale().subscribeVisibleTimeRangeChange(() => { clearTimeout(audit.timer); audit.timer = setTimeout(drawLevels, 120); });
+  return audit.chart;
+}
+
+function auditMarket(sym) {
+  audit.sym = sym;
+  document.querySelectorAll("#auditSeg button").forEach(b => b.setAttribute("aria-pressed", b.dataset.s === sym));
+  const m = audit.data.markets[sym], ch = auditChart();
+  if (audit.series) ch.removeSeries(audit.series);
+  audit.lines.forEach(x => ch.removeSeries(x)); audit.lines = [];
+  audit.series = ch.addCandlestickSeries({ upColor: css("--up"), downColor: css("--down"), borderVisible: false, wickUpColor: css("--up"), wickDownColor: css("--down") });
+  audit.series.setData(m.bars.map(([time, open, high, low, close]) => ({ time, open, high, low, close })));
+  const mk = [];
+  for (const e of m.events) {
+    const hi = e.side === "high";
+    if (e.type === "inducement") mk.push({ time: e.pivot_t, position: hi ? "aboveBar" : "belowBar", shape: "circle", color: css("--violet"), text: "Ind" });
+    if (e.type === "sweep") mk.push({ time: e.t, position: hi ? "aboveBar" : "belowBar", shape: hi ? "arrowDown" : "arrowUp", color: e.inducement ? css("--brass") : css("--muted"), text: e.inducement ? "Sweep" : "Sweep, no ind." });
+    if (e.type === "confirm") mk.push({ time: e.t, position: e.side === "short" ? "aboveBar" : "belowBar", shape: "square", color: css("--blue"), text: "Confirm" });
+  }
+  for (const tr of m.trades) {
+    const buy = tr.action === "BUY";
+    mk.push({ time: tr.t, position: buy ? "belowBar" : "aboveBar", shape: buy ? "arrowUp" : "arrowDown", color: buy ? css("--up") : css("--down"), text: `${buy ? "Buy" : "Sell"} ${tr.contracts}` });
+    for (const x of tr.exits) mk.push({ time: x.t, position: buy ? "aboveBar" : "belowBar", shape: "circle", color: (x.pnl || 0) >= 0 ? css("--up") : css("--down"),
+      text: x.exit === "tp1" ? "2R" : x.exit === "target" ? "Target" : x.exit === "eod" ? "EOD" : /Break-even/.test(x.reason) ? "BE" : /Trailing/.test(x.reason) ? "Trail" : "Stop" });
+  }
+  audit.series.setMarkers(mk.sort((a, b) => a.time - b.time));
+  const last = m.bars.at(-1)[0];
+  ch.timeScale().setVisibleRange({ from: last - 5 * 86400, to: last });
+  renderAuditTables();
+}
+
+function drawLevels() {
+  // liquidity levels as lines from when they appeared to when they were used up, for the part of the chart in view
+  if (!audit.series) return;
+  const ch = audit.chart, r = ch.timeScale().getVisibleRange();
+  audit.lines.forEach(x => ch.removeSeries(x)); audit.lines = [];
+  if (!r) return;
+  const m = audit.data.markets[audit.sym];
+  const vis = m.levels.filter(l => l.from <= r.to && l.to >= r.from && l.to > l.from).slice(-80);
+  for (const l of vis) {
+    const s = ch.addLineSeries({ color: css(LV_COLOR(l.kind)), lineWidth: 1, lineStyle: l.kind.startsWith("Equal") ? 2 : 0,
+      priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false });
+    s.setData([{ time: l.from, value: l.price }, { time: l.to, value: l.price }]);
+    audit.lines.push(s);
+  }
+}
+
+function jumpTo(t0, t1) {
+  audit.chart?.timeScale().setVisibleRange({ from: t0 - 6 * 3600, to: (t1 || t0) + 3 * 3600 });
+  $("#auditChart").scrollIntoView({ block: "nearest", behavior: MOTION() ? "smooth" : "auto" });
+}
+
+function renderAuditTables() {
+  const box = $("#auditBody"), m = audit.data.markets[audit.sym];
+  box.replaceChildren();
+  const trades = Object.values(audit.data.markets).flatMap(x => x.trades).sort((a, b) => b.t - a.t);
+  box.append(el("h3", { textContent: `Every backtest trade (${trades.length}), all markets: click one to see it on the chart` }));
+  box.append(el("div", { className: "tablewrap" }, [el("table", {}, [
+    el("thead", {}, [el("tr", {}, ["Entry (New York)", "Market", "Side", "Contracts", "Entry", "Stop", "2R", "Exits", "Result"].map((h, i) => el("th", { className: i >= 3 && i <= 6 || i === 8 ? "num" : "", textContent: h })))]),
+    el("tbody", {}, trades.map(tr => el("tr", { className: "click", onclick: () => { if (tr.symbol !== audit.sym) auditMarket(tr.symbol); jumpTo(tr.t, tr.closed); } }, [
+      el("td", { textContent: nyTime(tr.t) }), el("td", { textContent: LIT_NAMES[tr.symbol] || tr.symbol }),
+      tone(el("td", { className: "tag", textContent: tr.action === "BUY" ? "Buy" : "Sell" }), tr.action === "BUY" ? 1 : -1),
+      el("td", { className: "num", textContent: `${tr.contracts} ${tr.micro}` }), el("td", { className: "num", textContent: price(tr.price) }),
+      el("td", { className: "num", textContent: price(tr.stop) }), el("td", { className: "num", textContent: price(tr.tp1) }),
+      el("td", { className: "reason", textContent: tr.exits.map(x => `${nyHM.format(new Date(x.t * 1000))} ${x.reason}`).join("; ") || "still open at the end" }),
+      tr.pnl != null ? tone(el("td", { className: "num", textContent: `${fmtR(tr.r)} (${signed(tr.pnl)})` }), tr.pnl) : el("td", { className: "num muted", textContent: "—" }),
+    ]))),
+  ])]));
+  const key = ["inducement", "sweep", "confirm", "breakout", "cancelled", "expired"];
+  const evs = m.events.filter(e => audit.filter === "all" || key.includes(e.type)).slice().reverse();
+  const seg = el("span", { className: "seg" }, [["key", "Sweeps and setups"], ["all", "Everything, levels too"]].map(([k, t]) => {
+    const b = el("button", { type: "button", textContent: t }); b.setAttribute("aria-pressed", audit.filter === k);
+    b.onclick = () => { audit.filter = k; renderAuditTables(); }; return b; }));
+  box.append(el("h3", { style: "display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap" }, [`What the bot saw in ${LIT_NAMES[audit.sym] || audit.sym} (${evs.length})`, seg]));
+  box.append(el("div", { className: "tablewrap" }, [el("table", {}, [
+    el("thead", {}, [el("tr", {}, ["When (New York)", "What", "Price", "Why"].map((h, i) => el("th", { className: i === 2 ? "num" : "", textContent: h })))]),
+    el("tbody", {}, evs.map(e => el("tr", { className: "click", onclick: ev => { box.querySelectorAll("tr.on").forEach(x => x.classList.remove("on")); ev.currentTarget.classList.add("on"); jumpTo(e.t); } }, [
+      el("td", { textContent: nyTime(e.t) }), el("td", { className: "evtype", textContent: EV[e.type] || e.type }),
+      el("td", { className: "num", textContent: price(e.price) }),
+      el("td", { className: "reason", textContent: e.type === "level" ? `${e.kind} appeared` : e.type === "inducement" ? `swing ${e.side} just short of the level, formed ${nyTime(e.pivot_t)}` : (e.why || e.kind || "") }),
+    ]))),
+  ])]));
+}
+
 function barFor(t) {
   const bars = D.prices[sym].bars;
   return (bars.filter(b => b.time <= t).pop() || bars[0]).time;
@@ -1372,15 +1565,15 @@ const toCSV = (head, rows) => [head, ...rows].map(r => r.map(csvCell).join(","))
 
 function datasets() {
   const bt = D.bt?.runs || {}, P = D.summary?.perf || {};
-  const perfRows = [["Claude", "equity"], ["Claude's strategies", "lab"], ["ICT bot", "ict"], ["Kronos bot", "kronos"], ["Trend bot", "rules"], ["Buy and hold", "benchmark"]]
+  const perfRows = [["Claude", "equity"], ["Claude's strategies", "lab"], ["ICT bot", "ict"], ["Kronos bot", "kronos"], ["Trend bot", "rules"], ["LIT bot", "lit"], ["Buy and hold", "benchmark"]]
     .map(([n, k]) => [n, P[k] || {}]);
   return [
     ["prices", "Prices", "Hourly bars for the last 60 days, every market (back-adjusted for rolls)",
       () => toCSV(["market", "name", "time_utc", "open", "high", "low", "close"], Object.entries(D.prices).flatMap(([s, p]) => p.bars.map(b => [s, p.name, iso(b.time), b.open, b.high, b.low, b.close]))),
       () => Object.fromEntries(Object.entries(D.prices).map(([s, p]) => [s, { name: p.name, unit: p.unit, exchange: p.exchange, contract: p.contract, bars: p.bars }]))],
     ["equity", "Equity curves", "Every competitor's account value, every hour since the start (£)",
-      () => toCSV(["time_utc", "claude", "claude_active", "claude_core", "claudes_strategies", "ict_bot", "kronos_bot", "trend_bot", "buy_and_hold"],
-        D.equity.map(e => [iso(e.time), e.equity, e.active, e.core, e.lab, e.ict, e.kronos, e.rules, e.benchmark])),
+      () => toCSV(["time_utc", "claude", "claude_active", "claude_core", "claudes_strategies", "ict_bot", "kronos_bot", "trend_bot", "lit_bot", "buy_and_hold"],
+        D.equity.map(e => [iso(e.time), e.equity, e.active, e.core, e.lab, e.ict, e.kronos, e.rules, e.lit, e.benchmark])),
       () => D.equity],
     ["performance", "Performance", "Return, trades, win rate, realised profit and worst drawdown per competitor",
       () => toCSV(["competitor", "return", "trades_opened", "closed_trades", "win_rate", "realised_pnl_gbp", "max_drawdown"],
@@ -1388,9 +1581,14 @@ function datasets() {
       () => D.summary?.perf || {}],
     ["backtest", "Backtest results", "Per market and combined, hourly (2 years) and daily (5 years)",
       () => toCSV(["run", "market", "name", "bot", "return", "cagr", "max_drawdown", "trades", "win_rate", "profit_factor", "avg_r", "rolls"],
-        Object.entries(bt).flatMap(([run, r]) => [...Object.entries(r.markets).flatMap(([s, m]) => ["ict", "trend", "hold"].map(k => [run, s, m.name, k, m[k].return, m[k].cagr, m[k].max_dd, m[k].trades, m[k].win_rate, m[k].profit_factor, m[k].avg_r, m.data?.rolls])),
+        Object.entries(bt).filter(([, r]) => r.combined?.ict).flatMap(([run, r]) => [...Object.entries(r.markets).flatMap(([s, m]) => ["ict", "trend", "hold"].map(k => [run, s, m.name, k, m[k].return, m[k].cagr, m[k].max_dd, m[k].trades, m[k].win_rate, m[k].profit_factor, m[k].avg_r, m.data?.rolls])),
           ...["ict", "trend", "hold"].map(k => { const x = r.combined[k].stats; return [run, "combined", "All markets", k, x.return, x.cagr, x.max_dd, x.trades, x.win_rate, x.profit_factor, x.avg_r, ""]; })])),
       () => D.bt],
+    ["lit-backtest", "LIT bot backtest", "Every LIT backtest trade on the last 60 days of 15-minute candles, with its result",
+      () => toCSV(["entry_new_york", "market", "side", "contracts", "micro", "entry", "stop", "two_r", "exits", "pnl_gbp", "r"],
+        Object.values(audit.data?.markets || {}).flatMap(m => m.trades).map(t => [nyTime(t.t), LIT_NAMES[t.symbol] || t.symbol, t.side, t.contracts, t.micro, t.price, t.stop, t.tp1,
+          t.exits.map(x => `${nyTime(x.t)} ${x.reason}`).join("; "), t.pnl, t.r])),
+      () => ({ summary: D.bt?.runs?.lit || null, trades: Object.values(audit.data?.markets || {}).flatMap(m => m.trades) })],
     ["lab", "Strategy lab results", "Every strategy Claude has invented and how it did on data it was never fitted on",
       () => toCSV(["id", "name", "timeframe", "passed", "live", "test_trades", "test_profit_factor", "test_avg_r", "train_profit_factor", "windows_up", "windows_traded", "luck_after_correction", "idea"],
         (D.lab?.strategies || []).map(x => { const te = x.results?.test?.combined || {}, tr = x.results?.train?.combined || {}, v = x.validation || {};
@@ -1402,8 +1600,9 @@ function datasets() {
 function renderDownloads() {
   const box = $("#downloads");
   box.replaceChildren();
-  const link = (label, name, make, type) => el("a", { href: "#", textContent: label, onclick: e => {
+  const link = (label, name, make, type) => el("a", { href: "#", textContent: label, onclick: async e => {
     e.preventDefault();
+    if (name.includes("lit-backtest") && !audit.data) audit.data = await getJSON("lit_audit.json", null);
     const url = URL.createObjectURL(new Blob([make()], { type }));
     const a = el("a", { href: url, download: name }); document.body.append(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
@@ -1489,12 +1688,12 @@ function select(s) {
 }
 
 function showDetail(t) {
-  if (t.symbol !== sym) select(t.symbol);
+  if (t.symbol !== sym && D.prices[t.symbol]) select(t.symbol);
   const d = $("#detail");
   const pnl = t.pnl != null ? tone(el("span", { textContent: "P&L " + signed(t.pnl) }), t.pnl) : "";
   d.replaceChildren(
     el("button", { textContent: "Close", onclick: () => d.hidden = true }),
-    el("strong", { textContent: `${({ ict: "ICT bot: ", kronos: "Kronos bot: ", rules: "Trend bot: ", lab: `${stratName(t.strategy) || "Claude's strategy"}: ` })[t.source] || ""}${ACTION(t)} ${t.name}, ${when(t.t)}` }),
+    el("strong", { textContent: `${({ ict: "ICT bot: ", kronos: "Kronos bot: ", rules: "Trend bot: ", lit: "LIT bot: ", lab: `${stratName(t.strategy) || "Claude's strategy"}: ` })[t.source] || ""}${ACTION(t)} ${t.name}, ${when(t.t)}` }),
     el("div", { className: "row" }, [
       el("span", { textContent: `Price ${price(t.price)}` }), el("span", { textContent: `Value ${money(t.value)}` }),
       t.stop ? el("span", { textContent: `Stop ${price(t.stop)}` }) : "", t.target ? el("span", { textContent: `Target ${price(t.target)}` }) : "", pnl,
@@ -1680,7 +1879,7 @@ function renderBook() {
 
 function renderHistory(k) {
   const body = $("#trades"); body.replaceChildren();
-  const trades = [...({ claude: D.trades, lab: D.labTrades, ict: D.ictTrades, kronos: D.kronosTrades, rules: D.rbTrades })[k]].reverse().slice(0, 300);
+  const trades = [...({ claude: D.trades, lab: D.labTrades, ict: D.ictTrades, kronos: D.kronosTrades, rules: D.rbTrades, lit: D.litTrades })[k]].reverse().slice(0, 300);
   $("#noTrades").hidden = trades.length > 0;
   for (const t of trades) {
     body.append(el("tr", { className: "click", onclick: () => showDetail(t) }, [
@@ -1763,7 +1962,9 @@ function renderPerf() {
   // locked: the totals published for visitors (no individual trades); unlocked: worked out from the trades
   const S = !D.unlocked && D.summary?.perf;
   const st = (trades, key) => S ? (S[key] || stats([], key)) : stats(trades, key);
-  const cols = [["Claude", st(D.trades.filter(t => t.source !== "core"), "equity")], ...(labLive() || S?.lab?.buys ? [["Claude's strategies", st(D.labTrades, "lab")]] : []), ["ICT bot", st(D.ictTrades, "ict")], ["Kronos bot", st(D.kronosTrades, "kronos")], ["Trend bot", st(D.rbTrades, "rules")], ["Buy and hold", st([], "benchmark")]];
+  const cols = [["Claude", st(D.trades.filter(t => t.source !== "core"), "equity")], ...(labLive() || S?.lab?.buys ? [["Claude's strategies", st(D.labTrades, "lab")]] : []), ["ICT bot", st(D.ictTrades, "ict")], ["Kronos bot", st(D.kronosTrades, "kronos")], ["Trend bot", st(D.rbTrades, "rules")],
+    ...(D.equity.some(e => e.lit != null) ? [["LIT bot", st(D.litTrades.map(t => ({ ...t, pnl: "trade_pnl" in t ? t.trade_pnl : null })), "lit")]] : []),
+    ["Buy and hold", st([], "benchmark")]];
   const c = n => n > 0 ? "up" : n < 0 ? "down" : "";
   const rows = [
     ["Return", s => pct(s.ret), s => c(s.ret)],
