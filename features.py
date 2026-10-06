@@ -34,8 +34,6 @@ FEATURES = {
     "low_N": "lowest low of the previous N bars, not counting this one",
     "month": "calendar month of the bar (1-12)",
     "season": "average return of this calendar month in previous years (only years before this bar)",
-    "ict_long": "1 if a bullish ICT sweep -> structure shift -> FVG entry is live on this bar, else 0",
-    "ict_short": "1 if a bearish ICT setup entry is live on this bar, else 0",
     "sweep_high_N": "1 if this bar traded above the highest high of the previous N bars and closed back below it "
                     "(a liquidity sweep of that high), else 0",
     "sweep_low_N": "1 if this bar traded below the lowest low of the previous N bars and closed back above it, else 0",
@@ -46,7 +44,9 @@ FEATURES = {
     "lit_short": "1 if the LIT bot's full rules confirm a sell on this bar, else 0",
 }
 OPS = ("<", ">", "<=", ">=", "crosses_above", "crosses_below")
-NAME_RE = re.compile(r"^(close|month|season|ict_long|ict_short|pdh_sweep|pdl_sweep|lit_long|lit_short|"
+# ict_long and ict_short were retired with the ICT bot (no live or passed strategy used them), so the lab can no longer
+# write rules with them.
+NAME_RE = re.compile(r"^(close|month|season|pdh_sweep|pdl_sweep|lit_long|lit_short|"
                      r"(sma|ema|rsi|atr|ret|zscore|rangepos|vol|volratio|high|low|sweep_high|sweep_low)_(\d+))$")
 
 
@@ -76,8 +76,6 @@ class Series:
             return [time.gmtime(b["time"]).tm_mon for b in self.bars]
         if name == "season":
             return self._season()
-        if name in ("ict_long", "ict_short"):
-            return self._ict(name.endswith("long"))
         if name in ("pdh_sweep", "pdl_sweep"):
             return self._pd_sweep(name == "pdh_sweep")
         if name in ("lit_long", "lit_short"):
@@ -195,18 +193,6 @@ class Series:
             t = time.gmtime(b["time"])
             past = [v for (y, mo), v in rets.items() if mo == t.tm_mon and y < t.tm_year]
             out.append(sum(past) / len(past) if past else None)
-        return out
-
-    def _ict(self, long):
-        import ict
-        out = [0] * len(self.bars)
-        W = ict.RANGE_BARS
-        for i in range(W, len(self.bars)):
-            window = self.bars[i - W + 1: i + 1]
-            hi, lo = ict.swings(window)
-            s = ict.find_setup(window, hi, lo, "long" if long else "short")
-            if s and s["state"] == "entry":
-                out[i] = 1
         return out
 
 

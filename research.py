@@ -212,8 +212,8 @@ def summarise_bots():
         c = run["combined"]
         if "ict" not in c:  # the LIT bot's 15-minute run isn't part of the lab's (daily and hourly) world
             continue
-        lines.append(f"{run['label']}: ICT bot {c['ict']['stats']['return']:+.1%} (PF {c['ict']['stats'].get('profit_factor')}, "
-                     f"{c['ict']['stats']['trades']} trades), trend bot {c['trend']['stats']['return']:+.1%} "
+        lines.append(f"{run['label']}: ICT bot (retired) {c['ict']['stats']['return']:+.1%} (PF {c['ict']['stats'].get('profit_factor')}, "
+                     f"{c['ict']['stats']['trades']} trades), trend bot (retired) {c['trend']['stats']['return']:+.1%} "
                      f"(PF {c['trend']['stats'].get('profit_factor')}), buy and hold {c['hold']['stats']['return']:+.1%}")
         for sym, m in run["markets"].items():
             lines.append(f"   {m['name']}: ICT {m['ict']['return']:+.1%} ({m['ict']['trades']} trades), "

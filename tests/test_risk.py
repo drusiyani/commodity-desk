@@ -20,8 +20,8 @@ def buy(sym="GC=F", amount=10_000, stop=1950.0, target=2100.0, **kw):
     return dict({"symbol": sym, "action": "BUY", "amount_gbp": amount, "stop": stop, "target": target, "reason": "test"}, **kw)
 
 
-def decide(p, *trades, reads=None, adjust=()):
-    return E.apply_decision(p, {"trades": list(trades), "adjust": list(adjust)}, LAST, FX, T0, reads)
+def decide(p, *trades, adjust=()):
+    return E.apply_decision(p, {"trades": list(trades), "adjust": list(adjust)}, LAST, FX, T0)
 
 
 def test_valid_buy_is_filled_with_costs():
@@ -79,27 +79,17 @@ def test_stop_above_price_is_not_valid():
     assert p["positions"]["GC=F"]["stop"] < 2000
 
 
-def test_stop_moved_below_the_sweep_low_when_ict_was_the_reason():
-    reads = {"GC=F": {"setups": [{"side": "long", "state": "entry", "extreme": 1960.0}]}}
+@pytest.mark.parametrize("basis,kept", [("atr", "atr"), ("structure", "structure"), (None, "given"), ("ict", "given")])
+def test_stop_basis_is_recorded_and_ict_is_no_longer_one(basis, kept):
     p = pf()
-    filled, blocked = decide(p, buy(stop=1970, target=2200, stop_basis="ict"), reads=reads)
-    assert p["positions"]["GC=F"]["stop"] == pytest.approx(1960 * 0.999, abs=1e-4)
-    assert any("below the sweep low" in b for b in blocked)
-    assert filled[0]["stop_basis"] == "ict"
-
-
-@pytest.mark.parametrize("basis", ["atr", "structure", None])
-def test_stop_left_alone_when_ict_was_not_the_reason(basis):
-    reads = {"GC=F": {"setups": [{"side": "long", "state": "entry", "extreme": 1960.0}]}}
-    p = pf()
-    filled, blocked = decide(p, buy(stop=1970, target=2200, stop_basis=basis), reads=reads)
+    filled, blocked = decide(p, buy(stop=1970, target=2200, stop_basis=basis))
     assert p["positions"]["GC=F"]["stop"] == 1970 and blocked == []
-    assert filled[0]["stop_basis"] == (basis or "given")
+    assert filled[0]["stop_basis"] == kept       # the ICT bot is retired: "ict" is no longer a stop basis
 
 
 def test_missing_stop_uses_two_daily_atrs():
     p = pf()
-    filled, blocked = E.apply_decision(p, {"trades": [buy(stop=None, target=2400)]}, LAST, FX, T0, None, {"GC=F": 30.0})
+    filled, blocked = E.apply_decision(p, {"trades": [buy(stop=None, target=2400)]}, LAST, FX, T0, {"GC=F": 30.0})
     assert p["positions"]["GC=F"]["stop"] == pytest.approx(2000 - 2 * 30)
     assert filled[0]["stop_basis"] == "atr" and "2 daily ATRs" in blocked[0]
 
