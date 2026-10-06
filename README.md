@@ -7,6 +7,9 @@ crops) on a fake £100k account, racing several rule-based bots and an AI foreca
 The website has four tabs, each with its own link: **Live** (`#live`: the charts, Claude's decisions, the news with
 Claude's comment on every headline, every trade and how each competitor is doing), **Strategy lab** (`#lab`),
 **Backtest** (`#backtest`) and **Data** (`#data`: where the prices come from and each market's futures rolls).
+A switch in the middle of the header flips between two desks: **Commodities** (gold accent) and **Indices** (cyan
+accent: the US index futures, their session ranges and LIT levels, the LIT bot, its backtest and the LIT audit). The
+desk is part of the link too, e.g. `#indices/backtest`; older links like `#lab` open the commodities desk.
 
 ## The race
 

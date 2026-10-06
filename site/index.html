@@ -42,7 +42,24 @@ a { color: inherit; }
 :focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
 .up { color: var(--up); } .down { color: var(--down); } .muted { color: var(--muted); }
 
-header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 14px 32px; align-items: start; padding: 20px 24px 12px; }
+header { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 14px 32px; align-items: start; padding: 20px 24px 12px; }
+header .topbar { justify-self: end; }
+/* the desk switch, top middle: Commodities (gold accent) or Indices (cyan accent) */
+.desk { display: inline-flex; padding: 3px; border: 1px solid var(--accent-line); border-radius: 999px; background: var(--panel); align-self: start; }
+.desk button { font: inherit; font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 500; color: var(--muted); background: none;
+  border: 0; border-radius: 999px; padding: 6px 16px; cursor: pointer; transition: background-color .25s ease, color .25s ease, transform .1s ease; }
+.desk button:hover { color: var(--ink); }
+.desk button[aria-pressed="true"] { background: var(--brass); color: var(--bg); }
+.desk button:active { transform: scale(.96); }
+:root[data-desk="indices"][data-theme="dark"] { --brass: #22c3d6; --accent-line: #163a40; --warn-bg: #061a1d; }
+:root[data-desk="indices"][data-theme="light"] { --brass: #0b6f80; --accent-line: #a9d3db; --warn-bg: #e3f3f6; }
+:root:not([data-desk="indices"]) .only-indices, :root[data-desk="indices"] .only-commodities { display: none !important; }
+#iLive { display: grid; gap: 14px; padding: 0 24px 28px; grid-template-columns: minmax(0, 1fr) 380px;
+  grid-template-areas: "ichart iside" "ibook isess" "perf perf"; }
+#iChartSec { grid-area: ichart; } #iSide { grid-area: iside; border-color: var(--accent-line); } #iBookSec { grid-area: ibook; } #iSessSec { grid-area: isess; }
+#iChart { height: 520px; }
+#iRead { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+#iLive #perfSec { grid-column: 1 / -1; }
 header .stats { grid-column: 1 / -1; }
 h1 { font-size: 21px; font-weight: 600; margin: 0 0 6px; }
 .pills { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--muted); }
@@ -255,6 +272,10 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
 @media (max-width: 1000px) {
   main { grid-template-columns: 1fr; grid-template-areas: "cockpit" "chart" "context" "activity" "book" "news" "feed" "perf" "report" "drivers"; }
   header { grid-template-columns: 1fr; }
+  header .topbar { justify-self: stretch; }
+  .desk { justify-self: stretch; } .desk button { flex: 1; }
+  #iLive { grid-template-columns: 1fr; grid-template-areas: "iside" "ichart" "isess" "ibook" "perf"; padding: 0 16px 28px; }
+  #iChart { height: 340px; }
   .topbar { justify-content: space-between; }
   main.page { padding: 4px 16px 28px; }
   #view-backtest #btChart { height: 300px; }
@@ -341,6 +362,10 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <h1>Argon</h1>
       <div class="pills" id="pills"></div>
     </div>
+    <div class="desk" role="group" aria-label="Desk" id="deskSwitch">
+      <button type="button" data-desk="commodities">Commodities</button>
+      <button type="button" data-desk="indices">Indices</button>
+    </div>
     <div class="topbar">
       <nav class="views" id="views" aria-label="Pages">
         <a href="#live" data-view="live">Live</a>
@@ -364,9 +389,10 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
   </header>
 
   <div class="view" id="view-live">
+  <div class="only-commodities">
   <nav id="tabs" aria-label="Commodities"></nav>
 
-  <main>
+  <main id="cLive">
     <section id="chartSec">
       <h2><span id="chartTitle"></span>
         <span style="display:flex;gap:8px">
@@ -475,16 +501,57 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
   </main>
   </div>
 
+  <div class="only-indices">
+  <nav id="itabs" aria-label="Index futures"></nav>
+  <main id="iLive">
+    <section id="iChartSec">
+      <h2><span id="iTitle"></span>
+        <span class="toggle" role="group" aria-label="Timeframe" id="iTf">
+          <button data-tf="m15" aria-pressed="true">15 minutes</button>
+          <button data-tf="h1" aria-pressed="false">Hourly</button>
+        </span>
+      </h2>
+      <div id="iChart"></div>
+      <div class="legend" id="iLegend"></div>
+      <p class="hint" id="iHint"></p>
+      <div id="iRead"></div>
+    </section>
+    <section id="iSide">
+      <h2>LIT bot</h2>
+      <div id="iBot"></div>
+      <h3>Claude</h3>
+      <p class="empty">Not on this desk yet. Claude trades the commodities desk; on the indices the LIT bot trades on its own.</p>
+      <h3>Kronos</h3>
+      <p class="empty">Not on this desk yet. Kronos forecasts the commodities only, for now.</p>
+    </section>
+    <section id="iBookSec">
+      <h2>LIT bot positions and trades</h2>
+      <div id="iBook"></div>
+    </section>
+    <section id="iSessSec">
+      <h2>Sessions today <small>New York time</small></h2>
+      <div id="iSess"></div>
+    </section>
+  </main>
+  </div>
+  </div>
+
   <div class="view" id="view-lab" hidden>
   <main class="page">
-    <section class="intro">
+    <section class="intro only-indices">
+      <h2>Strategy lab</h2>
+      <p>Not on this desk yet. The lab invents and tests strategies on the commodities. Its rule language now includes
+      the LIT bot's ideas (sweeps of recent highs and lows, of the previous day's high and low, and the full LIT
+      setup), so it can build on them; switch to the Commodities desk to see it.</p>
+    </section>
+    <section class="intro only-commodities">
       <h2>Claude's strategy lab</h2>
       <p>Every Sunday, Claude invents new trading strategies in a small, safe rule language, and Argon tests them on years
       of price history it has never been fitted on. A strategy only trades live if it makes money in most of the test
       windows and is unlikely to be luck, even after allowing for every idea the lab has ever tried. The ones that pass
       share one £100k account. Below: every strategy so far, how it did in each test, and how the live ones are doing.</p>
     </section>
-    <section id="labSec">
+    <section id="labSec" class="only-commodities">
       <h2>Strategies <small id="labWhen"></small></h2>
       <div id="labBody"></div>
     </section>
@@ -493,14 +560,21 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
 
   <div class="view" id="view-backtest" hidden>
   <main class="page">
-    <section class="intro">
+    <section class="intro only-indices">
+      <h2>Backtest</h2>
+      <p>How the LIT bot would have done on the last 60 days of 15-minute candles (all Yahoo keeps), with the same
+      rules, costs, slippage and micro contracts as live. Below the results, the LIT audit shows every level, sweep and
+      trade on the candles, so anyone who knows LIT can check the bot sees what they would. Past results don't promise
+      future ones, and 60 days is far too short to prove anything.</p>
+    </section>
+    <section class="intro only-commodities">
       <h2>Backtest</h2>
       <p>How the ICT bot and the trend bot would have done on real history, against simply buying and holding every
       market. Each market is tested on its own £100k, with the same costs, stops and fills as live trading, and prices
       adjusted for futures rolls. Claude isn't in this test, so there's no hindsight from its training. Past results
       don't promise future ones.</p>
     </section>
-    <section id="btSec">
+    <section id="btSec" class="only-commodities">
       <h2>Results <small id="btWhen"></small>
         <span class="toggle" role="group" aria-label="Backtest" id="btSeg">
           <button data-k="hourly" aria-pressed="true">Hourly, 2 years</button>
@@ -510,12 +584,12 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <div id="btBody"></div>
     </section>
 
-    <section id="litSec">
+    <section id="litSec" class="only-indices">
       <h2>LIT bot: index futures and gold, 15-minute candles <small id="litWhen"></small></h2>
       <div id="litBody"></div>
     </section>
 
-    <section id="auditSec">
+    <section id="auditSec" class="only-indices">
       <h2>LIT audit <small>every level, inducement, sweep, confirmation and trade the bot saw (New York time)</small>
         <span class="toggle" role="group" aria-label="Market" id="auditSeg"></span>
       </h2>
@@ -684,14 +758,16 @@ async function getJSON(f, fallback) {
 }
 
 async function init() {
+  showDesk(route()[0], true);
   showView(viewFromHash(), true);
+  document.querySelectorAll("#deskSwitch button").forEach(b => b.onclick = () => { location.hash = `#${b.dataset.desk}/${view || "live"}`; });
   skeletons();
   const scriptsReady = document.readyState === "loading" ? new Promise(r => document.addEventListener("DOMContentLoaded", r, { once: true })) : null;
-  [D.prices, D.news, D.equity, D.status, D.context, D.ict, D.history, D.lab, D.kronos, D.rolls, D.summary, D.private] = await Promise.all([
+  [D.prices, D.news, D.equity, D.status, D.context, D.ict, D.history, D.lab, D.kronos, D.rolls, D.summary, D.private, D.litNow] = await Promise.all([
     getJSON("prices.json", null), getJSON("news.json", []), getJSON("equity.json", []), getJSON("status.json", {}),
     getJSON("context.json", {}), getJSON("ict_now.json", {}), getJSON("history.json", { markets: {} }),
     getJSON("strategies.json", null), getJSON("kronos.json", null), getJSON("rolls.json", null),
-    getJSON("summary.json", null), openPrivate(),
+    getJSON("summary.json", null), openPrivate(), getJSON("lit_now.json", null),
   ]);
   usePrivate(D.private);
   await scriptsReady;  // the chart library loads in parallel with the data
@@ -718,7 +794,8 @@ async function init() {
   });
   renderBacktest("hourly");
   renderLit();
-  if (view === "backtest") loadAudit();
+  if (view === "backtest" && desk === "indices") loadAudit();
+  if (desk === "indices") renderIndices();
   renderLab();
   renderData();
   renderDownloads();
@@ -727,6 +804,12 @@ async function init() {
   setTheme(document.documentElement.dataset.theme || "dark");
   document.addEventListener("keydown", e => {
     if (e.target.closest("input, textarea") || view !== "live") return;
+    if (desk === "indices") {
+      const ks = IDX.filter(s => D.litNow?.markets?.[s]), j = ks.indexOf(idx.sym);
+      if (e.key === "ArrowRight") iSelect(ks[(j + 1) % ks.length]);
+      if (e.key === "ArrowLeft") iSelect(ks[(j - 1 + ks.length) % ks.length]);
+      return;
+    }
     const keys = Object.keys(D.prices), i = keys.indexOf(sym);
     if (e.key === "ArrowRight") select(keys[(i + 1) % keys.length]);
     if (e.key === "ArrowLeft") select(keys[(i - 1 + keys.length) % keys.length]);
@@ -815,9 +898,46 @@ function locked(sec, title, text, keep = "h2") {
 }
 
 // ---------- pages: Live, Strategy lab, Backtest, Data (each has its own link, and the back button works) ----------
-const VIEWS = ["live", "lab", "backtest", "data"];
-const viewFromHash = () => { const h = location.hash.slice(1); return VIEWS.includes(h) ? h : "live"; };
-let view = null;
+const VIEWS = ["live", "lab", "backtest", "data"], DESKS = ["commodities", "indices"];
+// links look like #indices/backtest; older ones like #lab still work (they open the commodities desk)
+const route = () => {
+  const parts = location.hash.slice(1).split("/");
+  const d = DESKS.includes(parts[0]) ? parts[0] : "commodities";
+  const v = VIEWS.includes(parts.at(-1)) ? parts.at(-1) : "live";
+  return [d, v];
+};
+const viewFromHash = () => route()[1];
+let view = null, desk = null;
+
+function refit() {
+  // charts drawn while their tab or desk was hidden had no width: fit them once they're on screen
+  setTimeout(() => { D.litCurveChart?.timeScale().fitContent(); idx.chart?.timeScale().fitContent(); }, 60);
+}
+
+function showDesk(next, first) {
+  // switch desk: the accent colour fades from gold to cyan (or back), and each tab shows that desk's content
+  if (next === desk) return;
+  const root = document.documentElement;
+  desk = next;
+  if (MOTION() && !first) {
+    root.classList.add("theming");
+    clearTimeout(showDesk.timer);
+    showDesk.timer = setTimeout(() => root.classList.remove("theming"), 450);
+  }
+  root.dataset.desk = next;
+  document.querySelectorAll("#deskSwitch button").forEach(b => b.setAttribute("aria-pressed", b.dataset.desk === next));
+  document.querySelectorAll("#views a").forEach(a => a.href = `#${next}/${a.dataset.view}`);
+  const perf = $("#perfSec");  // the race belongs to both desks: move it into the one showing
+  if (perf) (next === "indices" ? $("#iLive") : $("#cLive")).insertBefore(perf, next === "indices" ? null : $("#reportSec"));
+  if (D.ready) {
+    if (next === "indices") renderIndices();
+    renderData();
+    if (view === "backtest" && next === "indices") loadAudit();
+    setTheme(root.dataset.theme || "dark");  // repaint the charts in the new accent
+    flash(...document.querySelectorAll(".view:not([hidden]) main > section"));
+    refit();
+  }
+}
 
 function showView(next, first) {
   if (next === view) return;
@@ -828,12 +948,13 @@ function showView(next, first) {
     document.querySelectorAll(".view").forEach(v => { v.hidden = v !== el2; v.classList.remove("leaving"); });
     if (scrollY > $("header").offsetHeight) scrollTo({ top: 0 });
     if (MOTION() && !first) { el2.classList.remove("entering"); void el2.offsetWidth; el2.classList.add("entering"); }
+    refit();
   };
   view = next;
-  if (next === "backtest" && D.ready) loadAudit();
+  if (next === "backtest" && D.ready && desk === "indices") loadAudit();
   if (old && MOTION() && !first) { old.classList.add("leaving"); setTimeout(swap, 140); } else swap();
 }
-addEventListener("hashchange", () => showView(viewFromHash()));
+addEventListener("hashchange", () => { const [d, v] = route(); showDesk(d); showView(v); });
 
 // Claude's strategies: every one that passed the lab trades together (older files had a single "live" one)
 const portfolio = () => D.lab?.portfolio || (D.lab?.live ? [D.lab.live] : []);
@@ -969,7 +1090,8 @@ function setTheme(theme, animate) {
   if (!chart) return;
   chart.applyOptions(chartOpts()); eqChart.applyOptions(chartOpts());
   eqSeries.bench.applyOptions({ color: css("--muted") }); eqSeries.claude.applyOptions({ color: css("--brass") }); eqSeries.rules.applyOptions({ color: css("--blue") }); eqSeries.ict.applyOptions({ color: css("--violet") }); eqSeries.lab.applyOptions({ color: css("--teal") }); eqSeries.kronos.applyOptions({ color: css("--kronos") }); eqSeries.lit.applyOptions({ color: css("--lit") });
-  if (audit.chart) { audit.chart.applyOptions(chartOpts()); auditMarket(audit.sym); }
+  if (audit.chart && audit.sym) { audit.chart.applyOptions(chartOpts()); auditMarket(audit.sym); }
+  if (idx.chart) { idx.chart.applyOptions(chartOpts()); drawIdx(); }
   if (D.litCurveChart) renderLit();
   drawChart();
   if (D.bt) renderBacktest(document.querySelector("#btSeg button[aria-pressed=true]")?.dataset.k || "hourly");
@@ -1199,6 +1321,174 @@ function renderBacktest(key) {
   ]);
   body.append(el("div", { id: "btCols" }, [el("div", { className: "tablewrap" }, [combined]), el("div", { className: "tablewrap" }, [per])]),
     el("p", { className: "hint", textContent: `Each market is tested on its own £100k and "combined" is an equal-weight mix of them. Costs of ${(D.bt.cost_per_side * 100).toFixed(2)}% are charged each way. No Claude in this test, so there's no hindsight from its training. Past results don't guarantee future ones.` }));
+}
+
+// ---------- the Indices desk: index futures, the LIT read and the LIT bot ----------
+const IDX = ["ES=F", "NQ=F", "YM=F", "RTY=F"];
+const idx = { sym: "ES=F", tf: "m15", chart: null, series: null, extra: [] };
+const nyParts = new Intl.DateTimeFormat("en-GB", { timeZone: "America/New_York", hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
+function nyClock(t) {
+  const p = Object.fromEntries(nyParts.formatToParts(new Date(t * 1000)).map(x => [x.type, x.value]));
+  return { day: `${p.year}-${p.month}-${p.day}`, mins: +p.hour * 60 + +p.minute };
+}
+const SESS = [["asia", "Asia", 18 * 60, 24 * 60, "--teal"], ["london", "London", 2 * 60, 5 * 60, "--blue"], ["nyam", "New York morning", 8 * 60 + 30, 11 * 60, "--lit"]];
+
+function sessionRanges(bars) {
+  // each day's Asia, London and New York morning high and low, from the 15-minute candles (New York time)
+  const out = {};
+  for (const [t, , h, l] of bars) {
+    const { day, mins } = nyClock(t);
+    for (const [k, , a, b] of SESS) {
+      if (mins < a || mins >= b) continue;
+      const key = `${day}|${k}`, r = out[key] ||= { k, from: t, to: t, high: h, low: l };
+      r.to = t; r.high = Math.max(r.high, h); r.low = Math.min(r.low, l);
+    }
+  }
+  return Object.values(out);
+}
+
+function renderIndices() {
+  const L = D.litNow?.markets || {};
+  const tabs = $("#itabs");
+  if (!Object.keys(L).length) {
+    tabs.replaceChildren();
+    $("#iChartSec").replaceChildren(el("h2", { textContent: "Index futures" }), el("p", { className: "empty", textContent: "No index data yet. It appears after the next hourly run." }));
+    return;
+  }
+  if (!L[idx.sym]) idx.sym = IDX.find(s => L[s]) || Object.keys(L)[0];
+  const btns = el("div", { className: "gbtns" });
+  for (const s of IDX.filter(x => L[x])) {
+    const m = L[s], bars = m.m15, last = bars.at(-1)[4], past = bars.filter(b => b[0] <= bars.at(-1)[0] - 86400).pop(), c = past ? last / past[4] - 1 : 0;
+    const b = el("button", { type: "button", title: `Micro contract: ${m.micro}, $${m.mult} a point` }, [
+      el("div", { className: "n" }, [m.name, el("span", { className: "ex", textContent: m.exchange })]),
+      el("div", { className: "p" }, [price(last) + " ", tone(el("span", { textContent: pct(c) }), c)])]);
+    b.dataset.sym = s; b.setAttribute("aria-pressed", s === idx.sym); b.onclick = () => iSelect(s);
+    btns.append(b);
+  }
+  tabs.replaceChildren(el("div", { className: "group", role: "group", ariaLabel: "Index futures" }, [el("span", { className: "glabel", textContent: "US index futures" }), btns]));
+  document.querySelectorAll("#iTf button").forEach(b => b.onclick = () => {
+    idx.tf = b.dataset.tf; document.querySelectorAll("#iTf button").forEach(x => x.setAttribute("aria-pressed", x === b)); drawIdx(); flash($("#iChart")); });
+  $("#iLegend").replaceChildren(...SESS.map(([, n, , , c]) => el("span", {}, [el("i", { style: `background:var(${c})` }), n + " range"])),
+    el("span", {}, [el("i", { style: "background:var(--violet)" }), "LIT liquidity level"]));
+  drawIdx(); renderIdxSide(); renderIdxBook(); renderIdxSessions();
+}
+
+function iSelect(s) {
+  idx.sym = s;
+  document.querySelectorAll("#itabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.sym === s));
+  drawIdx(); renderIdxBook(); renderIdxSessions();
+  flash($("#iChart"), $("#iRead"), $("#iSess"));
+}
+
+function drawIdx() {
+  const m = D.litNow?.markets?.[idx.sym];
+  if (!m) return;
+  if (!idx.chart) idx.chart = LightweightCharts.createChart($("#iChart"), { ...chartOpts(),
+    localization: { timeFormatter: t => nyTime(t) },
+    timeScale: { ...chartOpts().timeScale, tickMarkFormatter: (t, type) => type <= 2 ? nyDay.format(new Date(t * 1000)) : nyHM.format(new Date(t * 1000)) } });
+  const ch = idx.chart;
+  if (idx.series) ch.removeSeries(idx.series);
+  idx.extra.forEach(x => ch.removeSeries(x)); idx.extra = [];
+  const bars = m[idx.tf].map(([time, open, high, low, close]) => ({ time, open, high, low, close }));
+  $("#iTitle").textContent = `${m.name}, ${m.exchange}, ${idx.tf === "m15" ? "15-minute" : "hourly"} candles, New York time`;
+  idx.series = ch.addCandlestickSeries({ upColor: css("--up"), downColor: css("--down"), borderVisible: false, wickUpColor: css("--up"), wickDownColor: css("--down") });
+  idx.series.setData(bars);
+  if (idx.tf === "m15") for (const r of sessionRanges(m.m15)) {  // session ranges as short lines over each session
+    const col = css(SESS.find(x => x[0] === r.k)[4]);
+    for (const v of [r.high, r.low]) {
+      if (r.to <= r.from) continue;
+      const ln = ch.addLineSeries({ color: col, lineWidth: 2, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false });
+      ln.setData([{ time: r.from, value: v }, { time: r.to, value: v }]); idx.extra.push(ln);
+    }
+  }
+  for (const lv of m.levels || []) idx.series.createPriceLine({ price: lv.price, color: css("--violet"), lineStyle: lv.kind.startsWith("Equal") ? 2 : 1, lineWidth: 1, axisLabelVisible: true, title: lv.kind });
+  const first = bars[0]?.time, snap = t => { let b = bars[0]; for (const x of bars) { if (x.time > t) break; b = x; } return b.time; };
+  const mk = [];
+  for (const e of m.events || []) {
+    if (e.t < first) continue;
+    const hi = e.side === "high";
+    if (e.type === "sweep" && e.inducement) mk.push({ time: snap(e.t), position: hi ? "aboveBar" : "belowBar", shape: hi ? "arrowDown" : "arrowUp", color: css("--brass"), text: "Sweep" });
+    if (e.type === "confirm") mk.push({ time: snap(e.t), position: e.side === "short" ? "aboveBar" : "belowBar", shape: "square", color: css("--blue"), text: "Confirm" });
+  }
+  for (const t of D.litTrades.filter(x => x.symbol === idx.sym && x.t >= first)) {
+    const entry = t.action === "BUY" || t.action === "SHORT", buy = t.action === "BUY" || t.action === "SELL" && false;
+    mk.push({ time: snap(t.t), position: t.action === "BUY" || t.action === "COVER" ? "belowBar" : "aboveBar", shape: entry ? (t.action === "BUY" ? "arrowUp" : "arrowDown") : "circle",
+      color: entry ? css(t.action === "BUY" ? "--up" : "--down") : css((t.pnl || 0) >= 0 ? "--up" : "--down"), text: entry ? `${t.action === "BUY" ? "Buy" : "Sell"} ${t.contracts}` : (t.exit === "tp1" ? "2R" : t.exit || "Exit") });
+  }
+  idx.series.setMarkers(mk.sort((a, b) => a.time - b.time));
+  ch.timeScale().fitContent();
+  $("#iHint").textContent = `Coloured lines: each day's Asia, London and New York morning ranges. Purple lines: the liquidity levels the LIT bot is watching now. Arrows: sweeps with an inducement; squares: confirmations.` +
+    (m.contract ? ` Prices are for the ${m.contract} contract (${m.ticker})${m.next_roll ? `, which rolls on ${new Date(m.next_roll * 1000).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}` : ""}, back-adjusted for rolls.` : "");
+  renderIdxRead(m);
+}
+
+function renderIdxRead(m) {
+  const box = $("#iRead"), ev = (m.events || []).filter(e => e.type !== "level").slice(-6).reverse();
+  const lv = [...(m.levels || [])].sort((a, b) => b.price - a.price);
+  box.replaceChildren(
+    el("h3", { style: "margin-top:0", textContent: "LIT read" }),
+    el("div", { className: "grid2" }, [
+      el("div", {}, [el("div", { className: "mgroup", textContent: "Liquidity levels now (stops likely beyond these)" }),
+        ...(lv.length ? lv.map(l => kv(l.kind, price(l.price), l.side === "high" ? "down" : "up")) : [el("p", { className: "empty", textContent: "None active right now." })])]),
+      el("div", {}, [el("div", { className: "mgroup", textContent: "What the bot saw last" }),
+        ...(ev.length ? ev.map(e => el("div", { className: "kv" }, [el("span", { textContent: `${nyHM.format(new Date(e.t * 1000))} ${EV[e.type] || e.type}` }),
+          el("span", { className: "muted", style: "text-align:right", textContent: e.type === "inducement" ? `swing ${e.side} at ${price(e.price)}` : (e.why || "") })])) : [el("p", { className: "empty", textContent: "Nothing yet today." })])]),
+    ]),
+    el("p", { className: "hint", textContent: `Typical 15-minute range (ATR): ${m.atr ? price(m.atr) : "—"} points. The rules are in docs/lit.md; the Backtest tab's LIT audit shows every detection over the last 60 days.` }));
+}
+
+function idxRank() {
+  const e = D.equity.at(-1) || {};
+  const names = { equity: "Claude", lab: "Claude's strategies", ict: "ICT bot", kronos: "Kronos bot", rules: "Trend bot", lit: "LIT bot", benchmark: "Buy and hold" };
+  const rows = Object.entries(names).filter(([k]) => e[k] != null).map(([k, n]) => [n, e[k]]).sort((a, b) => b[1] - a[1]);
+  return [rows.findIndex(r => r[0] === "LIT bot") + 1, rows.length];
+}
+
+function renderIdxSide() {
+  const box = $("#iBot"), e = D.equity.at(-1) || {};
+  box.replaceChildren();
+  if (e.lit == null) { box.append(el("p", { className: "empty", textContent: "The LIT bot starts trading on the next hourly run." })); return; }
+  const r = e.lit / START - 1, [rank, of] = idxRank();
+  box.append(el("div", { className: "state" }, [tone(el("span", { className: "big", textContent: pct(r) }), r), el("span", { className: "muted", textContent: `${rank} of ${of} in the race` })]),
+    el("p", { style: "margin:4px 0 10px", textContent: "Trades the snap-back after price runs the stops beyond a well-known high or low, in the London and New York morning windows, in micro contracts, risking 0.5% of its £100k per trade." }));
+  if (!D.unlocked) { box.append(lockCard("The LIT bot's positions are private", "Its positions and trades are private, like every bot's. Enter the password to see them.")); return; }
+  const pos = Object.entries(D.private?.lit?.positions || {});
+  box.append(kv("Open trades", pos.length ? pos.map(([s, p]) => `${p.side === "short" ? "Short" : "Long"} ${p.contracts} ${LIT_NAMES[s] || s}`).join(", ") : "none"),
+    kv("Account value", money(e.lit)));
+}
+
+function renderIdxBook() {
+  const box = $("#iBook");
+  box.replaceChildren();
+  if (!D.unlocked) { box.append(lockCard("Every LIT trade is private", "The LIT bot's positions and trades are private. Its return and place in the race are public, above and below.")); return; }
+  const pos = Object.entries(D.private?.lit?.positions || {});
+  box.append(pos.length ? el("table", {}, [
+    el("thead", {}, [el("tr", {}, ["Market", "Side", "Contracts", "Entry", "Stop", "2R", "Target"].map((h, i) => el("th", { className: i > 1 ? "num" : "", textContent: h })))]),
+    el("tbody", {}, pos.map(([s, p]) => el("tr", {}, [el("td", { textContent: LIT_NAMES[s] || s }), el("td", { textContent: p.side }),
+      el("td", { className: "num", textContent: `${p.contracts} ${({ "ES=F": "MES", "NQ=F": "MNQ", "YM=F": "MYM", "RTY=F": "M2K", "GC=F": "MGC" })[s]}` }),
+      ...[p.entry, p.stop, p.tp1, p.target].map(v => el("td", { className: "num", textContent: price(v) }))])))]) : el("p", { className: "empty", textContent: "No open LIT trades." }));
+  const trades = [...D.litTrades].reverse().slice(0, 100);
+  box.append(el("h3", { textContent: "Trade history" }), trades.length ? el("div", { className: "tablewrap" }, [el("table", {}, [
+    el("thead", {}, [el("tr", {}, ["When (New York)", "Market", "Action", "Contracts", "Price", "P&L (£)", "Why"].map((h, i) => el("th", { className: i >= 3 && i <= 5 ? "num" : "", textContent: h })))]),
+    el("tbody", {}, trades.map(t => el("tr", {}, [el("td", { textContent: nyTime(t.t) }), el("td", { textContent: LIT_NAMES[t.symbol] || t.symbol }),
+      tone(el("td", { className: "tag", textContent: ({ BUY: "Buy", SHORT: "Sell", SELL: "Close", COVER: "Close" })[t.action] || t.action }), t.pnl ?? (t.action === "BUY" ? 1 : -1)),
+      el("td", { className: "num", textContent: `${t.contracts} ${t.micro}` }), el("td", { className: "num", textContent: price(t.price) }),
+      t.pnl != null ? tone(el("td", { className: "num", textContent: signed(t.pnl) }), t.pnl) : el("td", { className: "num muted", textContent: "—" }),
+      el("td", { className: "reason", textContent: t.reason })]))),
+  ])]) : el("p", { className: "empty", textContent: "No LIT trades yet." }));
+}
+
+function renderIdxSessions() {
+  const box = $("#iSess"), m = D.litNow?.markets?.[idx.sym];
+  box.replaceChildren();
+  if (!m) return;
+  const S = m.sessions || {};
+  for (const [k, n, , , c] of SESS) {
+    const r = S[k];
+    box.append(el("div", { className: "kv" }, [el("span", {}, [el("i", { className: "dot", style: `background:var(${c})` }), n]),
+      el("span", { textContent: r ? `${price(r.low)} to ${price(r.high)} (${price(r.high - r.low)} pts)` : "not yet" })]));
+  }
+  box.append(el("p", { className: "hint", textContent: "Asia 18:00–24:00, London 02:00–05:00, New York morning 08:30–11:00. A session's high and low become liquidity levels once it has finished; the LIT bot only enters in the London and New York morning windows." }));
 }
 
 // ---------- the LIT bot on the Backtest tab: results, sanity numbers and the audit chart ----------
@@ -1534,9 +1824,24 @@ function renderDrivers(which = "avg") {
 }
 
 function renderData() {
-  // the Data page: what each market is priced from, and its futures rolls
+  // the Data page: what each market is priced from, and its futures rolls (this desk's markets)
   const box = $("#dataBody"), R = D.rolls;
   box.replaceChildren();
+  if (desk === "indices") {
+    const M = D.litNow?.markets || {};
+    if (!Object.keys(M).length) { box.append(el("p", { className: "empty", textContent: "No index data yet. It appears after the next hourly run." })); return; }
+    $("#rollsWhen").textContent = `updated ${ago(D.litNow.t)}`;
+    const day = t => t ? new Date(t * 1000).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "—";
+    box.append(el("div", { className: "tablewrap", style: "max-height:none" }, [el("table", {}, [
+      el("thead", {}, [el("tr", {}, ["Market", "Contract held", "Traded as", "Next roll", "Data"].map(h => el("th", { textContent: h })))]),
+      el("tbody", {}, Object.entries(M).map(([s, m]) => el("tr", {}, [
+        el("td", {}, [m.name + " ", el("span", { className: "muted", textContent: m.exchange })]),
+        el("td", { textContent: m.contract ? `${m.contract} (${m.ticker})` : "—" }),
+        el("td", { textContent: `${m.micro}, $${m.mult} a point` }), el("td", { textContent: day(m.next_roll) }),
+        el("td", { className: "reason", textContent: m.note || "" })]))),
+    ])]), el("p", { className: "hint", textContent: "Index futures roll every quarter (March, June, September, December), 5 business days before the contract's third-Friday expiry. The LIT bot is always flat by 16:00 New York time, so it never holds a trade across a roll. 15-minute candles come from Yahoo, which keeps about 60 days of them." }));
+    return;
+  }
   if (!R?.markets) { box.append(el("p", { className: "empty", textContent: "No roll data yet. It appears after the next hourly run." })); return; }
   $("#rollsWhen").textContent = `updated ${ago(R.t)}`;
   const day = t => t ? new Date(t * 1000).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" }) : "—";
