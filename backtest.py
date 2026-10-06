@@ -13,6 +13,7 @@ Prices are back-adjusted for futures rolls (rolls.py), so the contract switches 
 every position held across a roll (buy and hold included) pays the cost of rolling it.
 Run it from the Actions tab ("Run backtest"); results go to site/data/backtest.json.
 """
+import bisect
 import json
 import time
 
@@ -20,6 +21,7 @@ import core as C
 import engine as E
 import ict
 import lit as LIT
+import metrics as M
 import quant as Q
 import rolls as R
 
@@ -43,15 +45,15 @@ def roll_note(sym, out):
             "note": R.describe(sym, out)}
 
 
-def sim_ict(bars, rolls=()):
-    """The live ICT bot's rules, run through the shared trading core bar by bar."""
-    return C.backtest(bars, C.IctRules(bars), rolls=rolls)
+def sim_ict(bars, rolls=(), held=None):
+    """The (retired) ICT bot's rules, run through the shared trading core bar by bar."""
+    return C.backtest(bars, C.IctRules(bars), rolls=rolls, held=held)
 
 
-def sim_trend(bars, rolls=()):
-    """The live trend bot's rules. Live gives each market a 1/N slice of one account; here each market has its
+def sim_trend(bars, rolls=(), held=None):
+    """The (retired) trend bot's rules. Live gave each market a 1/N slice of one account; here each market has its
     own account, so the slice is the whole of it."""
-    return C.backtest(bars, C.TrendRules(bars, E.RULE_FAST, E.RULE_SLOW, alloc=1.0), rolls=rolls)
+    return C.backtest(bars, C.TrendRules(bars, E.RULE_FAST, E.RULE_SLOW, alloc=1.0), rolls=rolls, held=held)
 
 
 def hold(bars, rolls=(), cost=COST):
@@ -77,6 +79,7 @@ def sample(points, n=400):
 def run(period, interval, label):
     print(f"--- {label} ---")
     markets, curves, all_trades = {}, {"ict": [], "trend": [], "hold": []}, {"ict": [], "trend": [], "hold": []}
+    exposure = {"ict": [], "trend": [], "hold": []}
     for sym, info in E.COMMODITIES.items():
         t0 = time.time()
         try:
@@ -89,8 +92,12 @@ def run(period, interval, label):
             print(f"{sym}: not enough data")
             continue
         years = (bars[-1]["time"] - bars[0]["time"]) / (365.25 * 86400)
-        ict_curve, ict_trades = sim_ict(bars, rolls)
-        tr_curve, tr_trades = sim_trend(bars, rolls)
+        h_ict, h_tr = [], []
+        ict_curve, ict_trades = sim_ict(bars, rolls, h_ict)
+        tr_curve, tr_trades = sim_trend(bars, rolls, h_tr)
+        exposure["ict"].append(sum(h_ict) / len(h_ict))
+        exposure["trend"].append(sum(h_tr) / len(h_tr))
+        exposure["hold"].append(1.0)
         hold_curve = hold(bars, rolls)
         markets[sym] = {"name": info["name"], "group": info["group"], "exchange": info["exchange"],
                         "from": bars[0]["time"], "to": bars[-1]["time"], "bars": len(bars),
@@ -126,7 +133,15 @@ def run(period, interval, label):
             series.append(sum(lastv) / len(lastv))
         years = (days[-1] - days[0]) / (365.25 * 86400)
         combined[k] = {"curve": sample([{"time": t, "value": round(v, 2)} for t, v in zip(days, series)]),
-                       "stats": stats(series, all_trades[k], years)}
+                       "stats": stats(series, all_trades[k], years), "_series": series}
+    for k in combined:   # the fuller measures (metrics.py), against the combined buy-and-hold curve
+        st = combined[k]["stats"]
+        st.update({x: y for x, y in M.measures(days, combined[k]["_series"], all_trades[k],
+                                               bench=combined["hold"]["_series"] if k != "hold" else None).items()
+                   if x not in ("max_dd", "trades", "win_rate", "profit_factor")},
+                  exposure=round(sum(exposure[k]) / len(exposure[k]), 3))
+    for k in combined:
+        combined[k].pop("_series")
     return {"label": label, "interval": interval, "markets": markets, "combined": combined}
 
 
@@ -148,6 +163,31 @@ def lit_trades(fills):
                 tr.update(pnl=f["trade_pnl"], r=f["trade_r"], closed=f["t"])
                 open_.pop(f["symbol"])
     return rows
+
+
+def hold_index(series, days):
+    """Buy and hold of every market in `series` ({sym: bars}), equal weights, at the end of each day in `days`."""
+    out = []
+    for d in days:
+        vals = []
+        for bars in series.values():
+            k = bisect.bisect_right([b["time"] for b in bars], d + 86400 - 1) - 1 if bars else -1
+            if k >= 0:
+                vals.append(bars[k]["close"] / bars[0]["close"])
+        out.append(sum(vals) / len(vals) if vals else None)
+    return out
+
+
+def time_in_market(rows, t0, t1):
+    """Share of the time from t0 to t1 with at least one trade open (rows: trades with "t" and "closed")."""
+    spans = sorted((r["t"], r.get("closed", t1)) for r in rows)
+    total, end = 0, t0
+    for a, b in spans:
+        a = max(a, end)
+        if b > a:
+            total += b - a
+            end = b
+    return round(total / (t1 - t0), 3) if t1 > t0 else None
 
 
 def run_lit(fx):
@@ -202,6 +242,11 @@ def run_lit(fx):
     for t, v in curve:
         daily[t // 86400 * 86400] = v
     stats_ = C.stats([v for _, v in curve], [{"pnl": r["pnl"], "r": r["r"]} for r in closed], years)
+    days = sorted(daily)
+    stats_.update({k: v for k, v in M.measures(days, [daily[d] for d in days], closed,
+                                                bench=hold_index(series, days)).items()
+                   if k not in ("max_dd", "trades", "win_rate", "profit_factor")},
+                  exposure=time_in_market(rows, t0, t1))
     run = {"label": "LIT bot, 15-minute, last 60 days", "interval": "15m", "from": t0, "to": t1, "weeks": round(weeks, 1),
            "fx": fx, "markets": markets, "trades": len(rows),
            "combined": {"lit": {"curve": sample([{"time": t, "value": round(v, 2)} for t, v in sorted(daily.items())]),
@@ -235,14 +280,23 @@ def run_quant(fx, series=None):
     if len(series) < 2 * Q.TOP:
         return None
 
+    bars_only = {s: v["bars"] for s, v in series.items()}
+
     def pack(res, start=START):
         curve = res["curve"][Q.YEAR:]   # the first year only warms the signals up (12-month returns)
+        held = res["held"][Q.YEAR:]
         trades = [{"pnl": t["pnl"]} for t in res["trades"] if t.get("closed", 0) >= curve[0][0]]
         daily = {}
         for t, v in curve:
             daily[t // 86400 * 86400] = v
+        st = stats([v * START / curve[0][1] for _, v in curve], trades, Q.years_of(curve))
+        days = sorted(daily)
+        st.update({k: v for k, v in M.measures(days, [daily[d] for d in days], trades,
+                                                bench=hold_index(bars_only, days)).items()
+                   if k not in ("max_dd", "trades", "win_rate", "profit_factor")},
+                  exposure=round(sum(held) / len(held), 3) if held else None)
         return {"curve": sample([{"time": t, "value": round(v * START / curve[0][1], 2)} for t, v in sorted(daily.items())]),
-                "stats": stats([v * START / curve[0][1] for _, v in curve], trades, Q.years_of(curve))}
+                "stats": st}
 
     names = [k for k in Q.STRATEGIES if k != "carry"]
     combined = Q.backtest(series, fx)

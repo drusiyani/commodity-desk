@@ -336,7 +336,7 @@ def backtest(series, fx=1.0, only=None, cash=C.START):
     closes = {s: [b["close"] for b in v["bars"]] for s, v in series.items()}
     rolls = {s: sorted(v.get("rolls", [])) for s, v in series.items()}
     last_i = {s: -1 for s in series}
-    pending, trades, fills, curve = {}, [], 0, []
+    pending, trades, fills, curve, held = {}, [], 0, [], []
     sleeve_curves = {k: [] for k in names}
     for t in times:
         today = {s: series[s]["bars"][idx[s][t]] for s in series if t in idx[s]}
@@ -365,6 +365,7 @@ def backtest(series, fx=1.0, only=None, cash=C.START):
         mark(book, {s: b["close"] for s, b in today.items()}, fx)
         eq = book["cash"]
         curve.append((t, eq))
+        held.append(1 if any(sl["pos"] for sl in book["sleeves"].values()) else 0)
         for k in names:
             sleeve_curves[k].append((t, book["sleeves"][k]["pnl"]))
         data = {s: closes[s][: last_i[s] + 1] for s in series if last_i[s] >= 0}
@@ -375,7 +376,7 @@ def backtest(series, fx=1.0, only=None, cash=C.START):
         for sym, ep in sl["open"].items():
             trades.append(dict(ep, symbol=sym, strategy=name, closed=times[-1] if times else None, still_open=True,
                                pnl=round(ep["pnl"], 2)))
-    return {"curve": curve, "trades": trades, "fills": fills, "sleeves": sleeve_curves, "book": book}
+    return {"curve": curve, "trades": trades, "fills": fills, "sleeves": sleeve_curves, "book": book, "held": held}
 
 
 def years_of(curve):
