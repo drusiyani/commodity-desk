@@ -44,24 +44,27 @@ jobs:
         with:
           path: .hf-cache
           key: kronos-mini-${{ env.KRONOS_COMMIT }}
-      - name: Load the real model and forecast three markets
+      - name: Load the real model and time a full hourly run (10 commodities and 4 index futures)
         run: |
           python - <<'PY'
           import json, time
+          import kronos_bot as KB
           import kronos_model as KM
-          t0 = time.time()
-          predictor = KM.load()
-          print(f"loaded {KM.MODEL} in {time.time() - t0:.1f}s")
           prices = json.load(open("site/data/prices.json"))
-          for sym in list(prices)[:3]:
-              t1 = time.time()
-              f = KM.forecast_market(predictor, prices[sym]["bars"])
-              print(f"{sym}: {time.time() - t1:.1f}s, expected {f['expected']:+.2%}, range {f['p10']:g}-{f['p90']:g}, "
+          lit = json.load(open("site/data/lit_now.json"))["markets"]
+          for s in KB.INDEX_MARKETS:  # the index futures' roll-adjusted hourly candles, as the trader passes them
+              if s in lit:
+                  prices[s] = {"bars": [dict(zip(("time", "open", "high", "low", "close"), b)) for b in lit[s]["h1"]]}
+          t0 = time.time()
+          out = KM.run(prices, int(time.time()))
+          print(f"status {out['status']}, {len(out['markets'])} forecasts, skipped {out['skipped']}, "
+                f"{out['seconds']}s of the {KM.BUDGET:.0f}s budget (load included)")
+          for sym, f in out["markets"].items():
+              print(f"{sym}: {f['seconds']}s, {f['samples']} paths, expected {f['expected']:+.2%}, range {f['p10']:g}-{f['p90']:g}, "
                     f"chance of a rise {f['prob_up']:.0%}, last price {f['price']:g}")
               assert f["p10"] <= f["p50"] <= f["p90"], "percentiles out of order"
-              assert 0 <= f["prob_up"] <= 1 and f["samples"] == KM.SAMPLES
+              assert 0 <= f["prob_up"] <= 1 and f["samples"] == KM.samples_for(sym)
               assert abs(f["p50"] / f["price"] - 1) < 0.25, "forecast wildly away from the price"
-          took = (time.time() - t0) / 3
-          print(f"total {time.time() - t0:.1f}s; at this speed all ten markets take about {10 * took:.0f}s (budget {KM.BUDGET:.0f}s)")
-          assert 10 * took < KM.BUDGET, "too slow to forecast every market inside the hourly budget"
+          assert out["status"] == "ok" and not out["skipped"], "a market was skipped: over the time budget"
+          assert len(out["markets"]) == len(prices), "not every market was forecast"
           PY

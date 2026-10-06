@@ -13,6 +13,10 @@ Model choice: Kronos-mini (4.1M parameters, the smallest), with its Kronos-Token
 budget), and 2048 would be far slower. So it reads the latest 256 hourly candles (about eleven trading days) and
 draws 20 sample paths per market; 20 paths keep the chance of a rise in 5% steps, fine enough for the bot's 65% bar.
 
+Since the Indices desk joined, Kronos forecasts 14 markets: the ten commodities and the four US index futures (S&P 500,
+Nasdaq 100, Dow, Russell 2000), all inside the same budget. INDEX_SAMPLES sets the index markets' paths separately,
+so if the budget ever gets tight they can draw fewer paths rather than be skipped.
+
 The model averages any paths it draws together (sample_count), so to keep the paths separate we use its
 predict_batch with 20 copies of the same market and sample_count=1: each copy becomes one independent path.
 """
@@ -30,6 +34,7 @@ TOKENIZER = "NeoQuasar/Kronos-Tokenizer-2k"
 MAX_CONTEXT = 2048
 LOOKBACK = int(os.environ.get("KRONOS_LOOKBACK", 256))
 SAMPLES = int(os.environ.get("KRONOS_SAMPLES", 20))
+INDEX_SAMPLES = int(os.environ.get("KRONOS_INDEX_SAMPLES", 20))
 BUDGET = float(os.environ.get("KRONOS_BUDGET", 170))  # seconds for loading and forecasting, all markets
 
 
@@ -78,10 +83,15 @@ def forecast_market(predictor, bars, lookback=LOOKBACK, samples=SAMPLES, seed=0)
     return out
 
 
+def samples_for(sym):
+    return INDEX_SAMPLES if sym in KB.INDEX_MARKETS else SAMPLES
+
+
 def run(prices, now, budget=BUDGET):
     """Forecast every market within the time budget. Never raises: failures are reported in the result."""
     t0 = time.time()
     out = {"time": now, "model": MODEL, "tokenizer": TOKENIZER, "lookback": LOOKBACK, "samples": SAMPLES,
+           "index_samples": INDEX_SAMPLES,
            "horizon": KB.HORIZON, "markets": {}, "skipped": [], "status": "ok", "error": None}
     try:
         predictor = load()
@@ -100,13 +110,16 @@ def run(prices, now, budget=BUDGET):
             continue
         t1 = time.time()
         try:
-            f = forecast_market(predictor, prices[sym]["bars"], seed=int(prices[sym]["bars"][-1]["time"]) % 2**31)
+            f = forecast_market(predictor, prices[sym]["bars"], samples=samples_for(sym),
+                                seed=int(prices[sym]["bars"][-1]["time"]) % 2**31)
             f["t"] = now
             out["markets"][sym] = f
         except Exception as e:
             print(f"Kronos forecast failed for {sym}: {e}")
             out["skipped"].append(sym)
         took = time.time() - t1
+        if sym in out["markets"]:
+            out["markets"][sym]["seconds"] = round(took, 1)
         per_market = took if per_market is None else max(per_market, took)
     out["seconds"] = round(time.time() - t0, 1)
     if not out["markets"]:

@@ -221,8 +221,8 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
 .split { display: flex; height: 6px; border-radius: 3px; overflow: hidden; margin: 6px 0 2px; background: var(--soft); }
 .split i { display: block; height: 100%; transition: width .7s cubic-bezier(.2, .7, .2, 1); }
 #ictBox { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
-#kronosBox { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
-#kronosBox h3 i { display: inline-block; width: 14px; height: 0; border-top: 2px dashed var(--kronos); vertical-align: middle; margin-right: 6px; }
+#kronosBox, #iKronos { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; }
+#kronosBox h3 i, #iKronos h3 i, .legend i.dash { display: inline-block; width: 14px; height: 0; border-top: 2px dashed var(--kronos); vertical-align: middle; margin-right: 6px; }
 #ictBox .line { font-size: 14px; margin: 0 0 6px; }
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; font-family: Inter, system-ui, sans-serif; }
 .seg button { font: inherit; font-size: 12px; background: none; color: var(--muted); border: 0; padding: 4px 10px; cursor: pointer; }
@@ -448,7 +448,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <h2>Open positions</h2>
       <div class="tablewrap" id="positions"></div>
       <h3 style="display:flex;justify-content:space-between;align-items:center">Trade history
-        <span class="seg" id="bookSeg"><button data-k="claude" aria-pressed="true">Claude</button><button data-k="lab" aria-pressed="false">Claude's strategies</button><button data-k="ict" aria-pressed="false">ICT bot</button><button data-k="kronos" aria-pressed="false">Kronos bot</button><button data-k="rules" aria-pressed="false">Trend bot</button><button data-k="lit" aria-pressed="false">LIT bot</button></span></h3>
+        <span class="seg" id="bookSeg"><button data-k="claude" aria-pressed="true">Claude</button><button data-k="lab" aria-pressed="false">Claude's strategies</button><button data-k="ict" aria-pressed="false">ICT bot</button><button data-k="kronos" aria-pressed="false">Kronos bot</button><button data-k="rules" aria-pressed="false">Trend bot</button><button data-k="lit" aria-pressed="false">LIT bot</button><button data-k="kronos_idx" aria-pressed="false">Kronos indices bot</button></span></h3>
       <div class="tablewrap">
         <table>
           <thead><tr><th>When</th><th>Commodity</th><th>Action</th><th class="num">Price</th><th class="num">Value (£)</th><th class="num">P&amp;L (£)</th><th>Why</th></tr></thead>
@@ -477,11 +477,11 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
 
     <section id="perfSec">
       <h2>Claude vs the bots vs buy and hold
-        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--teal)"></i>Claude's strategies</span><span><i style="background:var(--violet)"></i>ICT bot</span><span><i style="background:var(--kronos)"></i>Kronos bot</span><span><i style="background:var(--blue)"></i>Trend bot</span><span><i style="background:var(--lit)"></i>LIT bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
+        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--teal)"></i>Claude's strategies</span><span><i style="background:var(--violet)"></i>ICT bot</span><span><i style="background:var(--kronos)"></i>Kronos bot</span><span><i style="background:var(--blue)"></i>Trend bot</span><span><i style="background:var(--lit)"></i>LIT bot</span><span><i class="dash"></i>Kronos indices bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
       </h2>
       <div id="equity"></div>
       <div class="tablewrap" id="perf" style="margin-top:12px"></div>
-      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k, each on a slice sized by its risk. The ICT bot trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. The trend bot holds a market while its 20-hour average is above its 100-hour average. The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. The LIT bot trades the US index futures and gold on 15-minute candles: it waits for price to run the stops beyond a well-known high or low and snap back, then trades the snap-back in micro contracts (rules in docs/lit.md). Claude weighs the 5-year picture, the news, the ICT read, Kronos, its lab strategies and what the other bots are doing (each bot counted by how much evidence its record gives), and keeps a slice of its account in a core holding spread across all ten markets like buy and hold. If Claude can't beat the bots, it isn't adding much.</p>
+      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k, each on a slice sized by its risk. The ICT bot trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. The trend bot holds a market while its 20-hour average is above its 100-hour average. The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. The LIT bot trades the US index futures and gold on 15-minute candles: it waits for price to run the stops beyond a well-known high or low and snap back, then trades the snap-back in micro contracts (rules in docs/lit.md). The Kronos indices bot (dashed) trades Kronos's forecasts for the same four index futures with the Kronos bot's rules, in micro contracts. Claude weighs the 5-year picture, the news, the ICT read, Kronos, its lab strategies and what the other bots are doing (each bot counted by how much evidence its record gives), and keeps a slice of its account in a core holding spread across all ten markets like buy and hold. If Claude can't beat the bots, it isn't adding much.</p>
     </section>
 
     <section id="reportSec">
@@ -515,17 +515,19 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <div class="legend" id="iLegend"></div>
       <p class="hint" id="iHint"></p>
       <div id="iRead"></div>
+      <div id="iKronos"></div>
     </section>
     <section id="iSide">
       <h2>LIT bot</h2>
       <div id="iBot"></div>
       <h3>Claude</h3>
       <p class="empty">Not on this desk yet. Claude trades the commodities desk; on the indices the LIT bot trades on its own.</p>
-      <h3>Kronos</h3>
-      <p class="empty">Not on this desk yet. Kronos forecasts the commodities only, for now.</p>
+      <h3>Kronos indices bot</h3>
+      <div id="iKbot"></div>
     </section>
     <section id="iBookSec">
-      <h2>LIT bot positions and trades</h2>
+      <h2>Positions and trades
+        <span class="seg" id="iBookSeg"><button data-k="lit" aria-pressed="true">LIT bot</button><button data-k="kronos_idx" aria-pressed="false">Kronos indices bot</button></span></h2>
       <div id="iBook"></div>
     </section>
     <section id="iSessSec">
@@ -566,6 +568,9 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       rules, costs, slippage and micro contracts as live. Below the results, the LIT audit shows every level, sweep and
       trade on the candles, so anyone who knows LIT can check the bot sees what they would. Past results don't promise
       future ones, and 60 days is far too short to prove anything.</p>
+      <p>The Kronos indices bot has no backtest, on purpose. Kronos was trained on years of market history and may
+      already have seen these very candles, so a backtest would flatter it. It is judged on live results only: its
+      race line and results on the Live tab, and its forecasts checked 24 hours later.</p>
     </section>
     <section class="intro only-commodities">
       <h2>Backtest</h2>
@@ -638,10 +643,15 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
         candles. It marks where traders' stop orders cluster (yesterday's high and low, the Asia and London session
         ranges, equal highs and lows), waits for price to run those stops and snap back, and trades the snap-back in
         the London and New York morning windows, in micro contracts, risking 0.5% per trade.</dd>
+        <dt>Kronos indices bot</dt><dd>The Kronos bot's rules on the four US index futures, on its own £100k: it trades
+        Kronos's forecasts when a move looks clearly likely and big enough to cover costs, risking 1% per trade in micro
+        contracts (MES, MNQ, MYM, M2K), and closes after 24 hours. Like the LIT bot, its open contracts may be worth at
+        most 5 times its account. Never backtested.</dd>
         <dt>Buy and hold</dt><dd>The yardstick: an equal slice of every market, bought at the start and never traded.</dd>
       </dl>
-      <p class="hint">Every competitor pays 0.05% in costs on every trade, and a stop that price jumps through fills at the
-      worse price, as it would for real.</p>
+      <p class="hint">The commodity competitors pay 0.05% in costs on every trade; the LIT bot and the Kronos indices bot
+      pay futures costs instead: $0.62 per contract each way plus one tick of slippage on every market order. A stop that
+      price jumps through fills at the worse price, as it would for real.</p>
     </section>
 
     <section class="doc">
@@ -864,7 +874,7 @@ function usePrivate(p) {
   D.pf = p?.portfolio || null; D.trades = p?.trades || []; D.decisions = p?.decisions || []; D.calls = p?.calls || [];
   D.consensus = p?.consensus || null; D.rbTrades = p?.rules_trades || []; D.ictTrades = p?.ict_trades || [];
   D.kronosTrades = p?.kronos_trades || []; D.labTrades = p?.lab_trades || [];
-  D.litTrades = p?.lit_trades || [];
+  D.litTrades = p?.lit_trades || []; D.kiTrades = p?.kronos_idx_trades || [];
   D.labBook = p?.lab || { strategies: D.summary?.lab_live || {} };
   const takes = p?.news_takes || {};
   for (const n of D.news) if (takes[n.id]) n.claude = takes[n.id];
@@ -1062,6 +1072,8 @@ function makeCharts() {
   eqSeries.kronos.setData(D.equity.filter(e => e.kronos != null).map(e => ({ time: e.time, value: e.kronos })));
   eqSeries.lit = eqChart.addLineSeries({ color: css("--lit"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
   eqSeries.lit.setData(D.equity.filter(e => e.lit != null).map(e => ({ time: e.time, value: e.lit })));
+  eqSeries.kronos_idx = eqChart.addLineSeries({ color: css("--kronos"), lineWidth: 1, lineStyle: 2, priceLineVisible: false, lastValueVisible: false });
+  eqSeries.kronos_idx.setData(D.equity.filter(e => e.kronos_idx != null).map(e => ({ time: e.time, value: e.kronos_idx })));
   eqSeries.lab = eqChart.addLineSeries({ color: css("--teal"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
   eqSeries.lab.setData(labLive() ? D.equity.filter(e => e.lab != null).map(e => ({ time: e.time, value: e.lab })) : []);
   eqChart.timeScale().fitContent();
@@ -1089,7 +1101,7 @@ function setTheme(theme, animate) {
   $("#themeBtn").textContent = theme === "dark" ? "Light mode" : "Dark mode";
   if (!chart) return;
   chart.applyOptions(chartOpts()); eqChart.applyOptions(chartOpts());
-  eqSeries.bench.applyOptions({ color: css("--muted") }); eqSeries.claude.applyOptions({ color: css("--brass") }); eqSeries.rules.applyOptions({ color: css("--blue") }); eqSeries.ict.applyOptions({ color: css("--violet") }); eqSeries.lab.applyOptions({ color: css("--teal") }); eqSeries.kronos.applyOptions({ color: css("--kronos") }); eqSeries.lit.applyOptions({ color: css("--lit") });
+  eqSeries.bench.applyOptions({ color: css("--muted") }); eqSeries.claude.applyOptions({ color: css("--brass") }); eqSeries.rules.applyOptions({ color: css("--blue") }); eqSeries.ict.applyOptions({ color: css("--violet") }); eqSeries.lab.applyOptions({ color: css("--teal") }); eqSeries.kronos.applyOptions({ color: css("--kronos") }); eqSeries.lit.applyOptions({ color: css("--lit") }); eqSeries.kronos_idx.applyOptions({ color: css("--kronos") });
   if (audit.chart && audit.sym) { audit.chart.applyOptions(chartOpts()); auditMarket(audit.sym); }
   if (idx.chart) { idx.chart.applyOptions(chartOpts()); drawIdx(); }
   if (D.litCurveChart) renderLit();
@@ -1325,7 +1337,7 @@ function renderBacktest(key) {
 
 // ---------- the Indices desk: index futures, the LIT read and the LIT bot ----------
 const IDX = ["ES=F", "NQ=F", "YM=F", "RTY=F"];
-const idx = { sym: "ES=F", tf: "m15", chart: null, series: null, extra: [] };
+const idx = { sym: "ES=F", tf: "m15", chart: null, series: null, extra: [], book: "lit" };
 const nyParts = new Intl.DateTimeFormat("en-GB", { timeZone: "America/New_York", hourCycle: "h23", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit" });
 function nyClock(t) {
   const p = Object.fromEntries(nyParts.formatToParts(new Date(t * 1000)).map(x => [x.type, x.value]));
@@ -1369,15 +1381,16 @@ function renderIndices() {
   document.querySelectorAll("#iTf button").forEach(b => b.onclick = () => {
     idx.tf = b.dataset.tf; document.querySelectorAll("#iTf button").forEach(x => x.setAttribute("aria-pressed", x === b)); drawIdx(); flash($("#iChart")); });
   $("#iLegend").replaceChildren(...SESS.map(([, n, , , c]) => el("span", {}, [el("i", { style: `background:var(${c})` }), n + " range"])),
-    el("span", {}, [el("i", { style: "background:var(--violet)" }), "LIT liquidity level"]));
-  drawIdx(); renderIdxSide(); renderIdxBook(); renderIdxSessions();
+    el("span", {}, [el("i", { style: "background:var(--violet)" }), "LIT liquidity level"]),
+    el("span", {}, [el("i", { className: "dash" }), "Kronos likely range, next 24 hours"]));
+  drawIdx(); renderIdxSide(); renderIdxKronosBot(); renderIdxBook(); renderIdxSessions();
 }
 
 function iSelect(s) {
   idx.sym = s;
   document.querySelectorAll("#itabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.sym === s));
   drawIdx(); renderIdxBook(); renderIdxSessions();
-  flash($("#iChart"), $("#iRead"), $("#iSess"));
+  flash($("#iChart"), $("#iRead"), $("#iKronos"), $("#iSess"));
 }
 
 function drawIdx() {
@@ -1416,10 +1429,16 @@ function drawIdx() {
       color: entry ? css(t.action === "BUY" ? "--up" : "--down") : css((t.pnl || 0) >= 0 ? "--up" : "--down"), text: entry ? `${t.action === "BUY" ? "Buy" : "Sell"} ${t.contracts}` : (t.exit === "tp1" ? "2R" : t.exit || "Exit") });
   }
   idx.series.setMarkers(mk.sort((a, b) => a.time - b.time));
+  const f = D.kronos?.markets?.[idx.sym], path = f?.path;  // Kronos's likely range: dashed 10th/90th percentile, dotted middle
+  if (path?.t?.length && f.bar_time === m.h1.at(-1)?.[0]) for (const [key, style] of [["p90", 2], ["p10", 2], ["p50", 1]]) {
+    const ln = ch.addLineSeries({ color: css("--kronos"), lineWidth: 1, lineStyle: style, priceLineVisible: false, lastValueVisible: false, crosshairMarkerVisible: false });
+    ln.setData([{ time: f.bar_time, value: f.price }, ...path.t.map((t, i) => ({ time: t, value: path[key][i] }))]); idx.extra.push(ln);
+  }
   ch.timeScale().fitContent();
-  $("#iHint").textContent = `Coloured lines: each day's Asia, London and New York morning ranges. Purple lines: the liquidity levels the LIT bot is watching now. Arrows: sweeps with an inducement; squares: confirmations.` +
+  $("#iHint").textContent = `Coloured lines: each day's Asia, London and New York morning ranges. Purple lines: the liquidity levels the LIT bot is watching now. Arrows: sweeps with an inducement; squares: confirmations. Dashed purple lines on the right: Kronos's likely range for the next 24 hours.` +
     (m.contract ? ` Prices are for the ${m.contract} contract (${m.ticker})${m.next_roll ? `, which rolls on ${new Date(m.next_roll * 1000).toLocaleDateString("en-GB", { day: "numeric", month: "short" })}` : ""}, back-adjusted for rolls.` : "");
   renderIdxRead(m);
+  renderKronos($("#iKronos"), idx.sym, D.kronos?.index_accuracy, "Accuracy, all four indices");
 }
 
 function renderIdxRead(m) {
@@ -1437,11 +1456,11 @@ function renderIdxRead(m) {
     el("p", { className: "hint", textContent: `Typical 15-minute range (ATR): ${m.atr ? price(m.atr) : "—"} points. The rules are in docs/lit.md; the Backtest tab's LIT audit shows every detection over the last 60 days.` }));
 }
 
-function idxRank() {
+const RACE = { equity: "Claude", lab: "Claude's strategies", ict: "ICT bot", kronos: "Kronos bot", rules: "Trend bot", lit: "LIT bot", kronos_idx: "Kronos indices bot", benchmark: "Buy and hold" };
+function idxRank(key = "lit") {
   const e = D.equity.at(-1) || {};
-  const names = { equity: "Claude", lab: "Claude's strategies", ict: "ICT bot", kronos: "Kronos bot", rules: "Trend bot", lit: "LIT bot", benchmark: "Buy and hold" };
-  const rows = Object.entries(names).filter(([k]) => e[k] != null).map(([k, n]) => [n, e[k]]).sort((a, b) => b[1] - a[1]);
-  return [rows.findIndex(r => r[0] === "LIT bot") + 1, rows.length];
+  const rows = Object.keys(RACE).filter(k => e[k] != null).map(k => [k, e[k]]).sort((a, b) => b[1] - a[1]);
+  return [rows.findIndex(r => r[0] === key) + 1, rows.length];
 }
 
 function renderIdxSide() {
@@ -1457,10 +1476,26 @@ function renderIdxSide() {
     kv("Account value", money(e.lit)));
 }
 
+function renderIdxKronosBot() {
+  const box = $("#iKbot"), e = D.equity.at(-1) || {};
+  box.replaceChildren();
+  if (e.kronos_idx == null) { box.append(el("p", { className: "empty", textContent: "The Kronos indices bot starts trading on the next hourly run." })); return; }
+  const r = e.kronos_idx / START - 1, [rank, of] = idxRank("kronos_idx");
+  box.append(el("div", { className: "state" }, [tone(el("span", { className: "big", textContent: pct(r) }), r), el("span", { className: "muted", textContent: `${rank} of ${of} in the race` })]),
+    el("p", { style: "margin:4px 0 10px", textContent: "Trades Kronos's 24-hour forecasts for these four indices with the Kronos bot's rules, in micro contracts, risking 1% of its own £100k per trade. Never backtested: Kronos may have seen this history in its training." }));
+  if (!D.unlocked) { box.append(lockCard("The Kronos indices bot's positions are private", "Its positions and trades are private, like every bot's. Enter the password to see them.")); return; }
+  const pos = Object.entries(D.private?.kronos_idx?.positions || {});
+  box.append(kv("Open trades", pos.length ? pos.map(([s, p]) => `${p.side === "short" ? "Short" : "Long"} ${p.contracts} ${LIT_NAMES[s] || s}`).join(", ") : "none"),
+    kv("Account value", money(e.kronos_idx)));
+}
+
 function renderIdxBook() {
   const box = $("#iBook");
   box.replaceChildren();
-  if (!D.unlocked) { box.append(lockCard("Every LIT trade is private", "The LIT bot's positions and trades are private. Its return and place in the race are public, above and below.")); return; }
+  document.querySelectorAll("#iBookSeg button").forEach(b => b.onclick = () => {
+    idx.book = b.dataset.k; document.querySelectorAll("#iBookSeg button").forEach(x => x.setAttribute("aria-pressed", x === b)); renderIdxBook(); flash(box); });
+  if (!D.unlocked) { box.append(lockCard("Every trade is private", "The LIT bot's and the Kronos indices bot's positions and trades are private. Their returns and places in the race are public, above and below.")); return; }
+  if (idx.book === "kronos_idx") return renderKronosIdxBook(box);
   const pos = Object.entries(D.private?.lit?.positions || {});
   box.append(pos.length ? el("table", {}, [
     el("thead", {}, [el("tr", {}, ["Market", "Side", "Contracts", "Entry", "Stop", "2R", "Target"].map((h, i) => el("th", { className: i > 1 ? "num" : "", textContent: h })))]),
@@ -1476,6 +1511,25 @@ function renderIdxBook() {
       t.pnl != null ? tone(el("td", { className: "num", textContent: signed(t.pnl) }), t.pnl) : el("td", { className: "num muted", textContent: "—" }),
       el("td", { className: "reason", textContent: t.reason })]))),
   ])]) : el("p", { className: "empty", textContent: "No LIT trades yet." }));
+}
+
+const MICRO = { "ES=F": "MES", "NQ=F": "MNQ", "YM=F": "MYM", "RTY=F": "M2K", "GC=F": "MGC" };
+function renderKronosIdxBook(box) {
+  const pos = Object.entries(D.private?.kronos_idx?.positions || {});
+  box.append(pos.length ? el("table", {}, [
+    el("thead", {}, [el("tr", {}, ["Market", "Side", "Contracts", "Entry", "Stop", "Target"].map((h, i) => el("th", { className: i > 1 ? "num" : "", textContent: h })))]),
+    el("tbody", {}, pos.map(([s, p]) => el("tr", {}, [el("td", { textContent: LIT_NAMES[s] || s }), el("td", { textContent: p.side }),
+      el("td", { className: "num", textContent: `${p.contracts} ${MICRO[s]}` }),
+      ...[p.entry, p.stop, p.target].map(v => el("td", { className: "num", textContent: price(v) }))])))]) : el("p", { className: "empty", textContent: "No open Kronos indices trades." }));
+  const trades = [...D.kiTrades].reverse().slice(0, 100);
+  box.append(el("h3", { textContent: "Trade history" }), trades.length ? el("div", { className: "tablewrap" }, [el("table", {}, [
+    el("thead", {}, [el("tr", {}, ["When (New York)", "Market", "Action", "Contracts", "Price", "P&L (£)", "Why"].map((h, i) => el("th", { className: i >= 3 && i <= 5 ? "num" : "", textContent: h })))]),
+    el("tbody", {}, trades.map(t => el("tr", {}, [el("td", { textContent: nyTime(t.t) }), el("td", { textContent: LIT_NAMES[t.symbol] || t.symbol }),
+      tone(el("td", { className: "tag", textContent: ACTION(t) }), SIGN(t)),
+      el("td", { className: "num", textContent: `${t.contracts} ${t.micro}` }), el("td", { className: "num", textContent: price(t.price) }),
+      t.pnl != null ? tone(el("td", { className: "num", textContent: signed(t.pnl) }), t.pnl) : el("td", { className: "num muted", textContent: "—" }),
+      el("td", { className: "reason", textContent: t.reason })]))),
+  ])]) : el("p", { className: "empty", textContent: "No Kronos indices trades yet. It trades only when a forecast is clear and big enough." }));
 }
 
 function renderIdxSessions() {
@@ -1704,12 +1758,12 @@ function drawForecast() {
   line("p90", 2, 1); line("p10", 2, 1); line("p50", 1, 1);
 }
 
-function renderKronos() {
-  // the "Kronos forecast" box under the main chart, for the selected market
-  const box = $("#kronosBox"), K = D.kronos, f = K?.markets?.[sym];
+function renderKronos(box = $("#kronosBox"), s = sym, all = D.kronos?.accuracy, allLabel = "Accuracy, all markets") {
+  // the "Kronos forecast" box under the main chart, for the selected market (the Indices desk has its own)
+  const K = D.kronos, f = K?.markets?.[s];
   box.replaceChildren();
   if (!K) return;
-  const acc = K.accuracy?.markets?.[sym], all = K.accuracy;
+  const acc = all?.markets?.[s];
   const rec = a => !a?.checked ? "no forecasts checked yet" : `direction right ${Math.round(a.direction * 100)}% of ${a.checked}, price in range ${Math.round(a.inside * 100)}%`;
   box.append(el("h3", { style: "margin-top:0" }, [el("i"), "Kronos forecast ", el("small", { textContent: f ? `next 24 hours, made ${ago(f.t || K.time)}` : "" })]));
   if (!f) {
@@ -1724,7 +1778,7 @@ function renderKronos() {
       el("span", { className: "muted", textContent: `of ${f.samples} paths` })])]),
     kv("Likely range (10th to 90th)", `${price(f.p10)} to ${price(f.p90)} (${pct(lo)} to ${pct(hi)})`),
     kv("Accuracy here so far", rec(acc)),
-    kv("Accuracy, all markets", rec(all)),
+    kv(allLabel, rec(all)),
     kv("Read", `${f.inputs?.candles || "?"} hourly candles`),
   ]));
   box.append(el("p", { className: "hint", textContent: (all?.short_record !== false ? "The record is still short, so treat this as unproven. " : "") +
@@ -1839,7 +1893,7 @@ function renderData() {
         el("td", { textContent: m.contract ? `${m.contract} (${m.ticker})` : "—" }),
         el("td", { textContent: `${m.micro}, $${m.mult} a point` }), el("td", { textContent: day(m.next_roll) }),
         el("td", { className: "reason", textContent: m.note || "" })]))),
-    ])]), el("p", { className: "hint", textContent: "Index futures roll every quarter (March, June, September, December), 5 business days before the contract's third-Friday expiry. The LIT bot is always flat by 16:00 New York time, so it never holds a trade across a roll. 15-minute candles come from Yahoo, which keeps about 60 days of them." }));
+    ])]), el("p", { className: "hint", textContent: "Index futures roll every quarter (March, June, September, December), 5 business days before the contract's third-Friday expiry. The LIT bot is always flat by 16:00 New York time, so it never holds a trade across a roll. The Kronos indices bot can hold a trade for up to 24 hours; if a roll falls inside it, the trade moves to the new contract like a trader would, paying fees and slippage on both legs. 15-minute candles come from Yahoo, which keeps about 60 days of them; Kronos reads the hourly ones." }));
     return;
   }
   if (!R?.markets) { box.append(el("p", { className: "empty", textContent: "No roll data yet. It appears after the next hourly run." })); return; }
@@ -1870,15 +1924,15 @@ const toCSV = (head, rows) => [head, ...rows].map(r => r.map(csvCell).join(","))
 
 function datasets() {
   const bt = D.bt?.runs || {}, P = D.summary?.perf || {};
-  const perfRows = [["Claude", "equity"], ["Claude's strategies", "lab"], ["ICT bot", "ict"], ["Kronos bot", "kronos"], ["Trend bot", "rules"], ["LIT bot", "lit"], ["Buy and hold", "benchmark"]]
+  const perfRows = [["Claude", "equity"], ["Claude's strategies", "lab"], ["ICT bot", "ict"], ["Kronos bot", "kronos"], ["Trend bot", "rules"], ["LIT bot", "lit"], ["Kronos indices bot", "kronos_idx"], ["Buy and hold", "benchmark"]]
     .map(([n, k]) => [n, P[k] || {}]);
   return [
     ["prices", "Prices", "Hourly bars for the last 60 days, every market (back-adjusted for rolls)",
       () => toCSV(["market", "name", "time_utc", "open", "high", "low", "close"], Object.entries(D.prices).flatMap(([s, p]) => p.bars.map(b => [s, p.name, iso(b.time), b.open, b.high, b.low, b.close]))),
       () => Object.fromEntries(Object.entries(D.prices).map(([s, p]) => [s, { name: p.name, unit: p.unit, exchange: p.exchange, contract: p.contract, bars: p.bars }]))],
     ["equity", "Equity curves", "Every competitor's account value, every hour since the start (£)",
-      () => toCSV(["time_utc", "claude", "claude_active", "claude_core", "claudes_strategies", "ict_bot", "kronos_bot", "trend_bot", "lit_bot", "buy_and_hold"],
-        D.equity.map(e => [iso(e.time), e.equity, e.active, e.core, e.lab, e.ict, e.kronos, e.rules, e.lit, e.benchmark])),
+      () => toCSV(["time_utc", "claude", "claude_active", "claude_core", "claudes_strategies", "ict_bot", "kronos_bot", "trend_bot", "lit_bot", "kronos_indices_bot", "buy_and_hold"],
+        D.equity.map(e => [iso(e.time), e.equity, e.active, e.core, e.lab, e.ict, e.kronos, e.rules, e.lit, e.kronos_idx, e.benchmark])),
       () => D.equity],
     ["performance", "Performance", "Return, trades, win rate, realised profit and worst drawdown per competitor",
       () => toCSV(["competitor", "return", "trades_opened", "closed_trades", "win_rate", "realised_pnl_gbp", "max_drawdown"],
@@ -1998,7 +2052,7 @@ function showDetail(t) {
   const pnl = t.pnl != null ? tone(el("span", { textContent: "P&L " + signed(t.pnl) }), t.pnl) : "";
   d.replaceChildren(
     el("button", { textContent: "Close", onclick: () => d.hidden = true }),
-    el("strong", { textContent: `${({ ict: "ICT bot: ", kronos: "Kronos bot: ", rules: "Trend bot: ", lit: "LIT bot: ", lab: `${stratName(t.strategy) || "Claude's strategy"}: ` })[t.source] || ""}${ACTION(t)} ${t.name}, ${when(t.t)}` }),
+    el("strong", { textContent: `${({ ict: "ICT bot: ", kronos: "Kronos bot: ", rules: "Trend bot: ", lit: "LIT bot: ", kronos_idx: "Kronos indices bot: ", lab: `${stratName(t.strategy) || "Claude's strategy"}: ` })[t.source] || ""}${ACTION(t)} ${t.name}, ${when(t.t)}` }),
     el("div", { className: "row" }, [
       el("span", { textContent: `Price ${price(t.price)}` }), el("span", { textContent: `Value ${money(t.value)}` }),
       t.stop ? el("span", { textContent: `Stop ${price(t.stop)}` }) : "", t.target ? el("span", { textContent: `Target ${price(t.target)}` }) : "", pnl,
@@ -2184,7 +2238,7 @@ function renderBook() {
 
 function renderHistory(k) {
   const body = $("#trades"); body.replaceChildren();
-  const trades = [...({ claude: D.trades, lab: D.labTrades, ict: D.ictTrades, kronos: D.kronosTrades, rules: D.rbTrades, lit: D.litTrades })[k]].reverse().slice(0, 300);
+  const trades = [...({ claude: D.trades, lab: D.labTrades, ict: D.ictTrades, kronos: D.kronosTrades, rules: D.rbTrades, lit: D.litTrades, kronos_idx: D.kiTrades })[k]].reverse().slice(0, 300);
   $("#noTrades").hidden = trades.length > 0;
   for (const t of trades) {
     body.append(el("tr", { className: "click", onclick: () => showDetail(t) }, [
@@ -2269,6 +2323,7 @@ function renderPerf() {
   const st = (trades, key) => S ? (S[key] || stats([], key)) : stats(trades, key);
   const cols = [["Claude", st(D.trades.filter(t => t.source !== "core"), "equity")], ...(labLive() || S?.lab?.buys ? [["Claude's strategies", st(D.labTrades, "lab")]] : []), ["ICT bot", st(D.ictTrades, "ict")], ["Kronos bot", st(D.kronosTrades, "kronos")], ["Trend bot", st(D.rbTrades, "rules")],
     ...(D.equity.some(e => e.lit != null) ? [["LIT bot", st(D.litTrades.map(t => ({ ...t, pnl: "trade_pnl" in t ? t.trade_pnl : null })), "lit")]] : []),
+    ...(D.equity.some(e => e.kronos_idx != null) ? [["Kronos indices bot", st(D.kiTrades, "kronos_idx")]] : []),
     ["Buy and hold", st([], "benchmark")]];
   const c = n => n > 0 ? "up" : n < 0 ? "down" : "";
   const rows = [
