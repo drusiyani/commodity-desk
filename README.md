@@ -20,6 +20,7 @@ desk is part of the link too, e.g. `#indices/backtest`; older links like `#lab` 
 | **Claude's strategies** | Strategies Claude invents in the weekly strategy lab. Only ones that pass strict out-of-sample tests trade, together, on one shared £100k. |
 | **Kronos bot** | Trades the forecasts of Kronos, an open-source AI model that reads price charts (see below). |
 | **LIT bot** | Trades the S&P 500, Nasdaq 100, Dow and Russell 2000 index futures and gold on 15-minute candles, LIT ("liquidity inducement") style: it waits for price to run the stops beyond a well-known high or low (yesterday's, the Asia or London session's, or equal highs and lows) and snap back, then trades the snap-back in the London or New York morning window, in micro contracts, risking 0.5% per trade. Every rule is defined exactly in [`docs/lit.md`](docs/lit.md). |
+| **Quant bot** | Four classic, published systematic strategies on daily candles, on one £100k with the risk split equally: time-series momentum, cross-sectional momentum, spread trades and carry (see below). |
 | **ICT bot and trend bot (retired)** | The ICT bot traded liquidity sweeps, structure shifts and fair value gaps; the trend bot held a market while its 20-hour average was above its 100-hour average. Both are retired: on their first run after retirement they closed their positions, and they never trade again. Their trades and equity curves stay in the data files (their curves end on the retirement date, stored in `status.json` as `retired`), and their backtests stay on the Backtest tab, marked retired. They no longer appear in Claude's prompt, the bot consensus or the decision pie. |
 | **Kronos indices bot** | The Kronos bot's rules on the S&P 500, Nasdaq 100, Dow and Russell 2000 index futures, on its own £100k, in micro contracts (MES, MNQ, MYM, M2K). Never backtested. |
 | **Buy and hold** | The benchmark: an equal slice of every market, bought at the start and never touched. |
@@ -129,6 +130,31 @@ The hourly run **retires** a live strategy if, after 10 live trades, its average
 testing, or its losing streak goes deeper than the bad case from its backtest reshuffles. To give a retired strategy
 another chance, delete its entry under `"strategies"` in `site/data/lab.json`.
 
+## The Quant bot (`quant.py`, daily)
+
+One account, four strategies from the published research. Every position is sized to the same volatility (measured
+with a 60-day exponentially weighted standard deviation). The bot's risk budget, 10% volatility a year, is split
+equally between the strategies that are running: each gets an equal slice of the account and aims for 10% a year on
+it, so the whole bot swings at most about 10% a year even if every strategy moved together.
+
+| Strategy | Rule | Rebalance |
+|---|---|---|
+| Time-series momentum (Moskowitz, Ooi and Pedersen 2012) | Each market: the average of the signs of its 12-month and 3-month returns (+1 long, -1 short, 0 when they disagree) | Weekly |
+| Cross-sectional momentum (Asness, Moskowitz and Pedersen 2013) | Rank the ten commodities by their 12-month return excluding the last month; long the top 3, short the bottom 3 | Monthly |
+| Spread trades (pairs, Gatev, Goetzmann and Rouwenhorst 2006) | Brent vs WTI, gold vs silver, corn vs wheat: the log price ratio's z-score over the last 250 days; trade back towards the average beyond 2, out within 0.5, stop beyond 3.5 (and wait until it is back inside 2) | Daily check |
+| Carry (Koijen, Moskowitz, Pedersen and Vrugt 2018) | The annualised gap between the contract held and the next month; long the most backwardated third, short the most contangoed third | Monthly |
+
+- Signals use a finished daily candle's close and trade at the next price (the next open in the backtest, the latest
+  price live). Costs are 0.05% a side plus 0.02% slippage; a futures roll costs both legs. Prices are back-adjusted,
+  so returns include roll yield. A position is only re-traded when its target moves by more than 10%.
+- Caps: one position at most 1x its strategy's slice, a strategy at most 4x.
+- **Carry runs live only.** It needs two contract months' prices at the same moment, and Yahoo deletes contracts
+  once they expire, so 5 years of it can't be rebuilt. On 6 October 2026 Yahoo quoted the next contract month for
+  all ten commodities; carry trades whenever at least 6 have a quote that day, and is left out otherwise.
+- **Backtest** (Run backtest): 5 years of daily candles, the first year only warming up the 12-month signals.
+  Combined (the three backtestable strategies sharing the risk) and each strategy alone, on the Backtest tab.
+- The Quant bot is part of the bot consensus Claude sees, weighted by its live and backtest record like the others.
+
 ## Kronos (hourly)
 
 [Kronos](https://github.com/shiyu-coder/Kronos) is a free, open-source AI model trained on years of price charts.
@@ -175,7 +201,7 @@ rather than skip any).
 |---|---|---|
 | **Run trader** (`trader.yml`) | Every hour, Monday to Friday, and by hand | Prices, news, Kronos forecasts, the risk engine, Claude (every 4 hours; every time when run by hand), all the bots; saves the data and publishes the site. |
 | **Run strategy lab** (`research.yml`) | Sunday evenings, and by hand | Claude invents strategies; they're tested; the passing ones and their weights are saved. Tick "recheck only" to re-run the checks on the existing strategies without asking Claude (free). |
-| **Run backtest** (`backtest.yml`) | By hand | Backtests the retired ICT and trend bots, kept as a record (hourly for 2 years, daily for 5) and the LIT bot (15-minute, the last 60 days). |
+| **Run backtest** (`backtest.yml`) | By hand | Backtests the Quant bot (daily, 5 years), the retired ICT and trend bots, kept as a record (hourly for 2 years, daily for 5) and the LIT bot (15-minute, the last 60 days). |
 | **Tests** (`tests.yml`) | Every push and pull request | Runs the automatic tests (no API calls, no model download). |
 | **Kronos check** (`kronos-check.yml`) | Pull requests that touch Kronos, and by hand | Installs and runs the real Kronos model on saved prices for all 14 markets and times it against the hourly budget, to catch a problem before it reaches the hourly trader. |
 
@@ -211,6 +237,7 @@ Edit `config.json` in the repo:
 - `consensus.py`: what each bot is doing in each market and how much its evidence earns it.
 - `rolls.py`: futures roll calendars, back-adjusted prices and roll gaps.
 - `vault.py`: encryption of the private data.
+- `quant.py`: the Quant bot's four strategies, sizing, accounting, backtest and live step.
 - `lit.py`: the LIT bot (detection and trading); its rules are in `docs/lit.md`.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
 - `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups), used only by the

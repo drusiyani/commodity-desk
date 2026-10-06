@@ -20,6 +20,7 @@ import core as C
 import engine as E
 import ict
 import lit as LIT
+import quant as Q
 import rolls as R
 
 START = C.START
@@ -214,6 +215,58 @@ def run_lit(fx):
     return run, audit
 
 
+# ---------- the Quant bot: four classic strategies on 5 years of daily candles ----------
+def run_quant(fx, series=None):
+    """The Quant bot through the same code as live (quant.py), on 5 years of back-adjusted daily candles, with costs,
+    slippage and the cost of every roll. Combined (the strategies sharing the risk equally) and each strategy on its
+    own with the whole risk budget. Carry can't be backtested: it needs two contract months' prices at once, and
+    Yahoo deletes contracts once they expire."""
+    print("--- Quant bot, daily, last 5 years ---")
+    if series is None:
+        series = {}
+        for sym in E.COMMODITIES:
+            try:
+                got = fetch_series(sym, "5y", "1d")
+            except Exception as e:
+                print(f"{sym}: download failed ({e})")
+                continue
+            if len(got["bars"]) > Q.YEAR + 50:
+                series[sym] = {"bars": got["bars"], "rolls": [g["t"] for g in got["gaps"]]}
+    if len(series) < 2 * Q.TOP:
+        return None
+
+    def pack(res, start=START):
+        curve = res["curve"][Q.YEAR:]   # the first year only warms the signals up (12-month returns)
+        trades = [{"pnl": t["pnl"]} for t in res["trades"] if t.get("closed", 0) >= curve[0][0]]
+        daily = {}
+        for t, v in curve:
+            daily[t // 86400 * 86400] = v
+        return {"curve": sample([{"time": t, "value": round(v * START / curve[0][1], 2)} for t, v in sorted(daily.items())]),
+                "stats": stats([v * START / curve[0][1] for _, v in curve], trades, Q.years_of(curve))}
+
+    names = [k for k in Q.STRATEGIES if k != "carry"]
+    combined = Q.backtest(series, fx)
+    out = {"label": "Quant bot, daily, last 5 years", "interval": "1d", "fx": fx,
+           "from": combined["curve"][Q.YEAR][0], "to": combined["curve"][-1][0],
+           "combined": {"quant": pack(combined)}, "strategies": {},
+           "markets": sorted(series),
+           "settings": {k: getattr(Q, k) for k in ("TARGET_VOL", "VOL_COM", "TOP", "Z_WINDOW", "Z_ENTRY", "Z_EXIT", "Z_STOP",
+                                                   "MAX_POS", "MAX_GROSS", "BUFFER", "COST", "SLIPPAGE", "CARRY_MIN")},
+           "carry": "Not backtested: carry compares two contract months at the same moment, and Yahoo deletes contracts "
+                    "once they expire, so 5 years of it can't be rebuilt. It runs live on every market where Yahoo quotes "
+                    "the next contract month (all ten when this was written), and needs at least 6 to trade.",
+           "note": "The first year of data only warms up the 12-month signals, so results start a year in. The combined "
+                   "run shares the risk equally between the three strategies that can be backtested; live, carry joins "
+                   "them as a fourth."}
+    for name in names:
+        res = Q.backtest(series, fx, only=[name])
+        out["strategies"][name] = dict(pack(res), name=Q.STRATEGIES[name])
+        print(f"{Q.STRATEGIES[name]}: {out['strategies'][name]['stats']}")
+    out["strategies"]["carry"] = {"name": Q.STRATEGIES["carry"], "curve": [], "stats": None, "note": out["carry"]}
+    print(f"Quant combined: {out['combined']['quant']['stats']}")
+    return out
+
+
 def main():
     out = {"generated": int(time.time()), "cost_per_side": COST,
            "settings": {"swing": ict.SWING_N, "range_bars": ict.RANGE_BARS, "setup_bars": ict.SETUP_BARS,
@@ -228,6 +281,9 @@ def main():
         if r:
             out["runs"][key] = r
     fx = E.load("status.json", {}).get("fx") or 1.3   # the latest GBP/USD the trader saw
+    quant_run = run_quant(fx)
+    if quant_run:
+        out["runs"]["quant"] = quant_run
     lit_run, audit = run_lit(fx)
     if lit_run:
         out["runs"]["lit"] = lit_run

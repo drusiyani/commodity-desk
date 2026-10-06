@@ -17,7 +17,7 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentEl
   --bg: #000; --panel: #000; --ink: #ebe9e4; --muted: #8f8c86; --line: #232220; --soft: #131211;
   --brass: #d4a94a; --up: #3cb489; --down: #e2675c; --blue: #7aaee6;
   --accent-line: #3a3220; --warn-bg: #1a1306; --violet: #b08ae6; --teal: #4fc7c7; --kronos: #9c169c;
-  --lit: #e8873a;
+  --lit: #e8873a; --quant: #e2689a;
   --f-ict: #0c71cf; --f-kronos: #c1420e; --f-news: #8d3cc5; --f-long_term: #e16255; --f-lab: #8a7eef; --f-consensus: #a1942f; --f-risk: #a54870;
 }
 :root[data-theme="light"] {
@@ -25,7 +25,7 @@ if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentEl
   --bg: #f5f4ef; --panel: #ffffff; --ink: #1f1e1b; --muted: #6b6862; --line: #e2dfd7; --soft: #efede7;
   --brass: #8f6b12; --up: #1d7656; --down: #b4402f; --blue: #2d68ad;
   --accent-line: #d9c8a0; --warn-bg: #f7efdc; --violet: #7346b8; --teal: #127c7c; --kronos: #5c235a;
-  --lit: #b4581a;
+  --lit: #b4581a; --quant: #a8305f;
   --f-ict: #115ca7; --f-kronos: #d4562a; --f-news: #ae5beb; --f-long_term: #ab241e; --f-lab: #684ed9; --f-consensus: #90831d; --f-risk: #fb57a3;
 }
 * { box-sizing: border-box; }
@@ -80,7 +80,7 @@ nav .ex { font-size: 10px; color: var(--muted); font-weight: 400; letter-spacing
 #longBox { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; } nav .p { font-size: 12px; color: var(--muted); }
 
 main { display: grid; gap: 14px; padding: 0 24px 28px; grid-template-columns: minmax(0, 1fr) 380px;
-  grid-template-areas: "chart cockpit" "context activity" "book news" "feed feed" "perf report" "perf drivers"; }
+  grid-template-areas: "chart cockpit" "context activity" "book news" "feed feed" "perf report" "perf drivers" "quant quant"; }
 /* the other pages: one wide column with room to breathe */
 main.page { display: flex; flex-direction: column; gap: 14px; max-width: 1240px; margin: 0 auto; padding: 4px 24px 32px; }
 main.page section { padding: 18px 22px; }
@@ -204,6 +204,8 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
 #perfSec { grid-area: perf; }
 #reportSec { grid-area: report; }
 #driversSec { grid-area: drivers; }
+#quantSec { grid-area: quant; }
+#quantCurve { height: 260px; margin-top: 10px; }
 .pie { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; }
 .pie svg { width: 150px; height: 150px; flex: none; }
 .pie circle.seg { fill: none; stroke-width: 22; transition: opacity .2s ease; }
@@ -268,7 +270,7 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
   .views { flex: 1; } .views a { flex: 1; text-align: center; padding: 6px 4px; }
   main.page section { padding: 14px 16px; } }
 @media (max-width: 1000px) {
-  main { grid-template-columns: 1fr; grid-template-areas: "cockpit" "chart" "context" "activity" "book" "news" "feed" "perf" "report" "drivers"; }
+  main { grid-template-columns: 1fr; grid-template-areas: "cockpit" "chart" "context" "activity" "book" "news" "feed" "perf" "report" "drivers" "quant"; }
   header { grid-template-columns: 1fr; }
   header .topbar { justify-self: stretch; }
   .desk { justify-self: stretch; } .desk button { flex: 1; }
@@ -378,6 +380,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <div class="stat"><div class="v" id="sReturn"></div><div class="k">Claude's return</div></div>
       <div class="stat" id="sLabWrap" hidden><div class="v" id="sLab"></div><div class="k">Claude's strategies</div></div>
       <div class="stat"><div class="v" id="sKronos"></div><div class="k">Kronos bot</div></div>
+      <div class="stat" id="sQuantWrap" hidden><div class="v" id="sQuant"></div><div class="k">Quant bot</div></div>
       <div class="stat" id="sLitWrap" hidden><div class="v" id="sLit"></div><div class="k">LIT bot</div></div>
       <div class="stat"><div class="v" id="sBench"></div><div class="k">Buy and hold</div></div>
       <div class="stat"><div class="v" id="sCash"></div><div class="k">Cash</div></div>
@@ -443,7 +446,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <h2>Open positions</h2>
       <div class="tablewrap" id="positions"></div>
       <h3 style="display:flex;justify-content:space-between;align-items:center">Trade history
-        <span class="seg" id="bookSeg"><button data-k="claude" aria-pressed="true">Claude</button><button data-k="lab" aria-pressed="false">Claude's strategies</button><button data-k="ict" aria-pressed="false" class="retired-k">ICT bot</button><button data-k="kronos" aria-pressed="false">Kronos bot</button><button data-k="rules" aria-pressed="false" class="retired-k">Trend bot</button><button data-k="lit" aria-pressed="false">LIT bot</button><button data-k="kronos_idx" aria-pressed="false">Kronos indices bot</button></span></h3>
+        <span class="seg" id="bookSeg"><button data-k="claude" aria-pressed="true">Claude</button><button data-k="lab" aria-pressed="false">Claude's strategies</button><button data-k="ict" aria-pressed="false" class="retired-k">ICT bot</button><button data-k="kronos" aria-pressed="false">Kronos bot</button><button data-k="rules" aria-pressed="false" class="retired-k">Trend bot</button><button data-k="quant" aria-pressed="false">Quant bot</button><button data-k="lit" aria-pressed="false">LIT bot</button><button data-k="kronos_idx" aria-pressed="false">Kronos indices bot</button></span></h3>
       <div class="tablewrap">
         <table>
           <thead><tr><th>When</th><th>Commodity</th><th>Action</th><th class="num">Price</th><th class="num">Value (£)</th><th class="num">P&amp;L (£)</th><th>Why</th></tr></thead>
@@ -472,16 +475,21 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
 
     <section id="perfSec">
       <h2>Claude vs the bots vs buy and hold
-        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--teal)"></i>Claude's strategies</span><span><i style="background:var(--violet)"></i><span data-retired="ict">ICT bot</span></span><span><i style="background:var(--kronos)"></i>Kronos bot</span><span><i style="background:var(--blue)"></i><span data-retired="rules">Trend bot</span></span><span><i style="background:var(--lit)"></i>LIT bot</span><span><i class="dash"></i>Kronos indices bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
+        <span class="legend"><span><i style="background:var(--brass)"></i>Claude</span><span><i style="background:var(--teal)"></i>Claude's strategies</span><span><i style="background:var(--violet)"></i><span data-retired="ict">ICT bot</span></span><span><i style="background:var(--kronos)"></i>Kronos bot</span><span><i style="background:var(--blue)"></i><span data-retired="rules">Trend bot</span></span><span><i style="background:var(--quant)"></i>Quant bot</span><span><i style="background:var(--lit)"></i>LIT bot</span><span><i class="dash"></i>Kronos indices bot</span><span><i style="background:var(--muted)"></i>Buy and hold</span></span>
       </h2>
       <div id="equity"></div>
       <div class="tablewrap" id="perf" style="margin-top:12px"></div>
-      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k, each on a slice sized by its risk. The ICT bot and the trend bot are retired: they no longer trade, and their lines end on the day they closed their last positions (their records stay below and on the Backtest tab). The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. The LIT bot trades the US index futures and gold on 15-minute candles: it waits for price to run the stops beyond a well-known high or low and snap back, then trades the snap-back in micro contracts (rules in docs/lit.md). The Kronos indices bot (dashed) trades Kronos's forecasts for the same four index futures with the Kronos bot's rules, in micro contracts. Claude weighs the 5-year picture, the news, Kronos, its lab strategies and what the other bots are doing (each bot counted by how much evidence its record gives), and keeps a slice of its account in a core holding spread across all ten markets like buy and hold. If Claude can't beat the bots, it isn't adding much.</p>
+      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k, each on a slice sized by its risk. The ICT bot and the trend bot are retired: they no longer trade, and their lines end on the day they closed their last positions (their records stay below and on the Backtest tab). The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. The LIT bot trades the US index futures and gold on 15-minute candles: it waits for price to run the stops beyond a well-known high or low and snap back, then trades the snap-back in micro contracts (rules in docs/lit.md). The Quant bot runs four classic strategies on daily candles (time-series momentum, cross-sectional momentum, spread trades and carry) on one £100k, with the risk split equally between them. The Kronos indices bot (dashed) trades Kronos's forecasts for the same four index futures with the Kronos bot's rules, in micro contracts. Claude weighs the 5-year picture, the news, Kronos, its lab strategies and what the other bots are doing (each bot counted by how much evidence its record gives), and keeps a slice of its account in a core holding spread across all ten markets like buy and hold. If Claude can't beat the bots, it isn't adding much.</p>
     </section>
 
     <section id="reportSec">
       <h2>Claude's report card <small>calls checked 24 hours later</small></h2>
       <div id="report"></div>
+    </section>
+
+    <section id="quantSec">
+      <h2>Quant bot <small>four classic strategies, daily candles, risk split equally</small></h2>
+      <div id="quantBody"></div>
     </section>
 
     <section id="driversSec">
@@ -585,6 +593,11 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <div id="btBody"></div>
     </section>
 
+    <section id="quantBtSec" class="only-commodities">
+      <h2>Quant bot: daily, last 5 years <small id="quantWhen"></small></h2>
+      <div id="quantBtBody"></div>
+    </section>
+
     <section id="litSec" class="only-indices">
       <h2>LIT bot: index futures and gold, 15-minute candles <small id="litWhen"></small></h2>
       <div id="litBody"></div>
@@ -632,6 +645,13 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
         were never fitted on trade live, together, on one £100k account.</dd>
         <dt>Kronos bot</dt><dd>Trades Kronos's forecasts when a move looks clearly likely and big enough to cover costs; closes
         after 24 hours.</dd>
+        <dt>Quant bot</dt><dd>Four classic, published strategies on daily candles, sharing one £100k with the risk split
+        equally: time-series momentum (each market long or short by its 12- and 3-month trend, weekly), cross-sectional
+        momentum (each month, long the 3 strongest commodities over the last year excluding the last month, short the 3
+        weakest), spread trades (Brent vs WTI, gold vs silver, corn vs wheat: back towards the average when the gap
+        stretches past 2 standard deviations, out near the average, stopped beyond 3.5) and carry (each month, long the
+        markets whose next contract month is cheapest, short those where it is dearest). Every position is sized to the
+        same volatility. Settings are the published defaults, not tuned.</dd>
         <dt>ICT bot and trend bot (retired)</dt><dd>The ICT bot traded a chart pattern called "liquidity sweep, structure
         shift, fair value gap", long and short, risking 1% per trade; the trend bot held a market while its 20-hour average
         was above its 100-hour average. Both were retired (<span data-retired-date="ict"></span>): they closed their
@@ -801,6 +821,7 @@ async function init() {
   });
   renderBacktest("hourly");
   renderLit();
+  renderQuant(); renderQuantBt();
   if (view === "backtest" && desk === "indices") loadAudit();
   if (desk === "indices") renderIndices();
   renderLab();
@@ -871,7 +892,7 @@ function usePrivate(p) {
   D.pf = p?.portfolio || null; D.trades = p?.trades || []; D.decisions = p?.decisions || []; D.calls = p?.calls || [];
   D.consensus = p?.consensus || null; D.rbTrades = p?.rules_trades || []; D.ictTrades = p?.ict_trades || [];
   D.kronosTrades = p?.kronos_trades || []; D.labTrades = p?.lab_trades || [];
-  D.litTrades = p?.lit_trades || []; D.kiTrades = p?.kronos_idx_trades || [];
+  D.litTrades = p?.lit_trades || []; D.kiTrades = p?.kronos_idx_trades || []; D.quantTrades = p?.quant_trades || [];
   D.labBook = p?.lab || { strategies: D.summary?.lab_live || {} };
   const takes = p?.news_takes || {};
   for (const n of D.news) if (takes[n.id]) n.claude = takes[n.id];
@@ -918,7 +939,7 @@ let view = null, desk = null;
 
 function refit() {
   // charts drawn while their tab or desk was hidden had no width: fit them once they're on screen
-  setTimeout(() => { D.litCurveChart?.timeScale().fitContent(); idx.chart?.timeScale().fitContent(); }, 60);
+  setTimeout(() => { D.litCurveChart?.timeScale().fitContent(); idx.chart?.timeScale().fitContent(); D.quantChart?.timeScale().fitContent(); }, 60);
 }
 
 function showDesk(next, first) {
@@ -1002,6 +1023,7 @@ function renderHeader() {
   markRetired();
   const kr = eq?.kronos ? eq.kronos / START - 1 : 0;
   countUp(tone($("#sKronos"), kr), kr, pct);
+  if (eq?.quant != null) { $("#sQuantWrap").hidden = false; const qr = eq.quant / START - 1; countUp(tone($("#sQuant"), qr), qr, pct); }
   if (eq?.lit != null) { $("#sLitWrap").hidden = false; const lr = eq.lit / START - 1; countUp(tone($("#sLit"), lr), lr, pct); }
   if (D.pf) countUp($("#sCash"), D.pf.cash, money); else $("#sCash").closest(".stat").hidden = true;
   if (D.unlocked && !$("#lockBtn")) {  // a way to lock it again on this device
@@ -1068,6 +1090,8 @@ function makeCharts() {
   eqSeries.lit.setData(D.equity.filter(e => e.lit != null).map(e => ({ time: e.time, value: e.lit })));
   eqSeries.kronos_idx = eqChart.addLineSeries({ color: css("--kronos"), lineWidth: 1, lineStyle: 2, priceLineVisible: false, lastValueVisible: false });
   eqSeries.kronos_idx.setData(D.equity.filter(e => e.kronos_idx != null).map(e => ({ time: e.time, value: e.kronos_idx })));
+  eqSeries.quant = eqChart.addLineSeries({ color: css("--quant"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
+  eqSeries.quant.setData(D.equity.filter(e => e.quant != null).map(e => ({ time: e.time, value: e.quant })));
   eqSeries.lab = eqChart.addLineSeries({ color: css("--teal"), lineWidth: 1, priceLineVisible: false, lastValueVisible: false });
   eqSeries.lab.setData(labLive() ? D.equity.filter(e => e.lab != null).map(e => ({ time: e.time, value: e.lab })) : []);
   eqChart.timeScale().fitContent();
@@ -1095,7 +1119,8 @@ function setTheme(theme, animate) {
   $("#themeBtn").textContent = theme === "dark" ? "Light mode" : "Dark mode";
   if (!chart) return;
   chart.applyOptions(chartOpts()); eqChart.applyOptions(chartOpts());
-  eqSeries.bench.applyOptions({ color: css("--muted") }); eqSeries.claude.applyOptions({ color: css("--brass") }); eqSeries.rules.applyOptions({ color: css("--blue") }); eqSeries.ict.applyOptions({ color: css("--violet") }); eqSeries.lab.applyOptions({ color: css("--teal") }); eqSeries.kronos.applyOptions({ color: css("--kronos") }); eqSeries.lit.applyOptions({ color: css("--lit") }); eqSeries.kronos_idx.applyOptions({ color: css("--kronos") });
+  eqSeries.bench.applyOptions({ color: css("--muted") }); eqSeries.claude.applyOptions({ color: css("--brass") }); eqSeries.rules.applyOptions({ color: css("--blue") }); eqSeries.ict.applyOptions({ color: css("--violet") }); eqSeries.lab.applyOptions({ color: css("--teal") }); eqSeries.kronos.applyOptions({ color: css("--kronos") }); eqSeries.lit.applyOptions({ color: css("--lit") }); eqSeries.kronos_idx.applyOptions({ color: css("--kronos") }); eqSeries.quant.applyOptions({ color: css("--quant") });
+  if (D.quantChart) renderQuantBt();
   if (audit.chart && audit.sym) { audit.chart.applyOptions(chartOpts()); auditMarket(audit.sym); }
   if (idx.chart) { idx.chart.applyOptions(chartOpts()); drawIdx(); }
   if (D.litCurveChart) renderLit();
@@ -1458,7 +1483,7 @@ function markRetired() {
   document.querySelectorAll("#bookSeg .retired-k").forEach(x => x.textContent = botName(x.dataset.k));
   document.querySelectorAll("[data-retired-date]").forEach(x => x.textContent = retiredOn(x.dataset.retiredDate) ? `retired ${retiredOn(x.dataset.retiredDate)}` : "retired; they close their last positions on the next hourly run");
 }
-const RACE = { equity: "Claude", lab: "Claude's strategies", ict: "ICT bot", kronos: "Kronos bot", rules: "Trend bot", lit: "LIT bot", kronos_idx: "Kronos indices bot", benchmark: "Buy and hold" };
+const RACE = { equity: "Claude", lab: "Claude's strategies", ict: "ICT bot", kronos: "Kronos bot", rules: "Trend bot", lit: "LIT bot", kronos_idx: "Kronos indices bot", quant: "Quant bot", benchmark: "Buy and hold" };
 function idxRank(key = "lit") {
   const e = D.equity.at(-1) || {};
   const rows = Object.keys(RACE).filter(k => e[k] != null).map(k => [k, e[k]]).sort((a, b) => b[1] - a[1]);
@@ -1591,6 +1616,65 @@ function renderLit() {
   line.setData(r.combined.lit.curve);
   ch.timeScale().fitContent();
   D.litCurveChart = ch;
+}
+
+// ---------- the Quant bot: live breakdown (Live tab) and its 5-year backtest (Backtest tab) ----------
+const QSTRAT = { tsmom: "Time-series momentum", xsmom: "Cross-sectional momentum", spreads: "Spread trades", carry: "Carry" };
+const QCOLOR = { tsmom: "--blue", xsmom: "--violet", spreads: "--teal", carry: "--brass" };
+const QHOW = { tsmom: "Each market long or short by its 12- and 3-month trend; weekly", xsmom: "Long the 3 strongest, short the 3 weakest over 12 months (skipping the last); monthly",
+  spreads: "Brent vs WTI, gold vs silver, corn vs wheat: back to the average past 2 standard deviations", carry: "Long the most backwardated markets, short the most contangoed; monthly" };
+
+function renderQuant() {
+  const box = $("#quantBody"), q = D.summary?.quant, e = D.equity.at(-1) || {}, bt = D.bt?.runs?.quant;
+  box.replaceChildren();
+  if (!q || e.quant == null) { box.append(el("p", { className: "empty", textContent: "The Quant bot starts on the next hourly run. It decides once a day, after each daily candle closes." })); return; }
+  const r = e.quant / START - 1, [rank, of] = idxRank("quant"), c = n => n > 0 ? "up" : n < 0 ? "down" : "";
+  const carry = q.info?.carry;
+  box.append(el("div", { className: "state" }, [tone(el("span", { className: "big", textContent: pct(r) }), r), el("span", { className: "muted", textContent: `${rank} of ${of} in the race` })]),
+    el("div", { className: "tablewrap" }, [el("table", {}, [
+      el("thead", {}, [el("tr", {}, ["Strategy", "How", "Live P&L (£)", "Costs (£)", "Open positions", "Last rebalance", "5-year backtest, a year"].map((h, i) => el("th", { className: i > 1 ? "num" : "", textContent: h })))]),
+      el("tbody", {}, Object.entries(q.strategies).map(([k, x]) => {
+        const b = bt?.strategies?.[k]?.stats;
+        return el("tr", {}, [el("td", {}, [el("i", { className: "dot", style: `background:var(${QCOLOR[k]})` }), QSTRAT[k]]), el("td", { className: "reason", textContent: QHOW[k] }),
+          tone(el("td", { className: "num", textContent: signed(x.pnl) }), x.pnl), el("td", { className: "num muted", textContent: money(x.costs) }),
+          el("td", { className: "num", textContent: x.positions }), el("td", { className: "num muted", textContent: x.rebalanced ? ago(x.rebalanced) : "—" }),
+          el("td", { className: "num " + (b ? c(b.cagr) : ""), textContent: b ? pct(b.cagr) : k === "carry" ? "not possible" : "—" })]);
+      })),
+    ])]),
+    el("p", { className: "hint", textContent: (carry ? (carry.running ? `Carry is running on ${carry.covered.length} markets (${carry.covered.map(s => D.prices[s]?.name || s).join(", ")}): Yahoo quotes their next contract month. ` : `Carry is paused: Yahoo quoted the next contract month for only ${carry.covered.length} markets today and it needs ${carry.needs}. `) : "") +
+      "Each strategy's positions are sized to the same volatility, and each gets an equal share of the risk. Its open positions and trades are private, like every bot's." }));
+  const sp = q.info?.spreads;
+  if (sp && Object.keys(sp).length) box.append(el("div", { className: "grid2" }, Object.entries(sp).map(([p, x]) =>
+    kv(`${p}: gap now`, `${x.z > 0 ? "+" : ""}${x.z.toFixed(1)} standard deviations${x.side ? (x.side > 0 ? ", bought" : ", sold") : ""}`))));
+}
+
+function renderQuantBt() {
+  const box = $("#quantBtBody"), r = D.bt?.runs?.quant;
+  box.replaceChildren();
+  if (!r) { box.append(el("p", { className: "empty", textContent: "No Quant backtest yet. On GitHub, open Actions, choose Run backtest, then Run workflow." })); return; }
+  $("#quantWhen").textContent = `${new Date(r.from * 1000).toLocaleDateString("en-GB", { month: "short", year: "numeric" })} to ${new Date(r.to * 1000).toLocaleDateString("en-GB", { month: "short", year: "numeric" })}`;
+  const c = n => n > 0 ? "up" : n < 0 ? "down" : "", f = (v, fmt) => v == null ? "—" : fmt(v);
+  const cols = [["Combined", r.combined.quant.stats, "--quant"], ...Object.entries(r.strategies).map(([k, x]) => [QSTRAT[k], x.stats, QCOLOR[k]])];
+  const rows = [["Total return", s => f(s.return, pct), s => c(s.return)], ["Per year", s => f(s.cagr, pct), s => c(s.cagr)],
+    ["Max drawdown", s => f(s.max_dd, pct), s => c(s.max_dd)], ["Trades", s => s.trades], ["Win rate", s => f(s.win_rate, v => Math.round(v * 100) + "%")],
+    ["Profit factor", s => f(s.profit_factor, v => v.toFixed(2))]];
+  box.append(
+    el("p", { style: "margin:0 0 10px", textContent: "The Quant bot's four strategies on 5 years of daily candles, through the same code as live, with costs (0.05% a side), slippage (0.02% a side) and the cost of every futures roll. Back-adjusted prices mean the results include roll yield. Combined, the strategies share the risk equally; each is also shown on its own with the whole risk budget. The settings are the published defaults, chosen before the test." }),
+    el("div", { className: "legend" }, cols.filter(x => x[1]).map(([n, , col]) => el("span", {}, [el("i", { style: `background:var(${col})` }), n]))),
+    el("div", { id: "quantCurve" }),
+    el("div", { className: "tablewrap" }, [el("table", {}, [
+      el("thead", {}, [el("tr", {}, [el("th"), ...cols.map(([n]) => el("th", { className: "num", textContent: n }))])]),
+      el("tbody", {}, rows.map(([label, fn, cl]) => el("tr", {}, [el("td", { className: "muted", textContent: label }),
+        ...cols.map(([, st]) => st ? el("td", { className: "num " + (cl ? cl(st) : ""), textContent: fn(st) }) : el("td", { className: "num muted", textContent: "—" }))]))),
+    ])]),
+    el("p", { className: "warnbox", textContent: r.carry }),
+    el("p", { className: "hint", textContent: r.note }));
+  const ch = LightweightCharts.createChart($("#quantCurve"), { ...chartOpts(), handleScroll: false, handleScale: false });
+  ch.addLineSeries({ color: css("--quant"), lineWidth: 2, priceLineVisible: false, lastValueVisible: false }).setData(r.combined.quant.curve);
+  for (const [k, x] of Object.entries(r.strategies)) if (x.curve?.length)
+    ch.addLineSeries({ color: css(QCOLOR[k]), lineWidth: 1, priceLineVisible: false, lastValueVisible: false }).setData(x.curve);
+  ch.timeScale().fitContent();
+  D.quantChart = ch;
 }
 
 const audit = { data: null, chart: null, series: null, lines: [], sym: null, filter: "key" };
@@ -1921,15 +2005,15 @@ const toCSV = (head, rows) => [head, ...rows].map(r => r.map(csvCell).join(","))
 
 function datasets() {
   const bt = D.bt?.runs || {}, P = D.summary?.perf || {};
-  const perfRows = [["Claude", "equity"], ["Claude's strategies", "lab"], ["ICT bot", "ict"], ["Kronos bot", "kronos"], ["Trend bot", "rules"], ["LIT bot", "lit"], ["Kronos indices bot", "kronos_idx"], ["Buy and hold", "benchmark"]]
+  const perfRows = [["Claude", "equity"], ["Claude's strategies", "lab"], ["ICT bot", "ict"], ["Kronos bot", "kronos"], ["Trend bot", "rules"], ["LIT bot", "lit"], ["Kronos indices bot", "kronos_idx"], ["Quant bot", "quant"], ["Buy and hold", "benchmark"]]
     .map(([n, k]) => [n, P[k] || {}]);
   return [
     ["prices", "Prices", "Hourly bars for the last 60 days, every market (back-adjusted for rolls)",
       () => toCSV(["market", "name", "time_utc", "open", "high", "low", "close"], Object.entries(D.prices).flatMap(([s, p]) => p.bars.map(b => [s, p.name, iso(b.time), b.open, b.high, b.low, b.close]))),
       () => Object.fromEntries(Object.entries(D.prices).map(([s, p]) => [s, { name: p.name, unit: p.unit, exchange: p.exchange, contract: p.contract, bars: p.bars }]))],
     ["equity", "Equity curves", "Every competitor's account value, every hour since the start (£)",
-      () => toCSV(["time_utc", "claude", "claude_active", "claude_core", "claudes_strategies", "ict_bot", "kronos_bot", "trend_bot", "lit_bot", "kronos_indices_bot", "buy_and_hold"],
-        D.equity.map(e => [iso(e.time), e.equity, e.active, e.core, e.lab, e.ict, e.kronos, e.rules, e.lit, e.kronos_idx, e.benchmark])),
+      () => toCSV(["time_utc", "claude", "claude_active", "claude_core", "claudes_strategies", "ict_bot", "kronos_bot", "trend_bot", "lit_bot", "kronos_indices_bot", "quant_bot", "buy_and_hold"],
+        D.equity.map(e => [iso(e.time), e.equity, e.active, e.core, e.lab, e.ict, e.kronos, e.rules, e.lit, e.kronos_idx, e.quant, e.benchmark])),
       () => D.equity],
     ["performance", "Performance", "Return, trades, win rate, realised profit and worst drawdown per competitor",
       () => toCSV(["competitor", "return", "trades_opened", "closed_trades", "win_rate", "realised_pnl_gbp", "max_drawdown"],
@@ -2030,7 +2114,7 @@ function showDetail(t) {
   const pnl = t.pnl != null ? tone(el("span", { textContent: "P&L " + signed(t.pnl) }), t.pnl) : "";
   d.replaceChildren(
     el("button", { textContent: "Close", onclick: () => d.hidden = true }),
-    el("strong", { textContent: `${({ ict: "ICT bot: ", kronos: "Kronos bot: ", rules: "Trend bot: ", lit: "LIT bot: ", kronos_idx: "Kronos indices bot: ", lab: `${stratName(t.strategy) || "Claude's strategy"}: ` })[t.source] || ""}${ACTION(t)} ${t.name}, ${when(t.t)}` }),
+    el("strong", { textContent: `${({ ict: "ICT bot: ", kronos: "Kronos bot: ", rules: "Trend bot: ", lit: "LIT bot: ", kronos_idx: "Kronos indices bot: ", quant: `Quant bot (${QSTRAT[t.strategy] || "all"}): `, lab: `${stratName(t.strategy) || "Claude's strategy"}: ` })[t.source] || ""}${ACTION(t)} ${t.name}, ${when(t.t)}` }),
     el("div", { className: "row" }, [
       el("span", { textContent: `Price ${price(t.price)}` }), el("span", { textContent: `Value ${money(t.value)}` }),
       t.stop ? el("span", { textContent: `Stop ${price(t.stop)}` }) : "", t.target ? el("span", { textContent: `Target ${price(t.target)}` }) : "", pnl,
@@ -2215,7 +2299,7 @@ function renderBook() {
 
 function renderHistory(k) {
   const body = $("#trades"); body.replaceChildren();
-  const trades = [...({ claude: D.trades, lab: D.labTrades, ict: D.ictTrades, kronos: D.kronosTrades, rules: D.rbTrades, lit: D.litTrades, kronos_idx: D.kiTrades })[k]].reverse().slice(0, 300);
+  const trades = [...({ claude: D.trades, lab: D.labTrades, ict: D.ictTrades, kronos: D.kronosTrades, rules: D.rbTrades, lit: D.litTrades, kronos_idx: D.kiTrades, quant: D.quantTrades })[k]].reverse().slice(0, 300);
   $("#noTrades").hidden = trades.length > 0;
   for (const t of trades) {
     body.append(el("tr", { className: "click", onclick: () => showDetail(t) }, [
@@ -2300,6 +2384,7 @@ function renderPerf() {
   const st = (trades, key) => S ? (S[key] || stats([], key)) : stats(trades, key);
   const cols = [["Claude", st(D.trades.filter(t => t.source !== "core"), "equity")], ...(labLive() || S?.lab?.buys ? [["Claude's strategies", st(D.labTrades, "lab")]] : []), [botName("ict"), st(D.ictTrades, "ict")], ["Kronos bot", st(D.kronosTrades, "kronos")], [botName("rules"), st(D.rbTrades, "rules")],
     ...(D.equity.some(e => e.lit != null) ? [["LIT bot", st(D.litTrades.map(t => ({ ...t, pnl: "trade_pnl" in t ? t.trade_pnl : null })), "lit")]] : []),
+    ...(D.equity.some(e => e.quant != null) ? [["Quant bot", st(D.quantTrades, "quant")]] : []),
     ...(D.equity.some(e => e.kronos_idx != null) ? [["Kronos indices bot", st(D.kiTrades, "kronos_idx")]] : []),
     ["Buy and hold", st([], "benchmark")]];
   const c = n => n > 0 ? "up" : n < 0 ? "down" : "";
