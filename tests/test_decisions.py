@@ -150,8 +150,7 @@ def test_trade_record_and_pooled_profit_factor():
 
 
 def test_market_bots_reads_every_bot(monkeypatch):
-    monkeypatch.setattr(E, "load", lambda name, default: {"runs": {"hourly": {"markets": {"GC=F": {
-        "ict": {"trades": 40, "profit_factor": 0.8}, "trend": {"trades": 300, "profit_factor": 1.3}}}},
+    monkeypatch.setattr(E, "load", lambda name, default: {"runs": {
         "daily": {"markets": {"GC=F": {"hold": {"cagr": 0.08}}}}}} if name == "backtest.json" else default)
     bars = closes([2000 + i for i in range(150)])
     prices = {"GC=F": {"bars": bars}}
@@ -159,35 +158,33 @@ def test_market_bots_reads_every_bot(monkeypatch):
     kb = empty()
     kb["positions"]["GC=F"] = {"side": "short", "qty": 1, "entry": 1, "entry_usd": 1}
     strat = {"id": "s1", "name": "Test", "results": {"test": {"combined": {"trades": 120, "profit_factor": 1.5}}}}
-    out = E.market_bots("GC=F", prices, empty(), empty(), kb, {"sleeves": {}}, [strat],
+    out = E.market_bots("GC=F", prices, kb, {"sleeves": {}}, [strat],
                         {"s1": {"GC=F": {"entry": "long"}}}, {"markets": {}}, {"GC=F": KB.accuracy([])},
-                        {"ict": [], "rules": [], "kronos": []}, [])
+                        {"kronos": []}, [])
     rows = {r["bot"]: r for r in out["rows"]}
-    assert set(rows) == {"ICT bot", "Trend bot", "Kronos", "Lab 'Test'", "Buy and hold"}
-    assert rows["Trend bot"]["signal"] == 1 and rows["Trend bot"]["n"] == 300
+    assert set(rows) == {"Kronos", "Lab 'Test'", "Buy and hold"}   # the ICT and trend bots are retired
     assert rows["Kronos"]["signal"] == -1 and rows["Kronos"]["weight"] == 0  # no checked forecasts yet
     assert rows["Lab 'Test'"]["signal"] == 1 and rows["Buy and hold"]["signal"] == 1
-    assert rows["ICT bot"]["skill"] < 0.5 < rows["Trend bot"]["skill"]
     assert out["score"] > 0 and "consensus" in CS.market_line(out["rows"])
 
 
 # ---------- influence split ----------
 def test_influence_is_rescaled_to_100():
-    out = E.normalize_influence({"ict": 1, "news": 1, "long_term": 1})
-    assert sum(out.values()) == 100 and set(out) == set(E.FACTORS)
-    assert sorted(out[k] for k in ("ict", "news", "long_term")) == [33, 33, 34]
-    assert E.normalize_influence({"ict": 20, "kronos": 10, "news": 20, "long_term": 20, "lab": 10, "consensus": 10,
-                                  "risk": 10})["news"] == 20
+    out = E.normalize_influence({"kronos": 1, "news": 1, "long_term": 1})
+    assert sum(out.values()) == 100 and set(out) == set(E.FACTORS) and "ict" not in out
+    assert sorted(out[k] for k in ("kronos", "news", "long_term")) == [33, 33, 34]
+    assert E.normalize_influence({"ict": 20, "kronos": 10, "news": 20, "long_term": 30, "lab": 10, "consensus": 10,
+                                  "risk": 20})["news"] == 20   # an old "ict" share is ignored
 
 
 def test_bad_influence_is_dropped():
     assert E.normalize_influence(None) is None
-    assert E.normalize_influence({"ict": 0, "news": -5}) is None
+    assert E.normalize_influence({"kronos": 0, "news": -5}) is None
     assert E.normalize_influence({"ict": "x", "news": float("nan"), "risk": 50}) == dict.fromkeys(E.FACTORS, 0) | {"risk": 100}
 
 
 # ---------- the prompt ----------
-def test_prompt_demotes_ict_and_asks_for_influence(monkeypatch):
+def test_prompt_has_no_ict_and_asks_for_influence(monkeypatch):
     seen = {}
 
     class Reply:
@@ -203,11 +200,25 @@ def test_prompt_demotes_ict_and_asks_for_influence(monkeypatch):
     prices = {"GC=F": {"name": "Gold", "group": "Metals", "exchange": "COMEX", "unit": "$", "bars": closes([2000] * 30)}}
     p = book()
     E.rebalance_core(p, {"GC=F": 2000.0}, FX, JUNE, 0.4)
-    bots = {"GC=F": {"rows": [CS.row("Trend bot", 1.0, "trend up", 200, 0.8, "200 trades, PF 1.30")]}}
-    E.ask_claude(prices, {}, [], p, {"GC=F": 2000.0}, FX, [], [], {}, {}, bots=bots, atrs={"GC=F": 31.5})
+    bots = {"GC=F": {"rows": [CS.row("Lab 'X'", 1.0, "signal long", 200, 0.8, "200 trades, PF 1.30")]}}
+    E.ask_claude(prices, {}, [], p, {"GC=F": 2000.0}, FX, [], [], {}, bots=bots, atrs={"GC=F": 31.5})
     t = seen["p"]
-    assert "A completed setup is NOT required to trade" in t and "none of them is a gatekeeper" in t
-    assert "The best trades are where a live ICT setup" not in t
+    assert "none of them is a gatekeeper" in t
+    assert "ICT" not in t and "Trend bot" not in t and "trend bot" not in t
     assert '"stop_basis"' in t and '"influence"' in t and "daily ATR 31.5" in t
-    assert "Bots now: Trend bot trend up [w 0.70: 200 trades, PF 1.30]" in t and "consensus +" in t
+    assert "Bots now: Lab 'X' signal long [w 0.70: 200 trades, PF 1.30]" in t and "consensus +" in t
     assert "not by recent luck" in t and "Core holding: 40%" in t
+
+
+# ---------- the retired bots ----------
+def test_retired_bot_closes_its_positions_once_and_never_trades_again():
+    b = C.normalize({"cash": 50_000.0, "positions": {}})
+    C.open_position(b, "GC=F", "long", 100.0, 500.0, FX, T0, stop=90, target=120)
+    C.open_position(b, "CL=F", "long", 100.0, 100.0, FX, T0, stop=90, target=120)
+    fills = E.retire_bot(b, "ict", {"GC=F": 110.0}, FX, T0 + 3600)      # no price for CL=F this run
+    assert [f["symbol"] for f in fills] == ["GC=F"] and fills[0]["source"] == "ict"
+    assert "retired" in fills[0]["reason"] and "retired" not in b                 # still holds CL=F
+    fills = E.retire_bot(b, "ict", {"GC=F": 110.0, "CL=F": 100.0}, FX, T0 + 7200)
+    assert [f["symbol"] for f in fills] == ["CL=F"] and b["retired"] == T0 + 7200 and not b["positions"]
+    assert E.retire_bot(b, "ict", {"GC=F": 120.0}, FX, T0 + 9000) == []          # done: nothing more, ever
+    assert "ICT" not in " ".join(E.FACTORS).upper() and E.STOP_BASES == ("atr", "structure")

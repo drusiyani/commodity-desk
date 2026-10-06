@@ -135,6 +135,7 @@ def good():
     ({"long": {"entry": [{"left": "price_14", "op": "<", "right": 3}]}}, "unknown feature"),
     ({"long": {"entry": [{"left": "close", "op": ">", "right": 1}] * 7}}, "at most 6"),
     ({"long": {"entry": []}}, "needs entry"),
+    ({"long": {"entry": [{"left": "ict_long", "op": ">", "right": 0}]}}, "unknown feature"),   # retired with the ICT bot
 ])
 def test_validate(change, problem):
     assert F.validate(good()) == []

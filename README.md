@@ -16,12 +16,11 @@ desk is part of the link too, e.g. `#indices/backtest`; older links like `#lab` 
 
 | Competitor | What it does |
 |---|---|
-| **Claude** | Keeps 40% of its account in a **core holding** (all ten markets, equal shares, rebalanced monthly, like buy and hold) and trades the other 60% actively. Every 4 hours it weighs each market's 5-year history, the news, the ICT read, Kronos's forecast, its lab strategies and what every other bot is doing, then decides. Long only, with a stop and a target on every trade. Hard risk rules are enforced in code, not by Claude, on the active part: at most 25% of it in one market, at most 4 markets, reward at least 1.5x risk, no new buys after a 3% loss in a day. |
+| **Claude** | Keeps 40% of its account in a **core holding** (all ten markets, equal shares, rebalanced monthly, like buy and hold) and trades the other 60% actively. Every 4 hours it weighs each market's 5-year history, the news, Kronos's forecast, its lab strategies and what every other bot is doing, then decides. Long only, with a stop and a target on every trade. Hard risk rules are enforced in code, not by Claude, on the active part: at most 25% of it in one market, at most 4 markets, reward at least 1.5x risk, no new buys after a 3% loss in a day. |
 | **Claude's strategies** | Strategies Claude invents in the weekly strategy lab. Only ones that pass strict out-of-sample tests trade, together, on one shared £100k. |
-| **ICT bot** | Trades liquidity sweeps, market structure shifts and fair value gaps, long and short, risking 1% per trade. |
 | **Kronos bot** | Trades the forecasts of Kronos, an open-source AI model that reads price charts (see below). |
-| **Trend bot** | Holds a market while its 20-hour average is above its 100-hour average. |
 | **LIT bot** | Trades the S&P 500, Nasdaq 100, Dow and Russell 2000 index futures and gold on 15-minute candles, LIT ("liquidity inducement") style: it waits for price to run the stops beyond a well-known high or low (yesterday's, the Asia or London session's, or equal highs and lows) and snap back, then trades the snap-back in the London or New York morning window, in micro contracts, risking 0.5% per trade. Every rule is defined exactly in [`docs/lit.md`](docs/lit.md). |
+| **ICT bot and trend bot (retired)** | The ICT bot traded liquidity sweeps, structure shifts and fair value gaps; the trend bot held a market while its 20-hour average was above its 100-hour average. Both are retired: on their first run after retirement they closed their positions, and they never trade again. Their trades and equity curves stay in the data files (their curves end on the retirement date, stored in `status.json` as `retired`), and their backtests stay on the Backtest tab, marked retired. They no longer appear in Claude's prompt, the bot consensus or the decision pie. |
 | **Kronos indices bot** | The Kronos bot's rules on the S&P 500, Nasdaq 100, Dow and Russell 2000 index futures, on its own £100k, in micro contracts (MES, MNQ, MYM, M2K). Never backtested. |
 | **Buy and hold** | The benchmark: an equal slice of every market, bought at the start and never touched. |
 
@@ -86,7 +85,7 @@ switch day: a move nobody could have traded. `rolls.py` deals with it:
   **estimate**: the jump in Yahoo's own series on the day it switches contract (its last trading day, or first
   notice day for gold), less a typical move. Small gaps (under about three typical moves) can't be told apart from
   normal trading and are left in. Each market's note (site and `site/data/rolls.json`) says which it is.
-- **Back-adjusted prices for everything that reads a chart**: indicators, the ICT read, Kronos, the bots,
+- **Back-adjusted prices for everything that reads a chart**: indicators, Kronos, the bots,
   Claude's prompt, the backtests and the strategy lab. Older prices are scaled by each roll's gap so there is no
   jump, and the latest prices are the real prices of the contract held now (what the site shows).
 - **Positions are rolled like a trader would**: every account (Claude, the core holding, all the bots, the lab)
@@ -97,18 +96,16 @@ switch day: a move nobody could have traded. `rolls.py` deals with it:
 
 ## How Claude decides
 
-- **No single gatekeeper.** The ICT read is one input among several. Claude doesn't need a completed
-  sweep -> structure shift -> fair value gap setup to trade, and an ICT setup alone isn't enough.
-- **Stops.** Each buy says what its stop is based on: `ict`, `atr` or `structure`. Only when an ICT sweep is the
-  reason for the trade is the stop forced below the sweep's low. With no valid stop, the risk engine puts it 2 daily
-  ATRs (average daily ranges) below the entry.
-- **Bot consensus** (`consensus.py`). For every market, Claude sees what each bot is doing now (ICT bot, trend bot,
-  Kronos, each lab strategy, buy and hold) with its live and backtest record, and one evidence-weighted score from
+- **No single gatekeeper.** Every input is weighed on its merits; none is required.
+- **Stops.** Each buy says what its stop is based on: `atr` or `structure`. With no valid stop, the risk engine puts
+  it 2 daily ATRs (average daily ranges) below the entry.
+- **Bot consensus** (`consensus.py`). For every market, Claude sees what each bot is doing now (Kronos, each lab
+  strategy, buy and hold) with its live and backtest record, and one evidence-weighted score from
   -100 (all bearish) to +100 (all bullish). Each bot counts by *evidence x skill*: evidence grows with its number of
   trades (n / (n + 30)), so a few lucky trades count for little; skill is how good the record is (profit factor, or
   direction accuracy for Kronos). Kronos's weight also stays small until it has 100 checked forecasts. The same table
   is on the website under the chart, and in `site/data/consensus.json`.
-- **What drove each decision.** Claude also says how much each input (ICT, Kronos, news, long term and
+- **What drove each decision.** Claude also says how much each input (Kronos, news, long term and
   seasonality, lab strategies, the other bots, the risk rules) drove its decision, as percentages adding to 100.
   They're saved in `decisions.json` and shown as a pie chart (average of the last 30 decisions, or the latest).
 
@@ -178,7 +175,7 @@ rather than skip any).
 |---|---|---|
 | **Run trader** (`trader.yml`) | Every hour, Monday to Friday, and by hand | Prices, news, Kronos forecasts, the risk engine, Claude (every 4 hours; every time when run by hand), all the bots; saves the data and publishes the site. |
 | **Run strategy lab** (`research.yml`) | Sunday evenings, and by hand | Claude invents strategies; they're tested; the passing ones and their weights are saved. Tick "recheck only" to re-run the checks on the existing strategies without asking Claude (free). |
-| **Run backtest** (`backtest.yml`) | By hand | Backtests the ICT and trend bots (hourly for 2 years, daily for 5) and the LIT bot (15-minute, the last 60 days). |
+| **Run backtest** (`backtest.yml`) | By hand | Backtests the retired ICT and trend bots, kept as a record (hourly for 2 years, daily for 5) and the LIT bot (15-minute, the last 60 days). |
 | **Tests** (`tests.yml`) | Every push and pull request | Runs the automatic tests (no API calls, no model download). |
 | **Kronos check** (`kronos-check.yml`) | Pull requests that touch Kronos, and by hand | Installs and runs the real Kronos model on saved prices for all 14 markets and times it against the hourly budget, to catch a problem before it reaches the hourly trader. |
 
@@ -216,7 +213,8 @@ Edit `config.json` in the repo:
 - `vault.py`: encryption of the private data.
 - `lit.py`: the LIT bot (detection and trading); its rules are in `docs/lit.md`.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
-- `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups).
+- `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups), used only by the
+  retired ICT bot's backtest. The lab's `ict_long` / `ict_short` features are retired too (no strategy used them).
 - `kronos_model.py` + `kronos_bot.py`: running Kronos, and the Kronos bots' rules (commodities and indices) and track
   record.
 - `research.py` + `features.py`: the strategy lab and its rule language; `validation.py`: walk-forward and luck
