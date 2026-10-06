@@ -33,6 +33,7 @@ import consensus as CS
 import core as C
 import ict
 import kronos_bot as KB
+import rolls as R
 import validation as V
 
 ROOT = Path(__file__).parent
@@ -101,23 +102,46 @@ def load_config():
 
 
 # ---------- market data ----------
+def yahoo(ticker, period, interval):
+    """Bars for any Yahoo ticker ([] if it has none or the download fails)."""
+    try:
+        df = yf.Ticker(ticker).history(period=period, interval=interval).dropna()
+    except Exception as e:
+        print(f"{ticker}: download failed ({str(e)[:100]})")
+        return []
+    return [{"time": int(ts.timestamp()), "open": float(r.Open), "high": float(r.High), "low": float(r.Low),
+             "close": float(r.Close)} for ts, r in df.iterrows()]
+
+
+def rounded(bars):
+    return [{k: (round(v, 4) if k != "time" else v) for k, v in b.items()} for b in bars]
+
+
+def roll_info(sym, out):
+    """What the site and the data notes say about a market's contract and its rolls."""
+    c = out.get("contract")
+    nxt = out.get("next_roll")
+    return {"contract": R.label(*c) if c else None, "ticker": R.ticker(sym, *c) if c else sym,
+            "priced_from": out.get("priced_from"), "method": out.get("method"), "next_roll": nxt,
+            "next_contract": R.label(*R.active(sym, nxt + 1)) if nxt and sym in R.MARKETS else None,
+            "note": R.describe(sym, out) if sym in R.MARKETS else "not a futures market",
+            "rolls": [{"t": g["t"], "ratio": round(g["ratio"], 6), "how": g["how"],
+                       "from": R.label(*g["from"]), "to": R.label(*g["to"])} for g in out["gaps"]]}
+
+
 def get_prices():
+    """The last 60 days of hourly bars per market, back-adjusted for futures rolls (rolls.py): the latest prices are
+    the real prices of the contract held now, and older ones are scaled so the roll jumps disappear."""
     out = {}
     for sym, info in COMMODITIES.items():
-        try:
-            df = yf.Ticker(sym).history(period="60d", interval="1h").dropna()
-            if df.empty:
-                df = yf.Ticker(sym).history(period="1y", interval="1d").dropna()
-        except Exception as e:
-            print(f"prices failed for {sym}: {e}")
-            continue
-        bars = [{"time": int(ts.timestamp()),
-                 "open": round(float(r.Open), 4), "high": round(float(r.High), 4),
-                 "low": round(float(r.Low), 4), "close": round(float(r.Close), 4)}
-                for ts, r in df.iterrows()]
-        if bars:
-            out[sym] = {"name": info["name"], "group": info["group"], "unit": info["unit"],
-                        "exchange": info["exchange"], "bars": bars}
+        got = R.fetch(sym, "60d", "1h", download=yahoo)
+        if not got["bars"]:
+            got = R.fetch(sym, "1y", "1d", download=yahoo)
+        if got["bars"]:
+            out[sym] = dict({"name": info["name"], "group": info["group"], "unit": info["unit"],
+                             "exchange": info["exchange"], "bars": rounded(got["bars"])}, **roll_info(sym, got))
+        else:
+            print(f"prices failed for {sym}")
     return out
 
 
@@ -162,26 +186,32 @@ def long_text(st):
     return t
 
 
-def get_history():
-    """Five years of daily data, refreshed once a day, plus weekly candles for the website."""
+def get_history(prices=None):
+    """Five years of daily data, back-adjusted for rolls like the hourly bars, refreshed once a day (and again after
+    a roll, so the two stay in the same contract's terms), plus weekly candles for the website."""
     today = time.strftime("%Y-%m-%d", time.gmtime())
     cached = load("history.json", {})
     for sym, bars in load("daily.json", {}).items():  # daily bars live in their own file to keep the site light
         if sym in cached.get("markets", {}):
             cached["markets"][sym]["daily"] = bars
-    if cached.get("date") == today and all(s in cached.get("markets", {}) for s in COMMODITIES):
+    rolled = any(g["t"] > cached.get("fetched", 0) for p in (prices or {}).values() for g in p.get("rolls", []))
+    if cached.get("date") == today and not rolled and all(s in cached.get("markets", {}) for s in COMMODITIES):
         return cached
-    out = {"date": today, "markets": dict(cached.get("markets", {}))}
+    out = {"date": today, "fetched": int(time.time()), "markets": dict(cached.get("markets", {}))}
     for sym in COMMODITIES:
         try:
-            df = yf.Ticker(sym).history(period="5y", interval="1d").dropna()
+            got = R.fetch(sym, "5y", "1d", download=yahoo)
+            df = pd.DataFrame(got["bars"])
+            df.index = pd.to_datetime(df.pop("time"), unit="s", utc=True)
+            df = df.rename(columns=str.capitalize)
             wk = df.resample("W").agg({"Open": "first", "High": "max", "Low": "min", "Close": "last"}).dropna()
             weekly = [{"time": int(ts.timestamp()), "open": round(float(r.Open), 4), "high": round(float(r.High), 4),
                        "low": round(float(r.Low), 4), "close": round(float(r.Close), 4)} for ts, r in wk.iterrows()]
             daily = [{"time": int(ts.timestamp()), "open": round(float(r.Open), 4), "high": round(float(r.High), 4),
                       "low": round(float(r.Low), 4), "close": round(float(r.Close), 4)} for ts, r in df.iterrows()]
             st = long_stats(df)
-            out["markets"][sym] = {"weekly": weekly, "daily": daily, "stats": st, "text": long_text(st)}
+            out["markets"][sym] = {"weekly": weekly, "daily": daily, "stats": st, "text": long_text(st),
+                                   "data": roll_info(sym, got)["note"]}
         except Exception as e:
             print(f"5-year history failed for {sym}: {e}")
     return out
@@ -463,6 +493,66 @@ def apply_decision(pf, decision, last_usd, fx, now, reads=None, atrs=None):
         t["stop_basis"] = basis or "given"
         filled.append(t)
     return filled, blocked
+
+
+# ---------- futures rolls: move every position to the next contract month (see rolls.py) ----------
+def pending_rolls(prices, applied, now):
+    """Rolls in this run's prices that haven't been applied to the accounts yet: {sym: [gaps, oldest first]}."""
+    out = {}
+    for sym, p in prices.items():
+        new = [g for g in p.get("rolls", []) if applied.get(sym, 0) < g["t"] <= now]
+        if new:
+            out[sym] = sorted(new, key=lambda g: g["t"])
+    return out
+
+
+def roll_price(p, g):
+    """The new contract's real price at roll g: the adjusted bar before the roll, taken back to that day's terms."""
+    before = [b for b in p["bars"] if b["time"] < g["t"]] or p["bars"][:1]
+    later = math.prod(x["ratio"] for x in p.get("rolls", []) if x["t"] > g["t"])
+    return before[-1]["close"] / later
+
+
+def roll_books(rolls, prices, books, fx, now, since=0):
+    """Roll every account's position in each market that rolled (only positions opened before the roll). books:
+    [(book, trade list, source, extra fields)]. Each roll is recorded in that account's trade history. `since`:
+    when the accounts started, for positions saved by older versions without an opening time."""
+    done = []
+    for sym, gaps in rolls.items():
+        for g in gaps:
+            px = roll_price(prices[sym], g)
+            for book, trades, source, extra in books:
+                pos = book["positions"].get(sym)
+                if not pos or (pos.get("opened") or since) >= g["t"]:
+                    continue
+                r = C.roll_position(book, sym, g["ratio"], px, fx)
+                trades.append(dict(record(now, sym, "ROLL", r["qty"], px, r["value"],
+                                          f"Rolled from the {g['from']} to the {g['to']} contract: the new one was "
+                                          f"{g['ratio'] - 1:+.2%} {'dearer' if g['ratio'] >= 1 else 'cheaper'}, so the "
+                                          f"position {'gives up' if r['roll_yield'] < 0 else 'gains'} "
+                                          f"£{abs(r['roll_yield']):,.0f} of the front-month chart's jump (roll yield); "
+                                          f"costs £{r['fee']:,.2f}" + (" (estimated gap)" if g["how"] == "detected" else ""),
+                                          source, roll_yield=round(r["roll_yield"], 2), fee=round(r["fee"], 2)), **extra))
+                done.append((sym, source))
+    return done
+
+
+def rescale_rolls(rolls, start_prices, start_t, kcalls, calls):
+    """Prices saved before a roll are in the old contract's terms: bring them to the new one's. That covers the
+    buy-and-hold benchmark's starting prices (which also pay the roll's costs, like a real holder) and every
+    forecast or call still waiting to be checked."""
+    for sym, gaps in rolls.items():
+        for g in gaps:
+            r = g["ratio"]
+            if sym in start_prices and start_t < g["t"]:
+                start_prices[sym] *= r / (1 - 2 * C.COST)
+            for c in kcalls:
+                if c["s"] == sym and not c.get("checked") and c["bt"] < g["t"]:
+                    for k in ("px", "lo", "hi"):
+                        c[k] = round(c[k] * r, 6)
+            for c in calls:
+                if c["symbol"] == sym and not c.get("checked") and c["t"] < g["t"]:
+                    c["price"] = round(c["price"] * r, 6)
 
 
 # ---------- the bots: each one's rules live in core.py and are run the same way here as in the backtests ----------
@@ -1029,7 +1119,8 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, reads
     news_ask = (f'Comment on every NEW [id] headline in "news" ({len(fresh)} of them); earlier headlines already '
                 f'have your comments.' if fresh else 'There are no new headlines this time, so "news" can be an empty list.')
     prompt = f"""You are an autonomous agent running a PAPER commodity trading account. No real money.
-Account currency is GBP. GBPUSD is {fx:.4f}. Prices are as quoted on the exchange (units given per market).
+Account currency is GBP. GBPUSD is {fx:.4f}. Prices are as quoted on the exchange (units given per market), for
+the contract month held now; older prices are back-adjusted for futures rolls, so there are no fake roll jumps.
 Rules enforced by the risk engine: long only, no leverage, max {MAX_POSITION:.0%} of your active money per commodity,
 max {MAX_OPEN} commodities held, no new buys after a {DAILY_LOSS_LIMIT:.0%} daily loss.
 Every BUY needs a stop (below price, same units as the quote) and a target (above price), and the target must be at
@@ -1142,19 +1233,25 @@ def main():
     context = get_context()
     health["context"] = bool(context)
     news, health["news"] = get_news(load("news.json", []), now)
-    history = get_history()
+    history = get_history(prices)
     health["history"] = len(history["markets"]) >= len(COMMODITIES) - 1
     kronos = get_kronos(prices, now)
     health["kronos"] = kronos["status"] in ("ok", "partial")
-    kcalls = KB.record_calls(KB.check_calls(load("kronos_calls.json", []), prices), kronos["markets"])
+    roll_state = load("rolls.json", {}).get("applied", {})
+    rolls = pending_rolls(prices, roll_state, now)
+    kcalls, calls = load("kronos_calls.json", []), load("calls.json", [])
+    eq_hist0 = load("equity.json", [])
+    pf0 = load("portfolio.json", None) or {}
+    rescale_rolls(rolls, pf0.get("start_prices", {}), eq_hist0[0]["time"] if eq_hist0 else now, kcalls, calls)
+    kcalls = KB.record_calls(KB.check_calls(kcalls, prices), kronos["markets"])
     kacc = {s: KB.accuracy(kcalls, s) for s in COMMODITIES}
     kronos["accuracy"] = dict(KB.accuracy(kcalls), markets=kacc)
     last_usd = {s: p["bars"][-1]["close"] for s, p in prices.items()}
     last = {s: v / fx for s, v in last_usd.items()}
 
-    pf = load("portfolio.json", None)
-    trades, decisions, eq_hist = load("trades.json", []), load("decisions.json", []), load("equity.json", [])
-    rb, rb_trades, calls = load("rules.json", None), load("rules_trades.json", []), load("calls.json", [])
+    pf = pf0 or None
+    trades, decisions, eq_hist = load("trades.json", []), load("decisions.json", []), eq_hist0
+    rb, rb_trades = load("rules.json", None), load("rules_trades.json", [])
     lb, lb_trades = load("lab.json", None), load("lab_trades.json", [])
     lb = migrate_lab_book(lb, now)
     strats, sseries, sigs = [], {}, {}
@@ -1176,6 +1273,15 @@ def main():
     for book in (pf, rb, ib, kb):  # positions saved by older versions get the fields core.py expects
         C.normalize(book)
     core_book(pf)
+    rolled = roll_books(rolls, prices, [(pf, trades, "claude", {}), (pf["core"], trades, "core", {}),
+                                        (rb, rb_trades, "rules", {}), (ib, ib_trades, "ict", {}),
+                                        (kb, kb_trades, "kronos", {})]
+                        + [(sl, lb_trades, "lab", {"strategy": sid}) for sid, sl in lb["sleeves"].items()], fx, now,
+                        since=eq_hist[0]["time"] if eq_hist else now)
+    for sym, gaps in rolls.items():
+        roll_state[sym] = gaps[-1]["t"]
+    if rolled:
+        print("Rolled:", ", ".join(f"{s} ({src})" for s, src in rolled))
     reads = {}
     for sym, p in prices.items():
         try:
@@ -1290,9 +1396,13 @@ def main():
     save("kronos_calls.json", kcalls)
     save("kronos_bot.json", kb)
     save("kronos_trades.json", kb_trades)
+    save("rolls.json", {"t": now, "applied": roll_state, "roll_days": R.ROLL_DAYS,
+                        "markets": {s: {k: v for k, v in p.items() if k in ("contract", "ticker", "priced_from",
+                                        "method", "next_roll", "next_contract", "note", "rolls")}
+                                    for s, p in prices.items()}})
     save("consensus.json", {"t": now, "markets": all_market_bots(prices, *bot_args),
                             "records": bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)})
-    save("history.json", {"date": history["date"], "markets": {s: {k: v for k, v in m.items() if k != "daily"}
+    save("history.json", {"date": history["date"], "fetched": history.get("fetched", 0), "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})
     save("status.json", {"updated": now, "model": MODEL, "fx": fx, "health": health,

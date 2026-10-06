@@ -22,6 +22,30 @@ Every trade, for every competitor, goes through one shared trading core (`core.p
 backtests fill orders exactly the same way: 0.05% costs per side, and a stop that price gaps through fills at the
 bar's open, not at the stop.
 
+## Futures rolls
+
+A futures contract is for one delivery month and stops trading when that month arrives, so anyone holding
+commodities through futures has to keep **rolling**: selling the expiring contract and buying the next one. The
+next month usually costs a little more ("contango") or a little less ("backwardation"). Yahoo's continuous tickers
+(`CL=F` and friends) just splice the contracts together, which shows that difference as a sudden jump on the
+switch day: a move nobody could have traded. `rolls.py` deals with it:
+
+- **A roll calendar per market** from its exchange's rules (NYMEX, COMEX, CBOT, ICE US). Argon rolls 5 business
+  days before the last trading day (oil, gas) or the first notice day (metals, grains, softs), like real traders.
+- **Real contract prices where Yahoo has them.** Yahoo serves the contracts that are still trading (for example
+  `CLZ26.NYM`, `GCZ26.CMX`, `ZCZ26.CBT`, `KCZ26.NYB`) but drops most expired ones, so a roll from the last few months
+  is measured from both contracts' actual prices. Older rolls, and markets where Yahoo has no hourly bars for the
+  contract (wheat, for now), fall back to estimating the jump on the day Yahoo's own series switches. Each market's
+  note on the site says which it is.
+- **Back-adjusted prices for everything that reads a chart**: indicators, the ICT read, Kronos, the bots,
+  Claude's prompt, the backtests and the strategy lab. Older prices are scaled by each roll's gap so there is no
+  jump, and the latest prices are the real prices of the contract held now (what the site shows).
+- **Positions are rolled like a trader would**: every account (Claude, the core holding, all the bots, the lab)
+  sells the old contract and buys the new one with the same money, paying costs on both legs. Stops and targets
+  move with the price. Each roll is listed in the trade history with its **roll yield**: the part of the
+  front-month chart's jump the position never earned (a cost in contango, a gain in backwardation). The
+  buy-and-hold benchmark and the backtests pay for rolls the same way.
+
 ## How Claude decides
 
 - **No single gatekeeper.** The ICT read is one input among several. Claude doesn't need a completed
@@ -94,7 +118,7 @@ times over. From those 20 paths come an **expected move**, a **likely range** (t
 | Workflow | When it runs | What it does |
 |---|---|---|
 | **Run trader** (`trader.yml`) | Every hour, Monday to Friday, and by hand | Prices, news, Kronos forecasts, the risk engine, Claude (every 4 hours; every time when run by hand), all the bots; saves the data and publishes the site. |
-| **Run strategy lab** (`research.yml`) | Sunday evenings, and by hand | Claude invents strategies; they're tested; the passing ones and their weights are saved. |
+| **Run strategy lab** (`research.yml`) | Sunday evenings, and by hand | Claude invents strategies; they're tested; the passing ones and their weights are saved. Tick "recheck only" to re-run the checks on the existing strategies without asking Claude (free). |
 | **Run backtest** (`backtest.yml`) | By hand | Backtests the ICT and trend bots: hourly for 2 years, daily for 5. |
 | **Tests** (`tests.yml`) | Every push and pull request | Runs the automatic tests (no API calls, no model download). |
 | **Kronos check** (`kronos-check.yml`) | Pull requests that touch Kronos, and by hand | Installs and runs the real Kronos model on saved prices, to catch a problem before it reaches the hourly trader. |
@@ -129,6 +153,7 @@ Edit `config.json` in the repo:
 ## How the code fits together
 - `engine.py`: the hourly live run: data, news, Kronos, Claude, the core holding and the bots.
 - `consensus.py`: what each bot is doing in each market and how much its evidence earns it.
+- `rolls.py`: futures roll calendars, back-adjusted prices and roll gaps.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
 - `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups).
 - `kronos_model.py` + `kronos_bot.py`: running Kronos, and the Kronos bot's rules and track record.

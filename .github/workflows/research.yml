@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: "17 18 * * 0"   # every Sunday evening (UTC)
   workflow_dispatch:         # or run it by hand
+    inputs:
+      recheck_only:
+        description: "Only re-run the checks on the existing strategies (no new ideas, no Claude cost)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -27,9 +32,13 @@ jobs:
           python-version: "3.12"
       - run: pip install -r requirements.txt -r requirements-lab.txt
       - name: Claude invents and tests strategies
+        if: ${{ !inputs.recheck_only }}
         run: python research.py
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      - name: Re-check the existing strategies
+        if: ${{ inputs.recheck_only }}
+        run: python research.py --recheck
       - name: Save results
         run: |
           git config user.name "paper-trader-bot"

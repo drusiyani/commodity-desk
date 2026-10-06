@@ -34,6 +34,7 @@ PASS = {"min_test_trades": 30,    # out-of-sample trades, pooled over the walk-f
         "min_windows_up": 0.6,    # ...and make money (positive average R) in at least 60% of those
         "max_luck": 0.10}         # under 10% chance it's luck, after allowing for every strategy the lab has tried
 MAX_LIVE = 5  # at most this many passing strategies trade live together (best first), each on an equal slice
+DATA = "roll-adjusted"  # strategies tested on older (not roll-adjusted) prices are re-tested once on the current data
 
 
 def load_data():
@@ -41,9 +42,10 @@ def load_data():
     for sym in E.COMMODITIES:
         for tf, period, interval in (("daily", "5y", "1d"), ("hourly", "730d", "1h")):
             try:
-                bars = B.fetch(sym, period, interval)
-                if len(bars) > WARMUP[tf] + 100:
-                    data[tf][sym] = F.Series(bars)
+                got = B.fetch_series(sym, period, interval)
+                if len(got["bars"]) > WARMUP[tf] + 100:
+                    data[tf][sym] = F.Series(got["bars"])
+                    data[tf][sym].rolls = [g["t"] for g in got["gaps"]]  # positions held across these pay to roll
             except Exception as e:
                 print(f"{sym} {tf}: download failed ({e})")
     return data
@@ -52,7 +54,7 @@ def load_data():
 def simulate(series, st, start, end):
     """One market, one strategy, bars start..end-1, through the shared trading core: the same sizing (1% risk,
     25% cap, no leverage), costs, stops, targets and gap fills as live trading."""
-    return C.backtest(series.bars, C.LabRules(series, st), start, end)
+    return C.backtest(series.bars, C.LabRules(series, st), start, end, rolls=getattr(series, "rolls", ()))
 
 
 def combine(per_market, trades):
@@ -80,7 +82,7 @@ def evaluate(st, data):
         growth, mtrades, worst, mdaily = 1.0, [], 0.0, {}
         for f, (a, b, c) in enumerate(V.windows(len(s.bars), WARMUP[tf])):
             for part, (x, y) in (("train", (a, b)), ("test", (b, c))):
-                curve, trades = C.backtest(s.bars, rules, x, y)
+                curve, trades = C.backtest(s.bars, rules, x, y, rolls=getattr(s, "rolls", ()))
                 years = (s.bars[y - 1]["time"] - s.bars[x]["time"]) / (365.25 * 86400)
                 folds[f][part][sym] = C.stats(curve, trades, years)
                 folds[f][part + "_trades"] += trades
@@ -135,7 +137,66 @@ def test_strategy(record, data):
     res.pop("daily")
     record["monte_carlo"] = V.monte_carlo(res.pop("test_r"), seed=record["id"])
     record["results"] = res
+    record["data"] = DATA
     return record
+
+
+def retest_old(lab, data):
+    """Re-test every strategy whose results came from older data (before walk-forward, or before roll-adjusted
+    prices)."""
+    for st in lab["strategies"]:
+        if "windows" in st.get("results", {}) and st.get("data") == DATA:
+            continue
+        try:
+            test_strategy(st, data)
+        except Exception as e:
+            print(f"{st['name']}: failed to re-test ({e})")
+            if "windows" not in st["results"]:
+                st["results"] = {"windows": [], "train": st["results"]["train"], "test": st["results"]["test"]}
+                st["monte_carlo"] = None
+
+
+def finish(lab, data):
+    """Pick the live portfolio from the passing strategies and size it."""
+    retired = {sid: x for sid, x in E.load("lab.json", {}).get("strategies", {}).items() if x.get("retired")}
+    for st in lab["strategies"]:
+        if st["id"] in retired:
+            st["retired"] = {"t": retired[st["id"]]["retired"], "reason": retired[st["id"]].get("reason")}
+    passed = sorted([s for s in lab["strategies"] if s.get("passed") and not s.get("retired")], key=lambda s: -s["score"])
+    lab["portfolio"] = [s["id"] for s in passed[:MAX_LIVE]]
+    lab["live"] = lab["portfolio"][0] if lab["portfolio"] else None  # the best one, for older pages
+    lab["allocation"] = allocate(lab, data)
+    print("Allocation:", lab["allocation"]["method"], lab["allocation"]["weights"], "-", lab["allocation"]["note"])
+    lab["pass_rules"] = dict(PASS, windows=V.WINDOWS, train_mult=V.TRAIN_MULT, mc_runs=V.MC_RUNS)
+    return passed
+
+
+def recheck():
+    """Re-run every strategy's checks on today's data without asking Claude for anything new (so it's free), and
+    print how each one's out-of-sample results changed."""
+    lab = E.load("strategies.json", {"strategies": [], "runs": []})
+    data = load_data()
+    old = {st["id"]: (st.get("passed"), dict(st["results"]["test"]["combined"])) for st in lab["strategies"]}
+    for st in lab["strategies"]:
+        try:
+            test_strategy(st, data)
+        except Exception as e:
+            print(f"{st['name']}: failed to re-test ({e})")
+    for st in lab["strategies"]:
+        judge(st, len(lab["strategies"]))
+    passed = finish(lab, data)
+    lab["runs"].append({"t": int(time.time()), "tested": len(lab["strategies"]), "passed": len(passed),
+                        "live": len(lab["portfolio"]), "model": None, "recheck": True})
+    E.save("strategies.json", lab)
+    f = lambda x: "  -  " if x is None else f"{x:+.2f}"
+    print("strategy | before: result, out-of-sample trades, profit factor, avg R | after")
+    for st in lab["strategies"]:
+        p0, t0 = old[st["id"]]
+        t1 = st["results"]["test"]["combined"]
+        print(f"RECHECK {st['name'][:34]:34} | {'PASS' if p0 else 'fail'} {t0.get('trades', 0):4} PF {f(t0.get('profit_factor'))} "
+              f"R {f(t0.get('avg_r'))} | {'PASS' if st['passed'] else 'fail'} {t1.get('trades', 0):4} "
+              f"PF {f(t1.get('profit_factor'))} R {f(t1.get('avg_r'))}")
+    print(f"Recheck done: {len(passed)} pass. Live: {lab['portfolio']}")
 
 
 def summarise_bots():
@@ -294,14 +355,7 @@ def allocate(lab, data):
 def main():
     lab = E.load("strategies.json", {"strategies": [], "runs": []})
     data = load_data()
-    for st in lab["strategies"]:  # strategies tested before walk-forward existed: test them the new way
-        if "windows" not in st.get("results", {}):
-            try:
-                test_strategy(st, data)
-            except Exception as e:
-                print(f"{st['name']}: failed to re-test ({e})")
-                st["results"] = {"windows": [], "train": st["results"]["train"], "test": st["results"]["test"]}
-                st["monte_carlo"] = None
+    retest_old(lab, data)  # strategies tested on older data are tested again on today's roll-adjusted prices
     for st in lab["strategies"]:
         judge(st, len(lab["strategies"]))
     first = run_round(lab, data, 3, len(lab["runs"]) * 2 + 1)
@@ -312,21 +366,13 @@ def main():
 
     for st in lab["strategies"]:  # every new idea raises the bar for all of them
         judge(st, len(lab["strategies"]))
-    retired = {sid: x for sid, x in E.load("lab.json", {}).get("strategies", {}).items() if x.get("retired")}
-    for st in lab["strategies"]:
-        if st["id"] in retired:
-            st["retired"] = {"t": retired[st["id"]]["retired"], "reason": retired[st["id"]].get("reason")}
-    passed = sorted([s for s in lab["strategies"] if s.get("passed") and not s.get("retired")], key=lambda s: -s["score"])
-    lab["portfolio"] = [s["id"] for s in passed[:MAX_LIVE]]
-    lab["live"] = lab["portfolio"][0] if lab["portfolio"] else None  # the best one, for older pages
-    lab["allocation"] = allocate(lab, data)
-    print("Allocation:", lab["allocation"]["method"], lab["allocation"]["weights"], "-", lab["allocation"]["note"])
+    passed = finish(lab, data)
     lab["runs"].append({"t": int(time.time()), "tested": len(lab["strategies"]), "passed": len(passed),
                         "live": len(lab["portfolio"]), "model": MODEL})
-    lab["pass_rules"] = dict(PASS, windows=V.WINDOWS, train_mult=V.TRAIN_MULT, mc_runs=V.MC_RUNS)
     E.save("strategies.json", lab)
     print(f"Lab now has {len(lab['strategies'])} strategies, {len(passed)} passed. Live: {lab['portfolio']}")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    recheck() if "--recheck" in sys.argv else main()
