@@ -1,11 +1,11 @@
 {
  "CL=F": {
   "structure": "bearish",
-  "pd": 0.089,
+  "pd": 0.106,
   "zone": "discount",
   "range": [
    87.1,
-   94.09
+   93.68
   ],
   "liquidity_above": [
    89.89,
@@ -55,22 +55,22 @@
      89.28,
      89.66
     ],
-    "pd_at_sweep": 0.602
+    "pd_at_sweep": 0.64
    }
   ],
-  "text": "bearish structure; price at 9% of the 5-day range (discount); buy-side liquidity above at 89.89; bullish sweep of sell-side liquidity at 89.11, no structure shift yet"
+  "text": "bearish structure; price at 11% of the 5-day range (discount); buy-side liquidity above at 89.89; bullish sweep of sell-side liquidity at 89.11, no structure shift yet"
  },
  "BZ=F": {
   "structure": "bearish",
-  "pd": 0.432,
+  "pd": 0.419,
   "zone": "discount",
   "range": [
    95.14,
    103.06
   ],
   "liquidity_above": [
-   99.28,
-   100.98
+   98.5,
+   99.28
   ],
   "liquidity_below": [
    98.43,
@@ -100,22 +100,22 @@
    "side": "long",
    "sweep_time": 1791270000,
    "liquidity": 99.76,
-   "extreme": 97.92,
+   "extreme": 97.84,
    "mss_level": 100.98,
    "state": "sweep",
    "fvg": null,
-   "pd_at_sweep": 0.351
+   "pd_at_sweep": 0.341
   },
   "setups": [
    {
     "side": "long",
     "sweep_time": 1791270000,
     "liquidity": 99.76,
-    "extreme": 97.92,
+    "extreme": 97.84,
     "mss_level": 100.98,
     "state": "sweep",
     "fvg": null,
-    "pd_at_sweep": 0.351
+    "pd_at_sweep": 0.341
    },
    {
     "side": "short",
@@ -131,19 +131,19 @@
     "pd_at_sweep": 1.0
    }
   ],
-  "text": "bearish structure; price at 43% of the 5-day range (discount); buy-side liquidity above at 99.28; sell-side liquidity below at 98.43; bullish sweep of sell-side liquidity at 99.76, no structure shift yet"
+  "text": "bearish structure; price at 42% of the 5-day range (discount); buy-side liquidity above at 98.5; sell-side liquidity below at 98.43; bullish sweep of sell-side liquidity at 99.76, no structure shift yet"
  },
  "NG=F": {
   "structure": "bullish",
-  "pd": 0.737,
+  "pd": 0.682,
   "zone": "premium",
   "range": [
    2.912,
-   3.136
+   3.135
   ],
   "liquidity_above": [
-   3.083,
-   3.092
+   3.068,
+   3.075
   ],
   "liquidity_below": [
    3.063,
@@ -162,30 +162,24 @@
   "fvgs_above": [],
   "setup": {
    "side": "long",
-   "sweep_time": 1791205200,
-   "liquidity": 3.012,
-   "extreme": 2.997,
-   "mss_level": 3.068,
-   "state": "entry",
-   "fvg": [
-    3.068,
-    3.075
-   ],
-   "pd_at_sweep": 0.379
+   "sweep_time": 1791284400,
+   "liquidity": 3.063,
+   "extreme": 3.062,
+   "mss_level": 3.092,
+   "state": "sweep",
+   "fvg": null,
+   "pd_at_sweep": 0.673
   },
   "setups": [
    {
     "side": "long",
-    "sweep_time": 1791205200,
-    "liquidity": 3.012,
-    "extreme": 2.997,
-    "mss_level": 3.068,
-    "state": "entry",
-    "fvg": [
-     3.068,
-     3.075
-    ],
-    "pd_at_sweep": 0.379
+    "sweep_time": 1791284400,
+    "liquidity": 3.063,
+    "extreme": 3.062,
+    "mss_level": 3.092,
+    "state": "sweep",
+    "fvg": null,
+    "pd_at_sweep": 0.673
    },
    {
     "side": "short",
@@ -195,26 +189,26 @@
     "mss_level": 3.063,
     "state": "sweep",
     "fvg": null,
-    "pd_at_sweep": 0.777
+    "pd_at_sweep": 0.78
    }
   ],
-  "text": "bullish structure; price at 74% of the 5-day range (premium); buy-side liquidity above at 3.083; sell-side liquidity below at 3.063; bullish setup live: sweep at 3.012, shift through 3.068, price back in FVG 3.068-3.075"
+  "text": "bullish structure; price at 68% of the 5-day range (premium); buy-side liquidity above at 3.068; sell-side liquidity below at 3.063; bullish sweep of sell-side liquidity at 3.063, no structure shift yet"
  },
  "GC=F": {
   "structure": "ranging",
-  "pd": 0.376,
+  "pd": 0.418,
   "zone": "discount",
   "range": [
    4130.7002,
    4259.0
   ],
   "liquidity_above": [
-   4179.6001,
-   4191.0
+   4191.0,
+   4192.2998
   ],
   "liquidity_below": [
-   4178.3999,
-   4178.2002
+   4179.5,
+   4178.3999
   ],
   "fvgs_below": [
    [
@@ -238,7 +232,7 @@
    "liquidity": 4150.3999,
    "extreme": 4130.7002,
    "mss_level": 4179.6001,
-   "state": "waiting",
+   "state": "entry",
    "fvg": [
     4170.6001,
     4177.2002
@@ -252,7 +246,7 @@
     "liquidity": 4150.3999,
     "extreme": 4130.7002,
     "mss_level": 4179.6001,
-    "state": "waiting",
+    "state": "entry",
     "fvg": [
      4170.6001,
      4177.2002
@@ -261,20 +255,23 @@
    },
    {
     "side": "short",
-    "sweep_time": 1791280800,
-    "liquidity": 4179.6001,
-    "extreme": 4181.2002,
-    "mss_level": 4140.1001,
-    "state": "sweep",
-    "fvg": null,
-    "pd_at_sweep": 0.394
+    "sweep_time": 1791198000,
+    "liquidity": 4191.0,
+    "extreme": 4197.1001,
+    "mss_level": 4152.2998,
+    "state": "failed",
+    "fvg": [
+     4176.6001,
+     4181.6001
+    ],
+    "pd_at_sweep": 0.518
    }
   ],
-  "text": "ranging structure; price at 38% of the 5-day range (discount); buy-side liquidity above at 4179.6; sell-side liquidity below at 4178.4; bullish sweep, structure shift and FVG 4170.6-4177.2, waiting for price to return to it"
+  "text": "ranging structure; price at 42% of the 5-day range (discount); buy-side liquidity above at 4191; sell-side liquidity below at 4179.5; bullish setup live: sweep at 4150.4, shift through 4179.6, price back in FVG 4170.6-4177.2"
  },
  "SI=F": {
   "structure": "bearish",
-  "pd": 0.545,
+  "pd": 0.559,
   "zone": "premium",
   "range": [
    59.985,
@@ -327,19 +324,19 @@
     "pd_at_sweep": 0.638
    }
   ],
-  "text": "bearish structure; price at 55% of the 5-day range (premium); buy-side liquidity above at 61.53; sell-side liquidity below at 61.205; bearish sweep of buy-side liquidity at 61.53, no structure shift yet"
+  "text": "bearish structure; price at 56% of the 5-day range (premium); buy-side liquidity above at 61.53; sell-side liquidity below at 61.205; bearish sweep of buy-side liquidity at 61.53, no structure shift yet"
  },
  "HG=F": {
-  "structure": "ranging",
-  "pd": 0.723,
+  "structure": "bearish",
+  "pd": 0.696,
   "zone": "premium",
   "range": [
    6.509,
    6.6915
   ],
   "liquidity_above": [
-   6.646,
-   6.6545
+   6.64,
+   6.646
   ],
   "liquidity_below": [
    6.6295,
@@ -348,7 +345,11 @@
   "fvgs_below": [],
   "fvgs_above": [
    [
-    6.647,
+    6.6395,
+    6.6405
+   ],
+   [
+    6.6485,
     6.6545
    ]
   ],
@@ -384,11 +385,11 @@
     "pd_at_sweep": 0.896
    }
   ],
-  "text": "ranging structure; price at 72% of the 5-day range (premium); buy-side liquidity above at 6.646; sell-side liquidity below at 6.6295; bullish sweep of sell-side liquidity at 6.6295, no structure shift yet"
+  "text": "bearish structure; price at 70% of the 5-day range (premium); buy-side liquidity above at 6.64; sell-side liquidity below at 6.6295; bullish sweep of sell-side liquidity at 6.6295, no structure shift yet"
  },
  "KC=F": {
   "structure": "bullish",
-  "pd": 0.804,
+  "pd": 0.791,
   "zone": "premium",
   "range": [
    269.75,
@@ -448,11 +449,11 @@
     "pd_at_sweep": 1.0
    }
   ],
-  "text": "bullish structure; price at 80% of the 5-day range (premium); buy-side liquidity above at 298.55; sell-side liquidity below at 291.3; bearish sweep of buy-side liquidity at 298.55, no structure shift yet"
+  "text": "bullish structure; price at 79% of the 5-day range (premium); buy-side liquidity above at 298.55; sell-side liquidity below at 291.3; bearish sweep of buy-side liquidity at 298.55, no structure shift yet"
  },
  "ZW=F": {
   "structure": "ranging",
-  "pd": 0.874,
+  "pd": 0.89,
   "zone": "premium",
   "range": [
    670.75,
@@ -481,29 +482,29 @@
    "side": "short",
    "sweep_time": 1791270000,
    "liquidity": 695.0,
-   "extreme": 699.5,
+   "extreme": 700.0,
    "mss_level": 689.0,
    "state": "sweep",
    "fvg": null,
-   "pd_at_sweep": 0.906
+   "pd_at_sweep": 0.921
   },
   "setups": [
    {
     "side": "short",
     "sweep_time": 1791270000,
     "liquidity": 695.0,
-    "extreme": 699.5,
+    "extreme": 700.0,
     "mss_level": 689.0,
     "state": "sweep",
     "fvg": null,
-    "pd_at_sweep": 0.906
+    "pd_at_sweep": 0.921
    }
   ],
-  "text": "ranging structure; price at 87% of the 5-day range (premium); buy-side liquidity above at 700.25; sell-side liquidity below at 692.5; bearish sweep of buy-side liquidity at 695, no structure shift yet"
+  "text": "ranging structure; price at 89% of the 5-day range (premium); buy-side liquidity above at 700.25; sell-side liquidity below at 692.5; bearish sweep of buy-side liquidity at 695, no structure shift yet"
  },
  "ZC=F": {
   "structure": "ranging",
-  "pd": 0.175,
+  "pd": 0.198,
   "zone": "discount",
   "range": [
    495.0,
@@ -518,10 +519,6 @@
    498.25
   ],
   "fvgs_below": [
-   [
-    500.25,
-    500.5
-   ],
    [
     498.0,
     499.0
@@ -555,11 +552,11 @@
     "pd_at_sweep": 0.262
    }
   ],
-  "text": "ranging structure; price at 18% of the 5-day range (discount); buy-side liquidity above at 501.5; sell-side liquidity below at 498.75; bearish sweep of buy-side liquidity at 502.25, no structure shift yet"
+  "text": "ranging structure; price at 20% of the 5-day range (discount); buy-side liquidity above at 501.5; sell-side liquidity below at 498.75; bearish sweep of buy-side liquidity at 502.25, no structure shift yet"
  },
  "CC=F": {
   "structure": "bullish",
-  "pd": 0.877,
+  "pd": 0.874,
   "zone": "premium",
   "range": [
    5051.0,
@@ -621,6 +618,6 @@
     "pd_at_sweep": 1.0
    }
   ],
-  "text": "bullish structure; price at 88% of the 5-day range (premium); buy-side liquidity above at 5908; sell-side liquidity below at 5580; bullish setup live: sweep at 5292, shift through 5505, price back in FVG 5535-5567"
+  "text": "bullish structure; price at 87% of the 5-day range (premium); buy-side liquidity above at 5908; sell-side liquidity below at 5580; bullish setup live: sweep at 5292, shift through 5505, price back in FVG 5535-5567"
  }
 }
