@@ -1,5 +1,7 @@
 {
   "paused": false,
   "close_all": false,
-  "core_fraction": 0.4
+  "core_fraction": 0.4,
+  "frozen": true,
+  "frozen_since": "set by the first run after merging"
 }

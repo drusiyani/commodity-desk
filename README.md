@@ -17,7 +17,7 @@ shows the LIT bot and the Kronos indices bot. The desk is part of the link too, 
 
 | Competitor | What it does |
 |---|---|
-| **Claude** | Keeps 40% of its account in a **core holding** (all ten markets, equal shares, rebalanced monthly, like buy and hold) and trades the other 60% actively. Every 4 hours it weighs each market's 5-year history, the news, Kronos's forecast, its lab strategies and what every other bot is doing, then decides. Long only, with a stop and a target on every trade. Hard risk rules are enforced in code, not by Claude, on the active part: at most 25% of it in one market, at most 4 markets, reward at least 1.5x risk, no new buys after a 3% loss in a day. |
+| **Claude** | Keeps 40% of its account in a **core holding** (all ten markets, equal shares, rebalanced monthly, like buy and hold) and trades the other 60% actively. Every 4 hours it weighs each market's 5-year history, the news, Kronos's forecast, its lab strategies, what every other bot is doing, its own lessons and which inputs have actually helped, then decides. Long or short, with a stop and a target on every trade and its thesis, the opposite case, what would prove it wrong and a confidence written down first. Hard risk rules are enforced in code, not by Claude, on the active part: at most 25% of it in one market, at most 4 markets (long and short together), reward at least 1.5x risk, no new trades after a 3% loss in a day. |
 | **Claude's strategies** | Strategies Claude invents in the weekly strategy lab. Only ones that pass strict out-of-sample tests trade, together, on one shared £100k. |
 | **Kronos bot** | Trades the forecasts of Kronos, an open-source AI model that reads price charts (see below). |
 | **LIT bot** | Trades the S&P 500, Nasdaq 100, Dow and Russell 2000 index futures and gold on 15-minute candles, LIT ("liquidity inducement") style: it waits for price to run the stops beyond a well-known high or low (yesterday's, the Asia or London session's, or equal highs and lows) and snap back, then trades the snap-back in the London or New York morning window, in micro contracts, risking 0.5% per trade. Every rule is defined exactly in [`docs/lit.md`](docs/lit.md). |
@@ -42,8 +42,9 @@ GitHub Pages and a public repo can be read by anyone, so private data is **encry
   start and encrypts it again at the end; the trader refuses to commit if a plain-text private file ever reappears.
 - **On the site:** private sections show a padlock and a password box. The browser decrypts the bundle itself
   (Web Crypto API), so the password never leaves your device, and remembers the key until you close the browser.
-- **Public:** the header returns, the race chart, totals for each competitor (`site/data/summary.json`, no
-  individual trades), the strategy lab, the backtests and the Data tab with its downloads.
+- **Public:** prices and charts, the news, the strategy lab, the backtests and the Data tab with its downloads. From
+  1 January 2027 also the header returns, the race chart and totals for each competitor (`site/data/summary.json`, no
+  individual trades); until then they are locked inside the encrypted bundle (see the results lock below).
 - **Older versions:** before encryption, the private files were committed in plain text, and **they're still in the
   repo's git history**. Encryption protects everything from now on. Removing the old copies would mean rewriting
   the repository's history (for example with `git filter-repo`) and force-pushing, which breaks other clones; if
@@ -133,6 +134,42 @@ switch day: a move nobody could have traded. `rolls.py` deals with it:
 - **Lessons** (the same call). Claude keeps at most 12 short lessons, each backed by the trades and calls that support
   it, and every Sunday keeps, updates, merges or deletes them. A lesson needs at least 3 supporting trades or calls
   (counted across weeks) before it goes into the trading prompt; until then it is a candidate. Private.
+
+## The experiment: freeze, success criteria and results lock (`experiment.py`, `freeze.py`)
+
+- **Freeze.** `config.json` has `"frozen": true`. The first hourly run after it is switched on stamps the date
+  (`"frozen_since"`) and the live strategy line-up (`"frozen_lineup"`) into `config.json`. While frozen, Claude's
+  prompt (version 3), how it learns and which lab strategies trade live don't change: the lab keeps inventing and
+  testing, but a new pass shows as "passed, waiting for the freeze to end", and no live strategy is retired.
+  `tests/test_freeze.py` fails if the prompt (or how its answer is used), `learning.py` or the line-up differs from
+  `freeze.json` / `frozen_lineup`. The Sunday lesson updates carry on. The site shows "Experiment frozen since …".
+  To change something on purpose, set `"frozen": false`, or re-record with `python freeze.py --record`.
+- **Success criteria**, decided before the results: [`docs/experiment.md`](docs/experiment.md). By 31 December 2026,
+  from the freeze date, Claude (and separately its active 60%) beats buy and hold after costs and has a higher
+  Sharpe ratio, and its report card is above 55% on at least 200 checked calls. Shown on the Data tab.
+- **Results lock until 1 January 2027 (UK time).** Every live profit figure (the header's returns and values, the
+  race, the performance and stats tables, the report card, Kronos's accuracy, the inputs table, the criteria's
+  progress and every bot's P&L, on both desks) is published only inside the encrypted file: `equity.json` and the
+  Kronos call files are kept encrypted in `state/`, and `summary.json` and `kronos.json` leave the results out. The
+  trader workflow refuses to commit them in plain text before the date. Visitors see a lock with a countdown; the
+  password still unlocks everything. The first run on or after 1 January 2027 publishes them again, and the site
+  shows "Results revealed" for a week. Figures published before the lock remain in the git history.
+
+## Weekly email (`email_report.py`)
+
+Every Monday at 07:00 UK time, a private HTML review by email: every market on both desks (the week's open, close,
+change, high and low, and its 5-year context), every bot (week, total, trades, win rate, drawdown, Sharpe, rank) with
+a race chart, every trade Claude opened or closed (with its reasoning and the journal's verdict), its open positions,
+core holding and cash, its lessons and what changed, the inputs table, the report card, Kronos's accuracy, the LIT
+bot's sweeps and trades, the Quant bot by strategy, progress against the success criteria, any problems that week
+(failed runs, missing data, skipped markets) and next week's scheduled events (US jobs, inflation and Fed decisions
+from the BLS and Federal Reserve calendars, EIA oil and gas inventory reports, USDA WASDE and crop progress).
+
+It is never posted anywhere public: not on GitHub, not in the repository, not as an artifact, and the workflow log
+only says it was sent. If sending fails the workflow fails, so GitHub alerts you. Setup: add three repository
+secrets, `EMAIL_USERNAME` (your iCloud email address), `EMAIL_PASSWORD` (an **app-specific password** from
+appleid.apple.com, not your Apple ID password) and `EMAIL_TO` (where to send it; several addresses can be separated by
+commas). It uses smtp.mail.me.com on port 587 with STARTTLS. Run it by hand from the Actions tab to send one now.
 
 ## The strategy lab (weekly)
 
@@ -226,6 +263,7 @@ rather than skip any).
 | **Run trader** (`trader.yml`) | Every hour, Monday to Friday, and by hand | Prices, news, Kronos forecasts, the risk engine, Claude (every 4 hours; every time when run by hand), all the bots; saves the data and publishes the site. |
 | **Run strategy lab** (`research.yml`) | Sunday evenings, and by hand | Claude invents strategies; they're tested; the passing ones and their weights are saved. Tick "recheck only" to re-run the checks on the existing strategies without asking Claude (free). |
 | **Run backtest** (`backtest.yml`) | By hand | Backtests the Quant bot (daily, 5 years), the retired ICT and trend bots, kept as a record (hourly for 2 years, daily for 5) and the LIT bot (15-minute, the last 60 days). |
+| **Weekly email** (`weekly-email.yml`) | Mondays at 07:00 UK time, and by hand | Builds and emails the private weekly review (see above). |
 | **Tests** (`tests.yml`) | Every push and pull request | Runs the automatic tests (no API calls, no model download). |
 | **Kronos check** (`kronos-check.yml`) | Pull requests that touch Kronos, and by hand | Installs and runs the real Kronos model on saved prices for all 14 markets and times it against the hourly budget, to catch a problem before it reaches the hourly trader. |
 
@@ -239,7 +277,7 @@ thinking included), measured on Argon's real prompts:
 |---|---|---|
 | Run trader | 6 a day on weekdays (every 4 hours), about 130 a month. Each reads about 6,000 tokens and writes up to about 16,600 (up to 10,000 thinking plus the answer). | about 5 to 9 US cents a call, so about **$6 to $11 a month**. Each manual run adds one call. |
 | Run strategy lab | 2 a week for the lab, each reading about 4,000 tokens and writing up to 16,000, plus 1 a week for the trade journal and lessons (reading up to about 15,000 tokens, writing up to 18,000). | about 8 to 10 cents a call at most, so **about $1 to $1.50 a month**. |
-| Run backtest, Tests, Kronos check | none | free |
+| Run backtest, Tests, Kronos check, Weekly email | none | free |
 
 Prompts grow slightly as the lab, news feed and trade history grow; Claude is only sent headlines it hasn't
 commented on yet, which keeps the hourly prompt small.
@@ -255,6 +293,8 @@ Edit `config.json` in the repo:
   core is bought back on the next run.
 - `"core_fraction": 0.4` is the share of Claude's account kept in the core holding (0 to 1). Change it and the core
   is rebalanced to the new share on the next run; otherwise it's rebalanced on the first run of each month.
+- `"frozen": true` freezes the experiment (see above); `"frozen_since"` and `"frozen_lineup"` are filled in by the
+  first frozen run.
 
 ## How the code fits together
 - `engine.py`: the hourly live run: data, news, Kronos, Claude, the core holding and the bots.
@@ -264,6 +304,8 @@ Edit `config.json` in the repo:
 - `quant.py`: the Quant bot's four strategies, sizing, accounting, backtest and live step.
 - `lit.py`: the LIT bot (detection and trading); its rules are in `docs/lit.md`.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
+- `experiment.py`: the success criteria's progress and the results lock date; `freeze.py`: the freeze fingerprints.
+- `email_report.py`: the weekly email.
 - `learning.py`: the inputs scorecard, the weekly trade journal and the lessons.
 - `metrics.py`: the performance measures used everywhere (annual return, volatility, Sharpe, Sortino, max drawdown,
   return / max drawdown, win rate, profit factor, expectancy, exposure, correlation to buy and hold).

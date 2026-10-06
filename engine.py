@@ -10,9 +10,10 @@ Argon: a commodity paper-trading system where Claude, an AI, trades against rule
 
 All fills go through core.py, the same code the backtests use, and pay the same costs.
 
-No real money. Long only, no leverage.
+No real money. Claude can go long or short; no leverage.
 Edit config.json to pause Claude or close everything.
 """
+import calendar
 import hashlib
 import json
 import os
@@ -30,6 +31,7 @@ import requests
 import yfinance as yf
 
 import consensus as CS
+import experiment as X
 import core as C
 import kronos_bot as KB
 import learning as L
@@ -50,11 +52,14 @@ PRIVATE = {"portfolio.json", "trades.json", "decisions.json", "calls.json", "new
            "rules.json", "rules_trades.json", "ict.json", "ict_trades.json", "lab.json", "lab_trades.json",
            "kronos_bot.json", "kronos_trades.json", "kronos_index_bot.json", "kronos_index_trades.json",
            "quant.json", "quant_trades.json", "journal.json", "lessons.json"}
+# The results lock (experiment.py): until 1 January 2027 (UK time) these files, and the live profit figures in
+# summary.json and kronos.json, are kept only inside the encrypted data; the first run after that publishes them again.
+RESULTS = {"equity.json", "kronos_calls.json", "kronos_index_calls.json"}
 SITE_PRIVATE = "private.enc.json"   # the one encrypted bundle the website can unlock with the password
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 # Claude's prompt version: raise it by one whenever the trading prompt, or the way its answer is used, changes. Every
 # decision and every trade in Claude's account is tagged with it and the model, so results can be split by version.
-PROMPT_VERSION = 2   # v2: lessons, the inputs scorecard and the four-part reasoning on every trade
+PROMPT_VERSION = 3   # v2: lessons, the inputs scorecard and the four-part reasoning on every trade; v3: shorting
 
 START_CASH = 100_000      # GBP
 MAX_POSITION = C.MAX_POSITION  # max share of portfolio in one commodity (25%)
@@ -111,25 +116,31 @@ def salt():
     return __import__("base64").b64decode(p.read_text().strip())
 
 
+def hidden(name, now=None):
+    """Is this file kept encrypted? Always for the private files; for the results files, while the lock is on."""
+    return name in PRIVATE or (name in RESULTS and X.locked(now))
+
+
 def load(name, default):
-    if name in PRIVATE:
-        enc = STATE / (name + ".enc")
-        if enc.exists():
-            return vault.decrypt(json.loads(enc.read_text()), vault.password())
-        # versions before encryption kept it in site/data in plain text: read it this once; save() encrypts it
-        # into state/ and deletes the plain copy
-    p = DATA / name
+    enc, p = STATE / (name + ".enc"), DATA / name
+    # a private or locked file lives encrypted in state/ (versions before encryption, or before the lock, kept it in
+    # site/data in plain text: that copy is read this once and save() moves it); a results file the lock has just
+    # released is read from state/ this once and published by save()
+    if enc.exists() and (hidden(name) or (name in RESULTS and not p.exists())):
+        return vault.decrypt(json.loads(enc.read_text()), vault.password())
     return json.loads(p.read_text()) if p.exists() else default
 
 
 def save(name, obj):
-    if name in PRIVATE:
+    if hidden(name):
         STATE.mkdir(parents=True, exist_ok=True)
         (STATE / (name + ".enc")).write_text(json.dumps(vault.encrypt(obj, vault.password(), salt())))
         (DATA / name).unlink(missing_ok=True)
         return
     DATA.mkdir(parents=True, exist_ok=True)
     (DATA / name).write_text(json.dumps(obj, indent=1))
+    if name in RESULTS:
+        (STATE / (name + ".enc")).unlink(missing_ok=True)
 
 
 def save_site_bundle(parts):
@@ -150,6 +161,27 @@ def join_news(news, takes):
         if nid in takes and not n.get("claude"):
             n["claude"] = takes[nid]
     return news
+
+
+def frozen(config=None):
+    """Is the experiment frozen (config.json "frozen": true), and since which date ("frozen_since", YYYY-MM-DD)?
+    While frozen, Claude's prompt, the learning process and the live strategy line-up don't change (tests/test_freeze.py
+    fails if they do); the Sunday lesson updates carry on."""
+    config = load_config() if config is None else config
+    since = config.get("frozen_since")
+    return bool(config.get("frozen")), since if isinstance(since, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}", since) else None
+
+
+def start_freeze(config, now):
+    """The first run after the freeze is switched on stamps its date into config.json (the trader workflow commits it)."""
+    on, since = frozen(config)
+    if on and not since:
+        import freeze
+        config["frozen_since"] = time.strftime("%Y-%m-%d", time.gmtime(now))
+        config["frozen_lineup"] = freeze.lineup()   # the live strategies at the start: they mustn't change
+        (ROOT / "config.json").write_text(json.dumps(config, indent=2) + "\n")
+        print("Experiment frozen from", config["frozen_since"])
+    return frozen(config)
 
 
 def load_config():
@@ -477,9 +509,12 @@ def reasoning(d):
 
 def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
     """Fill Claude's orders, enforcing the risk rules. Returns (filled, blocked).
-    Each buy says what its stop is based on ("stop_basis"): the market's ATR or chart structure. With no valid stop,
-    it goes 2 daily ATRs below the entry (5% if there's no ATR). Sizes and limits use the active account, not the
-    core holding."""
+    Claude can go long (BUY) or short (SHORT), and close either (SELL or COVER, all or a fraction). Every new trade
+    needs its four-part reasoning, a stop on the losing side and a target on the winning side at least MIN_RR times
+    as far away; each says what its stop is based on ("stop_basis"): the market's ATR or chart structure. With no
+    valid stop, it goes 2 daily ATRs from the entry (5% if there's no ATR). The same limits apply to longs and shorts:
+    at most MAX_POSITION of the active account in one market, MAX_OPEN markets, no new trades after a
+    DAILY_LOSS_LIMIT loss in a day. Sizes and limits use the active account, not the core holding."""
     filled, blocked = [], []
     last = {s: v / fx for s, v in last_usd.items()}
 
@@ -487,10 +522,10 @@ def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
         pos = pf["positions"].get(a.get("symbol"))
         if not pos or a["symbol"] not in last_usd:
             continue
-        p = last_usd[a["symbol"]]
-        if isinstance(a.get("stop"), (int, float)) and a["stop"] < p:
+        p, long = last_usd[a["symbol"]], pos.get("side", "long") == "long"
+        if isinstance(a.get("stop"), (int, float)) and a["stop"] > 0 and (a["stop"] < p if long else a["stop"] > p):
             pos["stop"] = round(float(a["stop"]), 4)
-        if isinstance(a.get("target"), (int, float)) and a["target"] > p:
+        if isinstance(a.get("target"), (int, float)) and a["target"] > 0 and (a["target"] > p if long else a["target"] < p):
             pos["target"] = round(float(a["target"]), 4)
 
     for d in decision.get("trades", []) or []:
@@ -501,7 +536,7 @@ def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
         reason, evidence = d.get("reason", ""), [str(x)[:160] for x in (d.get("evidence") or [])][:4]
         why = reasoning(d)
 
-        if action == "SELL":
+        if action in ("SELL", "COVER"):   # close all or part of whatever is held, long or short
             try:
                 frac = max(0.0, min(1.0, float(d.get("fraction", 1) or 1)))
             except (TypeError, ValueError):
@@ -512,8 +547,11 @@ def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
                 t.update({k: v for k, v in why.items() if v is not None})
                 filled.append(t)
             continue
-        if action != "BUY":
+        if action not in ("BUY", "SHORT"):
             continue
+        side = "long" if action == "BUY" else "short"
+        long = side == "long"
+        verb = "Buy" if long else "Short"
 
         eq = equity(pf, last_usd, fx)
         day_start = pf["day"].get("start_equity", eq)
@@ -521,46 +559,51 @@ def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
         name = COMMODITIES[sym]["name"]
         missing = [k for k in REASONING if why[k] is None]
         if missing:
-            blocked.append(f"Buy {name} blocked: no {', '.join(missing)} given (every new trade needs its thesis, the "
-                           f"opposite case, what would prove it wrong and a confidence)")
+            blocked.append(f"{verb} {name} blocked: no {', '.join(missing)} given (every new trade needs its thesis, "
+                           f"the opposite case, what would prove it wrong and a confidence)")
+            continue
+        if pos and pos.get("side", "long") != side:
+            blocked.append(f"{verb} {name} blocked: already {pos.get('side', 'long')} there; close that position first")
             continue
         if eq < day_start * (1 - DAILY_LOSS_LIMIT):
-            blocked.append(f"Buy {name} blocked: daily loss limit reached")
+            blocked.append(f"{verb} {name} blocked: daily loss limit reached")
             continue
         if not pos and len(pf["positions"]) >= MAX_OPEN:
-            blocked.append(f"Buy {name} blocked: already holding {MAX_OPEN} commodities")
+            blocked.append(f"{verb} {name} blocked: already holding {MAX_OPEN} commodities")
             continue
-        room = MAX_POSITION * eq - (pos["qty"] * p_gbp if pos else 0)
+        room = MAX_POSITION * eq - (C.value(pos, p_usd, fx) if pos else 0)
         try:
             wanted = float(d.get("amount_gbp", 0) or 0)
         except (TypeError, ValueError):
             wanted = 0.0
         gbp = min(wanted, pf["cash"] / (1 + C.COST), room)
         if gbp < C.MIN_ORDER:
-            blocked.append(f"Buy {name} blocked: position limit or not enough cash")
+            blocked.append(f"{verb} {name} blocked: position limit or not enough cash")
             continue
 
-        stop = d.get("stop") if isinstance(d.get("stop"), (int, float)) and 0 < d["stop"] < p_usd else None
-        target = d.get("target") if isinstance(d.get("target"), (int, float)) and d["target"] > p_usd else None
+        num = lambda x: isinstance(x, (int, float)) and x > 0
+        stop = d.get("stop") if num(d.get("stop")) and (d["stop"] < p_usd if long else d["stop"] > p_usd) else None
+        target = d.get("target") if num(d.get("target")) and (d["target"] > p_usd if long else d["target"] < p_usd) else None
         basis = str(d.get("stop_basis") or "").lower()
         basis = basis if basis in STOP_BASES else None
+        where = "below" if long else "above"
         if stop is None:
             a = (atrs or {}).get(sym)
             if a and p_usd - ATR_STOP * a > 0:
-                stop, basis = p_usd - ATR_STOP * a, "atr"
-                blocked.append(f"{name}: no valid stop given, used {ATR_STOP} daily ATRs below entry ({stop:g})")
+                stop, basis = (p_usd - ATR_STOP * a if long else p_usd + ATR_STOP * a), "atr"
+                blocked.append(f"{name}: no valid stop given, used {ATR_STOP} daily ATRs {where} entry ({stop:g})")
             else:
-                stop, basis = p_usd * (1 - DEFAULT_STOP), "default"
-                blocked.append(f"{name}: no valid stop given, used {DEFAULT_STOP:.0%} below entry")
+                stop, basis = p_usd * (1 - DEFAULT_STOP if long else 1 + DEFAULT_STOP), "default"
+                blocked.append(f"{name}: no valid stop given, used {DEFAULT_STOP:.0%} {where} entry")
         if not target:
-            blocked.append(f"Buy {name} blocked: no target given")
+            blocked.append(f"{verb} {name} blocked: no target given")
             continue
-        rr = (target - p_usd) / (p_usd - stop)
+        rr = abs(target - p_usd) / abs(p_usd - stop)
         if rr < MIN_RR:
-            blocked.append(f"Buy {name} blocked: reward to risk {rr:.1f} to 1 is under {MIN_RR} to 1")
+            blocked.append(f"{verb} {name} blocked: reward to risk {rr:.1f} to 1 is under {MIN_RR} to 1")
             continue
 
-        f = C.open_position(pf, sym, "long", p_usd, gbp / p_gbp, fx, now, stop=stop, target=target)
+        f = C.open_position(pf, sym, side, p_usd, gbp / p_gbp, fx, now, stop=stop, target=target)
         f.update(reason=reason, stop=pf["positions"][sym]["stop"], target=pf["positions"][sym]["target"])
         t = fill_record(now, f, "claude")
         t["evidence"] = evidence
@@ -766,7 +809,7 @@ def close_sleeve(lb, sid, last_usd, fx, now, why):
     return filled
 
 
-def run_portfolio(lb, strategies, series, prices, last_usd, fx, now, allocation=None):
+def run_portfolio(lb, strategies, series, prices, last_usd, fx, now, allocation=None, freeze=False):
     """One live step for all of Claude's strategies. Each trades its own slice exactly as in its backtest; the slices
     are sized by the lab's weights (allocation.py), or equal if there are none."""
     weights = (allocation or {}).get("weights")
@@ -806,7 +849,9 @@ def run_portfolio(lb, strategies, series, prices, last_usd, fx, now, allocation=
         filled += fills
         check = V.live_check(info[sid]["r"], st)
         info[sid]["check"] = check
-        if check["retire"]:
+        if check["retire"] and freeze:   # the experiment is frozen: the line-up stays; note what would have happened
+            info[sid]["would_retire"] = check["retire"]
+        elif check["retire"]:
             info[sid].update(retired=now, reason=check["retire"])
             filled += close_sleeve(lb, sid, last_usd, fx, now, f"Retired: {check['retire']}")
             rebalance(lb, last_usd, fx, force=True, weights=weights)
@@ -1358,12 +1403,19 @@ def headline_age(n, now=None):
     return f"{max(1, round(h * 60))} min ago" if h < 1 else f"{round(h)}h ago"
 
 
-def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, history, strats=(), sigs=None,
-               kronos=None, kacc=None, bots=None, records=None, atrs=None, lessons=None, card=None):
+def ask_claude(*args, **kw):
+    """Ask Claude for a decision (see build_prompt for what it is told)."""
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError("No ANTHROPIC_API_KEY secret set")
+    prompt, fresh = build_prompt(*args, **kw)
+    return call_claude(prompt, fresh, key)
 
+
+def build_prompt(prices, context, news, pf, last_usd, fx, trades, decisions, history, strats=(), sigs=None,
+                 kronos=None, kacc=None, bots=None, records=None, atrs=None, lessons=None, card=None, now=None):
+    """Claude's trading prompt for this run, and the new headlines in it. Pure: the same inputs give the same text,
+    which is what lets tests/test_freeze.py notice any change to the prompt while the experiment is frozen."""
     eq = equity(pf, last_usd, fx)
     core = pf.get("core") or {}
     core_eq = equity(core, last_usd, fx) if core else 0.0
@@ -1384,16 +1436,16 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, histo
             lines.append(f"   Bots now: {CS.market_line(bots[sym]['rows'])}")
         for n in [n for n in fresh if n["symbol"] == sym]:
             also = [COMMODITIES[x]["name"] for x in n["symbols"] if x != sym and x in COMMODITIES]
-            lines.append(f"   NEW [{n['id']}] {n['title']} ({n['source']}, {headline_age(n)}"
+            lines.append(f"   NEW [{n['id']}] {n['title']} ({n['source']}, {headline_age(n, now)}"
                          + (f"; also matters for {', '.join(also)}" if also else "") + ")")
         for n in [n for n in news if sym in n["symbols"] and n.get("claude")][:2]:
             lines.append(f"   Earlier headline: {n['title']} (you called it {n['claude']['impact']})")
     ctx = [f"{c['name']}: {c['last']:.3f} ({c['chg']:+.2%} on the day)" for c in context.values()]
-    held = [f"{s}: {p['qty']:.3f} units, entry ${p['entry_usd']:.3f}, now ${last_usd.get(s, 0):.3f}, "
+    held = [f"{s}: {p.get('side', 'long').upper()} {p['qty']:.3f} units, entry ${p['entry_usd']:.3f}, now ${last_usd.get(s, 0):.3f}, "
             f"stop ${p.get('stop') or 0:.3f}, target ${p.get('target') or 0:.3f}"
             for s, p in pf["positions"].items()] or ["none"]
-    closed = [f"{t['name']} sold, P&L £{t['pnl']:+,.0f} ({t['reason'][:80]})"
-              for t in trades if t["action"] == "SELL" and t.get("source") != "core"][-5:] or ["none yet"]
+    closed = [f"{t['name']} {'covered (short closed)' if t['action'] == 'COVER' else 'sold (long closed)'}, P&L £{t['pnl']:+,.0f} ({t['reason'][:80]})"
+              for t in trades if t["action"] in ("SELL", "COVER") and t.get("source") != "core"][-5:] or ["none yet"]
     recent = [d["summary"] for d in decisions[-3:] if d.get("summary")] or ["none yet"]
 
     news_ask = (f'Comment on every NEW [id] headline in "news" ({len(fresh)} of them); earlier headlines already '
@@ -1401,10 +1453,13 @@ def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, histo
     prompt = f"""You are an autonomous agent running a PAPER commodity trading account. No real money.
 Account currency is GBP. GBPUSD is {fx:.4f}. Prices are as quoted on the exchange (units given per market), for
 the contract month held now; older prices are back-adjusted for futures rolls, so there are no fake roll jumps.
-Rules enforced by the risk engine: long only, no leverage, max {MAX_POSITION:.0%} of your active money per commodity,
-max {MAX_OPEN} commodities held, no new buys after a {DAILY_LOSS_LIMIT:.0%} daily loss.
-Every BUY needs a stop (below price, same units as the quote) and a target (above price), and the target must be at
-least {MIN_RR}x as far from the entry as the stop is, or the risk engine rejects it.
+Rules enforced by the risk engine: long or short, no leverage, max {MAX_POSITION:.0%} of your active money per commodity,
+max {MAX_OPEN} commodities held (long and short together), no new trades after a {DAILY_LOSS_LIMIT:.0%} daily loss.
+You can go LONG (action BUY) or SHORT (action SHORT), and close either with SELL (a long) or COVER (a short), all or
+a fraction. A short profits when the price falls. Every new trade needs a stop on the losing side (below the price
+for a long, above it for a short, same units as the quote) and a target on the winning side, and the target must be
+at least {MIN_RR}x as far from the entry as the stop is, or the risk engine rejects it. To turn a long into a short,
+sell it first.
 Waiting is a good decision when nothing has an edge, but you don't need a perfect pattern to trade: a sound case
 from several inputs pointing the same way is enough. Avoid churning.
 
@@ -1428,12 +1483,13 @@ merits; none of them is a gatekeeper and none is required:
   either way, however good or bad they were; one with hundreds of trades and a solid profit factor deserves real
   weight. When you go against a strong, well-evidenced consensus, say why.
 - Risk: what you already hold, the daily loss limit, correlation between markets, and the cost of being wrong.
-You can only go long, so a bearish case is a reason to sell what you hold or stay out.
+A bearish case can be traded: short it, with the same care, stop and target as a long. Remember a short can lose
+more than it looked like if a market squeezes higher; size and stop it accordingly.
 
-Stops: say what each stop is based on in "stop_basis": "atr" (about 1.5 to 3 daily ATRs below entry, using the
-daily ATR shown per market) or "structure" (below a clear swing low or support level from the chart or the 5-year
-levels). If you give no valid stop, the risk engine sets one
-{ATR_STOP} daily ATRs below entry. Targets: the next resistance or liquidity level, or a multiple of ATR.
+Stops: say what each stop is based on in "stop_basis": "atr" (about 1.5 to 3 daily ATRs from the entry, using the
+daily ATR shown per market) or "structure" (beyond a clear swing low or support for a long, or a swing high or
+resistance for a short, from the chart or the 5-year levels). If you give no valid stop, the risk engine sets one
+{ATR_STOP} daily ATRs from the entry. Targets: the next resistance (long) or support (short), or a multiple of ATR.
 
 Your lessons, from your weekly trade journal (each backed by at least {L.MIN_SUPPORT} of your own trades or calls). Apply
 them where they fit:
@@ -1447,7 +1503,7 @@ Before ANY trade (buy or sell), reason it through properly and write down four t
 2. "opposite": the strongest case AGAINST it, argued properly, as a sceptical trader would;
 3. "invalidation": what would prove the thesis wrong (a price level, an event, a change in an input);
 4. "confidence": 0 to 100, how sure you are after weighing both sides.
-A buy without all four is rejected by the risk engine. If the opposite case wins, don't trade.
+A new trade (buy or short) without all four is rejected by the risk engine. If the opposite case wins, don't trade.
 
 Bot records (live = since each started here):
 {records_text(records or {})}
@@ -1479,7 +1535,10 @@ Reply with ONLY a JSON object, no other text:
     {{"symbol": "GC=F", "action": "BUY", "amount_gbp": 5000, "stop": 0.0, "stop_basis": "atr|structure",
       "target": 0.0, "reason": "one sentence", "evidence": ["short fact", "short fact"],
       "thesis": "...", "opposite": "...", "invalidation": "...", "confidence": 0-100}},
-    {{"symbol": "CL=F", "action": "SELL", "fraction": 1.0, "reason": "one sentence", "evidence": ["short fact"],
+    {{"symbol": "NG=F", "action": "SHORT", "amount_gbp": 5000, "stop": 0.0, "stop_basis": "atr|structure",
+      "target": 0.0, "reason": "one sentence", "evidence": ["short fact"],
+      "thesis": "...", "opposite": "...", "invalidation": "...", "confidence": 0-100}},
+    {{"symbol": "CL=F", "action": "SELL|COVER", "fraction": 1.0, "reason": "one sentence", "evidence": ["short fact"],
       "thesis": "...", "opposite": "...", "invalidation": "...", "confidence": 0-100}}
   ],
   "adjust": [{{"symbol": "GC=F", "stop": 0.0, "target": 0.0}}],
@@ -1491,7 +1550,10 @@ strategies), consensus (the other bots), risk (the risk rules and what you alrea
 numbers are only the format.
 Include every commodity in "markets". {news_ask}
 Use empty lists for "trades" and "adjust" if nothing to do."""
+    return prompt, fresh
 
+
+def call_claude(prompt, fresh, key):
     headers = {"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"}
     body = {"model": MODEL, "max_tokens": THINKING_BUDGET + 6600 + 80 * len(fresh),
             "thinking": {"type": "enabled", "budget_tokens": THINKING_BUDGET},
@@ -1514,6 +1576,7 @@ def main():
     now = int(time.time())
     vault.password()  # stop now, before trading, if the private data can't be read or saved (see vault.py)
     config = load_config()
+    is_frozen, frozen_since = start_freeze(config, now)
     health = {}
 
     prices = get_prices()
@@ -1600,6 +1663,7 @@ def main():
         core_fills, moved = rebalance_core(pf, last_usd, fx, now, core_fraction(config))
         if pf["day"].get("start_equity") is not None:  # cash moved into the core is not a trading loss
             pf["day"]["start_equity"] = round(pf["day"]["start_equity"] - moved, 2)
+        pf["core_moved"] = round(pf.get("core_moved", 0.0) + moved, 2)   # for the active part's own record
 
     today = time.strftime("%Y-%m-%d", time.gmtime(now))
     if pf["day"].get("date") != today:  # the daily loss limit applies to the active part Claude manages
@@ -1618,7 +1682,8 @@ def main():
     bot_args = (kb, lb, strats, sigs, kronos, kacc, trade_lists, lb_trades, qb)
     claude_due = os.environ.get("GITHUB_EVENT_NAME") != "schedule" or now - pf.get("last_claude", 0) >= CLAUDE_EVERY - 600
     entry = {"t": now, "paused": paused, "markets": [], "watching": [], "blocked": []}
-    prev_health = load("status.json", {}).get("health", {})
+    prev_status = load("status.json", {})
+    prev_health, prev_lock = prev_status.get("health", {}), prev_status.get("lock") or {}
     if paused:
         entry["summary"] = ("Everything closed and paused by you in config.json." if config.get("close_all")
                             else "Paused by you in config.json. Stops and targets are still being checked.")
@@ -1669,7 +1734,7 @@ def main():
     was_retired = {"rules": rb.get("retired"), "ict": ib.get("retired")}
     rb_trades += retire_bot(rb, "rules", last_usd, fx, now)
     ib_trades += retire_bot(ib, "ict", last_usd, fx, now)
-    lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now, lab_state().get("allocation"))
+    lb_trades += run_portfolio(lb, strats, sseries, prices, last_usd, fx, now, lab_state().get("allocation"), is_frozen)
     kb_trades += run_kronos_bot(kb, prices, cfc, last_usd, fx, now)
     ki_trades += KB.run_index_bot(kib, iprices, ifc, fx, now)
     try:
@@ -1696,7 +1761,10 @@ def main():
            "core": round(equity(pf["core"], last_usd, fx), 2), "active": round(equity(pf, last_usd, fx), 2),
            "lab": round(lab_equity(lb, last_usd, fx), 2), "kronos": round(equity(kb, last_usd, fx), 2),
            "lit": round(lit_equity(litb, fx), 2), "kronos_idx": round(KB.index_equity(kib, fx), 2),
-           "quant": round(Q.equity(qb, qb.get("marks"), fx), 2)}
+           "quant": round(Q.equity(qb, qb.get("marks"), fx), 2),
+           # the active part's value plus the cash it has handed to the core since this was first recorded: its own
+           # trading result, without the core's monthly cash moves (the success criteria judge it)
+           "active_net": round(equity(pf, last_usd, fx) + pf.get("core_moved", 0.0), 2)}
     for key, book in (("rules", rb), ("ict", ib)):  # a retired bot's curve ends with the run that closed it
         if not was_retired[key]:
             row[key] = round(equity(book, last_usd, fx), 2)
@@ -1722,7 +1790,9 @@ def main():
     save("lab.json", lb)
     save("lab_trades.json", lb_trades)
     (DATA / "ict_now.json").unlink(missing_ok=True)   # the ICT read is retired with the ICT bot
-    save("kronos.json", kronos)
+    locked = X.locked(now)
+    k_acc = {k: kronos[k] for k in ("accuracy", "index_accuracy") if k in kronos} if locked else {}
+    save("kronos.json", {k: v for k, v in kronos.items() if k not in k_acc})   # while the results are locked, Kronos's accuracy is only in the encrypted file
     save("kronos_calls.json", kcalls)
     save("kronos_bot.json", kb)
     save("lit.json", litb)
@@ -1741,18 +1811,34 @@ def main():
     consensus = {"t": now, "markets": all_market_bots(prices, *bot_args),
                  "records": bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)}
     save("consensus.json", consensus)
-    save("summary.json", public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf,
-                                        decisions, lit_trades, ki_trades, q_trades, qb, fx))
+    summary = public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_trades, calls, lb, pf,
+                             decisions, lit_trades, ki_trades, q_trades, qb, fx)
+    since = calendar.timegm(time.strptime(frozen_since, "%Y-%m-%d")) if frozen_since else \
+        (eq_hist[0]["time"] if eq_hist else now)
+    summary["criteria"] = X.progress(eq_hist, calls, since, now)
+    summary["lock"] = {"until": X.LOCK_UNTIL, "locked": locked}
+    # locked: the public summary keeps only what isn't a result (when Claude last decided, whether it's paused)
+    save("summary.json", {"t": now, "claude": summary["claude"], "lock": summary["lock"]} if locked else summary)
     save_site_bundle({"portfolio": pf, "trades": trades, "decisions": decisions, "calls": calls, "news_takes": takes,
                       "consensus": consensus, "rules_trades": rb_trades, "ict_trades": ib_trades,
                       "kronos_trades": kb_trades, "lab": lb, "lab_trades": lb_trades, "lit": litb,
                       "lit_trades": lit_trades, "kronos_idx": kib, "kronos_idx_trades": ki_trades,
                       "quant": qb, "quant_trades": q_trades[-3000:],
-                      "journal": load("journal.json", {"weeks": []}), "lessons": load("lessons.json", {})})
+                      "journal": load("journal.json", {"weeks": []}), "lessons": load("lessons.json", {}),
+                      # the results the lock keeps out of the public files (the site shows them once unlocked)
+                      **({"summary": summary, "equity": eq_hist, "kronos_accuracy": k_acc} if locked else {})})
     save("history.json", {"date": history["date"], "fetched": history.get("fetched", 0), "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})
+    log = load("health_log.json", [])   # every run's problems, for the weekly email (public: like the status lights)
+    log.append({"t": now, "problems": [k for k, ok in health.items() if ok is False],
+                "missing": health.get("missing", []), "kronos_skipped": kronos.get("skipped", []),
+                "kronos_seconds": kronos.get("seconds")})
+    save("health_log.json", log[-400:])
     save("status.json", {"updated": now, "model": MODEL, "prompt_version": PROMPT_VERSION, "fx": fx, "health": health,
+                         "freeze": {"frozen": is_frozen, "since": frozen_since, "prompt_version": PROMPT_VERSION},
+                         "lock": {"until": X.LOCK_UNTIL, "locked": locked,
+                                  "revealed": None if locked else (prev_lock.get("revealed") or now)},
                          "last_claude": pf.get("last_claude"),
                          "retired": {k: b.get("retired") for k, b in (("ict", ib), ("rules", rb))},
                          "core": {"fraction": pf["core"].get("fraction"), "month": pf["core"].get("month"),

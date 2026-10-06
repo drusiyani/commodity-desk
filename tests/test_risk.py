@@ -161,3 +161,44 @@ def test_the_reasoning_is_saved_with_the_trade_and_confidence_must_be_0_to_100()
     assert {k: filled[0][k] for k in WHY} == WHY
     assert decide(pf(), buy(confidence=140))[0] == [] and decide(pf(), buy(confidence="high"))[0] == []
     assert decide(pf(), buy(thesis="   "))[0] == []
+
+
+# ---------- shorts: the same rules, mirrored ----------
+def short(sym="GC=F", amount=10_000, stop=2050.0, target=1900.0, **kw):
+    return buy(sym, amount, stop, target, action="SHORT", **kw)
+
+
+def test_a_short_is_filled_with_its_stop_above_and_target_below():
+    p = pf()
+    filled, blocked = decide(p, short())
+    pos = p["positions"]["GC=F"]
+    assert filled[0]["action"] == "SHORT" and pos["side"] == "short" and pos["stop"] == 2050 and pos["target"] == 1900
+    assert blocked == [] and filled[0]["thesis"] == WHY["thesis"]
+    filled, _ = decide(p, {"symbol": "GC=F", "action": "COVER", "fraction": 1, "reason": "done"})
+    assert filled[0]["action"] == "COVER" and "GC=F" not in p["positions"]
+
+
+@pytest.mark.parametrize("stop,target,why", [(2050, 2100, "no target"), (2010, 1990, "reward to risk"), (2050, 1900, None)])
+def test_short_stop_and_target_sides_and_reward_to_risk(stop, target, why):
+    filled, blocked = decide(pf(), short(stop=stop, target=target))
+    assert (filled == [] and why in blocked[-1]) if why else len(filled) == 1
+
+
+def test_short_without_a_valid_stop_gets_two_atrs_above_and_limits_apply():
+    p = pf()
+    filled, blocked = E.apply_decision(p, {"trades": [short(stop=1990)]}, LAST, FX, T0, {"GC=F": 30.0})
+    assert p["positions"]["GC=F"]["stop"] == pytest.approx(2000 + 2 * 30) and "above entry" in blocked[0]
+    filled, blocked = decide(p, buy())                              # can't go long while short: close first
+    assert filled == [] and "close that position first" in blocked[0]
+    p = pf()
+    filled, _ = decide(p, short(amount=90_000))
+    assert C.value(p["positions"]["GC=F"], 2000.0, FX) <= E.MAX_POSITION * 100_000 + 1
+
+
+def test_adjust_moves_a_short_stop_only_to_the_losing_side():
+    p = pf()
+    decide(p, short())
+    decide(p, adjust=[{"symbol": "GC=F", "stop": 1990, "target": 2100}])   # wrong sides for a short: ignored
+    assert p["positions"]["GC=F"]["stop"] == 2050 and p["positions"]["GC=F"]["target"] == 1900
+    decide(p, adjust=[{"symbol": "GC=F", "stop": 2030, "target": 1850}])
+    assert p["positions"]["GC=F"]["stop"] == 2030 and p["positions"]["GC=F"]["target"] == 1850

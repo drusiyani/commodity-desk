@@ -168,10 +168,23 @@ def finish(lab, data):
         if st["id"] in retired:
             st["retired"] = {"t": retired[st["id"]]["retired"], "reason": retired[st["id"]].get("reason")}
     passed = sorted([s for s in lab["strategies"] if s.get("passed") and not s.get("retired")], key=lambda s: -s["score"])
-    lab["portfolio"] = [s["id"] for s in passed[:MAX_LIVE]]
-    lab["live"] = lab["portfolio"][0] if lab["portfolio"] else None  # the best one, for older pages
-    lab["allocation"] = allocate(lab, data)
-    print("Allocation:", lab["allocation"]["method"], lab["allocation"]["weights"], "-", lab["allocation"]["note"])
+    frozen, since = E.frozen()
+    if frozen and "portfolio" in lab:
+        # the experiment is frozen: the lab keeps inventing and testing, but the strategies that trade live (and feed
+        # Claude) and their weights stay exactly as they were; a new pass waits for the freeze to end
+        for st in lab["strategies"]:
+            st["waiting"] = bool(st.get("passed") and not st.get("retired") and st["id"] not in lab["portfolio"])
+        lab["frozen"] = since
+        print(f"Frozen since {since}: live line-up kept as {lab['portfolio']}; waiting: "
+              f"{[st['id'] for st in lab['strategies'] if st['waiting']]}")
+    else:
+        for st in lab["strategies"]:
+            st.pop("waiting", None)
+        lab.pop("frozen", None)
+        lab["portfolio"] = [s["id"] for s in passed[:MAX_LIVE]]
+        lab["live"] = lab["portfolio"][0] if lab["portfolio"] else None  # the best one, for older pages
+        lab["allocation"] = allocate(lab, data)
+        print("Allocation:", lab["allocation"]["method"], lab["allocation"]["weights"], "-", lab["allocation"]["note"])
     lab["pass_rules"] = dict(PASS, windows=V.WINDOWS, train_mult=V.TRAIN_MULT, mc_runs=V.MC_RUNS)
     return passed
 
