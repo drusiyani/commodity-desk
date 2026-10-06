@@ -1,8 +1,8 @@
 {
- "t": 1791297938,
+ "t": 1791300093,
  "perf": {
   "equity": {
-   "ret": -0.00156,
+   "ret": -0.00115,
    "buys": 2,
    "closed": 1,
    "win": 1.0,
@@ -10,7 +10,7 @@
    "dd": -0.0052
   },
   "lab": {
-   "ret": 0.00092,
+   "ret": 0.00054,
    "buys": 4,
    "closed": 0,
    "win": null,
@@ -26,7 +26,7 @@
    "dd": 0.0
   },
   "kronos": {
-   "ret": -0.00135,
+   "ret": -0.00193,
    "buys": 10,
    "closed": 9,
    "win": 0.556,
@@ -34,7 +34,7 @@
    "dd": -0.0111
   },
   "rules": {
-   "ret": -0.00958,
+   "ret": -0.00877,
    "buys": 17,
    "closed": 11,
    "win": 0.0,
@@ -50,15 +50,15 @@
    "dd": 0.0
   },
   "kronos_idx": {
-   "ret": -6e-05,
-   "buys": 1,
-   "closed": 0,
-   "win": null,
-   "realised": 0,
-   "dd": -6e-05
+   "ret": -0.01016,
+   "buys": 2,
+   "closed": 1,
+   "win": 0.0,
+   "realised": -993.16,
+   "dd": -0.01016
   },
   "benchmark": {
-   "ret": 0.00274,
+   "ret": 0.0031,
    "buys": 0,
    "closed": 0,
    "win": null,
@@ -130,7 +130,7 @@
     "z": null,
     "retire": null
    },
-   "equity": 100091.81,
+   "equity": 100053.66,
    "weight": 1.0,
    "trades": 0
   }
