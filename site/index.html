@@ -267,6 +267,13 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
 .lock { display: flex; gap: 14px; align-items: flex-start; padding: 16px; border: 1px dashed var(--accent-line); border-radius: 8px; background: var(--soft); }
 .lockicon { color: var(--brass); flex: none; margin-top: 1px; }
 .lock strong { display: block; font-size: 15px; margin-bottom: 4px; }
+.countdown { font-family: Inter, system-ui, sans-serif; font-size: 13px; color: var(--brass); margin: -2px 0 6px; }
+.reslock { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+.reslock .lockicon { margin: 0; }
+#notices { padding: 0 24px 14px; display: grid; gap: 8px; }
+#notices:empty { display: none; }
+.notice { font-size: 13px; padding: 8px 12px; border: 1px solid var(--accent-line); border-radius: 8px; background: var(--warn-bg); }
+.notice.reveal { border-color: var(--up); }
 .lock p { margin: 0 0 10px; font-size: 13px; color: var(--muted); max-width: 60ch; }
 .lockform { display: flex; gap: 8px; flex-wrap: wrap; }
 .lockform input { font: inherit; font-family: Inter, system-ui, sans-serif; font-size: 13px; color: var(--ink); background: var(--panel);
@@ -402,6 +409,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <div class="stat"><div class="v" id="sKidx"></div><div class="k">Kronos indices bot</div></div>
     </div>
   </header>
+  <div id="notices" aria-live="polite"></div>
 
   <div class="view" id="view-live">
   <div class="only-commodities">
@@ -422,7 +430,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
         </span>
       </h2>
       <div id="chart"></div>
-      <p class="hint">Click a buy or sell arrow to see why Claude made that trade. Purple dashed lines are open fair value gaps. Left and right arrow keys switch market.</p>
+      <p class="hint">Click a buy or sell arrow to see why Claude made that trade. Purple dashed lines on the right are Kronos's likely range for the next 24 hours. Left and right arrow keys switch market.</p>
       <p class="hint" id="contractLine"></p>
       <div id="detail" hidden></div>
       <div id="kronosBox"></div>
@@ -495,7 +503,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       </h2>
       <div id="equity"></div>
       <div class="tablewrap" id="perf" style="margin-top:12px"></div>
-      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k, each on a slice sized by its risk. The ICT bot and the trend bot are retired: they no longer trade, and their lines end on the day they closed their last positions (their records stay below and on the Backtest tab). The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. The LIT bot trades the US index futures and gold on 15-minute candles: it waits for price to run the stops beyond a well-known high or low and snap back, then trades the snap-back in micro contracts (rules in docs/lit.md). The Quant bot runs four classic strategies on daily candles (time-series momentum, cross-sectional momentum, spread trades and carry) on one £100k, with the risk split equally between them. The Kronos indices bot (dashed) trades Kronos's forecasts for the same four index futures with the Kronos bot's rules, in micro contracts. Claude weighs the 5-year picture, the news, Kronos, its lab strategies and what the other bots are doing (each bot counted by how much evidence its record gives), and keeps a slice of its account in a core holding spread across all ten markets like buy and hold. If Claude can't beat the bots, it isn't adding much.</p>
+      <p class="hint">Each bot has its own £100k; Claude's strategies share one £100k, each on a slice sized by its risk. The ICT bot and the trend bot are retired: they no longer trade, and their lines end on the day they closed their last positions (their records stay below and on the Backtest tab). The Kronos bot trades the forecasts of Kronos, an open-source AI model that reads price charts: it goes long when a rise looks clearly likely and big enough to be worth the costs, short on the mirror image, and closes after 24 hours. Kronos is judged on live results only, never backtested, because it was trained on years of market history and may have seen it already. The LIT bot trades the US index futures and gold on 15-minute candles: it waits for price to run the stops beyond a well-known high or low and snap back, then trades the snap-back in micro contracts (rules in docs/lit.md). The Quant bot runs four classic strategies on daily candles (time-series momentum, cross-sectional momentum, spread trades and carry) on one £100k, with the risk split equally between them. The Kronos indices bot (dashed) trades Kronos's forecasts for the same four index futures with the Kronos bot's rules, in micro contracts. Claude goes long or short, weighs the 5-year picture, the news, Kronos, its lab strategies and what the other bots are doing (each bot counted by how much evidence its record gives), and keeps a slice of its account in a core holding spread across all ten markets like buy and hold. If Claude can't beat the bots, it isn't adding much.</p>
     </section>
 
     <section id="reportSec">
@@ -645,6 +653,23 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       and nothing here is investment advice.</p>
     </section>
 
+    <section class="doc" id="experimentSec">
+      <h2>The experiment and how it will be judged</h2>
+      <p>From the freeze date until the end of 2026, Claude's prompt (with shorting, its lessons and the four-part
+      reasoning), how it learns and which lab strategies trade live all stay fixed; only its weekly lessons can change.
+      Success was defined before any results (docs/experiment.md). By <strong>31 December 2026</strong>, measured from the
+      freeze:</p>
+      <ol>
+        <li><strong>Claude beats buy and hold after costs</strong>, across its whole account.</li>
+        <li><strong>Claude's active 60% beats buy and hold after costs</strong>, measured separately (its own trading,
+        without the core holding).</li>
+        <li><strong>A higher Sharpe ratio than buy and hold</strong>, for the whole account and for the active 60%.</li>
+        <li><strong>Claude's report card is above 55% on at least 200 checked calls.</strong></li>
+      </ol>
+      <p class="hint">All four must hold. About three months is short: a pass would be encouraging, not proof.</p>
+      <div id="criteria"></div>
+    </section>
+
     <section class="doc">
       <h2>Where the data comes from</h2>
       <ul>
@@ -660,8 +685,11 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       <h2>How each competitor works</h2>
       <dl>
         <dt>Claude</dt><dd>Keeps 40% of its account in a core holding spread equally across all ten markets, and trades the
-        rest itself. It reads each market's 5-year history, the news, Kronos's forecast, its own lab
-        strategies and what the other bots are doing, then decides. Long only. Hard risk limits are enforced in code.</dd>
+        rest itself, long or short. It reads each market's 5-year history, the news, Kronos's forecast, its own lab
+        strategies, what the other bots are doing, its own lessons and a table of which inputs have actually helped,
+        then decides. Before every trade it writes its thesis, the strongest case against it, what would prove it wrong
+        and a confidence from 0 to 100. Every Sunday it reviews the trades it closed and the calls that were checked
+        (bad reasoning or bad luck?) and updates a short list of lessons. Hard risk limits are enforced in code.</dd>
         <dt>Claude's strategies</dt><dd>Rules Claude invents in the weekly lab. Only ones that pass strict tests on data they
         were never fitted on trade live, together, on one £100k account.</dd>
         <dt>Kronos bot</dt><dd>Trades Kronos's forecasts when a move looks clearly likely and big enough to cover costs; closes
@@ -700,6 +728,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
         <li><strong>Futures rolls.</strong> Contracts expire, so positions are rolled to the next month a few days before, as real traders do. Older prices are adjusted so the switch doesn't look like a price move. Yahoo only keeps contracts that are still trading, so the size of older rolls is estimated from the jump in its continuous series (see the table below).</li>
         <li><strong>Small samples.</strong> A few weeks and a handful of trades prove almost nothing; luck dominates. Treat early results, good or bad, with suspicion.</li>
         <li><strong>Backtests aren't the future.</strong> They show how simple rules would have done on past prices, after costs. Kronos is never backtested, because it may have seen that history in its training.</li>
+        <li><strong>Results locked until 1 January 2027.</strong> So that the results can't steer the experiment, every live profit figure is published only in the password-encrypted file until then. Figures published before the lock are still in the repository's git history.</li>
         <li><strong>AI can be wrong.</strong> Claude and Kronos make mistakes, and their reasoning can sound more confident than it should.</li>
       </ul>
     </section>
@@ -910,6 +939,9 @@ async function unlock(password) {
 function usePrivate(p) {
   // unlocked: the full data; locked: empty lists, and the public summary where the page needs totals
   D.unlocked = !!p;
+  if (p?.equity) D.equity = p.equity;               // while the results lock is on, the results come from here
+  if (p?.summary) D.summary = p.summary;
+  if (p?.kronos_accuracy && D.kronos) Object.assign(D.kronos, p.kronos_accuracy);
   D.pf = p?.portfolio || null; D.trades = p?.trades || []; D.decisions = p?.decisions || []; D.calls = p?.calls || [];
   D.consensus = p?.consensus || null; D.rbTrades = p?.rules_trades || []; D.ictTrades = p?.ict_trades || [];
   D.kronosTrades = p?.kronos_trades || []; D.labTrades = p?.lab_trades || [];
@@ -920,6 +952,38 @@ function usePrivate(p) {
 }
 
 const PADLOCK = '<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
+
+// ---------- the results lock: every live result stays hidden until 1 January 2027, UK time (docs/experiment.md) ----------
+const LOCK = () => D.status?.lock || {};
+const resultsHidden = () => !!LOCK().locked && !D.unlocked;
+const LOCK_TEXT = "Every live result is hidden until 1 January 2027 (UK time), so the results can't steer the experiment, and it isn't just hidden on screen: until then they are only published inside the password-encrypted file. Prices, the news, how each bot works, the lab's tests and the Backtest tab stay public.";
+function countdown() {
+  const s = Math.max(0, (LOCK().until || 0) - Date.now() / 1000), d = Math.floor(s / 86400), h = Math.floor(s % 86400 / 3600);
+  return d ? `${d} day${d === 1 ? "" : "s"} and ${h} hour${h === 1 ? "" : "s"} to go` : `${h} hours and ${Math.floor(s % 3600 / 60)} minutes to go`;
+}
+setInterval(() => document.querySelectorAll(".countdown").forEach(x => x.textContent = countdown()), 60000);
+function resultsLock(text) {
+  // a lock with the countdown, plus the password box for anyone allowed to see everything now
+  const card = lockCard("Results revealed 1 January 2027", text || LOCK_TEXT);
+  card.querySelector("strong").after(el("div", { className: "countdown", textContent: countdown() }));
+  return card;
+}
+function resLockLine() {
+  const icon = el("span", { className: "lockicon" }); icon.innerHTML = PADLOCK;
+  return el("div", { className: "reslock" }, [icon, el("span", {}, [el("strong", { textContent: "Results revealed 1 January 2027" }), " ",
+    el("span", { className: "countdown", textContent: countdown() })])]);
+}
+const lockedText = "hidden until 1 January 2027";
+
+function renderNotices() {
+  // the freeze, and a week-long banner once the results are revealed
+  const box = $("#notices"), F = D.status?.freeze, L = LOCK();
+  box.replaceChildren();
+  if (F?.frozen) box.append(el("div", { className: "notice" }, [el("strong", { textContent: `Experiment frozen since ${F.since ? new Date(F.since + "T00:00:00Z").toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : "the next hourly run"}, prompt v${F.prompt_version}. ` }),
+    "Claude's prompt, how it learns and which lab strategies trade live stay exactly as they are until the end of the year; only its weekly lessons can change. The success criteria are on the Data tab."]));
+  if (L.revealed && !L.locked && Date.now() / 1000 - L.revealed < 7 * 86400)
+    box.append(el("div", { className: "notice reveal" }, [el("strong", { textContent: "Results revealed. " }), "The live results were locked until 1 January 2027 and are now public: the race, every bot's numbers and the progress against the success criteria."]));
+}
 
 function lockCard(title, text) {
   // the password box shown in place of each private section
@@ -1040,6 +1104,12 @@ function renderHeader() {
     [`Last run ${D.status.updated ? ago(D.status.updated) : "unknown"}`, late ? "late" : "", late ? "--down" : "--up"],
   ];
   $("#pills").replaceChildren(...pills.map(([k, v, c]) => { const p = el("span", { className: "pill", textContent: v ? `${k} ${v}` : k }); p.style.setProperty("--c", `var(${c})`); return p; }));
+  renderNotices();
+  if (resultsHidden()) {   // the results lock: no returns or values in the header until it ends
+    for (const g of ["#cStats", "#iStats"]) $(g).replaceChildren(resLockLine());
+    markRetired();
+    return;
+  }
   const value = eq ? eq.equity : equityNow();
   countUp($("#sEquity"), value, money);
   const r = value / START - 1, b = (eq ? eq.benchmark : START) / START - 1;
@@ -1194,6 +1264,7 @@ function renderLab() {
   const tbody = el("tbody", {}, rows.map(s => {
     const tr = s.results.train.combined, te = s.results.test.combined, v = s.validation || {};
     const status = isLive(s) ? el("span", { className: "live", textContent: "Live" }) : retired(s.id) ? el("span", { className: "fail", textContent: "Retired" })
+      : s.passed && s.waiting ? el("span", { className: "pass", textContent: "Passed, waiting for the freeze to end", title: "The experiment is frozen: the live line-up doesn't change until it ends" })
       : s.passed ? el("span", { className: "pass", textContent: "Passed" }) : el("span", { className: "fail", textContent: "Failed" });
     const row = el("tr", { className: "click" }, [
       el("td", {}, [s.name, el("div", { className: "muted", style: "white-space:normal;font-size:12px", textContent: s.idea })]),
@@ -1241,7 +1312,7 @@ function renderPortfolio(L, info) {
     const expected = c.expected_r ?? st?.results?.test?.combined?.avg_r;
     const gone = x.retired || st?.retired;
     const status = gone ? el("span", { className: "fail", textContent: "Retired", title: x.reason || st?.retired?.reason || "" })
-      : x.joined ? el("span", { className: "live", textContent: "Live" }) : el("span", { className: "pass", textContent: "Starting next run" });
+      : x.joined || resultsHidden() ? el("span", { className: "live", textContent: "Live" }) : el("span", { className: "pass", textContent: "Starting next run" });
     return el("tr", {}, [
       el("td", {}, [x.name || st?.name || id, gone ? el("div", { className: "muted", style: "white-space:normal;font-size:12px", textContent: "Retired because " + (x.reason || st?.retired?.reason || "its live results fell short") + "." }) : ""]),
       el("td", { className: "num", textContent: x.equity != null ? `${money(x.equity)} (${Math.round(x.equity / total * 100)}%)` : "—" }),
@@ -1520,6 +1591,7 @@ function idxRank(key = "lit") {
 function renderIdxSide() {
   const box = $("#iBot"), e = D.equity.at(-1) || {};
   box.replaceChildren();
+  if (resultsHidden()) { box.append(el("p", { style: "margin:4px 0 10px", textContent: "Trades the snap-back after price runs the stops beyond a well-known high or low, in the London and New York morning windows, in micro contracts, risking 0.5% of its £100k per trade." }), resLockLine()); return; }
   if (e.lit == null) { box.append(el("p", { className: "empty", textContent: "The LIT bot starts trading on the next hourly run." })); return; }
   const r = e.lit / START - 1, [rank, of] = idxRank();
   box.append(el("div", { className: "state" }, [tone(el("span", { className: "big", textContent: pct(r) }), r), el("span", { className: "muted", textContent: `${rank} of ${of} in the race` })]),
@@ -1533,6 +1605,7 @@ function renderIdxSide() {
 function renderIdxKronosBot() {
   const box = $("#iKbot"), e = D.equity.at(-1) || {};
   box.replaceChildren();
+  if (resultsHidden()) { box.append(el("p", { style: "margin:4px 0 10px", textContent: "Trades Kronos's 24-hour forecasts for these four indices with the Kronos bot's rules, in micro contracts, risking 1% of its own £100k per trade. Never backtested." }), resLockLine()); return; }
   if (e.kronos_idx == null) { box.append(el("p", { className: "empty", textContent: "The Kronos indices bot starts trading on the next hourly run." })); return; }
   const r = e.kronos_idx / START - 1, [rank, of] = idxRank("kronos_idx");
   box.append(el("div", { className: "state" }, [tone(el("span", { className: "big", textContent: pct(r) }), r), el("span", { className: "muted", textContent: `${rank} of ${of} in the race` })]),
@@ -1655,7 +1728,8 @@ function renderLearn() {
   // which inputs actually help: public
   const card = D.summary?.inputs, pp = x => x == null ? "—" : Math.round(x * 100) + "%";
   left.append(el("h3", { style: "margin-top:0", textContent: "Which inputs actually help" }));
-  if (!card?.calls) left.append(el("p", { className: "empty", textContent: "Not enough checked calls yet. Each bullish or bearish call saves which way every input pointed; 24 hours later each input was right or wrong." }));
+  if (resultsHidden()) left.append(el("p", { className: "muted", textContent: "How often each input pointed the right way is part of the results." }), resLockLine());
+  else if (!card?.calls) left.append(el("p", { className: "empty", textContent: "Not enough checked calls yet. Each bullish or bearish call saves which way every input pointed; 24 hours later each input was right or wrong." }));
   else left.append(el("div", { className: "tablewrap" }, [el("table", {}, [
     el("thead", {}, [el("tr", {}, ["Input", "Had a view", "Right", `Claude leaned on it (≥${card.lean}%)`, "Right then", "Claude right then"].map((h, i) => el("th", { className: i ? "num" : "", textContent: h })))]),
     el("tbody", {}, card.rows.map(r => el("tr", {}, [el("td", { textContent: r.name }), el("td", { className: "num", textContent: r.pointed }),
@@ -1699,6 +1773,12 @@ const QHOW = { tsmom: "Each market long or short by its 12- and 3-month trend; w
 function renderQuant() {
   const box = $("#quantBody"), q = D.summary?.quant, e = D.equity.at(-1) || {}, bt = D.bt?.runs?.quant;
   box.replaceChildren();
+  if (resultsHidden()) {
+    box.append(el("div", { className: "tablewrap" }, [el("table", {}, [el("thead", {}, [el("tr", {}, ["Strategy", "How", "5-year backtest, a year"].map((h, i) => el("th", { className: i > 1 ? "num" : "", textContent: h })))]),
+      el("tbody", {}, Object.keys(QSTRAT).map(k => el("tr", {}, [el("td", {}, [el("i", { className: "dot", style: `background:var(${QCOLOR[k]})` }), QSTRAT[k]]), el("td", { className: "reason", textContent: QHOW[k] }),
+        el("td", { className: "num", textContent: bt?.strategies?.[k]?.stats ? pct(bt.strategies[k].stats.cagr) : k === "carry" ? "not possible" : "—" })])))])]), resLockLine());
+    return;
+  }
   if (!q || e.quant == null) { box.append(el("p", { className: "empty", textContent: "The Quant bot starts on the next hourly run. It decides once a day, after each daily candle closes." })); return; }
   const r = e.quant / START - 1, [rank, of] = idxRank("quant"), c = n => n > 0 ? "up" : n < 0 ? "down" : "";
   const carry = q.info?.carry;
@@ -1913,7 +1993,7 @@ function renderKronos(box = $("#kronosBox"), s = sym, all = D.kronos?.accuracy, 
   box.replaceChildren();
   if (!K) return;
   const acc = all?.markets?.[s];
-  const rec = a => !a?.checked ? "no forecasts checked yet" : `direction right ${Math.round(a.direction * 100)}% of ${a.checked}, price in range ${Math.round(a.inside * 100)}%`;
+  const rec = a => resultsHidden() ? lockedText : !a?.checked ? "no forecasts checked yet" : `direction right ${Math.round(a.direction * 100)}% of ${a.checked}, price in range ${Math.round(a.inside * 100)}%`;
   box.append(el("h3", { style: "margin-top:0" }, [el("i"), "Kronos forecast ", el("small", { textContent: f ? `next 24 hours, made ${ago(f.t || K.time)}` : "" })]));
   if (!f) {
     box.append(el("p", { className: "empty", textContent: K.status === "error" ? `Kronos couldn't forecast this run: ${K.error || "unknown error"}. Everything else carried on as normal.`
@@ -2028,7 +2108,22 @@ function renderDrivers(which = "avg") {
   });
 }
 
+function renderCriteria() {
+  const box = $("#criteria"), P = D.summary?.criteria;
+  box.replaceChildren();
+  if (resultsHidden()) { box.append(el("h3", { textContent: "Progress" }), resultsLock()); return; }
+  if (!P) { box.append(el("p", { className: "empty", textContent: "Progress appears after the next hourly run." })); return; }
+  const f = (c, v) => v == null ? "—" : c.id === "report" ? Math.round(v * 100) + "%" : c.id.endsWith("sharpe") ? v.toFixed(2) : pct(v);
+  box.append(el("h3", { textContent: `Progress, ${new Date(P.since * 1000).toLocaleDateString("en-GB", { day: "numeric", month: "short" })} to ${new Date(P.until * 1000).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}${P.final ? " (final)" : ""}` }),
+    el("div", { className: "tablewrap" }, [el("table", {}, [
+      el("thead", {}, [el("tr", {}, ["Criterion", "Claude", "Buy and hold / target", "So far"].map((h, i) => el("th", { className: i ? "num" : "", textContent: h })))]),
+      el("tbody", {}, P.criteria.map(c => el("tr", {}, [el("td", { textContent: c.label }),
+        el("td", { className: "num", textContent: f(c, c.value) + (c.id === "report" ? ` of ${c.calls}` : "") }), el("td", { className: "num muted", textContent: f(c, c.target) }),
+        tone(el("td", { className: "num", textContent: c.met ? "met" : c.met === false ? "not yet" : "—" }), c.met ? 1 : c.met === false ? -1 : 0)])))])]));
+}
+
 function renderData() {
+  renderCriteria();
   // the Data page: what each market is priced from, and its futures rolls (this desk's markets)
   const box = $("#dataBody"), R = D.rolls;
   box.replaceChildren();
@@ -2342,12 +2437,13 @@ function renderBook() {
   if (!pos.length) box.append(el("p", { className: "empty", textContent: D.pf?.core ? "No open trades. The active part is all cash." : "No open positions. All cash." }));
   else {
     const rows = pos.map(([s, p]) => {
-      const last = D.last[s], value = p.qty * last / D.fx, pl = value - p.qty * (p.entry ?? p.avg);
+      const last = D.last[s], short = p.side === "short", entry = p.entry ?? p.avg;
+      const value = short ? p.qty * (2 * entry - last / D.fx) : p.qty * last / D.fx, pl = short ? p.qty * (entry - last / D.fx) : value - p.qty * entry;
       const tr = el("tr", { className: "click", onclick: () => select(s) }, [
-        el("td", { textContent: D.prices[s]?.name || s }), el("td", { className: "num", textContent: money(value) }),
+        el("td", {}, [D.prices[s]?.name || s, " ", tone(el("span", { className: "tag", textContent: short ? "Short" : "Long" }), short ? -1 : 1)]), el("td", { className: "num", textContent: money(value) }),
         el("td", { className: "num", textContent: price(p.entry_usd) }), el("td", { className: "num", textContent: price(last) }),
         el("td", { className: "num down", textContent: price(p.stop) }), el("td", { className: "num up", textContent: price(p.target) }),
-        tone(el("td", { className: "num", textContent: `${signed(pl)} (${pct(pl / (p.qty * (p.entry ?? p.avg)))})` }), pl),
+        tone(el("td", { className: "num", textContent: `${signed(pl)} (${pct(pl / (p.qty * entry))})` }), pl),
       ]);
       return tr;
     });
@@ -2476,6 +2572,7 @@ const MEASURES = [
 ];
 
 function renderPerf() {
+  if (resultsHidden()) { const sec = $("#perfSec"); sec.replaceChildren(el("h2", { textContent: "The race: Claude vs the bots vs buy and hold" }), resultsLock()); return; }
   // locked: the totals published for visitors (no individual trades); unlocked: worked out from the trades. The fuller
   // measures (annualised from daily values) come from the run's own summary either way.
   const S = !D.unlocked && D.summary?.perf;
@@ -2504,6 +2601,7 @@ function renderPerf() {
 
 function renderReport() {
   const box = $("#report"), R = !D.unlocked && D.summary?.report;
+  if (resultsHidden()) { box.replaceChildren(resultsLock("Claude's report card (how often its bullish and bearish calls were right after 24 hours) is part of the results, hidden until 1 January 2027 (UK time). With the password you can see it now.")); return; }
   if (R) {  // locked: the published totals
     const n = ([r, k]) => k ? `${Math.round(r / k * 100)}% of ${k}` : "—";
     if (!R.all[1]) { box.append(el("p", { className: "empty", textContent: `No calls checked yet. ${R.pending} waiting.` })); return; }
