@@ -1,5 +1,5 @@
 {
- "t": 1791267970,
+ "t": 1791271317,
  "markets": {
   "CL=F": {
    "score": 41,
@@ -27,13 +27,13 @@
     },
     {
      "bot": "Kronos",
-     "now": "90% chance up",
-     "signal": 0.8,
-     "evidence": 0.005,
-     "skill": 0.5,
-     "weight": 0.002,
-     "n": 4,
-     "record": "4 checked, 50% right"
+     "now": "long",
+     "signal": 1.0,
+     "evidence": 0.013,
+     "skill": 0.0,
+     "weight": 0.0,
+     "n": 7,
+     "record": "7 checked, 25% right"
     },
     {
      "bot": "Lab 'Dual Regime Growth'",
@@ -59,7 +59,7 @@
   },
   "BZ=F": {
    "score": 18,
-   "weight": 1.69,
+   "weight": 1.68,
    "rows": [
     {
      "bot": "ICT bot",
@@ -83,13 +83,13 @@
     },
     {
      "bot": "Kronos",
-     "now": "long",
-     "signal": 1.0,
-     "evidence": 0.005,
-     "skill": 1.0,
-     "weight": 0.005,
-     "n": 4,
-     "record": "4 checked, 75% right"
+     "now": "40% chance up",
+     "signal": -0.2,
+     "evidence": 0.013,
+     "skill": 0.145,
+     "weight": 0.002,
+     "n": 7,
+     "record": "7 checked, 43% right"
     },
     {
      "bot": "Lab 'Dual Regime Growth'",
@@ -139,13 +139,13 @@
     },
     {
      "bot": "Kronos",
-     "now": "50% chance up",
-     "signal": 0.0,
-     "evidence": 0.005,
+     "now": "45% chance up",
+     "signal": -0.1,
+     "evidence": 0.013,
      "skill": 0.0,
      "weight": 0.0,
-     "n": 4,
-     "record": "4 checked, 0% right"
+     "n": 7,
+     "record": "7 checked, 0% right"
     },
     {
      "bot": "Lab 'Dual Regime Growth'",
@@ -195,13 +195,13 @@
     },
     {
      "bot": "Kronos",
-     "now": "50% chance up",
-     "signal": 0.0,
-     "evidence": 0.007,
+     "now": "60% chance up",
+     "signal": 0.2,
+     "evidence": 0.017,
      "skill": 0.5,
-     "weight": 0.004,
-     "n": 5,
-     "record": "5 checked, 50% right"
+     "weight": 0.008,
+     "n": 8,
+     "record": "8 checked, 50% right"
     },
     {
      "bot": "Lab 'Dual Regime Growth'",
@@ -227,7 +227,7 @@
   },
   "SI=F": {
    "score": 10,
-   "weight": 2.43,
+   "weight": 2.44,
    "rows": [
     {
      "bot": "ICT bot",
@@ -251,13 +251,13 @@
     },
     {
      "bot": "Kronos",
-     "now": "25% chance up",
-     "signal": -0.5,
-     "evidence": 0.005,
+     "now": "55% chance up",
+     "signal": 0.1,
+     "evidence": 0.013,
      "skill": 1.0,
-     "weight": 0.005,
-     "n": 4,
-     "record": "4 checked, 75% right"
+     "weight": 0.013,
+     "n": 7,
+     "record": "7 checked, 67% right"
     },
     {
      "bot": "Lab 'Dual Regime Growth'",
@@ -307,13 +307,13 @@
     },
     {
      "bot": "Kronos",
-     "now": "20% chance up",
-     "signal": -0.6,
-     "evidence": 0.005,
+     "now": "40% chance up",
+     "signal": -0.2,
+     "evidence": 0.013,
      "skill": 0.0,
      "weight": 0.0,
-     "n": 4,
-     "record": "4 checked, 25% right"
+     "n": 7,
+     "record": "7 checked, 29% right"
     },
     {
      "bot": "Lab 'Dual Regime Growth'",
@@ -419,13 +419,13 @@
     },
     {
      "bot": "Kronos",
-     "now": "45% chance up",
-     "signal": -0.1,
-     "evidence": 0.0,
-     "skill": 0.5,
+     "now": "55% chance up",
+     "signal": 0.1,
+     "evidence": 0.003,
+     "skill": 0.0,
      "weight": 0.0,
-     "n": 0,
-     "record": "0 checked"
+     "n": 3,
+     "record": "3 checked, 33% right"
     },
     {
      "bot": "Lab 'Dual Regime Growth'",
@@ -477,11 +477,11 @@
      "bot": "Kronos",
      "now": "long",
      "signal": 1.0,
-     "evidence": 0.0,
-     "skill": 0.5,
-     "weight": 0.0,
-     "n": 0,
-     "record": "0 checked"
+     "evidence": 0.003,
+     "skill": 1.0,
+     "weight": 0.003,
+     "n": 3,
+     "record": "3 checked, 67% right"
     },
     {
      "bot": "Lab 'Dual Regime Growth'",
@@ -531,8 +531,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "50% chance up",
-     "signal": 0.0,
+     "now": "55% chance up",
+     "signal": 0.1,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -583,7 +583,7 @@
    "win_rate": 0.0,
    "pf": 0.0,
    "name": "Trend bot",
-   "ret": -0.0079,
+   "ret": -0.008,
    "backtest": {
     "trades": 1861,
     "pf": 0.8,
@@ -592,16 +592,16 @@
    }
   },
   "kronos": {
-   "n": 3,
+   "n": 4,
    "wins": 2,
-   "win_rate": 0.667,
-   "pf": 1.56,
+   "win_rate": 0.5,
+   "pf": 0.72,
    "name": "Kronos bot",
-   "ret": -0.0015,
+   "ret": -0.0028,
    "forecasts": {
-    "checked": 25,
-    "direction": 0.455,
-    "inside": 0.56,
+    "checked": 49,
+    "direction": 0.372,
+    "inside": 0.551,
     "short_record": true
    }
   },
@@ -622,7 +622,7 @@
   },
   "hold": {
    "name": "Buy and hold",
-   "ret": 0.0048,
+   "ret": 0.0036,
    "n": 0,
    "wins": 0,
    "win_rate": null,

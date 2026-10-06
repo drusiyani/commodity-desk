@@ -118,5 +118,32 @@
   "source": "kronos",
   "stop": 99.6814,
   "target": 101.8922
+ },
+ {
+  "t": 1791271317,
+  "symbol": "BZ=F",
+  "name": "Brent crude",
+  "action": "SELL",
+  "qty": 328.0864,
+  "price": 99.6814,
+  "value": 24727.58,
+  "reason": "Stop hit at 99.6814",
+  "source": "kronos",
+  "pnl": -290.75,
+  "r": -1.17,
+  "exit": "stop"
+ },
+ {
+  "t": 1791271317,
+  "symbol": "CL=F",
+  "name": "WTI crude",
+  "action": "BUY",
+  "qty": 373.2935,
+  "price": 88.34,
+  "value": 24933.72,
+  "reason": "Kronos: 95% chance of a rise, expected +1.02% in 24h",
+  "source": "kronos",
+  "stop": 87.5643,
+  "target": 89.24
  }
 ]
