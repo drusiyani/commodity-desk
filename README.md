@@ -32,11 +32,14 @@ switch day: a move nobody could have traded. `rolls.py` deals with it:
 
 - **A roll calendar per market** from its exchange's rules (NYMEX, COMEX, CBOT, ICE US). Argon rolls 5 business
   days before the last trading day (oil, gas) or the first notice day (metals, grains, softs), like real traders.
-- **Real contract prices where Yahoo has them.** Yahoo serves the contracts that are still trading (for example
-  `CLZ26.NYM`, `GCZ26.CMX`, `ZCZ26.CBT`, `KCZ26.NYB`) but drops most expired ones, so a roll from the last few months
-  is measured from both contracts' actual prices. Older rolls, and markets where Yahoo has no hourly bars for the
-  contract (wheat, for now), fall back to estimating the jump on the day Yahoo's own series switches. Each market's
-  note on the site says which it is.
+- **Real contract prices where Yahoo has them.** Checked in October 2026: Yahoo serves every contract month that is
+  still trading for all ten markets (tickers like `CLZ26.NYM`, `BZZ26.NYM`, `NGX26.NYM`, `GCZ26.CMX`, `SIZ26.CMX`,
+  `HGZ26.CMX`, `ZWZ26.CBT`, `ZCZ26.CBT`, `KCZ26.NYB`, `CCZ26.NYB`), with daily history going back years and usually
+  hourly bars too (not for the current wheat contract). It drops a contract soon after it expires. So the most
+  recent roll in each market is measured from both contracts' real prices, and older rolls fall back to an
+  **estimate**: the jump in Yahoo's own series on the day it switches contract (its last trading day, or first
+  notice day for gold), less a typical move. Small gaps (under about three typical moves) can't be told apart from
+  normal trading and are left in. Each market's note (site and `site/data/rolls.json`) says which it is.
 - **Back-adjusted prices for everything that reads a chart**: indicators, the ICT read, Kronos, the bots,
   Claude's prompt, the backtests and the strategy lab. Older prices are scaled by each roll's gap so there is no
   jump, and the latest prices are the real prices of the contract held now (what the site shows).
