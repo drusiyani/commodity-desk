@@ -1,5 +1,5 @@
 {
- "t": 1791264051,
+ "t": 1791267970,
  "markets": {
   "CL=F": {
    "score": 41,
@@ -27,8 +27,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "40% chance up",
-     "signal": -0.2,
+     "now": "90% chance up",
+     "signal": 0.8,
      "evidence": 0.005,
      "skill": 0.5,
      "weight": 0.002,
@@ -58,7 +58,7 @@
    ]
   },
   "BZ=F": {
-   "score": 32,
+   "score": 18,
    "weight": 1.69,
    "rows": [
     {
@@ -73,13 +73,13 @@
     },
     {
      "bot": "Trend bot",
-     "now": "long",
-     "signal": 1.0,
-     "evidence": 0.869,
-     "skill": 0.226,
-     "weight": 0.197,
-     "n": 199,
-     "record": "199 trades, PF 0.73"
+     "now": "trend down, out",
+     "signal": -0.5,
+     "evidence": 0.87,
+     "skill": 0.223,
+     "weight": 0.194,
+     "n": 200,
+     "record": "200 trades, PF 0.72"
     },
     {
      "bot": "Kronos",
@@ -139,8 +139,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "55% chance up",
-     "signal": 0.1,
+     "now": "50% chance up",
+     "signal": 0.0,
      "evidence": 0.005,
      "skill": 0.0,
      "weight": 0.0,
@@ -195,8 +195,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "55% chance up",
-     "signal": 0.1,
+     "now": "50% chance up",
+     "signal": 0.0,
      "evidence": 0.007,
      "skill": 0.5,
      "weight": 0.004,
@@ -226,7 +226,7 @@
    ]
   },
   "SI=F": {
-   "score": 11,
+   "score": 10,
    "weight": 2.43,
    "rows": [
     {
@@ -251,8 +251,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "65% chance up",
-     "signal": 0.3,
+     "now": "25% chance up",
+     "signal": -0.5,
      "evidence": 0.005,
      "skill": 1.0,
      "weight": 0.005,
@@ -307,8 +307,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "45% chance up",
-     "signal": -0.1,
+     "now": "20% chance up",
+     "signal": -0.6,
      "evidence": 0.005,
      "skill": 0.0,
      "weight": 0.0,
@@ -419,8 +419,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "65% chance up",
-     "signal": 0.3,
+     "now": "45% chance up",
+     "signal": -0.1,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -531,8 +531,8 @@
     },
     {
      "bot": "Kronos",
-     "now": "55% chance up",
-     "signal": 0.1,
+     "now": "50% chance up",
+     "signal": 0.0,
      "evidence": 0.0,
      "skill": 0.5,
      "weight": 0.0,
@@ -578,12 +578,12 @@
    }
   },
   "rules": {
-   "n": 9,
+   "n": 10,
    "wins": 0,
    "win_rate": 0.0,
    "pf": 0.0,
    "name": "Trend bot",
-   "ret": -0.007,
+   "ret": -0.0079,
    "backtest": {
     "trades": 1861,
     "pf": 0.8,
@@ -597,7 +597,7 @@
    "win_rate": 0.667,
    "pf": 1.56,
    "name": "Kronos bot",
-   "ret": 0.0006,
+   "ret": -0.0015,
    "forecasts": {
     "checked": 25,
     "direction": 0.455,
@@ -622,7 +622,7 @@
   },
   "hold": {
    "name": "Buy and hold",
-   "ret": 0.0065,
+   "ret": 0.0048,
    "n": 0,
    "wins": 0,
    "win_rate": null,

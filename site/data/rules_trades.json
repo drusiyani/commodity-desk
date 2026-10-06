@@ -287,5 +287,17 @@
   "reason": "20-bar average fell below 100-bar average",
   "source": "rules",
   "pnl": -77.44
+ },
+ {
+  "t": 1791267970,
+  "symbol": "BZ=F",
+  "name": "Brent crude",
+  "action": "SELL",
+  "qty": 129.8012,
+  "price": 99.96,
+  "value": 9822.41,
+  "reason": "20-bar average fell below 100-bar average",
+  "source": "rules",
+  "pnl": -67.96
  }
 ]
