@@ -99,7 +99,8 @@ switch day: a move nobody could have traded. `rolls.py` deals with it:
 ## How Claude decides
 
 - **Versions.** Every decision and every trade in Claude's account is tagged with the model and a prompt version
-  (`PROMPT_VERSION` in `engine.py`, raised whenever the prompt or the way its answer is used changes), so results can
+  (`PROMPT_VERSION` in `engine.py`, raised whenever the prompt or the way its answer is used changes; version 2 added
+  the lessons, the inputs table and the four-part reasoning), so results can
   be split by version. The site shows the tag on each decision, trade and in the header.
 
 - **No single gatekeeper.** Every input is weighed on its merits; none is required.
@@ -114,6 +115,24 @@ switch day: a move nobody could have traded. `rolls.py` deals with it:
 - **What drove each decision.** Claude also says how much each input (Kronos, news, long term and
   seasonality, lab strategies, the other bots, the risk rules) drove its decision, as percentages adding to 100.
   They're saved in `decisions.json` and shown as a pie chart (average of the last 30 decisions, or the latest).
+
+## How Claude learns (`learning.py`)
+
+- **Four-part reasoning on every trade.** Before any trade Claude writes its **thesis**, argues the **opposite case**
+  properly, says **what would prove it wrong**, and gives a **confidence** from 0 to 100. The risk engine rejects a buy
+  without all four. They are saved with the trade and shown in its detail on the site. Claude may think for up to
+  10,000 tokens before each decision.
+- **Which inputs actually help** (every run, no extra cost). Each bullish or bearish call saves which way every input
+  pointed then: Kronos, the news, the long term (above or below the 200-day average), the bots' consensus, the lab
+  strategies and the core holding (always long, the buy-and-hold baseline). When the call is checked 24 hours later,
+  each input was right or wrong. The table shows how often each was right, and how often when Claude leaned on it
+  (gave it at least 20% in its influence split). Claude sees it on every run; it is public on the site.
+- **Trade journal** (weekly, Sunday, in the strategy lab run: one extra Claude call). Claude reviews every trade it
+  closed that week and every call that was checked: what it expected, what happened, which inputs were right or
+  wrong, and whether a loss was bad reasoning or bad luck (a win: good reasoning or good luck). Private.
+- **Lessons** (the same call). Claude keeps at most 12 short lessons, each backed by the trades and calls that support
+  it, and every Sunday keeps, updates, merges or deletes them. A lesson needs at least 3 supporting trades or calls
+  (counted across weeks) before it goes into the trading prompt; until then it is a candidate. Private.
 
 ## The strategy lab (weekly)
 
@@ -218,8 +237,8 @@ thinking included), measured on Argon's real prompts:
 
 | Workflow | Claude calls | Rough Claude cost |
 |---|---|---|
-| Run trader | 6 a day on weekdays (every 4 hours), about 130 a month. Each reads about 5,600 tokens and writes up to about 11,600 (thinking plus answer). | about 4 to 6 US cents a call, so about **$5 to $8 a month**. Each manual run adds one call. |
-| Run strategy lab | 2 a week, each reading about 4,000 tokens and writing up to 16,000. | about 8 cents a call at most, so **under $1 a month**. |
+| Run trader | 6 a day on weekdays (every 4 hours), about 130 a month. Each reads about 6,000 tokens and writes up to about 16,600 (up to 10,000 thinking plus the answer). | about 5 to 9 US cents a call, so about **$6 to $11 a month**. Each manual run adds one call. |
+| Run strategy lab | 2 a week for the lab, each reading about 4,000 tokens and writing up to 16,000, plus 1 a week for the trade journal and lessons (reading up to about 15,000 tokens, writing up to 18,000). | about 8 to 10 cents a call at most, so **about $1 to $1.50 a month**. |
 | Run backtest, Tests, Kronos check | none | free |
 
 Prompts grow slightly as the lab, news feed and trade history grow; Claude is only sent headlines it hasn't
@@ -245,6 +264,7 @@ Edit `config.json` in the repo:
 - `quant.py`: the Quant bot's four strategies, sizing, accounting, backtest and live step.
 - `lit.py`: the LIT bot (detection and trading); its rules are in `docs/lit.md`.
 - `core.py`: the one trading core: sizing, entries, stops, targets, exits, costs and P&L for every account.
+- `learning.py`: the inputs scorecard, the weekly trade journal and the lessons.
 - `metrics.py`: the performance measures used everywhere (annual return, volatility, Sharpe, Sortino, max drawdown,
   return / max drawdown, win rate, profit factor, expectancy, exposure, correlation to buy and hold).
 - `ict.py`: ICT pattern detection (swings, fair value gaps, sweep -> structure shift -> gap setups), used only by the

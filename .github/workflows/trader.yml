@@ -74,7 +74,7 @@ jobs:
           git config user.name "paper-trader-bot"
           git config user.email "actions@users.noreply.github.com"
           git add -A site/data state   # -A also records the old plain-text private files being removed
-          if git ls-files site/data | grep -E '/(portfolio|trades|decisions|calls|consensus|rules|rules_trades|ict|ict_trades|lab|lab_trades|kronos_bot|kronos_trades|kronos_index_bot|kronos_index_trades|lit|lit_trades)\.json$'; then
+          if git ls-files site/data | grep -E '/(portfolio|trades|decisions|calls|consensus|rules|rules_trades|ict|ict_trades|lab|lab_trades|kronos_bot|kronos_trades|kronos_index_bot|kronos_index_trades|lit|lit_trades|quant|quant_trades|journal|lessons)\.json$'; then
             echo "Refusing to commit private data in plain text"; exit 1
           fi
           if git diff --cached --quiet; then exit 0; fi

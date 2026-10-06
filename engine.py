@@ -32,6 +32,7 @@ import yfinance as yf
 import consensus as CS
 import core as C
 import kronos_bot as KB
+import learning as L
 import lit as LIT
 import metrics as M
 import quant as Q
@@ -48,12 +49,12 @@ PRIVATE = {"portfolio.json", "trades.json", "decisions.json", "calls.json", "new
            "lit.json", "lit_trades.json",
            "rules.json", "rules_trades.json", "ict.json", "ict_trades.json", "lab.json", "lab_trades.json",
            "kronos_bot.json", "kronos_trades.json", "kronos_index_bot.json", "kronos_index_trades.json",
-           "quant.json", "quant_trades.json"}
+           "quant.json", "quant_trades.json", "journal.json", "lessons.json"}
 SITE_PRIVATE = "private.enc.json"   # the one encrypted bundle the website can unlock with the password
 MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 # Claude's prompt version: raise it by one whenever the trading prompt, or the way its answer is used, changes. Every
 # decision and every trade in Claude's account is tagged with it and the model, so results can be split by version.
-PROMPT_VERSION = 1
+PROMPT_VERSION = 2   # v2: lessons, the inputs scorecard and the four-part reasoning on every trade
 
 START_CASH = 100_000      # GBP
 MAX_POSITION = C.MAX_POSITION  # max share of portfolio in one commodity (25%)
@@ -85,7 +86,8 @@ NEWS_PER_MARKET = 8              # headlines kept from each fetch, per market, f
 NEWS_KEEP_HOURS = 72             # headlines (and Claude's comments on them) stay in the feed this long
 NEWS_MAX_PER_MARKET = 16         # but never more than this many per market
 NEWS_TO_CLAUDE = 60              # at most this many new headlines per Claude run, newest first
-THINKING_BUDGET = 6000           # tokens Claude may spend thinking before it answers
+THINKING_BUDGET = 10000          # tokens Claude may spend thinking before it answers
+REASONING = ("thesis", "opposite", "invalidation", "confidence")   # every new trade must carry all four
 
 # Retired bots: the ICT bot and the trend bot no longer trade. Their accounts, trades and equity curves are kept, and
 # their backtests stay on the Backtest tab, marked retired. Each one's open positions are closed on the first run
@@ -461,6 +463,18 @@ def sell(pf, sym, frac, price_usd, fx, now, reason, source):
     return fill_record(now, f, source)
 
 
+def reasoning(d):
+    """The four-part reasoning on one of Claude's orders: thesis, the opposite case, what would prove it wrong (each
+    as text, None if missing or empty) and a confidence from 0 to 100 (None if missing or not a number)."""
+    out = {k: (str(d.get(k)).strip()[:500] or None) if d.get(k) not in (None, "") else None for k in REASONING[:3]}
+    try:
+        c = float(d.get("confidence"))
+        out["confidence"] = int(round(c)) if math.isfinite(c) and 0 <= c <= 100 else None
+    except (TypeError, ValueError):
+        out["confidence"] = None
+    return out
+
+
 def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
     """Fill Claude's orders, enforcing the risk rules. Returns (filled, blocked).
     Each buy says what its stop is based on ("stop_basis"): the market's ATR or chart structure. With no valid stop,
@@ -485,6 +499,7 @@ def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
             continue
         p_usd, p_gbp = last_usd[sym], last[sym]
         reason, evidence = d.get("reason", ""), [str(x)[:160] for x in (d.get("evidence") or [])][:4]
+        why = reasoning(d)
 
         if action == "SELL":
             try:
@@ -494,6 +509,7 @@ def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
             t = sell(pf, sym, frac, p_usd, fx, now, reason, "claude")
             if t:
                 t["evidence"] = evidence
+                t.update({k: v for k, v in why.items() if v is not None})
                 filled.append(t)
             continue
         if action != "BUY":
@@ -503,6 +519,11 @@ def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
         day_start = pf["day"].get("start_equity", eq)
         pos = pf["positions"].get(sym)
         name = COMMODITIES[sym]["name"]
+        missing = [k for k in REASONING if why[k] is None]
+        if missing:
+            blocked.append(f"Buy {name} blocked: no {', '.join(missing)} given (every new trade needs its thesis, the "
+                           f"opposite case, what would prove it wrong and a confidence)")
+            continue
         if eq < day_start * (1 - DAILY_LOSS_LIMIT):
             blocked.append(f"Buy {name} blocked: daily loss limit reached")
             continue
@@ -544,6 +565,7 @@ def apply_decision(pf, decision, last_usd, fx, now, atrs=None):
         t = fill_record(now, f, "claude")
         t["evidence"] = evidence
         t["stop_basis"] = basis or "given"
+        t.update(why)
         filled.append(t)
     return filled, blocked
 
@@ -1197,6 +1219,7 @@ def public_summary(now, eq_hist, trades, lb_trades, ib_trades, kb_trades, rb_tra
                      "quant": perf(q_trades, "quant", eq_hist),
                      "benchmark": perf([], "benchmark", eq_hist)},
             "report": report_card(calls),
+            "inputs": L.scorecard(calls),
             "quant": Q.summary(qb, fx) if qb else None,
             "lab_live": {sid: {k: v for k, v in x.items() if k != "r"} | {"trades": len(x.get("r") or [])}
                          for sid, x in lb.get("strategies", {}).items()},
@@ -1336,7 +1359,7 @@ def headline_age(n, now=None):
 
 
 def ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions, history, strats=(), sigs=None,
-               kronos=None, kacc=None, bots=None, records=None, atrs=None):
+               kronos=None, kacc=None, bots=None, records=None, atrs=None, lessons=None, card=None):
     key = os.environ.get("ANTHROPIC_API_KEY")
     if not key:
         raise RuntimeError("No ANTHROPIC_API_KEY secret set")
@@ -1412,6 +1435,20 @@ daily ATR shown per market) or "structure" (below a clear swing low or support l
 levels). If you give no valid stop, the risk engine sets one
 {ATR_STOP} daily ATRs below entry. Targets: the next resistance or liquidity level, or a multiple of ATR.
 
+Your lessons, from your weekly trade journal (each backed by at least {L.MIN_SUPPORT} of your own trades or calls). Apply
+them where they fit:
+{L.lessons_text(lessons)}
+
+Which inputs have actually helped on your checked calls:
+{L.scorecard_text(card)}
+
+Before ANY trade (buy or sell), reason it through properly and write down four things with it:
+1. "thesis": why this trade, in two or three sentences;
+2. "opposite": the strongest case AGAINST it, argued properly, as a sceptical trader would;
+3. "invalidation": what would prove the thesis wrong (a price level, an event, a change in an input);
+4. "confidence": 0 to 100, how sure you are after weighing both sides.
+A buy without all four is rejected by the risk engine. If the opposite case wins, don't trade.
+
 Bot records (live = since each started here):
 {records_text(records or {})}
 
@@ -1440,8 +1477,10 @@ Reply with ONLY a JSON object, no other text:
   "watching": ["short thing you're waiting to see", "..."],
   "trades": [
     {{"symbol": "GC=F", "action": "BUY", "amount_gbp": 5000, "stop": 0.0, "stop_basis": "atr|structure",
-      "target": 0.0, "reason": "one sentence", "evidence": ["short fact", "short fact"]}},
-    {{"symbol": "CL=F", "action": "SELL", "fraction": 1.0, "reason": "one sentence", "evidence": ["short fact"]}}
+      "target": 0.0, "reason": "one sentence", "evidence": ["short fact", "short fact"],
+      "thesis": "...", "opposite": "...", "invalidation": "...", "confidence": 0-100}},
+    {{"symbol": "CL=F", "action": "SELL", "fraction": 1.0, "reason": "one sentence", "evidence": ["short fact"],
+      "thesis": "...", "opposite": "...", "invalidation": "...", "confidence": 0-100}}
   ],
   "adjust": [{{"symbol": "GC=F", "stop": 0.0, "target": 0.0}}],
   "news": [{{"id": "n0", "impact": "bullish|bearish|neutral", "take": "one or two sentences: what this headline means for the price and whether it changes your view"}}]
@@ -1454,7 +1493,7 @@ Include every commodity in "markets". {news_ask}
 Use empty lists for "trades" and "adjust" if nothing to do."""
 
     headers = {"x-api-key": key, "anthropic-version": "2023-06-01", "content-type": "application/json"}
-    body = {"model": MODEL, "max_tokens": THINKING_BUDGET + 5100 + 80 * len(fresh),
+    body = {"model": MODEL, "max_tokens": THINKING_BUDGET + 6600 + 80 * len(fresh),
             "thinking": {"type": "enabled", "budget_tokens": THINKING_BUDGET},
             "messages": [{"role": "user", "content": prompt}]}
     r = requests.post("https://api.anthropic.com/v1/messages", timeout=300, headers=headers, json=body)
@@ -1591,9 +1630,10 @@ def main():
         try:
             pf["last_claude"] = now
             records = bot_records(trade_lists, eq_hist, kronos["accuracy"], strats, lb_trades)
+            bots_now = all_market_bots(prices, *bot_args)
             decision = ask_claude(prices, context, news, pf, last_usd, fx, trades, decisions,
                                   {s: m for s, m in history["markets"].items() if s in prices}, strats, sigs,
-                                  kronos, kacc, all_market_bots(prices, *bot_args), records, atrs)
+                                  kronos, kacc, bots_now, records, atrs, load("lessons.json", {}), L.scorecard(calls))
             health["claude"] = True
             more, blocked = apply_decision(pf, decision, last_usd, fx, now, atrs)
             filled += more
@@ -1605,7 +1645,9 @@ def main():
             for m in decision.get("markets", []) or []:
                 if m.get("symbol") in last_usd and m.get("bias") in ("bullish", "bearish", "neutral"):
                     calls.append({"t": now, "symbol": m["symbol"], "bias": m["bias"],
-                                  "score": m.get("setup_score"), "price": last_usd[m["symbol"]]})
+                                  "score": m.get("setup_score"), "price": last_usd[m["symbol"]],
+                                  "influence": normalize_influence(decision.get("influence")),
+                                  "inputs": L.input_directions(m["symbol"], cfc, news, history["markets"], bots_now, sigs, now)})
             entry.update(thinking=decision.get("_thinking", "")[:12000],
                          reasoning=str(decision.get("reasoning", ""))[:900],
                          summary=str(decision.get("summary", ""))[:500],
@@ -1705,7 +1747,8 @@ def main():
                       "consensus": consensus, "rules_trades": rb_trades, "ict_trades": ib_trades,
                       "kronos_trades": kb_trades, "lab": lb, "lab_trades": lb_trades, "lit": litb,
                       "lit_trades": lit_trades, "kronos_idx": kib, "kronos_idx_trades": ki_trades,
-                      "quant": qb, "quant_trades": q_trades[-3000:]})
+                      "quant": qb, "quant_trades": q_trades[-3000:],
+                      "journal": load("journal.json", {"weeks": []}), "lessons": load("lessons.json", {})})
     save("history.json", {"date": history["date"], "fetched": history.get("fetched", 0), "markets": {s: {k: v for k, v in m.items() if k != "daily"}
                                                               for s, m in history["markets"].items()}})
     save("daily.json", {s: m["daily"] for s, m in history["markets"].items() if m.get("daily")})

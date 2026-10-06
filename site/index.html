@@ -83,7 +83,7 @@ nav .ex { font-size: 10px; color: var(--muted); font-weight: 400; letter-spacing
 #longBox { margin-top: 12px; border-top: 1px solid var(--line); padding-top: 10px; } nav .p { font-size: 12px; color: var(--muted); }
 
 main { display: grid; gap: 14px; padding: 0 24px 28px; grid-template-columns: minmax(0, 1fr) 380px;
-  grid-template-areas: "chart cockpit" "context activity" "book news" "feed feed" "perf report" "perf drivers" "quant quant"; }
+  grid-template-areas: "chart cockpit" "context activity" "book news" "feed feed" "perf report" "perf drivers" "quant quant" "learn learn"; }
 /* the other pages: one wide column with room to breathe */
 main.page { display: flex; flex-direction: column; gap: 14px; max-width: 1240px; margin: 0 auto; padding: 4px 24px 32px; }
 main.page section { padding: 18px 22px; }
@@ -208,6 +208,15 @@ tbody tr.click { cursor: pointer; } tbody tr.click:hover td { background: var(--
 #reportSec { grid-area: report; }
 #driversSec { grid-area: drivers; }
 #quantSec { grid-area: quant; }
+#learnSec { grid-area: learn; }
+#learnCols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 18px; }
+@media (max-width: 900px) { #learnCols { grid-template-columns: 1fr; } }
+.lesson { padding: 6px 0; border-bottom: 1px solid var(--soft); font-size: 14px; }
+.lesson small { color: var(--muted); margin-left: 6px; }
+.review { padding: 8px 0; border-bottom: 1px solid var(--soft); font-size: 13px; }
+.review .vd { font-family: Inter, system-ui, sans-serif; font-size: 11px; border-radius: 4px; padding: 1px 6px; margin-left: 6px; border: 1px solid currentColor; }
+.why4 { margin-top: 8px; display: grid; gap: 4px; font-size: 13px; }
+.why4 b { font-weight: 600; }
 #quantCurve { height: 260px; margin-top: 10px; }
 .pie { display: flex; flex-wrap: wrap; gap: 14px 20px; align-items: center; }
 .pie svg { width: 150px; height: 150px; flex: none; }
@@ -274,7 +283,7 @@ details summary { cursor: pointer; font-family: Inter, system-ui, sans-serif; fo
   .views { flex: 1; } .views a { flex: 1; text-align: center; padding: 6px 4px; }
   main.page section { padding: 14px 16px; } }
 @media (max-width: 1000px) {
-  main { grid-template-columns: 1fr; grid-template-areas: "cockpit" "chart" "context" "activity" "book" "news" "feed" "perf" "report" "drivers" "quant"; }
+  main { grid-template-columns: 1fr; grid-template-areas: "cockpit" "chart" "context" "activity" "book" "news" "feed" "perf" "report" "drivers" "quant" "learn"; }
   header { grid-template-columns: 1fr; }
   header .topbar { justify-self: stretch; }
   .desk { justify-self: stretch; } .desk button { flex: 1; }
@@ -497,6 +506,11 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
     <section id="quantSec">
       <h2>Quant bot <small>four classic strategies, daily candles, risk split equally</small></h2>
       <div id="quantBody"></div>
+    </section>
+
+    <section id="learnSec">
+      <h2>How Claude learns <small>weekly journal, lessons, and which inputs actually help</small></h2>
+      <div id="learnCols"><div id="learnLeft"></div><div id="learnRight"></div></div>
     </section>
 
     <section id="driversSec">
@@ -814,7 +828,7 @@ async function init() {
   sym = Object.keys(D.prices)[0];
 
   renderHeader(); renderTabs(); makeCharts(); renderCockpit(); renderContext(); renderRisk();
-  renderActivity(); renderBook(); renderPerf(); renderReport(); renderDrivers(); select(sym); renderFeed();
+  renderActivity(); renderBook(); renderPerf(); renderReport(); renderDrivers(); renderLearn(); select(sym); renderFeed();
   reveal(...document.querySelectorAll("#view-live main > section"));
   D.ready = true;
   document.querySelectorAll("#feedSeg button").forEach(b => b.onclick = () => {
@@ -1632,6 +1646,50 @@ function renderLit() {
   D.litCurveChart = ch;
 }
 
+// ---------- how Claude learns: lessons, the inputs scorecard (public) and the weekly journal ----------
+const VERDICT = { bad_reasoning: ["Bad reasoning", "--down"], bad_luck: ["Bad luck", "--brass"], good_reasoning: ["Good reasoning", "--up"], good_luck: ["Good luck", "--muted"] };
+
+function renderLearn() {
+  const left = $("#learnLeft"), right = $("#learnRight");
+  left.replaceChildren(); right.replaceChildren();
+  // which inputs actually help: public
+  const card = D.summary?.inputs, pp = x => x == null ? "—" : Math.round(x * 100) + "%";
+  left.append(el("h3", { style: "margin-top:0", textContent: "Which inputs actually help" }));
+  if (!card?.calls) left.append(el("p", { className: "empty", textContent: "Not enough checked calls yet. Each bullish or bearish call saves which way every input pointed; 24 hours later each input was right or wrong." }));
+  else left.append(el("div", { className: "tablewrap" }, [el("table", {}, [
+    el("thead", {}, [el("tr", {}, ["Input", "Had a view", "Right", `Claude leaned on it (≥${card.lean}%)`, "Right then", "Claude right then"].map((h, i) => el("th", { className: i ? "num" : "", textContent: h })))]),
+    el("tbody", {}, card.rows.map(r => el("tr", {}, [el("td", { textContent: r.name }), el("td", { className: "num", textContent: r.pointed }),
+      el("td", { className: "num", textContent: pp(r.right) }), el("td", { className: "num", textContent: r.leaned ?? "—" }),
+      el("td", { className: "num", textContent: pp(r.right_leaned) }), el("td", { className: "num", textContent: pp(r.claude_right_leaned) })])))])]),
+    el("p", { className: "hint", textContent: `Over ${card.calls} checked calls. "Right" means the input pointed the way price went over the next 24 hours. The core holding is always long, so its row is the buy-and-hold baseline. Claude sees this table on every run.` }));
+  // lessons and journal: private
+  if (!D.unlocked) { right.append(lockCard("Claude's journal and lessons are private", "Every week Claude reviews its closed trades and checked calls, and keeps a short list of lessons it applies when trading. Enter the password to read them.")); return; }
+  const Ls = D.private?.lessons || {}, J = D.private?.journal?.weeks || [];
+  const changed = new Set((Ls.changes || []).map(c => c.id));
+  right.append(el("h3", { style: "margin-top:0", textContent: "Lessons in Claude's prompt" }));
+  if (!(Ls.lessons || []).length) right.append(el("p", { className: "empty", textContent: "None yet. A lesson needs at least 3 supporting trades or calls before it goes into the trading prompt." }));
+  for (const x of Ls.lessons || []) right.append(el("div", { className: "lesson" }, [x.text, el("small", { textContent: `${x.support} supporting${changed.has(x.id) ? ", changed this week" : ""}` })]));
+  if ((Ls.candidates || []).length) right.append(el("details", {}, [el("summary", { textContent: `${Ls.candidates.length} candidates (fewer than 3 supporting so far)` }),
+    ...Ls.candidates.map(x => el("div", { className: "lesson muted" }, [x.text, el("small", { textContent: `${x.support} supporting` })]))]));
+  if ((Ls.changes || []).length) right.append(el("p", { className: "hint", textContent: "This week: " + Ls.changes.map(c => `${c.action}: "${c.text}"`).join("; ") }));
+  const w = J.at(-1);
+  right.append(el("h3", { textContent: w ? `Trade journal, week of ${when(w.t)}` : "Trade journal" }));
+  if (!w) { right.append(el("p", { className: "empty", textContent: "The first review comes with the next Sunday lab run." })); return; }
+  right.append(el("p", { textContent: w.summary || "" }));
+  const reviews = w.reviews || [];
+  for (const r of reviews.slice(0, 40)) {
+    const [vt, vc] = VERDICT[r.verdict] || ["", "--muted"];
+    const v = el("span", { className: "vd", textContent: vt }); v.style.color = `var(${vc})`;
+    const res = r.kind === "trade" ? (r.result != null ? signed(r.result) + (r.r != null ? ` (${fmtR(r.r)})` : "") : "") : (r.result ? "call right" : "call wrong");
+    right.append(el("div", { className: "review" }, [el("div", {}, [el("strong", { textContent: `${D.prices[r.market]?.name || r.market} ${r.kind === "trade" ? "trade" : "call"}: ` }), res, vt ? v : ""]),
+      el("div", { className: "muted", textContent: `Expected: ${r.expected} Happened: ${r.happened}` }),
+      el("div", { textContent: r.why }),
+      (r.inputs_right?.length || r.inputs_wrong?.length) ? el("div", { className: "muted", textContent: `Right: ${(r.inputs_right || []).join(", ") || "—"}. Wrong: ${(r.inputs_wrong || []).join(", ") || "—"}.` }) : ""]));
+  }
+  if (J.length > 1) right.append(el("details", {}, [el("summary", { textContent: `Earlier weeks (${J.length - 1})` }),
+    ...J.slice(0, -1).reverse().map(x => el("p", { className: "muted", textContent: `${when(x.t)}: ${x.summary} (${(x.reviews || []).length} reviews)` }))]));
+}
+
 // ---------- the Quant bot: live breakdown (Live tab) and its 5-year backtest (Backtest tab) ----------
 const QSTRAT = { tsmom: "Time-series momentum", xsmom: "Cross-sectional momentum", spreads: "Spread trades", carry: "Carry" };
 const QCOLOR = { tsmom: "--blue", xsmom: "--violet", spreads: "--teal", carry: "--brass" };
@@ -2133,6 +2191,11 @@ function showDetail(t) {
     ]),
     el("div", { textContent: t.reason || "No reason recorded." }),
     versionTag(t) ? el("div", { className: "muted", textContent: `Decided by ${shortModel(t.model)}, prompt version ${t.prompt_v}` }) : "",
+    t.thesis || t.opposite || t.invalidation || t.confidence != null ? el("div", { className: "why4" }, [
+      t.thesis ? el("div", {}, [el("b", { textContent: "Thesis: " }), t.thesis]) : "",
+      t.opposite ? el("div", {}, [el("b", { textContent: "The opposite case: " }), t.opposite]) : "",
+      t.invalidation ? el("div", {}, [el("b", { textContent: "What would prove it wrong: " }), t.invalidation]) : "",
+      t.confidence != null ? el("div", {}, [el("b", { textContent: "Confidence: " }), `${t.confidence} out of 100`]) : ""]) : "",
     t.evidence?.length ? el("ul", {}, t.evidence.map(x => el("li", { textContent: x }))) : "",
   );
   d.hidden = false;
