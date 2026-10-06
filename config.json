@@ -3,5 +3,13 @@
   "close_all": false,
   "core_fraction": 0.4,
   "frozen": true,
-  "frozen_since": "set by the first run after merging"
+  "frozen_since": "2026-10-06",
+  "frozen_lineup": {
+    "portfolio": [
+      "s12"
+    ],
+    "weights": {
+      "s12": 1.0
+    }
+  }
 }
