@@ -306,6 +306,7 @@ details summary { transition: color .15s ease; } details summary:hover { color: 
       </h2>
       <div id="chart"></div>
       <p class="hint">Click a buy or sell arrow to see why Claude made that trade. Purple dashed lines are open fair value gaps. Left and right arrow keys switch market.</p>
+      <p class="hint" id="contractLine"></p>
       <div id="detail" hidden></div>
       <div id="kronosBox"></div>
       <div id="botsBox"></div>
@@ -430,10 +431,11 @@ const kv = (k, v, cls = "") => el("div", { className: "kv" }, [el("span", { text
 const ago = t => { const s = Date.now() / 1000 - t; return s < 3600 ? Math.max(1, Math.round(s / 60)) + " min ago" : s < 86400 ? Math.round(s / 3600) + " h ago" : Math.round(s / 86400) + " d ago"; };
 const when = t => new Date(t * 1000).toLocaleString("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 const ACTION = t => t.source === "stop" || t.exit === "stop" ? "Stop hit" : t.source === "target" || t.exit === "target" ? "Target hit"
-  : t.source === "manual" ? "Closed by you" : t.source === "core" ? (t.action === "BUY" ? "Core buy" : "Core sell")
+  : t.source === "manual" ? "Closed by you" : t.action === "ROLL" ? (t.source === "core" ? "Core roll" : "Roll")
+  : t.source === "core" ? (t.action === "BUY" ? "Core buy" : "Core sell")
   : ({ BUY: "Buy", SELL: "Sell", SHORT: "Short", COVER: "Cover" })[t.action] || t.action;
-const SIGN = t => t.pnl != null ? t.pnl : t.action === "BUY" ? 1 : -1;
-const STATE = { WAITING: ["Waiting", "--brass"], MANAGING: ["Managing positions", "--blue"], TRADED: ["Just traded", "--up"], PAUSED: ["Paused", "--muted"], CORE: ["Core rebalance", "--muted"] };
+const SIGN = t => t.pnl != null ? t.pnl : t.action === "ROLL" ? 0 : t.action === "BUY" ? 1 : -1;
+const STATE = { WAITING: ["Waiting", "--brass"], MANAGING: ["Managing positions", "--blue"], TRADED: ["Just traded", "--up"], PAUSED: ["Paused", "--muted"], CORE: ["Core rebalance", "--muted"], ROLL: ["Futures roll", "--muted"] };
 
 // ---------- motion helpers (all no-ops for people who asked for reduced motion) ----------
 const MOTION = () => document.documentElement.classList.contains("motion");
@@ -910,11 +912,14 @@ function drawChart() {
   series.setData(mode === "candles" ? bars : bars.map(b => ({ time: b.time, value: b.close })));
   if (long) { chart.timeScale().fitContent(); renderKronos(); renderBots(); renderIct(); renderLong(); return; }
   drawForecast();
-  series.setMarkers(D.trades.filter(t => t.symbol === sym && t.source !== "core").map(t => {
+  // Claude's buys and sells, plus a small dot where the futures contract was rolled
+  const first = D.prices[sym].bars[0].time;
+  series.setMarkers([...D.trades.filter(t => t.symbol === sym && t.source !== "core" && t.action !== "ROLL").map(t => {
     const buy = t.action === "BUY";
     return { time: barFor(t.t), position: buy ? "belowBar" : "aboveBar", shape: buy ? "arrowUp" : "arrowDown",
              color: buy ? css("--up") : css("--down"), text: ACTION(t) };
-  }).sort((a, b) => a.time - b.time));
+  }), ...(D.prices[sym].rolls || []).filter(r => r.t >= first).map(r => ({ time: barFor(r.t), position: "aboveBar",
+    shape: "circle", color: css("--muted"), text: "Roll" }))].sort((a, b) => a.time - b.time));
   const pos = D.pf?.positions?.[sym];
   if (pos) {
     series.createPriceLine({ price: pos.entry_usd, color: css("--muted"), lineStyle: 2, lineWidth: 1, title: "Entry" });
@@ -1084,10 +1089,23 @@ function renderLong() {
       kv(`${months[s.month - 1]} historically`, season("season", s.month), c(s.season?.avg)),
       kv(`${months[s.month % 12]} historically`, season("next_season", s.month % 12 + 1), c(s.next_season?.avg)),
     ]),
+    m.data ? el("p", { className: "hint", textContent: `5-year data: back-adjusted for futures rolls; ${m.data}.` }) : "",
   );
 }
 
+function contractLine() {
+  // which futures contract the prices are for, and when it rolls next
+  const p = D.prices[sym], box = $("#contractLine");
+  if (!p.contract) { box.textContent = ""; return; }
+  const day = t => new Date(t * 1000).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+  box.textContent = `Prices are for the ${p.contract} contract (${p.ticker})` +
+    (p.priced_from === "contract" ? "" : ", from Yahoo's front-month series") +
+    (p.next_roll ? `; it rolls to ${p.next_contract} on ${day(p.next_roll)}` : "") +
+    ". Older prices are back-adjusted so the switch between contract months doesn't show as a fake jump; grey dots mark the rolls.";
+}
+
 function setTitle() {
+  contractLine();
   const p = D.prices[sym];
   $("#chartTitle").textContent = `${p.name}, ${p.exchange || ""}, ${tf === "5y" ? "weekly, last 5 years" : "hourly"}, ${p.unit || ""}`;
 }
@@ -1230,20 +1248,20 @@ function renderRisk() {
 function renderActivity() {
   const list = $("#activity");
   const seen = new Set(D.decisions.map(d => d.t));
-  const extra = [...new Set(D.trades.filter(t => t.source === "core" && !seen.has(t.t)).map(t => t.t))]
-    .map(t => ({ t, state: "CORE", summary: "" }));
+  const extra = [...new Set(D.trades.filter(t => (t.source === "core" || t.action === "ROLL") && !seen.has(t.t)).map(t => t.t))]
+    .map(t => ({ t, state: D.trades.some(x => x.t === t && x.action === "ROLL") ? "ROLL" : "CORE", summary: "" }));
   const ds = [...D.decisions, ...extra].sort((a, b) => b.t - a.t);
   if (!ds.length) { list.append(el("li", { className: "empty", textContent: "No activity yet." })); return; }
   for (const d of ds) {
     const [label, color] = STATE[d.state] || ["", "--muted"];
     const tag = el("span", { className: "tag", textContent: label }); tag.style.color = `var(${color})`;
     const li = el("li", {}, [el("div", { className: "top" }, [el("span", { textContent: when(d.t) }), tag]), el("div", { textContent: d.summary || "" })]);
-    const core = D.trades.filter(t => t.t === d.t && t.source === "core");
+    const core = D.trades.filter(t => t.t === d.t && t.source === "core" && t.action !== "ROLL");
     if (core.length) {
       const sum = a => money(core.filter(t => t.action === a).reduce((x, t) => x + t.value, 0));
       li.append(el("div", { className: "act muted", textContent: `Core holding rebalanced: ${core.length} trades, ${sum("BUY")} bought, ${sum("SELL")} sold` }));
     }
-    for (const t of D.trades.filter(t => t.t === d.t && t.source !== "core")) {
+    for (const t of D.trades.filter(t => t.t === d.t && (t.source !== "core" || t.action === "ROLL"))) {
       const a = el("div", { className: "act", textContent: `${ACTION(t)} ${t.name}: ${money(t.value)} at ${price(t.price)}${t.pnl != null ? `, P&L ${signed(t.pnl)}` : ""}` });
       tone(a, SIGN(t)); li.append(a);
     }

@@ -127,6 +127,47 @@ def close_position(book, sym, px, fx=1.0, frac=1.0, cost=COST):
             "pnl": pnl, "r": pnl / risk if risk else None}
 
 
+def roll_position(book, sym, ratio, px_new, fx=1.0, cost=COST):
+    """Roll a position to the next contract month, the way a trader does: sell the old contract and buy the new one
+    with the same money, paying costs on both legs. `ratio` = new contract price / old contract price at the roll,
+    px_new = the new contract's price. Entry, stop and target move with the price (x ratio) and the quantity
+    shrinks or grows to match, so the position's value and its risk to the stop are unchanged by the roll itself;
+    from then on it earns what the new contract does. The "roll yield" reported is the price gap the position
+    didn't get: on a front-month chart the jump would have looked like a gain (contango) or a loss
+    (backwardation), but no holder ever earned it. Returns the roll (a dict) or None if nothing is held."""
+    pos = book["positions"].get(sym)
+    if not pos or not ratio or ratio <= 0:
+        return None
+    px_old = px_new / ratio
+    long = pos.get("side", "long") == "long"
+    value = pos["qty"] * px_old / fx
+    fee = 2 * value * cost
+    gap = pos["qty"] * (px_new - px_old) / fx * (1 if long else -1)
+    pos["qty"] /= ratio
+    pos["entry"] *= ratio
+    pos["entry_usd"] *= ratio
+    for k in ("stop", "target"):
+        if pos.get(k) is not None:
+            pos[k] = round(pos[k] * ratio, 4)
+    pos["fees"] = pos.get("fees", 0.0) + fee
+    pos["roll_yield"] = pos.get("roll_yield", 0.0) - gap
+    book["cash"] -= fee
+    return {"symbol": sym, "side": pos["side"], "qty": pos["qty"], "price": px_new, "value": value, "fee": fee,
+            "ratio": ratio, "roll_yield": -gap}
+
+
+def roll_cost(book, sym, px, fx=1.0, cost=COST):
+    """In a backtest on a back-adjusted series, prices already run smoothly across a roll, so a position needs no
+    re-pricing; it only pays for the roll: costs on selling the old contract and buying the new one."""
+    pos = book["positions"].get(sym)
+    if not pos:
+        return 0.0
+    fee = 2 * pos["qty"] * px / fx * cost
+    pos["fees"] = pos.get("fees", 0.0) + fee
+    book["cash"] -= fee
+    return fee
+
+
 def exit_hit(pos, bar):
     """(fill price, 'stop' or 'target') if this bar takes the position out, else None. See the module notes."""
     stop, target, o = pos.get("stop"), pos.get("target"), bar["open"]
@@ -307,15 +348,21 @@ def enter(book, sym, rules, i, px, fx=1.0, now=0, bar_time=None, eq=None, max_op
     return f
 
 
-def backtest(bars, rules, start=0, end=None, cash=START, cost=COST, sym="X"):
+def backtest(bars, rules, start=0, end=None, cash=START, cost=COST, sym="X", rolls=()):
     """Run one market's rules over bars[start:end] on its own account, exactly as live would trade it bar by bar:
     stops and targets checked on each bar, rule exits and entries at each close, anything open closed at the end.
-    Returns (equity curve, trades)."""
+    `rolls`: times when the futures contract was rolled (bars should be back-adjusted, see rolls.py); a position
+    held across one pays the cost of rolling it. Returns (equity curve, trades)."""
     end = len(bars) if end is None else end
     book = new_book(cash)
     curve, trades = [], []
+    roll_t = sorted(rolls)
+    k = bisect.bisect_right(roll_t, bars[start]["time"]) if start < end else 0
     for i in range(start, end):
         b = bars[i]
+        while k < len(roll_t) and roll_t[k] <= b["time"]:
+            roll_cost(book, sym, b["open"], cost=cost)
+            k += 1
         for f in manage(book, sym, [b], rules, i, b["close"], cost=cost):
             trades.append({"pnl": f["pnl"], "r": f["r"], "side": f["side"], "exit": f["exit"], "t": b["time"]})
         if i == end - 1:
