@@ -1,8 +1,8 @@
 {
- "updated": 1791390208,
+ "updated": 1791393872,
  "model": "claude-haiku-4-5-20251001",
  "prompt_version": 3,
- "fx": 1.3213878870010376,
+ "fx": 1.32144033908844,
  "health": {
   "prices": true,
   "missing": [],
@@ -11,7 +11,7 @@
   "history": true,
   "lit": true,
   "kronos": true,
-  "claude": false,
+  "claude": true,
   "quant": true
  },
  "freeze": {
@@ -24,7 +24,7 @@
   "locked": true,
   "revealed": null
  },
- "last_claude": 1791379444,
+ "last_claude": 1791393872,
  "retired": {
   "ict": 1791315488,
   "rules": 1791315488
