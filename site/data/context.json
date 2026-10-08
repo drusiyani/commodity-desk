@@ -11,8 +11,8 @@
  },
  "GBPUSD=X": {
   "name": "GBP/USD",
-  "last": 1.3232,
-  "chg": -0.00265
+  "last": 1.323,
+  "chg": 0.00116
  },
  "^GSPC": {
   "name": "S&P 500",
