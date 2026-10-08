@@ -56,7 +56,7 @@ PRIVATE = {"portfolio.json", "trades.json", "decisions.json", "calls.json", "new
 # summary.json and kronos.json, are kept only inside the encrypted data; the first run after that publishes them again.
 RESULTS = {"equity.json", "kronos_calls.json", "kronos_index_calls.json"}
 SITE_PRIVATE = "private.enc.json"   # the one encrypted bundle the website can unlock with the password
-MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-5-5-20251001")
+MODEL = os.environ.get("CLAUDE_MODEL", "claude-haiku-4-5-20251001")
 # Claude's prompt version: raise it by one whenever the trading prompt, or the way its answer is used, changes. Every
 # decision and every trade in Claude's account is tagged with it and the model, so results can be split by version.
 PROMPT_VERSION = 3   # v2: lessons, the inputs scorecard and the four-part reasoning on every trade; v3: shorting
