@@ -1,5 +1,41 @@
 [
  {
+  "title": "Current price of oil as of October 9, 2026",
+  "source": "Fortune",
+  "link": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE11dlNrd3RfTU5KV21YYXRVNVp2Q0FkbmFHQTRMelcxTG56eEl2OHZ6bjBMSk9RZVU0cEZmWlZUaUluZUVYSndjZnpzYm9xS2JWMUlyeV94d3JkX2VLYWRRVHV3?oc=5",
+  "published": 1791543600,
+  "id": "n534a525006",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791544861
+ },
+ {
+  "title": "Current price of silver as of Friday, October 9, 2026",
+  "source": "Fortune",
+  "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE16MTQzdzRyOWp4QzBUOWhNUzNad3J1Yk0xei14ajB5MmZ2RWRTSFhPYjY3bzZzWV9IV3BKbXJWV0dnVDE5dmNKdm9ZcXJqdC1PLTQ1ZUhrdnR0M3hUR3U3N3hRNUtvUDJob3Z1aF9VQQ?oc=5",
+  "published": 1791543600,
+  "id": "n58e0503314",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1791544861
+ },
+ {
+  "title": "Bigger US corn stocks fuel doubts about USDA livestock feeding data",
+  "source": "Wichita Eagle",
+  "link": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9WMGFnT1ZIOXkxaHVPWEhyV1BzdVRaSmp5bjB6dl9LWTRScWdCUVZKY3JCVUt5S0gxSlhkaHlpeWVKTjRUdnVOcDFSY0cwcnV4MVl6Vk1wRkFZcGRJMk84WU05dU1BM3JtS0E?oc=5",
+  "published": 1791541688,
+  "id": "nca4594a87a",
+  "symbol": "ZC=F",
+  "symbols": [
+   "ZC=F"
+  ],
+  "seen": 1791544861
+ },
+ {
   "title": "Copper heads for a weekly gain on mine supply risks, China demand",
   "source": "marketscreener.com",
   "link": "https://news.google.com/rss/articles/CBMiuAFBVV95cUxNeGlyVEtXTWFOS0QtTmtEY1ZlWjh6d3QxR0VjQ3g4NDF3MjhCNUV2Tjd2NjRZS28zZ1NwMHlobFhpdTgybDVVdnllZFI4NjQxTk5JU0Y1WlU0VHhlUjVCVHVHZTlzTHJsM1o4WERfd3kxT2JVSm5tVm9McV9xQjh3MWRGVTNiT1ByVmV1Rld5bUEydUIyMzJvbUVsVzR2MzQ0VGxEZGdzWXJFd3F2MzVJYUhYalFhT0Zh?oc=5",
@@ -70,6 +106,18 @@
    "CL=F"
   ],
   "seen": 1791537783
+ },
+ {
+  "title": "Futures and stocks rally together, precious metals sector surges, Western Gold hits limit up, spot silver trading sees marginal improvement [SMM Flash]",
+  "source": "Shanghai Metals Market",
+  "link": "https://news.google.com/rss/articles/CBMimwJBVV95cUxNNXJiSkp1clVZaWJNX2w5alZKTUlfVklpcklKQ2NOOFFHaDVMcTFlY0VxRkJvT1pYdDBXaUtZdlZDT3VVOHQzOGlMdmV2Mnl1a2lFNFpBRE14RmM0TmttRG9hbDlPQjlCZlRHS0RWNjZvSWgtTWpHMVExcGQtY1ptdVZsZWM0bWx3QlYyTHhzeGVIS2N0MUgwcG5JSUFkVElwVnk0dGdZRU5MakhHZHM3WlFFVXJrUzF0U3czTTNzOGlrRW9FZ3lZa2pKZVpkellpVVZjZ0NWSHBIUWZqTmxfZEZaZW8tUTNqbm95VFZoSkVpRENQNVdIYUpmWjJIR3dGS0tJYmpCMXdaTVFiajVEUXN1V01uWWlVUVd3?oc=5",
+  "published": 1791536340,
+  "id": "nd024bfd6bc",
+  "symbol": "GC=F",
+  "symbols": [
+   "GC=F"
+  ],
+  "seen": 1791544861
  },
  {
   "title": "London Copper Rises on Supply Risks, China Buying",
@@ -250,6 +298,18 @@
    "CL=F"
   ],
   "seen": 1791527231
+ },
+ {
+  "title": "Rising Oil Prices Threaten Global Growth as Energy Supply Risks Intensify",
+  "source": "Bold News",
+  "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNMUN3djJFbnZHU0FJb256bFlHWVFFV0VScS1oeEdPdmdsSWpYTVcxS2VGYzdaRkRCeWZhbnB4Q3NtM1BrT181ODdSOGV2TlMwOXJoNnk0dzM3aHRYTFNiREQ1SXFrVVViVXExeUFrYnVWdklhNTdSaW9JUkRSVU1yMGlhRFF0SXBPWE04WGJ2YjFOenM1em9IX3NlSnZjcGpDeXBZ?oc=5",
+  "published": 1791525247,
+  "id": "n59edf22245",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1791544861
  },
  {
   "title": "Deutsche Bank: Historic copper shortage \u2013 gold outperforms silver!",
@@ -1385,18 +1445,6 @@
   "seen": 1791519750
  },
  {
-  "title": "Current price of silver as of Thursday, Oct. 8, 2026",
-  "source": "Fortune",
-  "link": "https://news.google.com/rss/articles/CBMib0FVX3lxTE90TzIwN3lyWUFwSVdxSko2SFA5OWRieW1GY3V1ODNnc084UEt5N2JON2ZEOXhsWUQxYmZxYW96MlpLdmlnMWtKWmxDWm5EV2QxVkZ1dXhheS1BR1cwemY2ZEpaZ3RaSi1PRUFsY1BjOA?oc=5",
-  "published": 1791457200,
-  "id": "n25776652d3",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1791458522
- },
- {
   "title": "USDA stocks report bearish for corn",
   "source": "AgUpdate",
   "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxQQ0RhWUc2Y2hmTE9zeHJRVXdvWXg5Ymp0b0lMSXd5Rm9qakl2NGdqSENIakFUbWpQa2hUZ2xhRWs4TktHekNab0xVWVZzM1ZnSklPMDJqTW5RcHpMRTlxb2M0WlhzOGI2YjJDTDJNV0hPak5CNXZ2eUVRMzRzTUczYXV3bWFYTHJvdEwxQjU2eVp4TXhuMWFKa3dHRHkwNlpoRU1r?oc=5",
@@ -1493,18 +1541,6 @@
   "seen": 1791454992
  },
  {
-  "title": "Brent crude tops $104 a barrel amid MidEast escalation, supply fears",
-  "source": "Sharecast.com",
-  "link": "https://news.google.com/rss/articles/CBMiwgFBVV95cUxNdDYyaXlvUnM4Yy1mWmNVQm1wdUF3UV90N3J2Q3djemVUc2JMeEZjaG4tZDdtbDQxaElVY0F1cEdIVjB6RGF1S0xQSWI3NHNBX2ZVdS1XQ0tEUDBGWUN4RW44WV9yM3BlUElyNUlZMklRTVhjOGZ4TEU0THdpOFZSWjN3Wm53VGRUTjl3MU1TT1llVDNtUFFTdmd5QkpYdlJXeTlRaGI4aTE4TDJGVkRhekRRRDF2Ri1ERDNhenAtZDc4dw?oc=5",
-  "published": 1791452029,
-  "id": "nc91c52f435",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1791462496
- },
- {
   "title": "Malting barley growers need 'an extra \u20ac50/t'",
   "source": "Agriland",
   "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxNdkNwRVphOVJGb0VlTWxtSzRIeEZzV3VnUWF6TTNFMFdXWEJqN0oxUGh6alR4TmpDaGtsb1pYUVFqNTdyWkFQRDNIUGlTNjZKeVJLZWFmd1BGOWdUQVgxUVJWZXZQdUVrcDA4cWNTQnJtYklTVi1IUGZTX1lEZEh1RW0zbW5JUTA?oc=5",
@@ -1529,18 +1565,6 @@
   "seen": 1791454992
  },
  {
-  "title": "Oil Prices Rebound Intraday Thursday",
-  "source": "Rigzone",
-  "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPaDhKOEpKTjc3d05Nc0xBQ3hYMWh1ei1fM0d2cXl2X2JBbFR2Y3RaQ3ZsYjVETk5FS1phX3cxeVlNSDNOdThENFhsZExCSVhFemdRQXNiVTd6blEzWGtBU29tOFlraTBfX3Z0T0hPeVYzajFFb2M1WVM3VmlHY0RVNTF4RUJoa0NDaFN3aWhsdmlZUF81MXhPVg?oc=5",
-  "published": 1791451429,
-  "id": "n3de538e382",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1791454992
- },
- {
   "title": "US corn and soybean demand stays strong on ethanol, crushing activity",
   "source": "BioEnergy Times",
   "link": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPVEozQ1VqdHZvNzZZdE9kN3FvM0toMmZrOXIwUF91NkFPTFE0V2ZqcjhWdEFsUDV5eS1KcnVmT3k2M3paY3Y5a09mZW40VVBFTDJYREdQOXg1RXEyU0tSbTVVbVYzckxmT0gyRERjbUtsQkVXNTVNQTdpeXdPTk5DdHk2Vjc3MG9MS0dlVk1oT0ZlNjRJN2tMOHFzUEw?oc=5",
@@ -1561,18 +1585,6 @@
   "symbol": "ZW=F",
   "symbols": [
    "ZW=F"
-  ],
-  "seen": 1791451347
- },
- {
-  "title": "Investors target tokenised gold ETFs after price decrease",
-  "source": "Portfolio Adviser",
-  "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQTzFISDBXeV8yUmZleVFUU2FBbldHaDBTNFI5WUliWHp2Z1hsYU5qa09BY2UyQmFYUGZaZFJMSzB1RjBJRG5DUXhlSTlxdzNfSjNwdGFmWEZOdGZ5Ukp1YU9VS2xhUl9ZYmYxM3c2YjE0Tktyd2hIMFRTbmFkR1pzUS0xcF8xOXF6OVV6d2c4eDA2dw?oc=5",
-  "published": 1791447892,
-  "id": "ne7dac54b57",
-  "symbol": "GC=F",
-  "symbols": [
-   "GC=F"
   ],
   "seen": 1791451347
  },
@@ -1745,18 +1757,6 @@
   "seen": 1791519750
  },
  {
-  "title": "Crops Analysis | Losses across grains as U.S. dollar continues to strengthen",
-  "source": "Pro Farmer",
-  "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxOc0tPeTAyek44Z0hEakkwaWNQaWxrT281eGJMOUo1TUwzWkRpSHgteEY1MVo1c3pwUzNpME9RSkZpQ1FqSWFuNEVtTlo3Y2pMUk1VT21saU52bGFMX0tEcTZlQkExS1pPZHZWN3ZKRWZHc2VTemxFT29YY1VwXzUxZUM5b0F3WGcyWjNzNDlwdFdObnJDb2hYTkNFZ1F2Nk80engzZHc2SW1sVjAwRDJRd3JJMWZTY09Sei03bnRDVG0?oc=5",
-  "published": 1791405730,
-  "id": "nd71e4b8b6d",
-  "symbol": "ZC=F",
-  "symbols": [
-   "ZC=F"
-  ],
-  "seen": 1791411519
- },
- {
   "title": "Cocobod sells 3.39b cedis in cocoa bills to fund 2026-27 bean purchases",
   "source": "Briefs Finance",
   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQbDlzMDdVcFdBenJ3aHVMNzlRVVBnbnBnRjI3a0JSekdXRl9Rc1U0WEFkM0ZpUzZZSThNbkFuTEFLMjlrZ28zbFdMaEkyODktczZJdVFFMUduQi1mWmdta0lnQTF1aDdUMkZkQ3F4dlJRbTRvV3p4bUp5dlA4b003NHVTUTA0MFhRYVZxenJIRnI5QQ?oc=5",
@@ -1791,6 +1791,20 @@
    "KC=F"
   ],
   "seen": 1791537783
+ },
+ {
+  "title": "Chicago SRW Wheat",
+  "source": "CME Group",
+  "link": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1RV2pNcElyMDA2cWoteUpYX2ZsQko4N1R0TTljZmJGbV9YVnZXdW1TYlNZR3NBOUM2SmdSOXVsREJ3UXRDUHY1TzhQLWlySy1jSUZ0LWpCLTFMSUZFR0wyRjFTcXhQWUpa?oc=5",
+  "published": 1791396887,
+  "id": "nb22820f3f1",
+  "symbol": "KC=F",
+  "symbols": [
+   "KC=F",
+   "ZW=F",
+   "CC=F"
+  ],
+  "seen": 1791544861
  },
  {
   "title": "Once a major driver of Nigeria\u2019s economy, cocoa helped build prosperity across the country. Today, smallholder farmers still produce the crop but struggle with poor prices, limited market access, rising production costs and inadequate government support. Fro",
@@ -1846,18 +1860,6 @@
   "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxOUzE1WEtuVXZSYTBKTENHdkZBbUVjLW5UMW45VndXTy11VVk1Z3AzRXpiZ0kzWVRmRHZhaDZ2TXluc3dlMV9pTkdkd3piYjhZb1RhMXY5TzR0TWY4YXlGTnhPN1pFVUJFS3Y5cnhTdHBwekJBMTdROXhPWUxqVVpVelNkT0tNSWhvWktUd19R?oc=5",
   "published": 1791377854,
   "id": "n34a09e0d45",
-  "symbol": "KC=F",
-  "symbols": [
-   "KC=F"
-  ],
-  "seen": 1791472969
- },
- {
-  "title": "European Salmon Nov '26 Futures Price History",
-  "source": "Barchart.com",
-  "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE9Zemc3Sy1zVXI0NW5kV3hzMk05OGFOVlhxWDBVWnNfY29IRWhVdVh1RWY3U0NHdW8wZFdCcTBUX2R4bllua3oyTDBncWhmekwyUnFsN3g0R3pYa0Y3RHI3eVlERXJJUGItZ2FNY2VSVWZEQnhnTTFIR1FB?oc=5",
-  "published": 1791366331,
-  "id": "nec0cf0b34f",
   "symbol": "KC=F",
   "symbols": [
    "KC=F"
