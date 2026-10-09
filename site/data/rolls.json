@@ -1,5 +1,5 @@
 {
- "t": 1791512409,
+ "t": 1791516095,
  "applied": {
   "CL=F": 1789430400,
   "BZ=F": 1790121600,
@@ -25,7 +25,7 @@
    "rolls": [
     {
      "t": 1787522400,
-     "ratio": 0.992421,
+     "ratio": 0.992413,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Oct 2026"
@@ -50,14 +50,14 @@
    "rolls": [
     {
      "t": 1785740400,
-     "ratio": 0.928001,
+     "ratio": 0.928604,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Oct 2026"
     },
     {
      "t": 1788127200,
-     "ratio": 1.020328,
+     "ratio": 1.022583,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -81,8 +81,8 @@
    "note": "holding Nov 2026 (NGX26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
    "rolls": [
     {
-     "t": 1787868000,
-     "ratio": 1.003447,
+     "t": 1788127200,
+     "ratio": 1.003126,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Oct 2026"
@@ -107,7 +107,7 @@
    "rolls": [
     {
      "t": 1785708000,
-     "ratio": 1.005822,
+     "ratio": 1.005823,
      "how": "detected",
      "from": "Aug 2026",
      "to": "Oct 2026"
