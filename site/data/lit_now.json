@@ -1,5 +1,5 @@
 {
- "t": 1791840003,
+ "t": 1791843639,
  "markets": {
   "ES=F": {
    "name": "S&P 500",
@@ -8,13 +8,6 @@
    "tick": 0.25,
    "exchange": "CME",
    "m15": [
-    [
-     1791216000,
-     7814.5,
-     7814.75,
-     7810.25,
-     7812.75
-    ],
     [
      1791216900,
      7812.75,
@@ -3367,16 +3360,16 @@
      7857.75,
      7855.5,
      7857.0
+    ],
+    [
+     1791842400,
+     7855.5,
+     7860.5,
+     7855.25,
+     7859.25
     ]
    ],
    "h1": [
-    [
-     1787824800,
-     7791.1189,
-     7791.3711,
-     7785.067,
-     7790.8668
-    ],
     [
      1787828400,
      7790.8668,
@@ -8409,69 +8402,46 @@
      7857.75,
      7854.0,
      7857.0
+    ],
+    [
+     1791842400,
+     7855.5,
+     7860.5,
+     7855.25,
+     7859.25
     ]
    ],
    "levels": [
-    {
-     "id": 421,
-     "side": "low",
-     "kind": "PDL",
-     "price": 7817.0
-    },
-    {
-     "id": 425,
-     "side": "high",
-     "kind": "London high",
-     "price": 7884.0
-    },
     {
      "id": 429,
      "side": "high",
      "kind": "Equal highs",
      "price": 7870.0
+    },
+    {
+     "id": 430,
+     "side": "high",
+     "kind": "PDH",
+     "price": 7887.0
+    },
+    {
+     "id": 431,
+     "side": "low",
+     "kind": "PDL",
+     "price": 7846.25
     }
    ],
    "sessions": {
     "asia": {
      "name": "Asia",
-     "high": 7886.5,
-     "low": 7867.25,
-     "from": 1791756000,
-     "to": 1791777600
-    },
-    "london": {
-     "name": "London",
-     "high": 7884.0,
-     "low": 7866.5,
-     "from": 1791784800,
-     "to": 1791795600
-    },
-    "nyam": {
-     "name": "New York morning",
-     "high": 7870.0,
-     "low": 7851.5,
-     "from": 1791808200,
-     "to": 1791817200
+     "high": 7860.5,
+     "low": 7855.25,
+     "from": 1791842400,
+     "to": 1791843300
     }
    },
-   "atr": 3.5,
+   "atr": 3.625,
    "events": [
-    {
-     "level": 395,
-     "side": "high",
-     "kind": "Equal highs",
-     "price": 7884.5,
-     "t": 1791315000,
-     "type": "level"
-    },
-    {
-     "level": 396,
-     "side": "high",
-     "kind": "PDH",
-     "price": 7897.5,
-     "t": 1791324000,
-     "type": "level"
-    },
     {
      "level": 397,
      "side": "low",
@@ -9011,6 +8981,22 @@
      "why": "closed beyond the level twice in a row (a breakout that kept going)",
      "t": 1791814500,
      "type": "broken"
+    },
+    {
+     "level": 430,
+     "side": "high",
+     "kind": "PDH",
+     "price": 7887.0,
+     "t": 1791842400,
+     "type": "level"
+    },
+    {
+     "level": 431,
+     "side": "low",
+     "kind": "PDL",
+     "price": 7846.25,
+     "t": 1791842400,
+     "type": "level"
     }
    ],
    "contract": "Dec 2026",
@@ -9025,13 +9011,6 @@
    "tick": 0.25,
    "exchange": "CME",
    "m15": [
-    [
-     1791216900,
-     31216.25,
-     31244.75,
-     31200.5,
-     31238.75
-    ],
     [
      1791217800,
      31239.0,
@@ -12384,16 +12363,16 @@
      30887.0,
      30870.0,
      30877.5
+    ],
+    [
+     1791842400,
+     30876.0,
+     30901.75,
+     30876.0,
+     30892.25
     ]
    ],
    "h1": [
-    [
-     1787824800,
-     29895.3236,
-     29899.6157,
-     29861.2391,
-     29890.274
-    ],
     [
      1787828400,
      29892.0414,
@@ -17426,77 +17405,46 @@
      30898.75,
      30870.0,
      30877.5
+    ],
+    [
+     1791842400,
+     30876.0,
+     30901.75,
+     30876.0,
+     30892.25
     ]
    ],
    "levels": [
-    {
-     "id": 419,
-     "side": "high",
-     "kind": "Asia high",
-     "price": 31289.25
-    },
-    {
-     "id": 425,
-     "side": "high",
-     "kind": "London high",
-     "price": 31214.5
-    },
     {
      "id": 427,
      "side": "high",
      "kind": "Equal highs",
      "price": 31091.75
+    },
+    {
+     "id": 428,
+     "side": "high",
+     "kind": "PDH",
+     "price": 31289.25
+    },
+    {
+     "id": 429,
+     "side": "low",
+     "kind": "PDL",
+     "price": 30844.25
     }
    ],
    "sessions": {
     "asia": {
      "name": "Asia",
-     "high": 31289.25,
-     "low": 31158.0,
-     "from": 1791756000,
-     "to": 1791777600
-    },
-    "london": {
-     "name": "London",
-     "high": 31214.5,
-     "low": 31058.25,
-     "from": 1791784800,
-     "to": 1791795600
-    },
-    "nyam": {
-     "name": "New York morning",
-     "high": 31087.5,
-     "low": 30857.25,
-     "from": 1791808200,
-     "to": 1791817200
+     "high": 30901.75,
+     "low": 30876.0,
+     "from": 1791842400,
+     "to": 1791843300
     }
    },
-   "atr": 22.410714285714285,
+   "atr": 22.964285714285715,
    "events": [
-    {
-     "side": "high",
-     "price": 31408.25,
-     "pivot_t": 1791273600,
-     "setup": "1791277200-high",
-     "t": 1791277200,
-     "type": "inducement"
-    },
-    {
-     "levels": [
-      390,
-      392
-     ],
-     "side": "high",
-     "price": 31411.25,
-     "extreme": 31416.0,
-     "inducement": 31408.25,
-     "setup": "1791277200-high",
-     "kinds": "Asia high, London high",
-     "ref": 31340.0,
-     "why": "took Asia high, London high at 31411.2 (and the inducement at 31408.2) and closed back",
-     "t": 1791277200,
-     "type": "sweep"
-    },
     {
      "setup": "1791277200-high",
      "why": "price went beyond the sweep's extreme before confirming",
@@ -18039,6 +17987,22 @@
      "why": "swept, but with no inducement just before the level: no trade",
      "t": 1791811800,
      "type": "sweep"
+    },
+    {
+     "level": 428,
+     "side": "high",
+     "kind": "PDH",
+     "price": 31289.25,
+     "t": 1791842400,
+     "type": "level"
+    },
+    {
+     "level": 429,
+     "side": "low",
+     "kind": "PDL",
+     "price": 30844.25,
+     "t": 1791842400,
+     "type": "level"
     }
    ],
    "contract": "Dec 2026",
@@ -18053,13 +18017,6 @@
    "tick": 1.0,
    "exchange": "CBOT",
    "m15": [
-    [
-     1791216000,
-     51460.0,
-     51470.0,
-     51432.0,
-     51460.0
-    ],
     [
      1791216900,
      51458.0,
@@ -21409,19 +21366,19 @@
     [
      1791837900,
      52116.0,
-     52131.0,
+     52132.0,
      52115.0,
      52129.0
+    ],
+    [
+     1791842400,
+     52111.0,
+     52146.0,
+     52111.0,
+     52137.0
     ]
    ],
    "h1": [
-    [
-     1787821200,
-     53918.6581,
-     53948.8844,
-     53873.3187,
-     53904.5525
-    ],
     [
      1787824800,
      53902.5374,
@@ -26451,9 +26408,16 @@
     [
      1791835200,
      52104.0,
-     52131.0,
+     52132.0,
      52096.0,
      52129.0
+    ],
+    [
+     1791842400,
+     52111.0,
+     52146.0,
+     52111.0,
+     52137.0
     ]
    ],
    "levels": [
@@ -26461,12 +26425,6 @@
      "id": 411,
      "side": "low",
      "kind": "Equal lows",
-     "price": 51475.0
-    },
-    {
-     "id": 413,
-     "side": "low",
-     "kind": "PDL",
      "price": 51475.0
     },
     {
@@ -26486,56 +26444,31 @@
      "side": "low",
      "kind": "Equal lows",
      "price": 52056.0
+    },
+    {
+     "id": 422,
+     "side": "high",
+     "kind": "PDH",
+     "price": 52182.0
+    },
+    {
+     "id": 423,
+     "side": "low",
+     "kind": "PDL",
+     "price": 51913.0
     }
    ],
    "sessions": {
     "asia": {
      "name": "Asia",
-     "high": 52131.0,
-     "low": 51944.0,
-     "from": 1791756000,
-     "to": 1791777600
-    },
-    "london": {
-     "name": "London",
-     "high": 52118.0,
-     "low": 51935.0,
-     "from": 1791784800,
-     "to": 1791795600
-    },
-    "nyam": {
-     "name": "New York morning",
-     "high": 52182.0,
-     "low": 51914.0,
-     "from": 1791808200,
-     "to": 1791817200
+     "high": 52146.0,
+     "low": 52111.0,
+     "from": 1791842400,
+     "to": 1791843300
     }
    },
-   "atr": 26.714285714285715,
+   "atr": 27.285714285714285,
    "events": [
-    {
-     "side": "high",
-     "price": 51782.0,
-     "pivot_t": 1791351900,
-     "setup": "1791360900-high",
-     "t": 1791360900,
-     "type": "inducement"
-    },
-    {
-     "levels": [
-      388
-     ],
-     "side": "high",
-     "price": 51784.0,
-     "extreme": 51791.0,
-     "inducement": 51782.0,
-     "setup": "1791360900-high",
-     "kinds": "Equal highs",
-     "ref": 51674.0,
-     "why": "took Equal highs at 51784 (and the inducement at 51782) and closed back",
-     "t": 1791360900,
-     "type": "sweep"
-    },
     {
      "setup": "1791360900-high",
      "why": "price went beyond the sweep's extreme before confirming",
@@ -27097,6 +27030,22 @@
      "price": 52056.0,
      "t": 1791835200,
      "type": "level"
+    },
+    {
+     "level": 422,
+     "side": "high",
+     "kind": "PDH",
+     "price": 52182.0,
+     "t": 1791842400,
+     "type": "level"
+    },
+    {
+     "level": 423,
+     "side": "low",
+     "kind": "PDL",
+     "price": 51913.0,
+     "t": 1791842400,
+     "type": "level"
     }
    ],
    "contract": "Dec 2026",
@@ -27111,13 +27060,6 @@
    "tick": 0.1,
    "exchange": "CME",
    "m15": [
-    [
-     1791216000,
-     2864.1001,
-     2865.8999,
-     2861.8,
-     2865.5
-    ],
     [
      1791216900,
      2865.6001,
@@ -30470,16 +30412,16 @@
      2812.8,
      2811.0,
      2812.3
+    ],
+    [
+     1791842400,
+     2812.8,
+     2814.8999,
+     2812.5,
+     2814.1001
     ]
    ],
    "h1": [
-    [
-     1787821200,
-     3028.7637,
-     3035.1096,
-     3026.5478,
-     3030.7783
-    ],
     [
      1787824800,
      3030.6777,
@@ -35512,21 +35454,16 @@
      2812.8,
      2810.3999,
      2812.3
+    ],
+    [
+     1791842400,
+     2812.8,
+     2814.8999,
+     2812.5,
+     2814.1001
     ]
    ],
    "levels": [
-    {
-     "id": 420,
-     "side": "low",
-     "kind": "PDL",
-     "price": 2807.699951171875
-    },
-    {
-     "id": 421,
-     "side": "high",
-     "kind": "Asia high",
-     "price": 2834.300048828125
-    },
     {
      "id": 423,
      "side": "high",
@@ -35534,59 +35471,29 @@
      "price": 2832.0
     },
     {
-     "id": 424,
+     "id": 429,
      "side": "high",
-     "kind": "London high",
-     "price": 2832.0
+     "kind": "PDH",
+     "price": 2834.300048828125
+    },
+    {
+     "id": 430,
+     "side": "low",
+     "kind": "PDL",
+     "price": 2810.39990234375
     }
    ],
    "sessions": {
     "asia": {
      "name": "Asia",
-     "high": 2834.300048828125,
-     "low": 2822.89990234375,
-     "from": 1791756000,
-     "to": 1791777600
-    },
-    "london": {
-     "name": "London",
-     "high": 2832.0,
-     "low": 2822.39990234375,
-     "from": 1791784800,
-     "to": 1791795600
-    },
-    "nyam": {
-     "name": "New York morning",
-     "high": 2824.0,
-     "low": 2812.0,
-     "from": 1791808200,
-     "to": 1791817200
+     "high": 2814.89990234375,
+     "low": 2812.5,
+     "from": 1791842400,
+     "to": 1791843300
     }
    },
-   "atr": 1.7571498325892858,
+   "atr": 1.7999965122767858,
    "events": [
-    {
-     "levels": [
-      396
-     ],
-     "side": "low",
-     "price": 2843.199951171875,
-     "extreme": 2843.0,
-     "inducement": null,
-     "setup": null,
-     "kinds": "PDL",
-     "why": "swept, but with no inducement just before the level: no trade",
-     "t": 1791337500,
-     "type": "sweep"
-    },
-    {
-     "level": 397,
-     "side": "high",
-     "kind": "Asia high",
-     "price": 2850.89990234375,
-     "t": 1791345600,
-     "type": "level"
-    },
     {
      "level": 398,
      "side": "low",
@@ -36139,6 +36046,22 @@
      "why": "swept, but with no inducement just before the level: no trade",
      "t": 1791832500,
      "type": "sweep"
+    },
+    {
+     "level": 429,
+     "side": "high",
+     "kind": "PDH",
+     "price": 2834.300048828125,
+     "t": 1791842400,
+     "type": "level"
+    },
+    {
+     "level": 430,
+     "side": "low",
+     "kind": "PDL",
+     "price": 2810.39990234375,
+     "t": 1791842400,
+     "type": "level"
     }
    ],
    "contract": "Dec 2026",
@@ -36153,13 +36076,6 @@
    "tick": 0.1,
    "exchange": "COMEX",
    "m15": [
-    [
-     1791216900,
-     4157.3999,
-     4158.1001,
-     4153.6001,
-     4155.2002
-    ],
     [
      1791217800,
      4155.3999,
@@ -39509,19 +39425,19 @@
     [
      1791837900,
      4194.3999,
-     4196.1001,
+     4196.2998,
      4194.0,
      4195.8999
+    ],
+    [
+     1791842400,
+     4195.8999,
+     4201.7002,
+     4195.3999,
+     4197.2998
     ]
    ],
    "h1": [
-    [
-     1787828400,
-     4643.3999,
-     4653.7002,
-     4640.2002,
-     4652.2998
-    ],
     [
      1787832000,
      4652.0,
@@ -44551,95 +44467,43 @@
     [
      1791835200,
      4193.7002,
-     4196.1001,
+     4196.2998,
      4191.7002,
      4195.8999
+    ],
+    [
+     1791842400,
+     4195.8999,
+     4201.7002,
+     4195.3999,
+     4197.2998
     ]
    ],
    "levels": [
     {
-     "id": 385,
-     "side": "low",
-     "kind": "PDL",
-     "price": 4156.10009765625
-    },
-    {
-     "id": 386,
+     "id": 391,
      "side": "high",
-     "kind": "Asia high",
+     "kind": "PDH",
      "price": 4242.2998046875
     },
     {
-     "id": 388,
-     "side": "high",
-     "kind": "London high",
-     "price": 4217.0
-    },
-    {
-     "id": 390,
-     "side": "high",
-     "kind": "Equal highs",
-     "price": 4199.2998046875
+     "id": 392,
+     "side": "low",
+     "kind": "PDL",
+     "price": 4178.10009765625
     }
    ],
    "sessions": {
     "asia": {
      "name": "Asia",
-     "high": 4242.2998046875,
-     "low": 4209.10009765625,
-     "from": 1791756000,
-     "to": 1791777600
-    },
-    "london": {
-     "name": "London",
-     "high": 4217.0,
-     "low": 4196.7001953125,
-     "from": 1791784800,
-     "to": 1791795600
-    },
-    "nyam": {
-     "name": "New York morning",
-     "high": 4199.2998046875,
-     "low": 4178.10009765625,
-     "from": 1791808200,
-     "to": 1791817200
+     "high": 4201.7001953125,
+     "low": 4195.39990234375,
+     "from": 1791842400,
+     "to": 1791843300
     }
    },
-   "atr": 2.928501674107143,
+   "atr": 3.007080078125,
    "events": [
-    {
-     "level": 356,
-     "side": "high",
-     "kind": "Asia high",
-     "price": 4179.60009765625,
-     "t": 1791259200,
-     "type": "level"
-    },
-    {
-     "level": 357,
-     "side": "low",
-     "kind": "Asia low",
-     "price": 4130.7001953125,
-     "t": 1791259200,
-     "type": "level"
-    },
-    {
-     "level": 356,
-     "side": "high",
-     "kind": "Asia high",
-     "price": 4179.60009765625,
-     "why": "closed beyond the level twice in a row (a breakout that kept going)",
-     "t": 1791276300,
-     "type": "broken"
-    },
-    {
-     "level": 358,
-     "side": "high",
-     "kind": "London high",
-     "price": 4182.89990234375,
-     "t": 1791277200,
-     "type": "level"
-    },
     {
      "level": 359,
      "side": "low",
@@ -45154,6 +45018,45 @@
      "price": 4199.2998046875,
      "t": 1791815400,
      "type": "level"
+    },
+    {
+     "level": 391,
+     "side": "high",
+     "kind": "PDH",
+     "price": 4242.2998046875,
+     "t": 1791842400,
+     "type": "level"
+    },
+    {
+     "level": 392,
+     "side": "low",
+     "kind": "PDL",
+     "price": 4178.10009765625,
+     "t": 1791842400,
+     "type": "level"
+    },
+    {
+     "side": "high",
+     "price": 4196.60009765625,
+     "pivot_t": 1791828900,
+     "setup": "1791842400-high",
+     "t": 1791842400,
+     "type": "inducement"
+    },
+    {
+     "levels": [
+      390
+     ],
+     "side": "high",
+     "price": 4199.2998046875,
+     "extreme": 4201.7001953125,
+     "inducement": 4196.60009765625,
+     "setup": "1791842400-high",
+     "kinds": "Equal highs",
+     "ref": 4187.7001953125,
+     "why": "took Equal highs at 4199.3 (and the inducement at 4196.6) and closed back",
+     "t": 1791842400,
+     "type": "sweep"
     }
    ],
    "contract": "Dec 2026",
