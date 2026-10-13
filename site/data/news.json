@@ -1,5 +1,42 @@
 [
  {
+  "title": "Nebraska crop update: 27% corn, 26% soybeans harvested",
+  "source": "brownfieldagnews.com",
+  "link": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPTmVpYnhTMzZHQ2VZT0NjdTFPbGNtXzJsZUlKSkJRNXZpQ1pOblNvR2dIS192Z2ROME9Ia2EwbnlVdUJHYlNlRjVZUzZkaWQ2SGYxX3NoYUNGdVhGaC1nRkdlZjE2MUI0U2x4NVlNMXR2RkZWa3N6eU5iWVRtelg2Tl9lNHI5NGEyNmdqVW13?oc=5",
+  "published": 1791926387,
+  "id": "ne73fb31401",
+  "symbol": "ZC=F",
+  "symbols": [
+   "ZC=F"
+  ],
+  "seen": 1791926970
+ },
+ {
+  "title": "WTI Crude Oil Price Forecast: Reversal Signals Point to Further Gains",
+  "source": "FXEmpire",
+  "link": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxOY3N1ZE1tMnI1NmNtLU9fTkRLSjE1bTliWF8xRFN4NGpMWTBmbXROTmNiTm5nUnpwRXJwS0p5cEZUa0M5c2diY2RKR3lIYVp2MWtLdzNoSDNvSGFBOXVVV1ZIRXEtdDVvU1Znb3ZEU1gxb2x3ZVpHY2gyZW9HU3BwTnA4TkFxeHJraUR2NmRYak5tTlhkbzA4OC1fd3VZSGM0SWh1eGt0YlJ4MGwzNXk2T1BJVzY4RHMydGVZ?oc=5",
+  "published": 1791926120,
+  "id": "n628abdcd01",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F"
+  ],
+  "seen": 1791926970
+ },
+ {
+  "title": "U.S. Grain Prices Fall as USDA Report Pressures Corn, Soybeans and Wheat",
+  "source": "AgroLatam",
+  "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNZFl2dWdWaDUtWlljUHdFQVRhalZhV1BZYnU0QnJlbkk4d19nWHotRzd3ZHF3Q0FfbG1lbE11M3RnaWdvbUQ0RjIwMmhITnZqaVRXa0c1QTVpOGRzSVNYRDBuTEtGdHlWemhkTElteE5sMEVWWTZHczdGNzJqV2JUcXJFVDRUd2ZCNkUwOEh4V3pIQldnTVR1OFZtV2hlb0pKTHJZangyb0xwdw?oc=5",
+  "published": 1791923690,
+  "id": "n69043f379d",
+  "symbol": "ZW=F",
+  "symbols": [
+   "ZW=F",
+   "ZC=F"
+  ],
+  "seen": 1791926970
+ },
+ {
   "title": "USDA Crop Progress Report October 13, 2026: Corn, Soybean, Cotton Harvest Updates - News and Statistics",
   "source": "IndexBox",
   "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxPMVc1azV3a2ZmMnFzZHVsSWE5aGdNMGhWalJIN2dBdlNPVDN6TWFHdmNJN0hRLVBVLTJwUDVNNW5PYVpkNm9HdVViMEF4UnZiUEZ3UEtXU0Y1VUZxc2w0a1hVMTloQUZJc0JieE9lSG9VamN0Y0pCMHZKNE0tQ2E1cDQwc1hCVXZJWndqUmJpVDlYNmVRZkVtVzVSYTlHZVQ1WnpNWDI0WUdtM2dkcjJJTnFsMmduV3c?oc=5",
@@ -10,6 +47,18 @@
    "ZC=F"
   ],
   "seen": 1791923569
+ },
+ {
+  "title": "Iran War Escalation Threatens Global Market, Ups Demand for US LNG",
+  "source": "Natural Gas Intelligence",
+  "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPSWltOVphdnZtZm9pR3hSQXlPb1RYNXNjRm1tVmVhVmtNRmVLSkQ0Zk1wTUtNcm5pVmlyTkV2bThsT2VaUHZXcW5DRlJ3a0g2TzRwTmxYcmVFd0R6a05jTURTcHNJcmxvaUtrMGZyakhoUnJEeGY3YUo0UjNXRjlKWUptSVFMQThqWklBc250b3JlZmplM0tuRmg4djdXRzVk?oc=5",
+  "published": 1791919539,
+  "id": "nec950f5c93",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1791926970
  },
  {
   "title": "Silver Price Near $59 as Precious Metals Extend October Decline",
@@ -661,18 +710,6 @@
    "CL=F"
   ],
   "seen": 1791923569
- },
- {
-  "title": "WTI Oil extends its pullback to $91.00 amid US imports of Russian Diesel",
-  "source": "FXStreet",
-  "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQRWNrLVo5OXFfREJiTG1lOTV0UVpSenJIOTdsUUZNOWlLQTlrRndKMUJYbUd6VGpEUG5hanFiS2p5MTQtc2xQRzdWemhqWW9wUkQwclk2aE1sRUhRMklvdU95UzJvVlZ2aE1jN3hmS3JuS29ZZnRSUHhldkcwTVhwb3Bnd0o2UTZfZlY1RmZkTnZHbUE3SlRYeGNONDROYkN1dG1ONFpFUm1NVUc1NnRYVGp2Zw?oc=5",
-  "published": 1791892620,
-  "id": "n4f5b71dbfd",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F"
-  ],
-  "seen": 1791912089
  },
  {
   "title": "Oil Prices Retreat as Russian Diesel Supply Prospects Ease Global Shortage Concerns",
@@ -1493,18 +1530,6 @@
   "seen": 1791847264
  },
  {
-  "title": "U.S. corn futures recoup slice of Friday's steep drop after USDA forecast larger crop",
-  "source": "Seeking Alpha",
-  "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxQQTVBd2RUU0htY3hoSjBsZnFEUXZJTVRvMmpZRkhDNk9tWDZZbnpDQXdUME03VFRDVUVUVW5zcXcyUU9BZmdQcEdySzZURmlTVmQxZ1E1U1VkMkFETmlVWi1meVVUR3kxVlJZX01lRnozTHpkWW9ZeE1sVmFSUjkxcGJBYjZpOUJVMFFLSl80WGlpQXdMb3JoSWNTUV9pVW9ESG0xd2NMU2JyNzJFVDY4NVd5SWFmV05GQU1SVA?oc=5",
-  "published": 1791844215,
-  "id": "n2c6f3369c2",
-  "symbol": "ZC=F",
-  "symbols": [
-   "ZC=F"
-  ],
-  "seen": 1791854607
- },
- {
   "title": "Oil Holds Advance as Expanding Middle East War Threatens Supply",
   "source": "Bloomberg.com",
   "link": "https://news.google.com/rss/articles/CBMingFBVV95cUxOTkhVUHZmTDFoVTNnbXBIZlBxdl9WcTNRd1hXck91OXpJcEhOdEdOamV3V21KbzZYaVpraENpOExKX0M0Y2xTaVNTY1FaY3NfVk5SR3FqdFFRQ0hIZENYTWVLTzVnRGFpTS0xeTBVaV9fbVhkY1FDQTFweDg4dTFWNnpfcDd4ZEVpcUY3V1FscHMxZjdmUmh3TS03eTRvUQ?oc=5",
@@ -1674,18 +1699,6 @@
   "seen": 1791840003
  },
  {
-  "title": "Wheat Facing Monday Weakness",
-  "source": "Barchart.com",
-  "link": "https://news.google.com/rss/articles/CBMifEFVX3lxTE96MTRLd0F2eS0yWTkxaUdNN1NOVnczWGNFX05idWY4dFZzQ2dOYXhxVmwtN1VjVHlNSDBNRkRLWHpqQ3c5ellXRjg3NzVKTnpjM2FqRllxeFVoYlQ4dzNsWjQwN3dfUDN4bDR5a2hrd2pibHpCVEZPV3dESEg?oc=5",
-  "published": 1791825198,
-  "id": "n35c736b6fe",
-  "symbol": "ZW=F",
-  "symbols": [
-   "ZW=F"
-  ],
-  "seen": 1791829469
- },
- {
   "title": "Soybeans Falling Back on Monday",
   "source": "TradingView",
   "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNMVFWQ29OV1hlQ3VTYUxYQmZyaWRmWmxLeTJBUWRHNEF2ZDdaeUlhc2o0ZlBqWjUxWGtRc28zWWxfSzE4ejNEM3ZUM1FBZG1jSDZKWVAzNS1rT1dCMjNXajNpTjVVb3p5MDRjR0VLWGRra19kaHI5RERTb0stSkVWWTBzZVZ5ZWZPWDJZQ2p1azNqWkNY?oc=5",
@@ -1732,18 +1745,6 @@
    "CC=F"
   ],
   "seen": 1791825693
- },
- {
-  "title": "Britain faces looming energy crisis",
-  "source": "The National",
-  "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOaDc2azZyYXo5WUpIeGI2MVVzbGxibHFSSzRrOGl6cUR5OGdvS3QyckIxR05DUEkzMFFwVGNsNjdUeHNKVl9qTFJsVUtDcTc4Nng5M1R3OFVkMEdiZXRmR1NreVh6d2gwdG5LN29uR0tXN2EwTUpDWkJpcVVHSUJvRmFacFotUDJvc29CUmZMSVZxR01sOHVxUXNCZlQtU1dyalNIYjRka0ZBMTJfdjZXWVhKTGc0a1ZGZDJCdHZzb2lQbFp6OGZB?oc=5",
-  "published": 1791819163,
-  "id": "n43f036818c",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
-  ],
-  "seen": 1791879912
  },
  {
   "title": "Why Halloween Candy Keeps Getting More Expensive \u2014 And It Won't Stop Anytime Soon",
