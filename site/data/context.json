@@ -1,8 +1,8 @@
 {
  "DX-Y.NYB": {
   "name": "US dollar index",
-  "last": 102.348,
-  "chg": -0.00226
+  "last": 102.303,
+  "chg": -0.0027
  },
  "^TNX": {
   "name": "US 10-year yield",
@@ -11,8 +11,8 @@
  },
  "GBPUSD=X": {
   "name": "GBP/USD",
-  "last": 1.3231,
-  "chg": 0.00015
+  "last": 1.3236,
+  "chg": 0.00056
  },
  "^GSPC": {
   "name": "S&P 500",
