@@ -1,8 +1,8 @@
 {
- "updated": 1791988434,
+ "updated": 1791992228,
  "model": "claude-haiku-4-5-20251001",
  "prompt_version": 3,
- "fx": 1.3170719146728516,
+ "fx": 1.314820647239685,
  "health": {
   "prices": true,
   "missing": [],
