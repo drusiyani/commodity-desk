@@ -1012,5 +1012,14 @@
   "missing": [],
   "kronos_skipped": [],
   "kronos_seconds": 144.5
+ },
+ {
+  "t": 1791988434,
+  "problems": [
+   "claude"
+  ],
+  "missing": [],
+  "kronos_skipped": [],
+  "kronos_seconds": 69.4
  }
 ]
