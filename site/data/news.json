@@ -1,5 +1,41 @@
 [
  {
+  "title": "London cocoa sets one-month peak, coffee also climbs",
+  "source": "Business Recorder",
+  "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNWWlkMUwyZXdBREFqSzZjVnlRMWVZTGt5b0FwdlJadXlaOUEzandBV0VvdkZVN0xIcmFYOHJxM3d2QWEtdnpmWjdqZW1xQmxaSjE3UjJiME9FUlYtblpManJ4UXI2WHBtRnJ2ckUtTFFaQ3IzLUZaZ3R0X1JPZEVYRk5vZEcyMFZxcWJKNXpHczNmazl3b3fSAVZBVV95cUxPVnp4T3MwOC1QWVhoa29kaGJNZktFM1BlZmJxUzI1M3ppLUhlOHVudEFRS3dkTW1pQW5NUzE4cThMMENUNUVNUTgxOHo4UlJJZmRITFp6dw?oc=5",
+  "published": 1792022268,
+  "id": "n8863d6f57e",
+  "symbol": "CC=F",
+  "symbols": [
+   "CC=F"
+  ],
+  "seen": 1792024761
+ },
+ {
+  "title": "Copper Bulls and Bears Clash on Supply, Demand as Forecasts Diverge",
+  "source": "NAI500",
+  "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOZkxMSzFtT1NDTThsVmJoX3FHYTlEam52bXdDblVpNVF2Yld1c0xCcHBZazF1SWE0NFkyY0Q5bGFXNGtFZDdrU3JGaTBOZmdKRDQ1R0pWeW9QZE9NV0JvUC1mQnBxSFRWUHU4UDQxTjdrVkRETWUyNjdnV2NNS0tzQ08zUmlyWDQxZnktUms3YWVNeDF4TGxsTFNQYUpyOWth?oc=5",
+  "published": 1792022073,
+  "id": "nc6707eee1b",
+  "symbol": "HG=F",
+  "symbols": [
+   "HG=F"
+  ],
+  "seen": 1792024761
+ },
+ {
+  "title": "Grain and Livestock Futures See Risk Off Selling Tied to Inflation Concerns, Harvest",
+  "source": "AgWeb",
+  "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQa0tmeWRBeEJPOXV0Y1E4ZlZqc0tmS3dZbkhmeUNBV1ZKcld2VzFUYVJUb1hOS0FMcGFvS0VoV2xrbUEwZzhYcGVsTzRwemhmSVg2OS1ZNEhneTIwcVQ4TzJIZGozYlJVLTRIbE9tNlREb0NiRG95b1NoQ3UzNWh5RzFwbkhGZ3pza29pcVVEejJaeEFQb3VuTU5lNFViZGVrY1FEcjQzUWZrQQ?oc=5",
+  "published": 1792019700,
+  "id": "n3b5f2a51a2",
+  "symbol": "ZC=F",
+  "symbols": [
+   "ZC=F"
+  ],
+  "seen": 1792024761
+ },
+ {
   "title": "Corn and Soybean Prices Fall as Farmers Face a Critical Harvest Marketing Decision",
   "source": "AgroLatam",
   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQVWd3dEd2VnY2UkY2Uy1GaWZNSXZDSUdPT3RCUTROeXk2V1B1TnoxQ0xvVXl5VUJiNjJEZkpRS3hrTGEyZDlNOTZkOTUxUFFKODZoYXRvRlVnY3RTWWNUeXdmRllEMVNJdGp4N1paVXRURkFRSGlQUF9FRUdpanFPYXljeDJrNFdqcmNiTVRqTkZMOVR4MnFTNjExcXY0SzJTZElGSFp3S3B0SWpzdnNxN3QyMGNNUGw5Nnc?oc=5",
@@ -11,6 +47,18 @@
    "ZC=F"
   ],
   "seen": 1792020494
+ },
+ {
+  "title": "Daily Coffee Report 10/14/26",
+  "source": "StoneX",
+  "link": "https://news.google.com/rss/articles/CBMidkFVX3lxTFBMakRxVGhqZEk0Nnd5Qjk3QWNIVjd6blB0bEJNNW1mRFIyeXRjeTV1Y3p0eEtOY0FfTzVmR3NQVFNPTzc0RlJyVm1GV21NMkFKUUxTS3Y5R2VxZTJLeE04SzVFQndDNW9BUV9KRlhid1Y5R3k0dVE?oc=5",
+  "published": 1792014752,
+  "id": "n5d2cf8fcf5",
+  "symbol": "KC=F",
+  "symbols": [
+   "KC=F"
+  ],
+  "seen": 1792024761
  },
  {
   "title": "Gold and silver sink as U.S. inflation data tops expectations, boosting Fed rate hike bets",
@@ -1559,18 +1607,6 @@
   "seen": 1791938440
  },
  {
-  "title": "McKinsey Global Material Report Outlines Macro Mining Trends",
-  "source": "Supply Chain Digital Magazine",
-  "link": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOVUVZeUNKYzRyaGxFaHduM2hsOWZ4NzhLVktkOUF5dXMtRE0zMW5UbF80cDY4QVpuN29yUnplajJwd2hhOGtzVTlhWm82V01PRUM2NGgxWFlKaXlZZWcwTTc5UmtLeWs5bXNwWXMyYUZidkxPam03Q2xOTVpWbmFlWU5NMjBsVXU0VzJacEJQZmozUzd4emtwcm9obk9nWXU3Q3c?oc=5",
-  "published": 1791924598,
-  "id": "n7101e58122",
-  "symbol": "HG=F",
-  "symbols": [
-   "HG=F"
-  ],
-  "seen": 1791974041
- },
- {
   "title": "U.S. Grain Prices Fall as USDA Report Pressures Corn, Soybeans and Wheat",
   "source": "AgroLatam",
   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxNZFl2dWdWaDUtWlljUHdFQVRhalZhV1BZYnU0QnJlbkk4d19nWHotRzd3ZHF3Q0FfbG1lbE11M3RnaWdvbUQ0RjIwMmhITnZqaVRXa0c1QTVpOGRzSVNYRDBuTEtGdHlWemhkTElteE5sMEVWWTZHczdGNzJqV2JUcXJFVDRUd2ZCNkUwOEh4V3pIQldnTVR1OFZtV2hlb0pKTHJZangyb0xwdw?oc=5",
@@ -1812,18 +1848,6 @@
   "seen": 1791883453
  },
  {
-  "title": "South Korea Locks In 130,000 Tons Of Feed Corn",
-  "source": "Finimize",
-  "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1PVzBHNmhRQUw1aGdiVzlhWkR0ajRZSWxOWGJCTE84YVBFVVJIWXFrMEQ0bWpycGZPMTlBUDgteThkam1IeHJYTG9RbkZZVnRmeU1hQTNsMDVEa2FLNjZpalI4UDNkREJvaUxucF8tekJ5TXJGbW5uUzFkLTZhRGc?oc=5",
-  "published": 1791881742,
-  "id": "n930a4a8398",
-  "symbol": "ZC=F",
-  "symbols": [
-   "ZC=F"
-  ],
-  "seen": 1791887041
- },
- {
   "title": "ULSD NY Harbor Micro Nov '26 Futures Price History",
   "source": "Barchart.com",
   "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE9SMUZDU3pZLXBBWXlDTW1odld1RnRQckFnTk1ha3JvVHNtOHB5U1hHLWRpc2RWLWZTM0NZY2hSVWt2Ump6c25QazM3cm5jcms5ekhjVTlKOV9tQkpxY0RXbnQyUUNzcHl1V1NZOEREWUc2SmoyU25nek5QWmhtUQ?oc=5",
@@ -1834,18 +1858,6 @@
    "KC=F"
   ],
   "seen": 1791938440
- },
- {
-  "title": "Dutch Power Peak Nov '26 Futures Price History",
-  "source": "Barchart.com",
-  "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1KbGRKUHIyeWVUUjlrWEtkZFJDM0xsYUo3Zlc2U2c1blBDcjJkbW1ocTRRWFJSV05EOUY5dHlzQ3lXT1NTX2ROZTFWM1ZjbEFYcHRMSVAwUEo2bWh2Ylg2NTFRV0ZVazB6Z09BRkUxWlBQOVBKb3V3WFNDQ09TUQ?oc=5",
-  "published": 1791874227,
-  "id": "nb22992437d",
-  "symbol": "KC=F",
-  "symbols": [
-   "KC=F"
-  ],
-  "seen": 1791916082
  },
  {
   "title": "Cocoa Harvest Delays in the Ivory Coast Support Prices",
