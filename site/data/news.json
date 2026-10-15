@@ -1,5 +1,42 @@
 [
  {
+  "title": "Gold Rallies, Silver Doesn't as Tech Stocks Sink with Bond Yields",
+  "source": "BullionVault",
+  "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxQNHVtYVR2cDl6UnljRHdWVy1LdVRlMktpUlVzMFpBQ2N3ak9faFB2ZV9EU1AwZlc2a2kyMUkyUTZQeERtdWZMZG5ETlVjUnhiendaMGZ0ZzJKT2J3bEZxNzZPaGZMUm1zdWpGbWNjQS12c3c5bTIzNGV6bFFlUTRmcWF3Y1NfcEM2bVRPeQ?oc=5",
+  "published": 1792078056,
+  "id": "n04c11218ab",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1792078596
+ },
+ {
+  "title": "U.S. Soybean Prices Hit Seven-Week Low Despite China's Renewed Grain Purchases",
+  "source": "AgroLatam",
+  "link": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNdW1NVnpmWElNd3BYSDZPNmVDX2daV1lNWFFZQ1BJU3o1ZHdTMERaamdrUHVKRXF1cm1NVnBqUmN1cTdQRGtuTjBpazRhb0xIV2h4elVlcWhEbXZOSzdiOGpqejl0OXlmZS1SenM5Ni16ajkxY2ZKTjVkb0txR1NKTEpGUXRUN3kyZ0pDcg?oc=5",
+  "published": 1792076892,
+  "id": "nad600905c4",
+  "symbol": "ZW=F",
+  "symbols": [
+   "ZW=F",
+   "ZC=F"
+  ],
+  "seen": 1792078596
+ },
+ {
+  "title": "Iron ore slips to two-year low on concerns over weak demand, rising supply",
+  "source": "Mining.com",
+  "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxNS0tYcDNMYWlhWldxVTAxYnNtclVveUxSWjd0emF3SVFqNEZRMF9PWmJiX0hhSkp1S0NtT3RRbUR6SUx3YjlaTENGZ0Z2ZTkzWk9iMlpOYkozVExKbjJJSWVfSjBCajNyN3ZMWGw0a2NORzJRbTZhUlNZOWIyYnI5UVZNOEsxRXFYcDBvTHp6MHFGNUNhQmxfTnlvdlBWd09aVkZZ?oc=5",
+  "published": 1792076857,
+  "id": "n33dc6bf588",
+  "symbol": "HG=F",
+  "symbols": [
+   "HG=F"
+  ],
+  "seen": 1792078596
+ },
+ {
   "title": "Europe\u2019s Gas Prices Close to 2022 High as Hormuz LNG Flows Remain Limited",
   "source": "Crude Oil Prices Today | OilPrice.com",
   "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxOQ2hHRkd5bWh6U2c4VHB5aml1S0IxUkNVMTBVMnV4SnMxYlpDUTlKajJCcTRBbE15aGpUckNwSUxZbHVydXl6YkVJWHh1M294bE9OVmhEdHpCTlY4eENaRXdzbEpvMTZBVWpCZ3BldTdiMXo4OUd2YWZhMEpYZjJKR0JaMS1PaDdHNTB2Y0JtMlJ0cEhZeFFTdkRCQmRSTzM5MXhDa0FuUFd2Y2lMUFBRdk9EX0k5Y0pTSU5TckhqUnJVdEVSeXEw?oc=5",
@@ -559,7 +596,8 @@
   "id": "n2d35b7a902",
   "symbol": "CL=F",
   "symbols": [
-   "CL=F"
+   "CL=F",
+   "BZ=F"
   ],
   "seen": 1792053334
  },
@@ -1277,6 +1315,18 @@
   "seen": 1792031474
  },
  {
+  "title": "USDA Crop Progress Report October 13, 2026: Corn, Soybean, Cotton Harvest Updates - News and Statistics",
+  "source": "IndexBox",
+  "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxNLUM2bmlKbmxJRFlUOHdMaEtFSzBQaVpQQ3pEZU1iYmtjU2pWS3BvVXhJYmxTVlB0ajdKT2trdEd1S20yMGFpU2szeU01bmRhTUxjanNNNFpja3FORUtRNDJZcVZ0SFltRF9ac2wwWUQ5V0ExLXZPVm43ZWFpNURQeWsyX0hCeXNtMk8yWnM1MFEwX1FOMTdzcjM4cmlMNHg2VHVWaUc0eVpoY09mQlpuNm13VQ?oc=5",
+  "published": 1791987634,
+  "id": "na2d39663ec",
+  "symbol": "ZC=F",
+  "symbols": [
+   "ZC=F"
+  ],
+  "seen": 1792078596
+ },
+ {
   "title": "Norway Expands European Natural Gas Supply as LNG Prices Jump Ahead of Winter",
   "source": "Natural Gas Intelligence",
   "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxQUWhqMGkyT29KMmJ1cXlsdnUzNFF2bU9hbXp1MUoxaHR6VGNvWW8xZVJ3ZGVpbFhlWDVxZ2dYRFlYcUdjWS1kcjlYcVNxQXlNQ19lV2tET0FBTkdmY3ZsTXBuQ3g0QUpvSFloS3NhX1VGQ3RqYzBMamd2eGE1MmJBbzVoN091UlhhdzJlLTI2OHgzVTMyVmNRNW1ERDZjTWJyZ2FHQnJGSHlLVS1NaTFYTm9kbE5qUQ?oc=5",
@@ -1349,18 +1399,6 @@
   "seen": 1791985076
  },
  {
-  "title": "Aurubis raises 2027 European copper premium to record $347 a ton, sources say",
-  "source": "Kitco",
-  "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNcG1IWmdyc2c5S0JtWl9BLVFnWTNJWUNKZFJsUWhHX2Zjd1FQQU9DeDVNWnFFRFVKX29Kd3dobDNTNUxsM2FsNjVSMFNPX0l3NGJpRmhrYmZiRU92SEhpUVAxTmVzeFhlVWIwZFhmb1pScHV0VDRrR0ppZUk4Qi1DbFp5LTJpNGdJX2JzUkFwUTVFd3hXVjdoeG44SEhFT3RDMkE3LUdIQlVqNDBCUUUxemR0WHRfVkUtTWdZT3Fn?oc=5",
-  "published": 1791983539,
-  "id": "n5dbb190258",
-  "symbol": "HG=F",
-  "symbols": [
-   "HG=F"
-  ],
-  "seen": 1792009832
- },
- {
   "title": "Oil Prices Rise as Traders Weigh Saudi Aramco Attack Report, Hormuz Shipping Risks",
   "source": "WSJ",
   "link": "https://news.google.com/rss/articles/CBMiygFBVV95cUxNZzlrRVp3SjY0Qjc1ejhzdHcxQWFQejJLS2hfZzJocWhnV3AtUi1OM1NGX2s2b0NjQkV4NnpYZUxTOGJTRVBlSEM2blAzMXRhbjNydFRjVnYyNGM4a25waTR1aGVTVWt1MXlKOURybDlzS0kxQXVrbUNlQTlRN3lxa3YxMEZ5djByOUhzTlg4MUZUYTRMT1V6MzBYODY3d2FhSk5zRkxMdWpocU1KYTV0TUVLMUtHcWZHbkJWVHVHc2NIRGFwQ1F2c0x3?oc=5",
@@ -1371,18 +1409,6 @@
    "BZ=F"
   ],
   "seen": 1791992228
- },
- {
-  "title": "Gold, silver drop as hotter CPI revives Fed-rate pressure - Kitco AM Report",
-  "source": "Kitco",
-  "link": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPTklMek95YWRodEhfWGJzYnF1QXlDNVdGcE9zVEpxbWFxeVJNWGFFdzUybk5IZFBMRWN4cllxcVJ2Yk9pMk5tT3VjS3dhdWl3bFpDNW1FWnFkNFFOUGdlOFdlRG5XdXdBQnpsQllxOTNsVUZMcW0wQlgwVF9kWEx0dWZGZDNGWFRsb0pMNmYwS0RlOVdUR0RiY3l2cWF1MDBNMGF1TlY3ZDhFZkRZREtiSnJ5cEdsUQ?oc=5",
-  "published": 1791982943,
-  "id": "ndb424f3115",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1792027966
  },
  {
   "title": "Brent crude oil price on Oct 15, 2026 at 5:00 PM EDT",
@@ -1504,18 +1530,6 @@
    "CC=F"
   ],
   "seen": 1791995721
- },
- {
-  "title": "EU Plans Special Agricultural Integration Model for Ukraine - Oj",
-  "source": "Odessa Journal",
-  "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQdUljUl9ZdExVQU96RTVLYXRrN2VRUWphbzNMZVJwYXRvc0F1Z2pTYjRPa2VMUE54RjNiOVNjUy13d3FyZndJX1h4SzBuV0JkaHZ2UGJwdGljMlkwaVIwRmtjRUtEcy1jaVZlRFZFUjJraFdnRkx1cHZ1dlFWbWl0bFJ3bUMzdEtVN1BDVjY0dFdjcmprQzEwcV9Tbw?oc=5",
-  "published": 1791975882,
-  "id": "nde77caf85b",
-  "symbol": "ZW=F",
-  "symbols": [
-   "ZW=F"
-  ],
-  "seen": 1792009832
  },
  {
   "title": "Cocoa Prices Jump As Dry West African Weather Worries Traders",
@@ -1833,18 +1847,6 @@
   "seen": 1791926970
  },
  {
-  "title": "Crops Analysis | Losses seen across the grain and soy complex",
-  "source": "Pro Farmer",
-  "link": "https://news.google.com/rss/articles/CBMisAFBVV95cUxPOHNONTlGSFQ1a2FzaC1SV1R6ZE9VS0Q2d1E1Q1VXYlZlX1M3MFA4NG1rM0lXV1pFRXIxTEN4bzVmbUNlcmpIaUJwTnNUVGM3b3F1RVZfd09yaF9NUFVyQkt5dmlrc3JvNlZoYXBfd0xUSDdIQWFvR25xY3ExUUJzWmhZOFYzMHhXdy1vVWFFampmb3FSN1lIWFZhV2tEMVFVLTljaW5ZMGxPS1FxNE54aw?oc=5",
-  "published": 1791926020,
-  "id": "n3197975407",
-  "symbol": "ZC=F",
-  "symbols": [
-   "ZC=F"
-  ],
-  "seen": 1791933979
- },
- {
   "title": "ICE Will Check London Cocoa Deliveries For Deforestation With A Private Map",
   "source": "Forbes",
   "link": "https://news.google.com/rss/articles/CBMiyAFBVV95cUxOVTN4WF9aUm85bHhmblFTOW1wbDNueExoM0V2cF9LUC1naExRUHZsOXNVWWx0VGRmbnN3cmZkRmZFcDhXeFYzV3hxNHg2N3dHZDlOR3FoeGNWY3I4c0VnbDNfM2JraE81MzcxWndxSDNNZ29SR19NUEhDYTdrOWlWM0pwRkcwZGxkMWhRakdJT1c0V2NBdWxVNjh1b0ZYMzYzLVE3eldla3JSakVpTXBvaXEtXzkyX3hBOFRwbkxHMEJJdUJKUXRzTw?oc=5",
@@ -1903,29 +1905,5 @@
    "CC=F"
   ],
   "seen": 1791825693
- },
- {
-  "title": "Trick-or-Treat-flation: U.S. Candy Prices Soar",
-  "source": "Statista",
-  "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNeGNCck81WFB1Rk9HNWY3ZFlIQ0hiR1hKUkdGRGFiMFo1ZWZSTkV3SXBKdVk5QUFfU09hU2Z4M0VNSlJrRDZWUGNZT25uS0VfQS1pcUN1YjJsTmJha1c5ZDlwWEZ4UmJGV0JkNmlsZEhHdHFNYklEOG5nVFBiSU9Vd1BEaUJ2WWxkRTNXR3N3SWRIRi1GQ2dyN2VCcjNPRGxnVktXdnlEd2pPSjNRbmpPYVVucGZCSjQ4QXcxadIBvAFBVV95cUxNeGNCck81WFB1Rk9HNWY3ZFlIQ0hiR1hKUkdGRGFiMFo1ZWZSTkV3SXBKdVk5QUFfU09hU2Z4M0VNSlJrRDZWUGNZT25uS0VfQS1pcUN1YjJsTmJha1c5ZDlwWEZ4UmJGV0JkNmlsZEhHdHFNYklEOG5nVFBiSU9Vd1BEaUJ2WWxkRTNXR3N3SWRIRi1GQ2dyN2VCcjNPRGxnVktXdnlEd2pPSjNRbmpPYVVucGZCSjQ4QXcxaQ?oc=5",
-  "published": 1791819284,
-  "id": "n775b9437e0",
-  "symbol": "CC=F",
-  "symbols": [
-   "CC=F"
-  ],
-  "seen": 1791825693
- },
- {
-  "title": "Why Halloween Candy Keeps Getting More Expensive \u2014 And It Won't Stop Anytime Soon",
-  "source": "Latin Times",
-  "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOUklGRmdLdVR1cEJTU3dqSng5RGRzN1I4SU40SEk2cGE4c0xaV3lHRzIyenpBejFNT3kzUUozeFV4cTJzTkEzYlF5Y29fb1JiOTBpdjltS2s2SVNsQlhVTWpKSlg5TmR5OHE5U2tpNU4xUmptVTBSczhjTUFUVE9BTW9XU25qZVFJdXhDV1BDanFHTHlnZEJINnh3ZzFYNVRNTjVkNUl3S2prLVZB?oc=5",
-  "published": 1791817532,
-  "id": "ndc951ec290",
-  "symbol": "CC=F",
-  "symbols": [
-   "CC=F"
-  ],
-  "seen": 1791818613
  }
 ]
