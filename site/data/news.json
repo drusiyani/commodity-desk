@@ -1,5 +1,29 @@
 [
  {
+  "title": "Gold: Hold, Not A Buy Yet (NYSEARCA:GLD)",
+  "source": "Seeking Alpha",
+  "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxNUjczclZPSWxwZFIxeUpOcEZlVl96Z1hWdEhqb1FXWExhc0FySUpYd0JpSG9ZMllRdy1LVFNwdzQyTTJyZWZmUUFHVVQ0UmotUDFLdkZ2bHhuZ1RkVXJIaHdBZnQwemdnY3JoX0hYMldBU3RjLVFCZ1VLUnR6SkdlYkJoR2FVTEM0VU8w?oc=5",
+  "published": 1792047764,
+  "id": "n2b207abba1",
+  "symbol": "GC=F",
+  "symbols": [
+   "GC=F"
+  ],
+  "seen": 1792050093
+ },
+ {
+  "title": "Antofagasta copper output rises 7% as miner sets 2027 guidance and lifts cost forecast",
+  "source": "Yahoo Finance UK",
+  "link": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOdmg5NUpmbml6YkF6aEJoVlNGYmZHM0JWY0M0X05HY29DaEFHN3hfQ05feGJkTHRyeEFLUmUtbE9tWG8wMmR1ZkduTWJLRTFkYlhteFlUZkcwLTU0ZlhwX3NPRE5oZXJzbk43S3RYZExULUQxdEZ5MzdPZ1JQNmQ0Ym9hSFVpUi00enc?oc=5",
+  "published": 1792046520,
+  "id": "n0a4f361550",
+  "symbol": "HG=F",
+  "symbols": [
+   "HG=F"
+  ],
+  "seen": 1792050093
+ },
+ {
   "title": "Coffee prices today, October 15, 2026: Stable at 92,500 \u2013 93,000 VND/kg",
   "source": "Vietnam.vn",
   "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQQlRhdDdPMmlEMGt1SEFrSE9mQVZqWXMwU1IwTzdlTzVHeVUxZUp0NzVuTjZNaGJVdXVjSWVBLUh3LXNtMnlid2lERGl5UWZxY1IxTkZyUnE3TlZnVnlGbHBSMk5XSWhNMWRISmRvSkx3aF93bEFfLWoyTi1QeF9SbzZIbVB5aGpxemR3VkZkR0pHUQ?oc=5",
@@ -108,6 +132,18 @@
   "seen": 1792046355
  },
  {
+  "title": "Gold rebounds from one-week low as dollar slips",
+  "source": "Reuters",
+  "link": "https://news.google.com/rss/articles/CBMikAFBVV95cUxNUGo4bEV3TDlUV2I1Nkg3dzNpODBCZ0hBWXJtWHR2OWwxWGVGZlRVcDZINFJqdmQ5QXJRNk5aUVVtZDhZSUlzUEJNWmpUcm9oSmtrNldYLWZEWTl6NDNueFY4VlQyby1oYnBKcnFSaHBQR1BWZXZ1NVg5LXZReXc5UjlWTXFzd2pDSEpBVTljTjk?oc=5",
+  "published": 1792034280,
+  "id": "n9c89d2977c",
+  "symbol": "GC=F",
+  "symbols": [
+   "GC=F"
+  ],
+  "seen": 1792050093
+ },
+ {
   "title": "Oil Price Forecast: WTI and Brent Ease as US Weighs Tanker Sanctions Relief",
   "source": "FXEmpire",
   "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxOSE1YenhZbHd4STRxLW5VREIzRWhjNjliUVltVnFmanczVEU0VGMzMWpxNW82S2xiZ29KclJHNTg1N1hnVmZPaExiX2ViLUNEQ09qeXJaSVQxd1hmbnBYYkg1ZGZDcXNHU21CODhhT1JLemdkVFB0a0ItV1BKbGN1VHd3MGhRQ2kxQmN2R2JOZVgtc0tBU2tkemxsYnhqRlBoZkR2Q0JjT0NoaXpFS09CNkhrMkR4WHp3TEJKYWo0YTZodDg?oc=5",
@@ -131,6 +167,18 @@
    "GC=F"
   ],
   "seen": 1792035077
+ },
+ {
+  "title": "Surprise USDA Corn Estimate Bursts Corn Market Bull Run",
+  "source": "Sunsirs",
+  "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1RWGNKbHhJOS1ORVBpcmp0bU1oVDB6aVVPUW9FY3I0eUlidGtjalRXTWdENlNVWnNPZ2xxRTdGUDIzcTlvcXFtOTBOb0dIT0I1UFpObWVSVXh0XzlFQWc?oc=5",
+  "published": 1792031393,
+  "id": "n8c6b7f3bd4",
+  "symbol": "ZC=F",
+  "symbols": [
+   "ZC=F"
+  ],
+  "seen": 1792050093
  },
  {
   "title": "Oil (USCrude) Price Forecast for Today, Tomorrow, Next Week, and Next 30 Days",
@@ -298,7 +346,8 @@
   "id": "n98e02c5e36",
   "symbol": "SI=F",
   "symbols": [
-   "SI=F"
+   "SI=F",
+   "GC=F"
   ],
   "seen": 1792042245
  },
@@ -1254,18 +1303,6 @@
   "seen": 1791970446
  },
  {
-  "title": "KEFI Minerals Plc (KEFI.L) stock price, news, quote and history",
-  "source": "Yahoo Finance UK",
-  "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE1jcUc0dE5zdWFBNWtHOGZ1WGxHT0FnMjVrUGI4WjBtMjdnT2otdmpYMzkyeTY3YjVhWXBFel81T3ZoUXdvX3hXRG5GcEY5UUhidWlONg?oc=5",
-  "published": 1791968397,
-  "id": "n65272f2dc2",
-  "symbol": "HG=F",
-  "symbols": [
-   "HG=F"
-  ],
-  "seen": 1791974041
- },
- {
   "title": "Does $8,000 gold price target look too optimistic?",
   "source": "The Armchair Trader",
   "link": "https://news.google.com/rss/articles/CBMiowFBVV95cUxONlBiYXZvQ2dVaHFvNGhNeGZHb2JGWVIxNVNmVVFHM2tQZmhDVjZBZXVDUlNBd2NGSU54VG5oUnFfNTFkV05yU3l4QnczckdOQnB3djJHQ3VBSFRTRGRHVzVQY1BiRmd3eThvRTlUZDN3bFNfRzNnbmp1QXphNG9jM3l6em9IQ0Rsekl3eTU1RVJzS21kS3NfVjZ4TXRBVmVXWDAw?oc=5",
@@ -1456,30 +1493,6 @@
    "BZ=F"
   ],
   "seen": 1791974041
- },
- {
-  "title": "Gold prices hold firm ahead of US inflation data",
-  "source": "Reuters",
-  "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNZkM3NGdUajlORC1ZZjBNcFZtNjYwa2JRaFczS1V4OVRORGhzZG1NUGxaY3ppRjdfQlFvUmREakJQM1RGaDNZZmZFMnJrY2Rtemc2Z1dBY1pPRy1ZbnBJVzNfTG1MMGJ5TXY5VzFpaDd6UENqd1pUOVdlTm1sS241QkFzNm1kdDJXTjl5emhLV200WUI1QVh4RQ?oc=5",
-  "published": 1791947520,
-  "id": "nf8d625086f",
-  "symbol": "GC=F",
-  "symbols": [
-   "GC=F"
-  ],
-  "seen": 1791948671
- },
- {
-  "title": "Gold holds steady ahead of US inflation data",
-  "source": "Reuters",
-  "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxNZkM3NGdUajlORC1ZZjBNcFZtNjYwa2JRaFczS1V4OVRORGhzZG1NUGxaY3ppRjdfQlFvUmREakJQM1RGaDNZZmZFMnJrY2Rtemc2Z1dBY1pPRy1ZbnBJVzNfTG1MMGJ5TXY5VzFpaDd6UENqd1pUOVdlTm1sS241QkFzNm1kdDJXTjl5emhLV200WUI1QVh4RQ?oc=5",
-  "published": 1791947520,
-  "id": "nb826da6a77",
-  "symbol": "GC=F",
-  "symbols": [
-   "GC=F"
-  ],
-  "seen": 1791966919
  },
  {
   "title": "STAYING THE COURSE: OPEC+ Keeps Oil Output Policy Unchanged for October",
@@ -1831,18 +1844,6 @@
    "ZC=F"
   ],
   "seen": 1791908643
- },
- {
-  "title": "Corn Prices Face a Bearish Storm of Fundamentals and Are Likely Headed Lower",
-  "source": "Barchart.com",
-  "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNSWNSaVZfQjd2OUtFbFZMSGtIOXlIZWJQdDUyY09IZTNUR0IzbVVNbkpsd0J5TXRsbGNxSFgzWmlKWFJDVUlJU0taZllGOEZkaDQydmhad2pXV0k0dzRGYm43aGNyUnhpUFBxdS1Xa0dfQkFxT2w2VTk3YnhFZ2JmU3NfUmpRNnZyREZoOTRjSUZJdUNndjZBU1lpMmZ5R3l5bE8yY2NEdWlHeFBVc0UtV25LNnE4aDlYaDZMNg?oc=5",
-  "published": 1791901378,
-  "id": "n833eb56af8",
-  "symbol": "ZC=F",
-  "symbols": [
-   "ZC=F"
-  ],
-  "seen": 1791905029
  },
  {
   "title": "US Cocoa Futures (COCOA-F) Moved Sharply on Oct 13: Inventories, the Dollar, or Geopolitics?",
