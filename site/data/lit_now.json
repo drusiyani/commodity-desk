@@ -1,5 +1,5 @@
 {
- "t": 1792121487,
+ "t": 1792125080,
  "markets": {
   "ES=F": {
    "name": "S&P 500",
@@ -8,6 +8,34 @@
    "tick": 0.25,
    "exchange": "CME",
    "m15": [
+    [
+     1791491400,
+     7819.75,
+     7821.25,
+     7818.0,
+     7818.5
+    ],
+    [
+     1791492300,
+     7818.25,
+     7823.0,
+     7818.0,
+     7822.5
+    ],
+    [
+     1791496800,
+     7821.0,
+     7824.25,
+     7817.0,
+     7824.25
+    ],
+    [
+     1791497700,
+     7824.0,
+     7828.0,
+     7823.75,
+     7827.75
+    ],
     [
      1791498600,
      7827.5,
@@ -3323,53 +3351,32 @@
      1792115100,
      7788.25,
      7791.5,
-     7787.75,
-     7788.25
-    ],
-    [
-     1792116000,
      7788.0,
-     7791.25,
-     7787.25,
-     7790.25
+     7789.25
     ],
     [
-     1792116900,
-     7790.5,
-     7794.25,
-     7789.5,
-     7793.25
+     1792123200,
+     7798.5,
+     7799.25,
+     7796.25,
+     7798.75
     ],
     [
-     1792117800,
-     7793.0,
+     1792124100,
+     7798.5,
+     7802.0,
      7797.0,
-     7792.0,
-     7794.25
-    ],
-    [
-     1792118700,
-     7794.25,
-     7794.75,
-     7792.5,
-     7793.0
-    ],
-    [
-     1792119600,
-     7793.0,
-     7795.0,
-     7791.75,
-     7793.75
-    ],
-    [
-     1792120500,
-     7793.75,
-     7794.25,
-     7792.75,
-     7793.25
+     7801.25
     ]
    ],
    "h1": [
+    [
+     1788274800,
+     7728.8343,
+     7740.1817,
+     7720.0086,
+     7736.3993
+    ],
     [
      1788278400,
      7736.3993,
@@ -8394,88 +8401,43 @@
      7787.0,
      7791.5,
      7783.75,
-     7788.25
+     7789.25
     ],
     [
-     1792116000,
-     7788.0,
-     7797.0,
-     7787.25,
-     7793.0
-    ],
-    [
-     1792119600,
-     7793.0,
-     7795.0,
-     7791.75,
-     7793.25
+     1792123200,
+     7798.5,
+     7802.0,
+     7796.25,
+     7801.5
     ]
    ],
    "levels": [
     {
-     "id": 428,
-     "side": "high",
-     "kind": "PDH",
-     "price": 7801.75
-    },
-    {
-     "id": 429,
+     "id": 417,
      "side": "low",
      "kind": "PDL",
      "price": 7717.25
+    },
+    {
+     "id": 419,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 7774.75
     }
    ],
    "sessions": {
     "asia": {
      "name": "Asia",
-     "high": 7797.0,
+     "high": 7794.0,
      "low": 7774.75,
      "from": 1792101600,
-     "to": 1792121400
+     "to": 1792116000
     }
    },
-   "atr": 4.767857142857143,
+   "atr": 5.696428571428571,
    "events": [
     {
-     "level": 398,
-     "side": "low",
-     "kind": "Equal lows",
-     "price": 7859.75,
-     "t": 1791804600,
-     "type": "level"
-    },
-    {
-     "levels": [
-      398
-     ],
-     "side": "low",
-     "price": 7859.75,
-     "extreme": 7857.75,
-     "inducement": null,
-     "setup": null,
-     "kinds": "Equal lows",
-     "why": "swept, but with no inducement just before the level: no trade",
-     "t": 1791808200,
-     "type": "sweep"
-    },
-    {
-     "level": 399,
-     "side": "low",
-     "kind": "Equal lows",
-     "price": 7857.75,
-     "t": 1791810000,
-     "type": "level"
-    },
-    {
-     "level": 400,
-     "side": "high",
-     "kind": "Equal highs",
-     "price": 7870.0,
-     "t": 1791813600,
-     "type": "level"
-    },
-    {
-     "level": 399,
+     "level": 387,
      "side": "low",
      "kind": "Equal lows",
      "price": 7857.75,
@@ -8484,7 +8446,7 @@
      "type": "broken"
     },
     {
-     "level": 401,
+     "level": 389,
      "side": "high",
      "kind": "PDH",
      "price": 7887.0,
@@ -8492,7 +8454,7 @@
      "type": "level"
     },
     {
-     "level": 402,
+     "level": 390,
      "side": "low",
      "kind": "PDL",
      "price": 7846.25,
@@ -8501,7 +8463,7 @@
     },
     {
      "levels": [
-      402
+      390
      ],
      "side": "low",
      "price": 7846.25,
@@ -8514,7 +8476,7 @@
      "type": "sweep"
     },
     {
-     "level": 403,
+     "level": 391,
      "side": "high",
      "kind": "Asia high",
      "price": 7862.25,
@@ -8522,7 +8484,7 @@
      "type": "level"
     },
     {
-     "level": 404,
+     "level": 392,
      "side": "low",
      "kind": "Asia low",
      "price": 7836.0,
@@ -8530,7 +8492,7 @@
      "type": "level"
     },
     {
-     "level": 405,
+     "level": 393,
      "side": "low",
      "kind": "Equal lows",
      "price": 7845.0,
@@ -8538,7 +8500,7 @@
      "type": "level"
     },
     {
-     "level": 406,
+     "level": 394,
      "side": "high",
      "kind": "London high",
      "price": 7860.25,
@@ -8546,7 +8508,7 @@
      "type": "level"
     },
     {
-     "level": 407,
+     "level": 395,
      "side": "low",
      "kind": "London low",
      "price": 7845.0,
@@ -8555,7 +8517,7 @@
     },
     {
      "levels": [
-      406
+      394
      ],
      "side": "high",
      "price": 7860.25,
@@ -8568,7 +8530,7 @@
      "type": "sweep"
     },
     {
-     "level": 403,
+     "level": 391,
      "side": "high",
      "kind": "Asia high",
      "price": 7862.25,
@@ -8586,8 +8548,8 @@
     },
     {
      "levels": [
-      405,
-      407
+      393,
+      395
      ],
      "side": "low",
      "price": 7845.0,
@@ -8602,7 +8564,7 @@
     },
     {
      "levels": [
-      404
+      392
      ],
      "side": "low",
      "price": 7836.0,
@@ -8621,7 +8583,7 @@
      "type": "cancelled"
     },
     {
-     "level": 408,
+     "level": 396,
      "side": "high",
      "kind": "PDH",
      "price": 7864.0,
@@ -8629,7 +8591,7 @@
      "type": "level"
     },
     {
-     "level": 409,
+     "level": 397,
      "side": "low",
      "kind": "PDL",
      "price": 7834.5,
@@ -8637,7 +8599,7 @@
      "type": "level"
     },
     {
-     "level": 410,
+     "level": 398,
      "side": "low",
      "kind": "Equal lows",
      "price": 7852.25,
@@ -8646,7 +8608,7 @@
     },
     {
      "levels": [
-      410
+      398
      ],
      "side": "low",
      "price": 7852.25,
@@ -8660,7 +8622,7 @@
     },
     {
      "levels": [
-      408
+      396
      ],
      "side": "high",
      "price": 7864.0,
@@ -8673,7 +8635,7 @@
      "type": "sweep"
     },
     {
-     "level": 400,
+     "level": 388,
      "side": "high",
      "kind": "Equal highs",
      "price": 7870.0,
@@ -8682,7 +8644,7 @@
      "type": "broken"
     },
     {
-     "level": 411,
+     "level": 399,
      "side": "high",
      "kind": "Asia high",
      "price": 7872.75,
@@ -8690,7 +8652,7 @@
      "type": "level"
     },
     {
-     "level": 412,
+     "level": 400,
      "side": "low",
      "kind": "Asia low",
      "price": 7848.75,
@@ -8699,7 +8661,7 @@
     },
     {
      "levels": [
-      411
+      399
      ],
      "side": "high",
      "price": 7872.75,
@@ -8712,7 +8674,7 @@
      "type": "sweep"
     },
     {
-     "level": 413,
+     "level": 401,
      "side": "high",
      "kind": "London high",
      "price": 7873.0,
@@ -8720,7 +8682,7 @@
      "type": "level"
     },
     {
-     "level": 414,
+     "level": 402,
      "side": "low",
      "kind": "London low",
      "price": 7856.25,
@@ -8729,7 +8691,7 @@
     },
     {
      "levels": [
-      413
+      401
      ],
      "side": "high",
      "price": 7873.0,
@@ -8742,7 +8704,7 @@
      "type": "sweep"
     },
     {
-     "level": 415,
+     "level": 403,
      "side": "high",
      "kind": "Equal highs",
      "price": 7874.25,
@@ -8750,7 +8712,7 @@
      "type": "level"
     },
     {
-     "level": 415,
+     "level": 403,
      "side": "high",
      "kind": "Equal highs",
      "price": 7874.25,
@@ -8759,7 +8721,7 @@
      "type": "broken"
     },
     {
-     "level": 416,
+     "level": 404,
      "side": "low",
      "kind": "Equal lows",
      "price": 7864.25,
@@ -8767,7 +8729,7 @@
      "type": "level"
     },
     {
-     "level": 409,
+     "level": 397,
      "side": "low",
      "kind": "PDL",
      "price": 7834.5,
@@ -8776,7 +8738,7 @@
      "type": "broken"
     },
     {
-     "level": 412,
+     "level": 400,
      "side": "low",
      "kind": "Asia low",
      "price": 7848.75,
@@ -8785,7 +8747,7 @@
      "type": "broken"
     },
     {
-     "level": 414,
+     "level": 402,
      "side": "low",
      "kind": "London low",
      "price": 7856.25,
@@ -8794,7 +8756,7 @@
      "type": "broken"
     },
     {
-     "level": 416,
+     "level": 404,
      "side": "low",
      "kind": "Equal lows",
      "price": 7864.25,
@@ -8803,7 +8765,7 @@
      "type": "broken"
     },
     {
-     "level": 417,
+     "level": 405,
      "side": "high",
      "kind": "PDH",
      "price": 7879.75,
@@ -8811,7 +8773,7 @@
      "type": "level"
     },
     {
-     "level": 418,
+     "level": 406,
      "side": "low",
      "kind": "PDL",
      "price": 7741.0,
@@ -8819,7 +8781,7 @@
      "type": "level"
     },
     {
-     "level": 419,
+     "level": 407,
      "side": "low",
      "kind": "Equal lows",
      "price": 7744.75,
@@ -8828,7 +8790,7 @@
     },
     {
      "levels": [
-      419
+      407
      ],
      "side": "low",
      "price": 7744.75,
@@ -8842,7 +8804,7 @@
     },
     {
      "levels": [
-      418
+      406
      ],
      "side": "low",
      "price": 7741.0,
@@ -8855,7 +8817,7 @@
      "type": "sweep"
     },
     {
-     "level": 420,
+     "level": 408,
      "side": "low",
      "kind": "Equal lows",
      "price": 7740.5,
@@ -8864,7 +8826,7 @@
     },
     {
      "levels": [
-      420
+      408
      ],
      "side": "low",
      "price": 7740.5,
@@ -8877,7 +8839,7 @@
      "type": "sweep"
     },
     {
-     "level": 421,
+     "level": 409,
      "side": "high",
      "kind": "Asia high",
      "price": 7769.5,
@@ -8885,7 +8847,7 @@
      "type": "level"
     },
     {
-     "level": 422,
+     "level": 410,
      "side": "low",
      "kind": "Asia low",
      "price": 7729.5,
@@ -8893,7 +8855,7 @@
      "type": "level"
     },
     {
-     "level": 423,
+     "level": 411,
      "side": "high",
      "kind": "London high",
      "price": 7752.25,
@@ -8901,7 +8863,7 @@
      "type": "level"
     },
     {
-     "level": 424,
+     "level": 412,
      "side": "low",
      "kind": "London low",
      "price": 7730.5,
@@ -8910,7 +8872,7 @@
     },
     {
      "levels": [
-      423
+      411
      ],
      "side": "high",
      "price": 7752.25,
@@ -8923,7 +8885,7 @@
      "type": "sweep"
     },
     {
-     "level": 425,
+     "level": 413,
      "side": "high",
      "kind": "Equal highs",
      "price": 7755.25,
@@ -8932,7 +8894,7 @@
     },
     {
      "levels": [
-      425
+      413
      ],
      "side": "high",
      "price": 7755.25,
@@ -8945,7 +8907,7 @@
      "type": "sweep"
     },
     {
-     "level": 426,
+     "level": 414,
      "side": "high",
      "kind": "Equal highs",
      "price": 7755.75,
@@ -8954,8 +8916,8 @@
     },
     {
      "levels": [
-      422,
-      424
+      410,
+      412
      ],
      "side": "low",
      "price": 7729.5,
@@ -8968,7 +8930,7 @@
      "type": "sweep"
     },
     {
-     "level": 427,
+     "level": 415,
      "side": "low",
      "kind": "Equal lows",
      "price": 7728.75,
@@ -8977,7 +8939,7 @@
     },
     {
      "levels": [
-      427
+      415
      ],
      "side": "low",
      "price": 7728.75,
@@ -8990,7 +8952,7 @@
      "type": "sweep"
     },
     {
-     "level": 426,
+     "level": 414,
      "side": "high",
      "kind": "Equal highs",
      "price": 7755.75,
@@ -9000,7 +8962,7 @@
     },
     {
      "levels": [
-      421
+      409
      ],
      "side": "high",
      "price": 7769.5,
@@ -9013,7 +8975,7 @@
      "type": "sweep"
     },
     {
-     "level": 428,
+     "level": 416,
      "side": "high",
      "kind": "PDH",
      "price": 7801.75,
@@ -9021,12 +8983,51 @@
      "type": "level"
     },
     {
-     "level": 429,
+     "level": 417,
      "side": "low",
      "kind": "PDL",
      "price": 7717.25,
      "t": 1792101600,
      "type": "level"
+    },
+    {
+     "level": 418,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 7794.0,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 419,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 7774.75,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 418,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 7794.0,
+     "why": "the candle opened beyond the level (a gap), so it wasn't swept",
+     "t": 1792123200,
+     "type": "gap"
+    },
+    {
+     "levels": [
+      416
+     ],
+     "side": "high",
+     "price": 7801.75,
+     "extreme": 7802.0,
+     "inducement": null,
+     "setup": null,
+     "kinds": "PDH",
+     "why": "swept, but with no inducement just before the level: no trade",
+     "t": 1792124100,
+     "type": "sweep"
     }
    ],
    "contract": "Dec 2026",
@@ -9041,6 +9042,34 @@
    "tick": 0.25,
    "exchange": "CME",
    "m15": [
+    [
+     1791491400,
+     31002.5,
+     31015.75,
+     30996.0,
+     31000.75
+    ],
+    [
+     1791492300,
+     31000.5,
+     31026.0,
+     30995.25,
+     31021.25
+    ],
+    [
+     1791496800,
+     31017.0,
+     31038.25,
+     30995.0,
+     31037.75
+    ],
+    [
+     1791497700,
+     31036.75,
+     31055.75,
+     31036.25,
+     31055.0
+    ],
     [
      1791498600,
      31055.25,
@@ -12356,53 +12385,32 @@
      1792115100,
      30071.25,
      30091.75,
-     30046.75,
-     30052.0
+     30050.75,
+     30059.5
     ],
     [
-     1792116000,
-     30050.25,
-     30084.5,
-     30043.25,
-     30073.25
+     1792123200,
+     30170.75,
+     30173.5,
+     30148.75,
+     30161.25
     ],
     [
-     1792116900,
-     30073.75,
-     30116.5,
-     30069.0,
-     30107.5
-    ],
-    [
-     1792117800,
-     30108.75,
-     30129.75,
-     30094.75,
-     30113.0
-    ],
-    [
-     1792118700,
-     30111.5,
-     30115.75,
-     30095.5,
-     30095.5
-    ],
-    [
-     1792119600,
-     30097.5,
-     30130.5,
-     30087.25,
-     30122.5
-    ],
-    [
-     1792120500,
-     30122.25,
-     30122.5,
-     30108.5,
-     30116.0
+     1792124100,
+     30160.5,
+     30189.0,
+     30149.5,
+     30183.0
     ]
    ],
    "h1": [
+    [
+     1788274800,
+     29518.1226,
+     29608.257,
+     29467.3747,
+     29586.5439
+    ],
     [
      1788278400,
      29586.5439,
@@ -17427,80 +17435,49 @@
      30039.75,
      30091.75,
      30037.25,
-     30052.0
+     30059.5
     ],
     [
-     1792116000,
-     30050.25,
-     30129.75,
-     30043.25,
-     30095.5
-    ],
-    [
-     1792119600,
-     30097.5,
-     30130.5,
-     30087.25,
-     30116.0
+     1792123200,
+     30170.75,
+     30189.0,
+     30148.75,
+     30183.0
     ]
    ],
    "levels": [
     {
-     "id": 423,
+     "id": 412,
      "side": "high",
      "kind": "PDH",
      "price": 30196.75
     },
     {
-     "id": 424,
+     "id": 413,
      "side": "low",
      "kind": "PDL",
      "price": 29622.5
+    },
+    {
+     "id": 415,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 29959.25
     }
    ],
    "sessions": {
     "asia": {
      "name": "Asia",
-     "high": 30130.5,
+     "high": 30128.0,
      "low": 29959.25,
      "from": 1792101600,
-     "to": 1792121400
+     "to": 1792116000
     }
    },
-   "atr": 43.642857142857146,
+   "atr": 50.839285714285715,
    "events": [
     {
-     "level": 389,
-     "side": "high",
-     "kind": "PDH",
-     "price": 31266.5,
-     "t": 1791756000,
-     "type": "level"
-    },
-    {
-     "level": 390,
-     "side": "low",
-     "kind": "PDL",
-     "price": 30953.0,
-     "t": 1791756000,
-     "type": "level"
-    },
-    {
-     "levels": [
-      389
-     ],
-     "side": "high",
-     "price": 31266.5,
-     "extreme": 31289.25,
-     "inducement": null,
-     "setup": null,
-     "kinds": "PDH",
-     "why": "swept, but with no inducement just before the level: no trade",
-     "t": 1791762300,
-     "type": "sweep"
-    },
-    {
-     "level": 391,
+     "level": 380,
      "side": "high",
      "kind": "Asia high",
      "price": 31289.25,
@@ -17508,7 +17485,7 @@
      "type": "level"
     },
     {
-     "level": 392,
+     "level": 381,
      "side": "low",
      "kind": "Asia low",
      "price": 31158.0,
@@ -17516,7 +17493,7 @@
      "type": "level"
     },
     {
-     "level": 393,
+     "level": 382,
      "side": "high",
      "kind": "Equal highs",
      "price": 31244.5,
@@ -17524,7 +17501,7 @@
      "type": "level"
     },
     {
-     "level": 393,
+     "level": 382,
      "side": "high",
      "kind": "Equal highs",
      "price": 31244.5,
@@ -17533,7 +17510,7 @@
      "type": "broken"
     },
     {
-     "level": 394,
+     "level": 383,
      "side": "low",
      "kind": "Equal lows",
      "price": 31158.0,
@@ -17550,8 +17527,8 @@
     },
     {
      "levels": [
-      392,
-      394
+      381,
+      383
      ],
      "side": "low",
      "price": 31158.0,
@@ -17565,7 +17542,7 @@
      "type": "sweep"
     },
     {
-     "level": 395,
+     "level": 384,
      "side": "low",
      "kind": "Equal lows",
      "price": 31156.0,
@@ -17574,7 +17551,7 @@
     },
     {
      "levels": [
-      395
+      384
      ],
      "side": "low",
      "price": 31156.0,
@@ -17593,7 +17570,7 @@
      "type": "cancelled"
     },
     {
-     "level": 396,
+     "level": 385,
      "side": "low",
      "kind": "Equal lows",
      "price": 31155.25,
@@ -17601,7 +17578,7 @@
      "type": "level"
     },
     {
-     "level": 396,
+     "level": 385,
      "side": "low",
      "kind": "Equal lows",
      "price": 31155.25,
@@ -17610,7 +17587,7 @@
      "type": "broken"
     },
     {
-     "level": 397,
+     "level": 386,
      "side": "high",
      "kind": "London high",
      "price": 31214.5,
@@ -17618,7 +17595,7 @@
      "type": "level"
     },
     {
-     "level": 398,
+     "level": 387,
      "side": "low",
      "kind": "London low",
      "price": 31058.25,
@@ -17627,7 +17604,7 @@
     },
     {
      "levels": [
-      398
+      387
      ],
      "side": "low",
      "price": 31058.25,
@@ -17640,7 +17617,7 @@
      "type": "sweep"
     },
     {
-     "level": 399,
+     "level": 388,
      "side": "high",
      "kind": "Equal highs",
      "price": 31091.75,
@@ -17649,7 +17626,7 @@
     },
     {
      "levels": [
-      390
+      379
      ],
      "side": "low",
      "price": 30953.0,
@@ -17662,7 +17639,7 @@
      "type": "sweep"
     },
     {
-     "level": 400,
+     "level": 389,
      "side": "high",
      "kind": "PDH",
      "price": 31289.25,
@@ -17670,7 +17647,7 @@
      "type": "level"
     },
     {
-     "level": 401,
+     "level": 390,
      "side": "low",
      "kind": "PDL",
      "price": 30844.25,
@@ -17678,7 +17655,7 @@
      "type": "level"
     },
     {
-     "level": 401,
+     "level": 390,
      "side": "low",
      "kind": "PDL",
      "price": 30844.25,
@@ -17687,7 +17664,7 @@
      "type": "broken"
     },
     {
-     "level": 402,
+     "level": 391,
      "side": "high",
      "kind": "Asia high",
      "price": 30906.0,
@@ -17695,7 +17672,7 @@
      "type": "level"
     },
     {
-     "level": 403,
+     "level": 392,
      "side": "low",
      "kind": "Asia low",
      "price": 30604.75,
@@ -17703,7 +17680,7 @@
      "type": "level"
     },
     {
-     "level": 404,
+     "level": 393,
      "side": "low",
      "kind": "Equal lows",
      "price": 30633.25,
@@ -17712,7 +17689,7 @@
     },
     {
      "levels": [
-      404
+      393
      ],
      "side": "low",
      "price": 30633.25,
@@ -17725,7 +17702,7 @@
      "type": "sweep"
     },
     {
-     "level": 405,
+     "level": 394,
      "side": "high",
      "kind": "London high",
      "price": 30770.25,
@@ -17733,7 +17710,7 @@
      "type": "level"
     },
     {
-     "level": 406,
+     "level": 395,
      "side": "low",
      "kind": "London low",
      "price": 30628.5,
@@ -17742,7 +17719,7 @@
     },
     {
      "levels": [
-      405
+      394
      ],
      "side": "high",
      "price": 30770.25,
@@ -17756,8 +17733,8 @@
     },
     {
      "levels": [
-      406,
-      403
+      395,
+      392
      ],
      "side": "low",
      "price": 30604.75,
@@ -17770,7 +17747,7 @@
      "type": "sweep"
     },
     {
-     "level": 407,
+     "level": 396,
      "side": "high",
      "kind": "PDH",
      "price": 30906.0,
@@ -17778,7 +17755,7 @@
      "type": "level"
     },
     {
-     "level": 408,
+     "level": 397,
      "side": "low",
      "kind": "PDL",
      "price": 30591.25,
@@ -17786,7 +17763,7 @@
      "type": "level"
     },
     {
-     "level": 409,
+     "level": 398,
      "side": "high",
      "kind": "Asia high",
      "price": 30891.5,
@@ -17794,7 +17771,7 @@
      "type": "level"
     },
     {
-     "level": 410,
+     "level": 399,
      "side": "low",
      "kind": "Asia low",
      "price": 30744.5,
@@ -17803,7 +17780,7 @@
     },
     {
      "levels": [
-      410
+      399
      ],
      "side": "low",
      "price": 30744.5,
@@ -17816,7 +17793,7 @@
      "type": "sweep"
     },
     {
-     "level": 411,
+     "level": 400,
      "side": "high",
      "kind": "London high",
      "price": 30861.75,
@@ -17824,7 +17801,7 @@
      "type": "level"
     },
     {
-     "level": 412,
+     "level": 401,
      "side": "low",
      "kind": "London low",
      "price": 30705.25,
@@ -17832,7 +17809,7 @@
      "type": "level"
     },
     {
-     "level": 413,
+     "level": 402,
      "side": "high",
      "kind": "Equal highs",
      "price": 30808.5,
@@ -17841,7 +17818,7 @@
     },
     {
      "levels": [
-      413
+      402
      ],
      "side": "high",
      "price": 30808.5,
@@ -17854,7 +17831,7 @@
      "type": "sweep"
     },
     {
-     "level": 408,
+     "level": 397,
      "side": "low",
      "kind": "PDL",
      "price": 30591.25,
@@ -17863,7 +17840,7 @@
      "type": "broken"
     },
     {
-     "level": 412,
+     "level": 401,
      "side": "low",
      "kind": "London low",
      "price": 30705.25,
@@ -17872,7 +17849,7 @@
      "type": "broken"
     },
     {
-     "level": 414,
+     "level": 403,
      "side": "high",
      "kind": "PDH",
      "price": 30891.5,
@@ -17880,7 +17857,7 @@
      "type": "level"
     },
     {
-     "level": 415,
+     "level": 404,
      "side": "low",
      "kind": "PDL",
      "price": 30078.0,
@@ -17889,7 +17866,7 @@
     },
     {
      "levels": [
-      415
+      404
      ],
      "side": "low",
      "price": 30078.0,
@@ -17902,7 +17879,7 @@
      "type": "sweep"
     },
     {
-     "level": 416,
+     "level": 405,
      "side": "high",
      "kind": "Asia high",
      "price": 30158.5,
@@ -17910,7 +17887,7 @@
      "type": "level"
     },
     {
-     "level": 417,
+     "level": 406,
      "side": "low",
      "kind": "Asia low",
      "price": 29823.5,
@@ -17918,7 +17895,7 @@
      "type": "level"
     },
     {
-     "level": 418,
+     "level": 407,
      "side": "low",
      "kind": "Equal lows",
      "price": 29823.5,
@@ -17926,7 +17903,7 @@
      "type": "level"
     },
     {
-     "level": 419,
+     "level": 408,
      "side": "high",
      "kind": "Equal highs",
      "price": 29978.25,
@@ -17934,7 +17911,7 @@
      "type": "level"
     },
     {
-     "level": 417,
+     "level": 406,
      "side": "low",
      "kind": "Asia low",
      "price": 29823.5,
@@ -17943,7 +17920,7 @@
      "type": "broken"
     },
     {
-     "level": 418,
+     "level": 407,
      "side": "low",
      "kind": "Equal lows",
      "price": 29823.5,
@@ -17952,7 +17929,7 @@
      "type": "broken"
     },
     {
-     "level": 420,
+     "level": 409,
      "side": "low",
      "kind": "Equal lows",
      "price": 29754.0,
@@ -17960,7 +17937,7 @@
      "type": "level"
     },
     {
-     "level": 421,
+     "level": 410,
      "side": "high",
      "kind": "London high",
      "price": 29941.0,
@@ -17968,7 +17945,7 @@
      "type": "level"
     },
     {
-     "level": 422,
+     "level": 411,
      "side": "low",
      "kind": "London low",
      "price": 29754.0,
@@ -17977,8 +17954,8 @@
     },
     {
      "levels": [
-      420,
-      422
+      409,
+      411
      ],
      "side": "low",
      "price": 29754.0,
@@ -17991,7 +17968,7 @@
      "type": "sweep"
     },
     {
-     "level": 421,
+     "level": 410,
      "side": "high",
      "kind": "London high",
      "price": 29941.0,
@@ -18000,7 +17977,7 @@
      "type": "broken"
     },
     {
-     "level": 419,
+     "level": 408,
      "side": "high",
      "kind": "Equal highs",
      "price": 29978.25,
@@ -18010,7 +17987,7 @@
     },
     {
      "levels": [
-      416
+      405
      ],
      "side": "high",
      "price": 30158.5,
@@ -18023,7 +18000,7 @@
      "type": "sweep"
     },
     {
-     "level": 423,
+     "level": 412,
      "side": "high",
      "kind": "PDH",
      "price": 30196.75,
@@ -18031,12 +18008,37 @@
      "type": "level"
     },
     {
-     "level": 424,
+     "level": 413,
      "side": "low",
      "kind": "PDL",
      "price": 29622.5,
      "t": 1792101600,
      "type": "level"
+    },
+    {
+     "level": 414,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 30128.0,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 415,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 29959.25,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 414,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 30128.0,
+     "why": "the candle opened beyond the level (a gap), so it wasn't swept",
+     "t": 1792123200,
+     "type": "gap"
     }
    ],
    "contract": "Dec 2026",
@@ -18051,6 +18053,34 @@
    "tick": 1.0,
    "exchange": "CBOT",
    "m15": [
+    [
+     1791491400,
+     51522.0,
+     51530.0,
+     51484.0,
+     51487.0
+    ],
+    [
+     1791492300,
+     51488.0,
+     51513.0,
+     51487.0,
+     51509.0
+    ],
+    [
+     1791496800,
+     51497.0,
+     51544.0,
+     51489.0,
+     51523.0
+    ],
+    [
+     1791497700,
+     51528.0,
+     51541.0,
+     51525.0,
+     51540.0
+    ],
     [
      1791498600,
      51541.0,
@@ -21365,54 +21395,33 @@
     [
      1792115100,
      52446.0,
-     52463.0,
-     52444.0,
-     52457.0
+     52454.0,
+     52446.0,
+     52454.0
     ],
     [
-     1792116000,
-     52458.0,
-     52470.0,
-     52453.0,
-     52463.0
+     1792123200,
+     52529.0,
+     52530.0,
+     52465.0,
+     52484.0
     ],
     [
-     1792116900,
-     52461.0,
+     1792124100,
+     52479.0,
+     52497.0,
      52476.0,
-     52459.0,
-     52468.0
-    ],
-    [
-     1792117800,
-     52468.0,
-     52496.0,
-     52468.0,
-     52474.0
-    ],
-    [
-     1792118700,
-     52475.0,
-     52496.0,
-     52471.0,
-     52490.0
-    ],
-    [
-     1792119600,
-     52488.0,
-     52493.0,
-     52483.0,
-     52485.0
-    ],
-    [
-     1792120500,
-     52482.0,
-     52490.0,
-     52482.0,
-     52485.0
+     52495.0
     ]
    ],
    "h1": [
+    [
+     1788271200,
+     53383.6528,
+     53634.531,
+     53355.4416,
+     53438.0602
+    ],
     [
      1788274800,
      53442.0903,
@@ -26437,29 +26446,28 @@
      52463.0,
      52468.0,
      52420.0,
-     52457.0
+     52454.0
     ],
     [
-     1792116000,
-     52458.0,
-     52496.0,
-     52453.0,
-     52490.0
-    ],
-    [
-     1792119600,
-     52488.0,
-     52493.0,
-     52482.0,
-     52485.0
+     1792123200,
+     52529.0,
+     52530.0,
+     52465.0,
+     52495.0
     ]
    ],
    "levels": [
     {
-     "id": 427,
+     "id": 418,
      "side": "low",
      "kind": "PDL",
      "price": 51783.0
+    },
+    {
+     "id": 421,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 52380.0
     }
    ],
    "sessions": {
@@ -26468,45 +26476,13 @@
      "high": 52515.0,
      "low": 52380.0,
      "from": 1792101600,
-     "to": 1792121400
+     "to": 1792116000
     }
    },
-   "atr": 30.0,
+   "atr": 35.92857142857143,
    "events": [
     {
-     "level": 399,
-     "side": "high",
-     "kind": "Equal highs",
-     "price": 52155.0,
-     "t": 1791852300,
-     "type": "level"
-    },
-    {
-     "levels": [
-      395,
-      397
-     ],
-     "side": "high",
-     "price": 52182.0,
-     "extreme": 52190.0,
-     "inducement": null,
-     "setup": null,
-     "kinds": "Equal highs, PDH",
-     "why": "swept, but with no inducement just before the level: no trade",
-     "t": 1791853200,
-     "type": "sweep"
-    },
-    {
-     "level": 399,
-     "side": "high",
-     "kind": "Equal highs",
-     "price": 52155.0,
-     "why": "closed beyond the level twice in a row (a breakout that kept going)",
-     "t": 1791854100,
-     "type": "broken"
-    },
-    {
-     "level": 400,
+     "level": 391,
      "side": "high",
      "kind": "Asia high",
      "price": 52245.0,
@@ -26514,7 +26490,7 @@
      "type": "level"
     },
     {
-     "level": 401,
+     "level": 392,
      "side": "low",
      "kind": "Asia low",
      "price": 52095.0,
@@ -26522,7 +26498,7 @@
      "type": "level"
     },
     {
-     "level": 400,
+     "level": 391,
      "side": "high",
      "kind": "Asia high",
      "price": 52245.0,
@@ -26531,7 +26507,7 @@
      "type": "broken"
     },
     {
-     "level": 402,
+     "level": 393,
      "side": "low",
      "kind": "Equal lows",
      "price": 52230.0,
@@ -26539,7 +26515,7 @@
      "type": "level"
     },
     {
-     "level": 403,
+     "level": 394,
      "side": "high",
      "kind": "London high",
      "price": 52481.0,
@@ -26547,7 +26523,7 @@
      "type": "level"
     },
     {
-     "level": 404,
+     "level": 395,
      "side": "low",
      "kind": "London low",
      "price": 52262.0,
@@ -26556,7 +26532,7 @@
     },
     {
      "levels": [
-      403
+      394
      ],
      "side": "high",
      "price": 52481.0,
@@ -26570,8 +26546,8 @@
     },
     {
      "levels": [
-      402,
-      404
+      393,
+      395
      ],
      "side": "low",
      "price": 52230.0,
@@ -26593,7 +26569,7 @@
     },
     {
      "levels": [
-      396
+      387
      ],
      "side": "low",
      "price": 52056.0,
@@ -26607,7 +26583,7 @@
      "type": "sweep"
     },
     {
-     "level": 405,
+     "level": 396,
      "side": "high",
      "kind": "Equal highs",
      "price": 52612.0,
@@ -26624,7 +26600,7 @@
     },
     {
      "levels": [
-      401
+      392
      ],
      "side": "low",
      "price": 52095.0,
@@ -26651,8 +26627,8 @@
     },
     {
      "levels": [
-      394,
-      398
+      385,
+      389
      ],
      "side": "low",
      "price": 51913.0,
@@ -26665,7 +26641,7 @@
      "type": "sweep"
     },
     {
-     "level": 406,
+     "level": 397,
      "side": "high",
      "kind": "PDH",
      "price": 52612.0,
@@ -26673,7 +26649,7 @@
      "type": "level"
     },
     {
-     "level": 407,
+     "level": 398,
      "side": "low",
      "kind": "PDL",
      "price": 51836.0,
@@ -26681,7 +26657,7 @@
      "type": "level"
     },
     {
-     "level": 408,
+     "level": 399,
      "side": "high",
      "kind": "Asia high",
      "price": 52010.0,
@@ -26689,7 +26665,7 @@
      "type": "level"
     },
     {
-     "level": 409,
+     "level": 400,
      "side": "low",
      "kind": "Asia low",
      "price": 51873.0,
@@ -26697,7 +26673,7 @@
      "type": "level"
     },
     {
-     "level": 408,
+     "level": 399,
      "side": "high",
      "kind": "Asia high",
      "price": 52010.0,
@@ -26706,7 +26682,7 @@
      "type": "broken"
     },
     {
-     "level": 410,
+     "level": 401,
      "side": "high",
      "kind": "London high",
      "price": 52120.0,
@@ -26714,7 +26690,7 @@
      "type": "level"
     },
     {
-     "level": 411,
+     "level": 402,
      "side": "low",
      "kind": "London low",
      "price": 51972.0,
@@ -26722,7 +26698,7 @@
      "type": "level"
     },
     {
-     "level": 410,
+     "level": 401,
      "side": "high",
      "kind": "London high",
      "price": 52120.0,
@@ -26731,7 +26707,7 @@
      "type": "broken"
     },
     {
-     "level": 407,
+     "level": 398,
      "side": "low",
      "kind": "PDL",
      "price": 51836.0,
@@ -26740,7 +26716,7 @@
      "type": "broken"
     },
     {
-     "level": 409,
+     "level": 400,
      "side": "low",
      "kind": "Asia low",
      "price": 51873.0,
@@ -26749,7 +26725,7 @@
      "type": "broken"
     },
     {
-     "level": 411,
+     "level": 402,
      "side": "low",
      "kind": "London low",
      "price": 51972.0,
@@ -26758,7 +26734,7 @@
      "type": "broken"
     },
     {
-     "level": 412,
+     "level": 403,
      "side": "high",
      "kind": "Equal highs",
      "price": 52181.0,
@@ -26766,7 +26742,7 @@
      "type": "level"
     },
     {
-     "level": 413,
+     "level": 404,
      "side": "high",
      "kind": "PDH",
      "price": 52181.0,
@@ -26774,7 +26750,7 @@
      "type": "level"
     },
     {
-     "level": 414,
+     "level": 405,
      "side": "low",
      "kind": "PDL",
      "price": 51602.0,
@@ -26782,7 +26758,7 @@
      "type": "level"
     },
     {
-     "level": 415,
+     "level": 406,
      "side": "high",
      "kind": "Equal highs",
      "price": 51909.0,
@@ -26790,7 +26766,7 @@
      "type": "level"
     },
     {
-     "level": 416,
+     "level": 407,
      "side": "high",
      "kind": "Equal highs",
      "price": 51897.0,
@@ -26798,7 +26774,7 @@
      "type": "level"
     },
     {
-     "level": 417,
+     "level": 408,
      "side": "high",
      "kind": "Asia high",
      "price": 51905.0,
@@ -26806,7 +26782,7 @@
      "type": "level"
     },
     {
-     "level": 418,
+     "level": 409,
      "side": "low",
      "kind": "Asia low",
      "price": 51783.0,
@@ -26814,7 +26790,7 @@
      "type": "level"
     },
     {
-     "level": 419,
+     "level": 410,
      "side": "high",
      "kind": "Equal highs",
      "price": 51891.0,
@@ -26822,7 +26798,7 @@
      "type": "level"
     },
     {
-     "level": 416,
+     "level": 407,
      "side": "high",
      "kind": "Equal highs",
      "price": 51897.0,
@@ -26831,7 +26807,7 @@
      "type": "broken"
     },
     {
-     "level": 419,
+     "level": 410,
      "side": "high",
      "kind": "Equal highs",
      "price": 51891.0,
@@ -26840,7 +26816,7 @@
      "type": "broken"
     },
     {
-     "level": 415,
+     "level": 406,
      "side": "high",
      "kind": "Equal highs",
      "price": 51909.0,
@@ -26849,7 +26825,7 @@
      "type": "broken"
     },
     {
-     "level": 417,
+     "level": 408,
      "side": "high",
      "kind": "Asia high",
      "price": 51905.0,
@@ -26858,7 +26834,7 @@
      "type": "broken"
     },
     {
-     "level": 420,
+     "level": 411,
      "side": "high",
      "kind": "Equal highs",
      "price": 52118.0,
@@ -26866,7 +26842,7 @@
      "type": "level"
     },
     {
-     "level": 421,
+     "level": 412,
      "side": "high",
      "kind": "London high",
      "price": 52118.0,
@@ -26874,7 +26850,7 @@
      "type": "level"
     },
     {
-     "level": 422,
+     "level": 413,
      "side": "low",
      "kind": "London low",
      "price": 51861.0,
@@ -26882,7 +26858,7 @@
      "type": "level"
     },
     {
-     "level": 423,
+     "level": 414,
      "side": "low",
      "kind": "Equal lows",
      "price": 51973.0,
@@ -26891,7 +26867,7 @@
     },
     {
      "levels": [
-      423
+      414
      ],
      "side": "low",
      "price": 51973.0,
@@ -26904,7 +26880,7 @@
      "type": "sweep"
     },
     {
-     "level": 424,
+     "level": 415,
      "side": "high",
      "kind": "Equal highs",
      "price": 52054.0,
@@ -26913,7 +26889,7 @@
     },
     {
      "levels": [
-      424
+      415
      ],
      "side": "high",
      "price": 52054.0,
@@ -26927,8 +26903,8 @@
     },
     {
      "levels": [
-      420,
-      421
+      411,
+      412
      ],
      "side": "high",
      "price": 52118.0,
@@ -26950,8 +26926,8 @@
     },
     {
      "levels": [
-      412,
-      413
+      403,
+      404
      ],
      "side": "high",
      "price": 52181.0,
@@ -26965,7 +26941,7 @@
      "type": "sweep"
     },
     {
-     "level": 425,
+     "level": 416,
      "side": "high",
      "kind": "Equal highs",
      "price": 52184.0,
@@ -26979,7 +26955,7 @@
      "type": "cancelled"
     },
     {
-     "level": 425,
+     "level": 416,
      "side": "high",
      "kind": "Equal highs",
      "price": 52184.0,
@@ -26988,7 +26964,7 @@
      "type": "broken"
     },
     {
-     "level": 426,
+     "level": 417,
      "side": "high",
      "kind": "PDH",
      "price": 52503.0,
@@ -26996,7 +26972,7 @@
      "type": "level"
     },
     {
-     "level": 427,
+     "level": 418,
      "side": "low",
      "kind": "PDL",
      "price": 51783.0,
@@ -27004,7 +26980,7 @@
      "type": "level"
     },
     {
-     "level": 428,
+     "level": 419,
      "side": "low",
      "kind": "Equal lows",
      "price": 52418.0,
@@ -27013,7 +26989,7 @@
     },
     {
      "levels": [
-      428
+      419
      ],
      "side": "low",
      "price": 52418.0,
@@ -27027,7 +27003,7 @@
     },
     {
      "levels": [
-      426
+      417
      ],
      "side": "high",
      "price": 52503.0,
@@ -27038,6 +27014,31 @@
      "why": "swept, but with no inducement just before the level: no trade",
      "t": 1792110600,
      "type": "sweep"
+    },
+    {
+     "level": 420,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 52515.0,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 421,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 52380.0,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 420,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 52515.0,
+     "why": "the candle opened beyond the level (a gap), so it wasn't swept",
+     "t": 1792123200,
+     "type": "gap"
     }
    ],
    "contract": "Dec 2026",
@@ -27052,6 +27053,34 @@
    "tick": 0.1,
    "exchange": "CME",
    "m15": [
+    [
+     1791491400,
+     2811.6001,
+     2812.8,
+     2810.8,
+     2811.8
+    ],
+    [
+     1791492300,
+     2811.6001,
+     2812.3999,
+     2810.8,
+     2811.8999
+    ],
+    [
+     1791496800,
+     2811.8999,
+     2813.8,
+     2810.2,
+     2813.7
+    ],
+    [
+     1791497700,
+     2813.8,
+     2814.8,
+     2813.8,
+     2814.5
+    ],
     [
      1791498600,
      2814.5,
@@ -30368,52 +30397,31 @@
      2780.8,
      2782.8999,
      2780.8,
-     2781.8
+     2782.3
     ],
     [
-     1792116000,
-     2782.0,
-     2783.2,
-     2781.8,
-     2782.8999
-    ],
-    [
-     1792116900,
-     2782.8999,
-     2784.8,
-     2782.3999,
-     2784.2
-    ],
-    [
-     1792117800,
-     2784.3,
+     1792123200,
      2785.8999,
-     2783.8999,
-     2783.8999
+     2787.2,
+     2785.5,
+     2787.2
     ],
     [
-     1792118700,
-     2783.8999,
-     2785.3,
-     2783.3999,
-     2785.1001
-    ],
-    [
-     1792119600,
-     2784.5,
-     2785.7,
-     2784.3,
-     2784.5
-    ],
-    [
-     1792120500,
-     2784.5,
-     2784.8,
-     2784.5,
-     2784.6001
+     1792124100,
+     2786.8999,
+     2788.5,
+     2786.7,
+     2788.0
     ]
    ],
    "h1": [
+    [
+     1788271200,
+     2955.636,
+     2968.4283,
+     2952.7147,
+     2961.5788
+    ],
     [
      1788274800,
      2961.7802,
@@ -35438,75 +35446,50 @@
      2781.2,
      2782.8999,
      2779.2,
-     2781.8
+     2782.3
     ],
     [
-     1792116000,
-     2782.0,
+     1792123200,
      2785.8999,
-     2781.8,
-     2785.1001
-    ],
-    [
-     1792119600,
-     2784.5,
-     2785.7,
-     2784.3,
-     2784.6001
+     2788.5,
+     2785.5,
+     2788.0
     ]
    ],
    "levels": [
     {
-     "id": 420,
+     "id": 411,
      "side": "low",
      "kind": "Equal lows",
      "price": 2736.60009765625
     },
     {
-     "id": 422,
+     "id": 413,
      "side": "low",
      "kind": "PDL",
      "price": 2736.60009765625
+    },
+    {
+     "id": 415,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 2777.60009765625
     }
    ],
    "sessions": {
     "asia": {
      "name": "Asia",
-     "high": 2785.89990234375,
+     "high": 2785.60009765625,
      "low": 2777.60009765625,
      "from": 1792101600,
-     "to": 1792121400
+     "to": 1792116000
     }
    },
-   "atr": 1.9857352120535714,
+   "atr": 2.378574916294643,
    "events": [
     {
-     "level": 391,
-     "side": "high",
-     "kind": "Asia high",
-     "price": 2834.300048828125,
-     "t": 1791777600,
-     "type": "level"
-    },
-    {
-     "level": 392,
-     "side": "low",
-     "kind": "Asia low",
-     "price": 2822.89990234375,
-     "t": 1791777600,
-     "type": "level"
-    },
-    {
-     "level": 393,
-     "side": "high",
-     "kind": "Equal highs",
-     "price": 2832.0,
-     "t": 1791792000,
-     "type": "level"
-    },
-    {
      "levels": [
-      392
+      383
      ],
      "side": "low",
      "price": 2822.89990234375,
@@ -35519,7 +35502,7 @@
      "type": "sweep"
     },
     {
-     "level": 394,
+     "level": 385,
      "side": "high",
      "kind": "London high",
      "price": 2832.0,
@@ -35527,7 +35510,7 @@
      "type": "level"
     },
     {
-     "level": 395,
+     "level": 386,
      "side": "low",
      "kind": "London low",
      "price": 2822.39990234375,
@@ -35536,7 +35519,7 @@
     },
     {
      "levels": [
-      395
+      386
      ],
      "side": "low",
      "price": 2822.39990234375,
@@ -35549,7 +35532,7 @@
      "type": "sweep"
     },
     {
-     "level": 396,
+     "level": 387,
      "side": "low",
      "kind": "Equal lows",
      "price": 2821.199951171875,
@@ -35558,7 +35541,7 @@
     },
     {
      "levels": [
-      396
+      387
      ],
      "side": "low",
      "price": 2821.199951171875,
@@ -35571,7 +35554,7 @@
      "type": "sweep"
     },
     {
-     "level": 397,
+     "level": 388,
      "side": "low",
      "kind": "Equal lows",
      "price": 2820.60009765625,
@@ -35579,7 +35562,7 @@
      "type": "level"
     },
     {
-     "level": 397,
+     "level": 388,
      "side": "low",
      "kind": "Equal lows",
      "price": 2820.60009765625,
@@ -35588,7 +35571,7 @@
      "type": "broken"
     },
     {
-     "level": 398,
+     "level": 389,
      "side": "low",
      "kind": "Equal lows",
      "price": 2811.60009765625,
@@ -35597,7 +35580,7 @@
     },
     {
      "levels": [
-      398
+      389
      ],
      "side": "low",
      "price": 2811.60009765625,
@@ -35610,7 +35593,7 @@
      "type": "sweep"
     },
     {
-     "level": 399,
+     "level": 390,
      "side": "high",
      "kind": "PDH",
      "price": 2834.300048828125,
@@ -35618,7 +35601,7 @@
      "type": "level"
     },
     {
-     "level": 400,
+     "level": 391,
      "side": "low",
      "kind": "PDL",
      "price": 2810.39990234375,
@@ -35626,7 +35609,7 @@
      "type": "level"
     },
     {
-     "level": 400,
+     "level": 391,
      "side": "low",
      "kind": "PDL",
      "price": 2810.39990234375,
@@ -35635,7 +35618,7 @@
      "type": "broken"
     },
     {
-     "level": 401,
+     "level": 392,
      "side": "low",
      "kind": "Equal lows",
      "price": 2809.199951171875,
@@ -35643,7 +35626,7 @@
      "type": "level"
     },
     {
-     "level": 402,
+     "level": 393,
      "side": "high",
      "kind": "Asia high",
      "price": 2816.0,
@@ -35651,7 +35634,7 @@
      "type": "level"
     },
     {
-     "level": 403,
+     "level": 394,
      "side": "low",
      "kind": "Asia low",
      "price": 2806.300048828125,
@@ -35659,7 +35642,7 @@
      "type": "level"
     },
     {
-     "level": 402,
+     "level": 393,
      "side": "high",
      "kind": "Asia high",
      "price": 2816.0,
@@ -35668,7 +35651,7 @@
      "type": "broken"
     },
     {
-     "level": 404,
+     "level": 395,
      "side": "high",
      "kind": "London high",
      "price": 2825.300048828125,
@@ -35676,7 +35659,7 @@
      "type": "level"
     },
     {
-     "level": 405,
+     "level": 396,
      "side": "low",
      "kind": "London low",
      "price": 2817.800048828125,
@@ -35693,7 +35676,7 @@
     },
     {
      "levels": [
-      404
+      395
      ],
      "side": "high",
      "price": 2825.300048828125,
@@ -35719,7 +35702,7 @@
     },
     {
      "levels": [
-      405
+      396
      ],
      "side": "low",
      "price": 2817.800048828125,
@@ -35733,8 +35716,8 @@
     },
     {
      "levels": [
-      401,
-      403
+      392,
+      394
      ],
      "side": "low",
      "price": 2806.300048828125,
@@ -35747,7 +35730,7 @@
      "type": "sweep"
     },
     {
-     "level": 406,
+     "level": 397,
      "side": "high",
      "kind": "Equal highs",
      "price": 2804.89990234375,
@@ -35755,7 +35738,7 @@
      "type": "level"
     },
     {
-     "level": 407,
+     "level": 398,
      "side": "high",
      "kind": "PDH",
      "price": 2826.0,
@@ -35763,7 +35746,7 @@
      "type": "level"
     },
     {
-     "level": 408,
+     "level": 399,
      "side": "low",
      "kind": "PDL",
      "price": 2786.5,
@@ -35780,7 +35763,7 @@
     },
     {
      "levels": [
-      406
+      397
      ],
      "side": "high",
      "price": 2804.89990234375,
@@ -35800,7 +35783,7 @@
      "type": "cancelled"
     },
     {
-     "level": 409,
+     "level": 400,
      "side": "high",
      "kind": "Asia high",
      "price": 2807.300048828125,
@@ -35808,7 +35791,7 @@
      "type": "level"
     },
     {
-     "level": 410,
+     "level": 401,
      "side": "low",
      "kind": "Asia low",
      "price": 2798.60009765625,
@@ -35816,7 +35799,7 @@
      "type": "level"
     },
     {
-     "level": 409,
+     "level": 400,
      "side": "high",
      "kind": "Asia high",
      "price": 2807.300048828125,
@@ -35825,7 +35808,7 @@
      "type": "broken"
     },
     {
-     "level": 411,
+     "level": 402,
      "side": "high",
      "kind": "London high",
      "price": 2810.89990234375,
@@ -35833,7 +35816,7 @@
      "type": "level"
     },
     {
-     "level": 412,
+     "level": 403,
      "side": "low",
      "kind": "London low",
      "price": 2802.699951171875,
@@ -35842,7 +35825,7 @@
     },
     {
      "levels": [
-      411
+      402
      ],
      "side": "high",
      "price": 2810.89990234375,
@@ -35855,7 +35838,7 @@
      "type": "sweep"
     },
     {
-     "level": 408,
+     "level": 399,
      "side": "low",
      "kind": "PDL",
      "price": 2786.5,
@@ -35864,7 +35847,7 @@
      "type": "broken"
     },
     {
-     "level": 410,
+     "level": 401,
      "side": "low",
      "kind": "Asia low",
      "price": 2798.60009765625,
@@ -35873,7 +35856,7 @@
      "type": "broken"
     },
     {
-     "level": 412,
+     "level": 403,
      "side": "low",
      "kind": "London low",
      "price": 2802.699951171875,
@@ -35882,7 +35865,7 @@
      "type": "broken"
     },
     {
-     "level": 413,
+     "level": 404,
      "side": "high",
      "kind": "PDH",
      "price": 2816.0,
@@ -35890,7 +35873,7 @@
      "type": "level"
     },
     {
-     "level": 414,
+     "level": 405,
      "side": "low",
      "kind": "PDL",
      "price": 2734.89990234375,
@@ -35898,7 +35881,7 @@
      "type": "level"
     },
     {
-     "level": 415,
+     "level": 406,
      "side": "high",
      "kind": "Asia high",
      "price": 2748.800048828125,
@@ -35906,7 +35889,7 @@
      "type": "level"
     },
     {
-     "level": 416,
+     "level": 407,
      "side": "low",
      "kind": "Asia low",
      "price": 2738.5,
@@ -35914,7 +35897,7 @@
      "type": "level"
     },
     {
-     "level": 415,
+     "level": 406,
      "side": "high",
      "kind": "Asia high",
      "price": 2748.800048828125,
@@ -35923,7 +35906,7 @@
      "type": "broken"
     },
     {
-     "level": 417,
+     "level": 408,
      "side": "high",
      "kind": "London high",
      "price": 2758.10009765625,
@@ -35931,7 +35914,7 @@
      "type": "level"
     },
     {
-     "level": 418,
+     "level": 409,
      "side": "low",
      "kind": "London low",
      "price": 2748.39990234375,
@@ -35939,7 +35922,7 @@
      "type": "level"
     },
     {
-     "level": 419,
+     "level": 410,
      "side": "high",
      "kind": "Equal highs",
      "price": 2755.0,
@@ -35948,7 +35931,7 @@
     },
     {
      "levels": [
-      416
+      407
      ],
      "side": "low",
      "price": 2738.5,
@@ -35962,7 +35945,7 @@
     },
     {
      "levels": [
-      418
+      409
      ],
      "side": "low",
      "price": 2748.39990234375,
@@ -35972,7 +35955,7 @@
      "type": "breakout"
     },
     {
-     "level": 420,
+     "level": 411,
      "side": "low",
      "kind": "Equal lows",
      "price": 2736.60009765625,
@@ -35980,7 +35963,7 @@
      "type": "level"
     },
     {
-     "level": 419,
+     "level": 410,
      "side": "high",
      "kind": "Equal highs",
      "price": 2755.0,
@@ -35998,7 +35981,7 @@
     },
     {
      "levels": [
-      417
+      408
      ],
      "side": "high",
      "price": 2758.10009765625,
@@ -36018,7 +36001,7 @@
      "type": "cancelled"
     },
     {
-     "level": 421,
+     "level": 412,
      "side": "high",
      "kind": "PDH",
      "price": 2785.10009765625,
@@ -36026,7 +36009,7 @@
      "type": "level"
     },
     {
-     "level": 422,
+     "level": 413,
      "side": "low",
      "kind": "PDL",
      "price": 2736.60009765625,
@@ -36035,7 +36018,7 @@
     },
     {
      "levels": [
-      421
+      412
      ],
      "side": "high",
      "price": 2785.10009765625,
@@ -36046,6 +36029,31 @@
      "why": "swept, but with no inducement just before the level: no trade",
      "t": 1792102500,
      "type": "sweep"
+    },
+    {
+     "level": 414,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 2785.60009765625,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 415,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 2777.60009765625,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 414,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 2785.60009765625,
+     "why": "the candle opened beyond the level (a gap), so it wasn't swept",
+     "t": 1792123200,
+     "type": "gap"
     }
    ],
    "contract": "Dec 2026",
@@ -36060,27 +36068,6 @@
    "tick": 0.1,
    "exchange": "COMEX",
    "m15": [
-    [
-     1791499500,
-     4164.5,
-     4165.8999,
-     4162.7002,
-     4163.2998
-    ],
-    [
-     1791500400,
-     4163.2998,
-     4167.2002,
-     4161.0,
-     4165.5
-    ],
-    [
-     1791501300,
-     4165.6001,
-     4169.5,
-     4165.2002,
-     4166.6001
-    ],
     [
      1791502200,
      4166.5,
@@ -39417,18 +39404,32 @@
      1792120500,
      4195.2002,
      4195.2998,
-     4193.1001,
-     4193.7002
+     4190.0,
+     4191.1001
+    ],
+    [
+     1792121400,
+     4190.6001,
+     4191.6001,
+     4190.0,
+     4190.0
+    ],
+    [
+     1792123200,
+     4204.6001,
+     4207.8999,
+     4197.0,
+     4198.1001
+    ],
+    [
+     1792124100,
+     4198.2998,
+     4203.0,
+     4197.2002,
+     4202.6001
     ]
    ],
    "h1": [
-    [
-     1788285600,
-     4391.2998,
-     4392.7002,
-     4375.6001,
-     4379.2998
-    ],
     [
      1788289200,
      4378.8999,
@@ -44459,16 +44460,29 @@
      1792119600,
      4197.1001,
      4197.5,
-     4192.5,
-     4193.7002
+     4190.0,
+     4190.0
+    ],
+    [
+     1792123200,
+     4204.6001,
+     4207.8999,
+     4197.0,
+     4202.6001
     ]
    ],
    "levels": [
     {
-     "id": 396,
+     "id": 388,
      "side": "low",
      "kind": "PDL",
      "price": 4120.89990234375
+    },
+    {
+     "id": 390,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 4167.5
     }
    ],
    "sessions": {
@@ -44477,44 +44491,14 @@
      "high": 4201.2998046875,
      "low": 4167.5,
      "from": 1792101600,
-     "to": 1792121400
+     "to": 1792122300
     }
    },
-   "atr": 6.621442522321429,
+   "atr": 7.75,
    "events": [
     {
      "levels": [
-      362
-     ],
-     "side": "high",
-     "price": 4233.7001953125,
-     "extreme": 4234.2998046875,
-     "inducement": null,
-     "setup": null,
-     "kinds": "PDH",
-     "why": "swept, but with no inducement just before the level: no trade",
-     "t": 1791763200,
-     "type": "sweep"
-    },
-    {
-     "level": 364,
-     "side": "high",
-     "kind": "Asia high",
-     "price": 4242.2998046875,
-     "t": 1791777600,
-     "type": "level"
-    },
-    {
-     "level": 365,
-     "side": "low",
-     "kind": "Asia low",
-     "price": 4209.10009765625,
-     "t": 1791777600,
-     "type": "level"
-    },
-    {
-     "levels": [
-      365
+      357
      ],
      "side": "low",
      "price": 4209.10009765625,
@@ -44527,7 +44511,7 @@
      "type": "sweep"
     },
     {
-     "level": 366,
+     "level": 358,
      "side": "high",
      "kind": "London high",
      "price": 4217.0,
@@ -44535,7 +44519,7 @@
      "type": "level"
     },
     {
-     "level": 367,
+     "level": 359,
      "side": "low",
      "kind": "London low",
      "price": 4196.7001953125,
@@ -44544,7 +44528,7 @@
     },
     {
      "levels": [
-      367
+      359
      ],
      "side": "low",
      "price": 4196.7001953125,
@@ -44557,7 +44541,7 @@
      "type": "sweep"
     },
     {
-     "level": 368,
+     "level": 360,
      "side": "high",
      "kind": "Equal highs",
      "price": 4199.2998046875,
@@ -44565,7 +44549,7 @@
      "type": "level"
     },
     {
-     "level": 369,
+     "level": 361,
      "side": "high",
      "kind": "PDH",
      "price": 4242.2998046875,
@@ -44573,7 +44557,7 @@
      "type": "level"
     },
     {
-     "level": 370,
+     "level": 362,
      "side": "low",
      "kind": "PDL",
      "price": 4178.10009765625,
@@ -44590,7 +44574,7 @@
     },
     {
      "levels": [
-      368
+      360
      ],
      "side": "high",
      "price": 4199.2998046875,
@@ -44616,7 +44600,7 @@
     },
     {
      "levels": [
-      370
+      362
      ],
      "side": "low",
      "price": 4178.10009765625,
@@ -44629,7 +44613,7 @@
      "type": "sweep"
     },
     {
-     "level": 371,
+     "level": 363,
      "side": "high",
      "kind": "Asia high",
      "price": 4211.7001953125,
@@ -44637,7 +44621,7 @@
      "type": "level"
     },
     {
-     "level": 372,
+     "level": 364,
      "side": "low",
      "kind": "Asia low",
      "price": 4173.7001953125,
@@ -44645,7 +44629,7 @@
      "type": "level"
     },
     {
-     "level": 371,
+     "level": 363,
      "side": "high",
      "kind": "Asia high",
      "price": 4211.7001953125,
@@ -44654,7 +44638,7 @@
      "type": "broken"
     },
     {
-     "level": 373,
+     "level": 365,
      "side": "low",
      "kind": "Equal lows",
      "price": 4207.2001953125,
@@ -44662,7 +44646,7 @@
      "type": "level"
     },
     {
-     "level": 374,
+     "level": 366,
      "side": "high",
      "kind": "London high",
      "price": 4217.89990234375,
@@ -44670,7 +44654,7 @@
      "type": "level"
     },
     {
-     "level": 375,
+     "level": 367,
      "side": "low",
      "kind": "London low",
      "price": 4207.2001953125,
@@ -44678,7 +44662,7 @@
      "type": "level"
     },
     {
-     "level": 376,
+     "level": 368,
      "side": "high",
      "kind": "Equal highs",
      "price": 4217.89990234375,
@@ -44687,8 +44671,8 @@
     },
     {
      "levels": [
-      373,
-      375
+      365,
+      367
      ],
      "side": "low",
      "price": 4207.2001953125,
@@ -44702,7 +44686,7 @@
     },
     {
      "levels": [
-      372
+      364
      ],
      "side": "low",
      "price": 4173.7001953125,
@@ -44715,7 +44699,7 @@
      "type": "sweep"
     },
     {
-     "level": 377,
+     "level": 369,
      "side": "high",
      "kind": "PDH",
      "price": 4224.7998046875,
@@ -44723,7 +44707,7 @@
      "type": "level"
     },
     {
-     "level": 378,
+     "level": 370,
      "side": "low",
      "kind": "PDL",
      "price": 4169.7001953125,
@@ -44732,7 +44716,7 @@
     },
     {
      "levels": [
-      378
+      370
      ],
      "side": "low",
      "price": 4169.7001953125,
@@ -44745,7 +44729,7 @@
      "type": "sweep"
     },
     {
-     "level": 379,
+     "level": 371,
      "side": "high",
      "kind": "Equal highs",
      "price": 4189.5,
@@ -44753,7 +44737,7 @@
      "type": "level"
     },
     {
-     "level": 379,
+     "level": 371,
      "side": "high",
      "kind": "Equal highs",
      "price": 4189.5,
@@ -44762,7 +44746,7 @@
      "type": "broken"
     },
     {
-     "level": 380,
+     "level": 372,
      "side": "high",
      "kind": "Asia high",
      "price": 4193.5,
@@ -44770,7 +44754,7 @@
      "type": "level"
     },
     {
-     "level": 381,
+     "level": 373,
      "side": "low",
      "kind": "Asia low",
      "price": 4167.0,
@@ -44779,7 +44763,7 @@
     },
     {
      "levels": [
-      381
+      373
      ],
      "side": "low",
      "price": 4167.0,
@@ -44792,7 +44776,7 @@
      "type": "sweep"
     },
     {
-     "level": 382,
+     "level": 374,
      "side": "high",
      "kind": "London high",
      "price": 4186.5,
@@ -44800,7 +44784,7 @@
      "type": "level"
     },
     {
-     "level": 383,
+     "level": 375,
      "side": "low",
      "kind": "London low",
      "price": 4163.7001953125,
@@ -44809,7 +44793,7 @@
     },
     {
      "levels": [
-      383
+      375
      ],
      "side": "low",
      "price": 4163.7001953125,
@@ -44822,7 +44806,7 @@
      "type": "sweep"
     },
     {
-     "level": 384,
+     "level": 376,
      "side": "high",
      "kind": "Equal highs",
      "price": 4180.89990234375,
@@ -44830,7 +44814,7 @@
      "type": "level"
     },
     {
-     "level": 385,
+     "level": 377,
      "side": "high",
      "kind": "Equal highs",
      "price": 4129.60009765625,
@@ -44838,7 +44822,7 @@
      "type": "level"
     },
     {
-     "level": 386,
+     "level": 378,
      "side": "high",
      "kind": "PDH",
      "price": 4193.5,
@@ -44846,7 +44830,7 @@
      "type": "level"
     },
     {
-     "level": 387,
+     "level": 379,
      "side": "low",
      "kind": "PDL",
      "price": 4095.0,
@@ -44855,7 +44839,7 @@
     },
     {
      "levels": [
-      385
+      377
      ],
      "side": "high",
      "price": 4129.60009765625,
@@ -44877,7 +44861,7 @@
     },
     {
      "levels": [
-      384
+      376
      ],
      "side": "high",
      "price": 4180.89990234375,
@@ -44891,7 +44875,7 @@
      "type": "sweep"
     },
     {
-     "level": 388,
+     "level": 380,
      "side": "high",
      "kind": "Asia high",
      "price": 4183.2998046875,
@@ -44899,7 +44883,7 @@
      "type": "level"
     },
     {
-     "level": 389,
+     "level": 381,
      "side": "low",
      "kind": "Asia low",
      "price": 4120.89990234375,
@@ -44913,7 +44897,7 @@
      "type": "expired"
     },
     {
-     "level": 390,
+     "level": 382,
      "side": "high",
      "kind": "Equal highs",
      "price": 4168.89990234375,
@@ -44921,7 +44905,7 @@
      "type": "level"
     },
     {
-     "level": 390,
+     "level": 382,
      "side": "high",
      "kind": "Equal highs",
      "price": 4168.89990234375,
@@ -44930,7 +44914,7 @@
      "type": "broken"
     },
     {
-     "level": 391,
+     "level": 383,
      "side": "high",
      "kind": "London high",
      "price": 4180.5,
@@ -44938,7 +44922,7 @@
      "type": "level"
     },
     {
-     "level": 392,
+     "level": 384,
      "side": "low",
      "kind": "London low",
      "price": 4152.7001953125,
@@ -44947,7 +44931,7 @@
     },
     {
      "levels": [
-      391
+      383
      ],
      "side": "high",
      "price": 4180.5,
@@ -44961,7 +44945,7 @@
     },
     {
      "levels": [
-      392
+      384
      ],
      "side": "low",
      "price": 4152.7001953125,
@@ -44974,7 +44958,7 @@
      "type": "sweep"
     },
     {
-     "level": 393,
+     "level": 385,
      "side": "high",
      "kind": "Equal highs",
      "price": 4181.0,
@@ -44991,8 +44975,8 @@
     },
     {
      "levels": [
-      388,
-      393
+      380,
+      385
      ],
      "side": "high",
      "price": 4183.2998046875,
@@ -45006,7 +44990,7 @@
      "type": "sweep"
     },
     {
-     "level": 394,
+     "level": 386,
      "side": "high",
      "kind": "Equal highs",
      "price": 4190.39990234375,
@@ -45020,7 +45004,7 @@
      "type": "expired"
     },
     {
-     "level": 394,
+     "level": 386,
      "side": "high",
      "kind": "Equal highs",
      "price": 4190.39990234375,
@@ -45029,7 +45013,7 @@
      "type": "broken"
     },
     {
-     "level": 386,
+     "level": 378,
      "side": "high",
      "kind": "PDH",
      "price": 4193.5,
@@ -45038,7 +45022,7 @@
      "type": "broken"
     },
     {
-     "level": 395,
+     "level": 387,
      "side": "high",
      "kind": "PDH",
      "price": 4197.7001953125,
@@ -45046,7 +45030,7 @@
      "type": "level"
     },
     {
-     "level": 396,
+     "level": 388,
      "side": "low",
      "kind": "PDL",
      "price": 4120.89990234375,
@@ -45055,7 +45039,7 @@
     },
     {
      "levels": [
-      395
+      387
      ],
      "side": "high",
      "price": 4197.7001953125,
@@ -45066,6 +45050,31 @@
      "why": "swept, but with no inducement just before the level: no trade",
      "t": 1792118700,
      "type": "sweep"
+    },
+    {
+     "level": 389,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 4201.2998046875,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 390,
+     "side": "low",
+     "kind": "Asia low",
+     "price": 4167.5,
+     "t": 1792123200,
+     "type": "level"
+    },
+    {
+     "level": 389,
+     "side": "high",
+     "kind": "Asia high",
+     "price": 4201.2998046875,
+     "why": "the candle opened beyond the level (a gap), so it wasn't swept",
+     "t": 1792123200,
+     "type": "gap"
     }
    ],
    "contract": "Dec 2026",
