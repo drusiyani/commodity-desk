@@ -1,5 +1,54 @@
 [
  {
+  "title": "Oil prices jump sharply, to nearly $110 per barrel",
+  "source": "NBC News",
+  "link": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxNcWwtaE0zalpGS3dlQkJuT2lJSHdXdEVjbkItLUVDMlYzWHNjYnpQWGF3TlpnNDV5ME9DWG5YU0ZtbVVGdnZNRndsSkdOZHRzUU5iQjVhd20yY1h6WF9VUjMwVXdLQktSX0o3amgyZVpmeXJiY1gtRHVCbTNfV3VsQ2ZLcHU2ek9a?oc=5",
+  "published": 1792173343,
+  "id": "nd09d7df1c1",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1792175603
+ },
+ {
+  "title": "Agricultural product prices today, October 16, 2026: Robusta coffee prices plummet by over $100, will domestic prices adjust? US extends sanctions waiver for Russian oil giant.",
+  "source": "Vietnam.vn",
+  "link": "https://news.google.com/rss/articles/CBMigAJBVV95cUxQREJKY3ZnTlJWZmlIMEF3dlJZX094LTM2Y3htN0lZTTBxZXlQUmhPX3hOZW9tS1RPbWctckxDc19wUXktVS1BTUgxdFo5QUlpSHdUQ0tTNWVYZVlMSldkdnZDZHRSTEh0UC1PYi1VWEJoLU1Hem1aQWRaWVg3cm1ESUhZVDJCRmlXZm8yRmdNRGU1cERIZksya2I3NHlhN1JyYVNjQUlwUXIwSi1JUUVrb1dGbTd0Ung5aktsNkJ1UWhsYlVObkREWlIyNV9TNjktTGtCZ0RXekZYX1pmQm43MlpsWC15SFhYTWR6RHNUalpsMG9HNG9yWmhEVUVvUW5o?oc=5",
+  "published": 1792171589,
+  "id": "n85edb8aa68",
+  "symbol": "KC=F",
+  "symbols": [
+   "KC=F"
+  ],
+  "seen": 1792175603
+ },
+ {
+  "title": "Brent Crude Surges 3% Nearing $110: What Is Causing Oil Prices to Rise Again?",
+  "source": "TradingKey",
+  "link": "https://news.google.com/rss/articles/CBMiywFBVV95cUxPbHdTWWZTZjVnQVUyaXdGMUNNVGcyVTlqLXZLcVd1aE5RRzZ2UWlLUjF3Z1FnYlJ4bWd6d2dnX09wd1pPSThLLVNEMVZpSF9RMTNCT0s1aUMxLVBMQ0ljRjY2OEJUa0x5U1FLeV9HUkxlRmNmMGxNdmJXRWFEdm5LS2QtdEFweWVBVFdoWHJHM2g1Y1IxNzJUeXJRMkotSDJzbllhX3BoQ21vMkM5RjE2MnBiTXZwTkJKZk5venpRb2lBc1FOX19RQ0hjcw?oc=5",
+  "published": 1792170765,
+  "id": "nec4d80c44b",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F",
+   "BZ=F"
+  ],
+  "seen": 1792175603
+ },
+ {
+  "title": "Saudi Leads Jump in OPEC+ Oil Output in September, Despite Iran War Disruption",
+  "source": "EnergyNow.com",
+  "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQYTJNZmREVk1FT3ZFQUI2eVA2ek9QREx4OTRhZmIwWlZHMEE3Sk9haUJLeFhkZDgwSUNBOWU3ek9ud3RMck5pSjlFMHNHR0JuRW1jYkItMEpKU05SN3V2aDkxdjdNMG1jU0dEcWZvQlNkVlliUndIbTBSaFZlQmNCZkt3Q0NMVld5QzV0X0NPV3k3c0x0b2JzMGxwZllmQ3FLanUwT1hxX1JqaGs?oc=5",
+  "published": 1792170698,
+  "id": "n3b55af1d81",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F"
+  ],
+  "seen": 1792175603
+ },
+ {
   "title": "Mining Experts Call For Funding, Federal Focus on Critical Minerals",
   "source": "National Defense Magazine",
   "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxONDdzdVBsQVVHekl1MDdtOE5uNmRnQWpULVFYVHh5MXVFRXZnSmloRVQxYW82bzBKazdmRldOcmlvMEZHV21UeTFrZUFpbGZSazNwT3RIemhzMTZRYVRUYUtZZVoyblVTNUVJSkt1UHQ0eC1ZTEN5ZlBXbHk0WWZsQmFocEtxZElGa1hKZ1VHN1dBRFhFTG51ODFBRU5ELThFSFc1TnhYcGdnZ1VZb3lscVZaS1I2Q3JPQ3hsSmNVMzVwOTdZ?oc=5",
@@ -10,6 +59,18 @@
    "HG=F"
   ],
   "seen": 1792171736
+ },
+ {
+  "title": "Cocoa Prices Retreat as North American Cocoa Demand Unexpectedly Falters",
+  "source": "Barchart.com",
+  "link": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQVl94UnlFN3VxZGQ3bE1uYno2RmVuaHhSRVdaQ0RQUXk4MG9aZk1vX1RzY2tGOE5xUHprZnp3cW4xV3dSTWlQT2dQZzRBdHJoaTBzOUlhZXBwZzhSRVVsVV9WRVN5SnQ4S0NlaW1UdnFYWWEzRWlBR3lrN2JPLURnWnBBai1hRmVNZ2tuYThBTVNLNll0R2Y2SHZpZ3FFUUZuR3hkcXd1WnZTazBLQWZ4QXViMTF6MFU?oc=5",
+  "published": 1792166709,
+  "id": "na8e0f05e12",
+  "symbol": "CC=F",
+  "symbols": [
+   "CC=F"
+  ],
+  "seen": 1792175603
  },
  {
   "title": "The DeCarley Perspective...Corn futures were rocked by WASDE- now what?",
@@ -167,6 +228,18 @@
    "NG=F"
   ],
   "seen": 1792161265
+ },
+ {
+  "title": "European gas prices hit highest level since December 2022",
+  "source": "Anadolu Ajans\u0131",
+  "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPYy0zd2lrMnN1TUlTQ01oVjZ0a2puT2hIa2szMzRJUFJFQW1ib05rblh4SVdKS0RyRzhrX3BqTzFqblcxMXRFYTRiQU0xb1F6dzJ3NFlKcW1WV1B5eUxsallLME9DQWZSUkxPN1ZFSGY1QV82bVF1ZkRvT3pxSkk4NS1MZ0Rta3B3UUlwUUh5WndpWDNJQVk0YThVTHp3V2ZzQVNjQjlySVJyNXfSAbMBQVVfeXFMT0F2blZ0MkZZMkg5eldMSkYtbnpTUE1PXzJqd1l3SmlSaVc2SVdZekdseV9KU3JNU0ZSU1RwUnF5VWRaMW9NeFhCdzNjVGpTMHZtZzlqVngtbE1NVVZqQzU3bFBFWjEycm1scVRsTHMxb3hNZXg1YlE3VXFmZ3hvZExOTl85a3JIV0o2bnpraWxhb2lSQUtlcnpJNklxYjdDeEI1MXFLOEJleGk3WG1UajJvQVU?oc=5",
+  "published": 1792156604,
+  "id": "n133dba9022",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1792175603
  },
  {
   "title": "Silver Rallies as Falling Yields Support Bounce From Crucial $55 Level",
@@ -543,6 +616,18 @@
   "seen": 1792139624
  },
  {
+  "title": "While Asia and Europe Scramble for Natural Gas, the US Glut Has Nowhere to Go",
+  "source": "EnergyNow.com",
+  "link": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQR0NqbzFZdzY2b2wzLTV2emVwQjJzT05rLWdwVVNzYXJWYzdBejJtVjNtTjdRcGg1dFhfVVVUWlQxRGFFNGZoNWp0YzJRVWlPV1dXYU8zSEdtUVV4WkxUY0VReDBUbDU0NFl4X3RmM3ByVWltVXliay12STItUDI1aW5sbk10ZU9UcUdjX3hTWm4ya2FrdTdjbE5Rb3VPMmVjdFVWX1NvejZfMFE?oc=5",
+  "published": 1792137915,
+  "id": "n89384008f1",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1792175603
+ },
+ {
   "title": "Trump Has a New Inflation Nightmare Ahead of the Midterms. Sugar Prices Just Exploded 34% in 3 Months Before Halloween.",
   "source": "24/7 Wall St.",
   "link": "https://news.google.com/rss/articles/CBMi8gFBVV95cUxQZkNrZ0RvUlRURUswT0toRzR4aHNPUlpzNE1JTGhQVTdQSGY0OHlWOFp5Z0xNNlJyR1FNTl80WDBITWUwREJ2QTVkcU5VMG5iR1ZSeDE0NmM1eURjMmxEQUkzSmNzRnpkdlRud0I2YmxpRHNBX3JlNjctZVR6STJ2SkhRU0R0OXVad0U3YklKWU9YU2d0bkJfZGdmeEhXWVF4M1BhRW1WeXdtYndQV19GMkhsa2lXTUhQbms0RF9tTXRDR0xYZVRFOTVjV0VPMkRQVi1BVWZYVHlFMUI1WnZPeXBGYWEweWh4c2tvTTNvZWVMUQ?oc=5",
@@ -721,6 +806,18 @@
    "GC=F"
   ],
   "seen": 1792132672
+ },
+ {
+  "title": "$4,200: Back in sight for Gold after Warsh\u2019s silence on interest rate outlook",
+  "source": "FXStreet",
+  "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxOZUpiRlpCSWgxWVRnY04xcXhMRGxjZUs1U3pBUDhGaUdaQk9TcGxJV1VuQVN4Q2JOUUEtSjhXTGZlSEU0YlNBY25JWkI2WWVKZnBaczF1MkNFYTJ6UlhjUlhTZUZidXdCM2gydnZVTThvZ3VDbVpVaGFxOHBQc0dyLXRJWFRFbUczU0tzcEpHcGUwX3gtRUpsVlVCa1FjQTFuRnFwWVhDVE1sYkdEUHhQMGpPLTd3LWx6TS1xbVZn?oc=5",
+  "published": 1792128936,
+  "id": "n60ec5b8e55",
+  "symbol": "GC=F",
+  "symbols": [
+   "GC=F"
+  ],
+  "seen": 1792175603
  },
  {
   "title": "In Vietnam, LNG-fired power costs exceed the tariff ceiling by up to 46%",
@@ -1254,18 +1351,6 @@
   "seen": 1792099992
  },
  {
-  "title": "Natgas: Europe seen \"increasingly vulnerable\", ING hikes price outlook",
-  "source": "Quantum Commodity Intelligence",
-  "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxNdEhCb3RFeXNlRnp3ekhabGczLWVsYmJuY3VvdWxkcWpRUWNhdzZCVzRzcU5NOTZwTUY5TXNTal9IMXlnZm5Fb1dTRnNjMkwyLTA0bWxYVnJDYmZMblZnRWFPOVF3ZGZkMlZMbDRWVFlsSUhGR040RVRlNjFzWDZaV2IzYmozbVotYjQ3bU1RNDJYYkc2dzVucnB5czR4bWswMFMzbjlnNUU5SjE2X3BQTTBGWTE3M09CUmc?oc=5",
-  "published": 1792089585,
-  "id": "na31f40cbaf",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
-  ],
-  "seen": 1792099992
- },
- {
   "title": "Oil futures: Brent steadies as US weighs easing tanker sanctions",
   "source": "Quantum Commodity Intelligence",
   "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQaG9yZjZpT1pwbHJmNWdCS2hENmJXeDljcjJLR1I4NHNYa3I5Nm05OEZvdTk2bmVfU3h6WGtkZ05DLXVWWTYwTHFVODNsYThSTW5BbHdkVVZVN3VWV0U2Q2QwYk84WEE4TkRmMzRPV3pnRU4xOG5UaGw0QThhMDNScXFKTFdiSGJ3OVQxOW5QWFVIZFFvZWNlYlk3OEZscXVoRTFPWjd1SXJiZw?oc=5",
@@ -1288,6 +1373,18 @@
    "ZC=F"
   ],
   "seen": 1792096150
+ },
+ {
+  "title": "Cocoa Prices Rise as Chocolate Demand Improves",
+  "source": "Barchart.com",
+  "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOUnRiT1dNbzRKSHMtRWVPLUVLX2VFV085LUwxTjNJZVphYjZEX0xCY0lfZGtSYnlqZVV1VTc2QXoyMk43MFRRaVpxOHp5Vl9MVks5VmQwWHZ0MFo0Q2J2ekJvZlhCTjN0ZXhzUmZZOVNrZ1dJUm1YUFFkSklCUk1GQm9FeGtoY1AzVTloV0lZbHF0R0V1?oc=5",
+  "published": 1792088726,
+  "id": "n26603d829c",
+  "symbol": "CC=F",
+  "symbols": [
+   "CC=F"
+  ],
+  "seen": 1792175603
  },
  {
   "title": "Coffee Prices Slide on Optimism Over Global Coffee Crops",
@@ -1434,18 +1531,6 @@
   "seen": 1792132672
  },
  {
-  "title": "China\u2019s LNG Imports Plunge, Helping Asia Adjust to Iran War Losses: Russell",
-  "source": "EnergyNow.com",
-  "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxNSzNfb01hMFZSazEzZ0pubFo2cHNGdEI4bEh6eElIRGkzUzE5aGpMS3l4aUhlaGhnNU5lZjlxekY3Zkd4WmJYX21rOGFRcUd2OGp2ZXI2bDNmYTRSRUZkeXA3ZFV3Q1ZjWHZsNV9xbzN2TGxNajREQV85elZweUYybHNXcGZSMGYxVE11SkVpbUltY2FCanN0eWVFa3otNmJKaDBURUl3?oc=5",
-  "published": 1792078938,
-  "id": "nc261e7657a",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
-  ],
-  "seen": 1792106782
- },
- {
   "title": "Beneficial Growing Conditions in Brazil and Vietnam Weigh on Coffee Prices",
   "source": "Barchart.com",
   "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxOb1RZYUtjVUZxbUw2ZFZfQnczVFV1WUxmOWdZdXpfbHRFRm5VNlBjeWJTVlpFbVlrSjZPTW1YR3Q1REpMZU01bWQ2dUJCQXhfR3FsQ29mU3JUZzA1dzZvbGxCUFN0WmtENGFkTXY4bWpSN2tBVUdmLUN2QTF3SXZodzA0N1JHYU5kRVhpZ0dlU0diSkJzX2V4cE5icVZqeFBaWWFGbnJPQkVHaV9wU19nZzdlcFE4OVdWVnc?oc=5",
@@ -1519,18 +1604,6 @@
   "seen": 1792074927
  },
  {
-  "title": "RANKED: The Top Crude Oil Producers in 2025 \u2013 Visual Capitalist \u2013 See How Countries Rank",
-  "source": "EnergyNow.com",
-  "link": "https://news.google.com/rss/articles/CBMilgFBVV95cUxQc043cHk1ZjIxLWc2RVJUX2p1NnRHMmpRamNpNkVJNTBkNjliR1Z4amtCdkdVUzkzUnBRQ2ZpWFhHdGRUUWtybzFieTY2ek9qazdPaG5Ec0d3akx6a24wMlYzaDdnbjZrbmNVdTdZdXZSYlhGTVFUOHJoTGZhQ1RJR2tyaDNGckF0OWM0QW1ta2lVbnFoOFE?oc=5",
-  "published": 1792070095,
-  "id": "nbef71a2740",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F"
-  ],
-  "seen": 1792082044
- },
- {
   "title": "Citi Raises Brent Forecast for 2026; Sees $150 Oil if Hormuz Disruption Persists",
   "source": "EnergyNow.com",
   "link": "https://news.google.com/rss/articles/CBMirgFBVV95cUxQdk5UVWpBQWFNVy1reG1ZeFlEdlQxcWlxWkMzTFNfUmFKdVFZaWRqNm4zTFo5V05Pd2o5b3hpOXNLeWJ3Tm9XdzR1aEk1VWd1S29vaW1GUVZ1OTU5c0hsUE5fWnhUV1RoakRubVlGcW14cHBhaER0VzZmeDVFNGZkeEVUb2l6WGhtTVlBUXBMTFFYNkMwalRYZmYzQUItWEhDLUhiVkdaOFBoU0Q4Vnc?oc=5",
@@ -1567,18 +1640,6 @@
   "seen": 1792074927
  },
  {
-  "title": "Gold price hits $4,154/oz after retail sales rise 0.8% in September",
-  "source": "Kitco",
-  "link": "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNSzJydjFVd3cyVVlFcGJMUnhPVVRZcXlCbnJjSUtsay1PR01IV0EySVZ4SmNxMVdXWVhteUY2VlhORmFHOXpJcGtsMTZIa0tmWkp4YkZSVEZaM1VPSTlnaFA3UHFQUGd6TWxuV09XcmV2bDBzd3M4a0NVUGVSYVVwckh5a1JPT2EzWWJWQU9oN1Y0bkNXU3BPZ1J3RFVqSHBRQ19uR0NDeHA?oc=5",
-  "published": 1792068619,
-  "id": "n2f01c0a872",
-  "symbol": "GC=F",
-  "symbols": [
-   "GC=F"
-  ],
-  "seen": 1792082044
- },
- {
   "title": "Lumens Futures Oct '26 Futures Price History",
   "source": "Barchart.com",
   "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTFBGVHVwaklaN3FCWWdMaTRkU3hNLUhTSVFIYmRLVTZEd1BiTldHN2dIajBQVl96TVVnQlFBamFFZzVVU0JzZUFEY1l6QVlXakZ5QXNBd3RkekJCVzJ2YndFVWg3MUdjUERqTmh6MkltaFA0S0ZXY0tiVWk1OVp4aDA?oc=5",
@@ -1601,18 +1662,6 @@
    "CC=F"
   ],
   "seen": 1792071789
- },
- {
-  "title": "Iraq Aims to Boost Oil Output to 8-10 Million Bpd in Six Years",
-  "source": "EnergyNow.com",
-  "link": "https://news.google.com/rss/articles/CBMimAFBVV95cUxOcnFnOFBWdk04ekoydGN1Smk1YXNQekY4NkU5aEZwWTloOS1BektJU0c4dm5rWVpKQmJtcjNhVjBPclFTS3dMb2NFVHBJVFhFbVRMX3lqNEg3NGRKdHVXWHNBa0NSSGFBZWt2LXdsaTVEZFlaMWVrd0FUaHl6NFRkOGRJb0ZTV0p0VWQ0M1NOQUNXS2lIcnB5Yw?oc=5",
-  "published": 1792066803,
-  "id": "ndb038ee089",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F"
-  ],
-  "seen": 1792082044
  },
  {
   "title": "Goldman Sachs Raises 2026 Brent Crude Average Price Forecast by $8 to $85 a Barrel, WTI to $79 a Barrel",
@@ -1735,18 +1784,6 @@
   "seen": 1792082044
  },
  {
-  "title": "Oil prices slide as US weighs easing sanctions on 'shadow fleet'",
-  "source": "Yahoo Finance",
-  "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxOMkpLaFMwM0tpZVl5NWh2RUdZeUxWeXJaeWhQcFVncW5LVHRGNGVyMW5ZbGxHZTRBZjl5Z1NmeXdZaFBaU3RjR1lFdnVfZzdzU0hHRU9JNzdLa3pHZHV5UTduYkVoNzRXMDA3MC1RaUh4SFhVSnpMck5PdHVobWN4dVA3S00tZVJadlZyTDBLQWxBZw?oc=5",
-  "published": 1792051901,
-  "id": "ne23da93e37",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1792053334
- },
- {
   "title": "What\u2019s Breaking the Chocolate Supply Chain? Inside the Cocoa Crisis",
   "source": "Logistics Insider",
   "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxPSmlFN3Z0REhiNUR3U0tKRGF3XzgzemdfMWdyaTVLS0JoS2M5MWhKUF9xOGJ6cmRzbmItaWoyTDJ0M0hlMl9wMl9IYXZ1M1dZVFpNekhRRmQxNU9VVk1scDJIQVZNbUJkVGZNcjVnX0M0LW1rWFVKUTZDaWRvYmgxQktRNjBBUlpBWWtLencycWpoVHhOaFo1TllUTWFkTE0?oc=5",
@@ -1781,18 +1818,6 @@
    "KC=F"
   ],
   "seen": 1792067977
- },
- {
-  "title": "Coffee prices today, October 15, 2026: Stable at 92,500 \u2013 93,000 VND/kg",
-  "source": "Vietnam.vn",
-  "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxQQlRhdDdPMmlEMGt1SEFrSE9mQVZqWXMwU1IwTzdlTzVHeVUxZUp0NzVuTjZNaGJVdXVjSWVBLUh3LXNtMnlid2lERGl5UWZxY1IxTkZyUnE3TlZnVnlGbHBSMk5XSWhNMWRISmRvSkx3aF93bEFfLWoyTi1QeF9SbzZIbVB5aGpxemR3VkZkR0pHUQ?oc=5",
-  "published": 1792042196,
-  "id": "n33a8d03d50",
-  "symbol": "KC=F",
-  "symbols": [
-   "KC=F"
-  ],
-  "seen": 1792042245
  },
  {
   "title": "London cocoa sets one-month peak, coffee also climbs",
@@ -1901,17 +1926,5 @@
    "CC=F"
   ],
   "seen": 1791930541
- },
- {
-  "title": "Live Cattle",
-  "source": "CME Group",
-  "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTE52ZjVWcmlPT2hlZHJFdlA0OUxJN3FmbWdOQUJrdjNmb0ZDc3RselBpcnFjOGtjMm9ieFE3LWU5emR6TnVBYmVTNzRVcDFycjN4SWNPUkluMWI4NmZGWnVMZmZYYTZuMU9GU21CVVMwT1NqOTJT?oc=5",
-  "published": 1791914385,
-  "id": "n2d97a53b21",
-  "symbol": "CC=F",
-  "symbols": [
-   "CC=F"
-  ],
-  "seen": 1792085477
  }
 ]
