@@ -1580,5 +1580,22 @@
   "missing": [],
   "kronos_skipped": [],
   "kronos_seconds": 89.7
+ },
+ {
+  "t": 1792449012,
+  "problems": [],
+  "missing": [],
+  "kronos_skipped": [
+   "NQ=F",
+   "YM=F",
+   "RTY=F",
+   "CL=F",
+   "BZ=F",
+   "NG=F",
+   "GC=F",
+   "SI=F",
+   "HG=F"
+  ],
+  "kronos_seconds": 147.5
  }
 ]
