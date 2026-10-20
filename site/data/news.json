@@ -1,5 +1,42 @@
 [
  {
+  "title": "Asian LNG prices jump to highest since 2022 on tanker strikes",
+  "source": "The Edge Malaysia",
+  "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5XS1ZEdE1acFFyak9BcDN1UkF1bjUyUGNZTVpOOE5EVlZ0QXdhUF9JRUpIN0hCcFFobXNtd0h0OWFOQldFZldYVUpzVVVCaHg0Ynlr?oc=5",
+  "published": 1792466780,
+  "id": "n0fd85d14a1",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1792467125
+ },
+ {
+  "title": "Oil Price Forecast: Brent Nears $110 as Middle East Supply Risks Persist",
+  "source": "FXEmpire",
+  "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxPSnlEM3c3b1J4ckYwRjZiT0c2bFo0QlAwTmdXb1k1dkFVYlpkTElZMi1TVkozVGc5azlRQ2VhNFo2OTV5RW05VnZKd2RoYVBOMzZESk8tUWJKTTNHRnZPOTQ1NVltZ19zQ0UwYmVzZHpsOEQ4MUdhU0hqc1c4YnI1UU9uZUNBUjRkWk9UU0ZrYmZDejJUOHNEVlYtSVUzVWhyNzMxdFdsMkRUUmlrUkx1dXR3WWU2dGQ1UUxtRlJn?oc=5",
+  "published": 1792466011,
+  "id": "n6295ec8585",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F",
+   "BZ=F"
+  ],
+  "seen": 1792467125
+ },
+ {
+  "title": "Gold dips as oil prices fuel inflation fears, Fed outlook in focus",
+  "source": "Investing.com UK",
+  "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNMURIdHItRkR2OThiMm5xWVRyY1ZJNTA2T0NMb1BVcW83Yktla1lLbDRRMmx6X2JMLW9idEtRanF3endnV0RIX05CNkJCZ2RmS2VNTHpreEpiUGgxSWxfYmNFYTRVdGQwV0tubU9IVThzXzRoVzZjeVIyWnAwOFQ3ZENPUGpvZkpqYl9aWVZoazhFemo5TWpzbmtxVGVrSV9tM0lVdUk4UDlURkxST2NKMmdnd3JfZktQeHJ6SA?oc=5",
+  "published": 1792463880,
+  "id": "nacc9a47d22",
+  "symbol": "GC=F",
+  "symbols": [
+   "GC=F"
+  ],
+  "seen": 1792467125
+ },
+ {
   "title": "BloombergNEF\u2019S Transition Metals Outlook 2026: Global Metal Supply Shortages Set to Ease, but Copper Faces a $332 Billion Investment Gap",
   "source": "BloombergNEF",
   "link": "https://news.google.com/rss/articles/CBMiiAJBVV95cUxOM24tMC1aTHlWR3BBT3dKaTRpdllQQ3R1VHUyaVQ4TGRzenpaRUpvd0ExZmI5WlFpdUI2VVpyYUM4RDV6eTIzNDBQRVVPYkxhU2RfWmZmQnZmZE5CSl9QMjZkLWpCS2JGeTZHSWUyU0E5emJBN1RNMHkxOVpwVktaUXNVUDlBN00zOVdTQ2xIN2NLRUs4OTJtbGRIendYOUROUm9wUFk1emtwSHkzR1dtemxUaHY1N1JtN0JXMjlrQzhzXy0yX256Z011TXNJdjVGS0JTdzRFNXVvWTNfUDd5anFmTUZ3Vkg2TVpzQnRSTW40ZEFaaG1XMWpYaFRIcFpMZDFCN1VLNzM?oc=5",
@@ -227,6 +264,18 @@
    "ZC=F"
   ],
   "seen": 1792441973
+ },
+ {
+  "title": "Gold Price Short-term Outlook: XAU/USD Holds Critical Support as Breakout Nears",
+  "source": "StoneX",
+  "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxQSXVHTFJfVEpSaGhVMFAtakNvaGxDVWNJUWx3enlfOE9hZ283MmMzWWJld3hVc01HWlozSWZEcjl6WUNHa20tOG1XdmZvbzB1eGNrckhCTUR2S3hOSUNRSk0zcE01RXA3U2RpZlZvM18yZVlUN3hidmd2bGhUay1faDJPaE51TUxldFRVanFsZFNoWWVieS1HYVUwSDZwYTcwQ3RQaVpVR1F4OWRKazdDX2pYOXlmZFptZUltUzAyaXJSelNN?oc=5",
+  "published": 1792441275,
+  "id": "n8b181dab47",
+  "symbol": "GC=F",
+  "symbols": [
+   "GC=F"
+  ],
+  "seen": 1792467125
  },
  {
   "title": "64% of U.S. soybeans, 44% of corn harvested",
@@ -1364,18 +1413,6 @@
   "seen": 1792409630
  },
  {
-  "title": "21-Karat Gold Price Stands at JD85.2 in Local Market",
-  "source": "Fana News -",
-  "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxObEF6eWZNS2RaekFSc2VqZDd3VW1aeVYwbDVaUmdpcFdmcG1fbExVNjJ6NHNyVy0wc0JPcW1iR1FFd3dBV0duU2drbm5uMVNvQzFueUxNendUbUJacUpxTHZRY0pfRjJyd0F5d2xFRUJlcDM5SUdKcVhRWEp0ME1CWm5uWm5IZlJTT1VJWTV3aW53emN3?oc=5",
-  "published": 1792399876,
-  "id": "ne8340ed7c4",
-  "symbol": "GC=F",
-  "symbols": [
-   "GC=F"
-  ],
-  "seen": 1792402637
- },
- {
   "title": "Coffee prices today, October 19th: Arabica prices surged, while Robusta faced downward pressure last week.",
   "source": "Vietnam.vn",
   "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxQdG5pQ2x3c2VvUkY0RHdENVdIX1FnU0xXbUpTTFRFSTFkaFJnQ3ByMkgwc28xaExFOXRDc0Z0MGFyb3p6ZGdOTmV6eTFYMWcyNmRkNU56OXo1LS1PSTBZdXdFVzdjYkpud2NDYUpPbDFjZ1BrNFEtendjdy1RWGp1eURPZDJSZklVTTBJcnZmZUo1SDlDZWZ0SlROZU9BallWcW92RzRVQ1hJVmFK?oc=5",
@@ -1424,18 +1461,6 @@
   "seen": 1792402637
  },
  {
-  "title": "Modelling Bangladesh\u2019s energy future",
-  "source": "Institute for Energy Economics and Financial Analysis (IEEFA)",
-  "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBDalFtWGFQS2xONTJRdnAycDBPN1djNnptMFlTdFVvdFZSV2l5c2JQS1FFOXAyMzBaWldWMmcycmFqUG9aeWVOeTZGOXljcEZIV2RnZGc2dWlpV2UwNTJIWmRRempBTmwtVmVfU0tjUFo?oc=5",
-  "published": 1792397761,
-  "id": "n50fb7c4b95",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
-  ],
-  "seen": 1792399218
- },
- {
   "title": "Gold (XAUUSD) & Silver Price Forecast: Oil Dip Cools Fed Bets, Can Gold Clear $4,201?",
   "source": "FXEmpire",
   "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNQUNQWlFsTS15Umt2QlRxWFFtOXl3ZU5rNy1VekpLcVZVNUI0azJSZ1BrSUpGRm96X3lnV1E2OE4zNnp5b0xFT3NKQmxSb3MyQWFPbmh1cDRPbUVoVmJrNU90djRaR0pkMUJXcWVyc2gxTjRfeDJiem5KTldncDBPdkRFeXVqbnhTU2Q2MmJqNUxzbUxlOEZKZE92SFhDTFZ4Q3A2NE5VNEZENjlOd1V2ZmZTYnV1TGpiRVVRWlJoT3dqeW80cUE?oc=5",
@@ -1458,18 +1483,6 @@
    "CL=F"
   ],
   "seen": 1792402637
- },
- {
-  "title": "Why Is the Gold Price Falling Even as ETF Investors and Central Banks Pile In?",
-  "source": "Morningstar",
-  "link": "https://news.google.com/rss/articles/CBMirAFBVV95cUxOZFdWRG1DTlQwNXoyckgwek03bkI3eE5tekx0N3dvLXR5TmxMQ2dETGpJUUlkYUlXRVRuSDgtek1GR2xlVFdwUE5HNWFHSS0yUzF2WFZtTk9xUkx1RDNxZ0wyMVpzT3QtOUtzWm9lUC0yODI1SkNjbXR6ZkpjTXBQY2k4VGoyLUVwaHI4OG1XVnlXYUdEODljZno2LWxvVnBXTWN1QUN0TkVMS0dl?oc=5",
-  "published": 1792395976,
-  "id": "ncaaad2b8ba",
-  "symbol": "GC=F",
-  "symbols": [
-   "GC=F"
-  ],
-  "seen": 1792396175
  },
  {
   "title": "Wheat, corn and soybeans fall in Chicago on Friday",
@@ -1722,18 +1735,6 @@
   "symbol": "BZ=F",
   "symbols": [
    "BZ=F"
-  ],
-  "seen": 1792387992
- },
- {
-  "title": "WTI Price Forecast: Retreats from one-month top; slides below $97.50 but uptrend holds",
-  "source": "FXStreet",
-  "link": "https://news.google.com/rss/articles/CBMiwwFBVV95cUxQSEptX1lPWkZfWjIzTlhPV0pleVViY1N2bkJMMWZTNm9VOFlhLWRuaTcxVWdiRS04TU5pNTV6bHJiQ3RZMkxmNk5fdjRNVFQtamlVbXdWT3ZOcFNuRlA4V0VSUlhoVy1TVWFqd21Eak40aUc1QkRSUTFoME9vZzRTdWMwV25LdW10SXIyWlVISHRyQUQ2Q24tOHhNa3FlZmIwUmpNN285aC1IZWhOTktwcXdPckdydzY5TkVVNy11NVlxZmc?oc=5",
-  "published": 1792386719,
-  "id": "n6582bc557b",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F"
   ],
   "seen": 1792387992
  },
