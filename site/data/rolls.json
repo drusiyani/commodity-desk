@@ -1,9 +1,9 @@
 {
- "t": 1792538843,
+ "t": 1792543204,
  "applied": {
   "CL=F": 1791849600,
   "BZ=F": 1790121600,
-  "NG=F": 1789948800,
+  "NG=F": 1792540800,
   "GC=F": 1785708000,
   "SI=F": 1787529600,
   "HG=F": 1787529600,
@@ -22,19 +22,19 @@
    "method": "mixed",
    "next_roll": 1794528000,
    "next_contract": "Jan 2027",
-   "note": "holding Dec 2026 (CLZ26.NYM), priced from that contract's own prices; 2 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "note": "holding Dec 2026 (CLZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 2 estimated from the jump on Yahoo's switch date",
    "rolls": [
     {
      "t": 1787522400,
-     "ratio": 0.992421,
+     "ratio": 0.99242,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Oct 2026"
     },
     {
-     "t": 1789430400,
-     "ratio": 0.956343,
-     "how": "contracts",
+     "t": 1789952400,
+     "ratio": 0.999264,
+     "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
     },
@@ -58,7 +58,7 @@
    "rolls": [
     {
      "t": 1788127200,
-     "ratio": 1.020328,
+     "ratio": 1.022583,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -73,17 +73,17 @@
    ]
   },
   "NG=F": {
-   "contract": "Nov 2026",
-   "ticker": "NGX26.NYM",
+   "contract": "Dec 2026",
+   "ticker": "NGZ26.NYM",
    "priced_from": "contract",
    "method": "mixed",
-   "next_roll": 1792540800,
-   "next_contract": "Dec 2026",
-   "note": "holding Nov 2026 (NGX26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "next_roll": 1795046400,
+   "next_contract": "Jan 2027",
+   "note": "holding Dec 2026 (NGZ26.NYM), priced from that contract's own prices; 2 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
    "rolls": [
     {
-     "t": 1787868000,
-     "ratio": 1.003447,
+     "t": 1788127200,
+     "ratio": 1.003126,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Oct 2026"
@@ -94,6 +94,13 @@
      "how": "contracts",
      "from": "Oct 2026",
      "to": "Nov 2026"
+    },
+    {
+     "t": 1792540800,
+     "ratio": 1.110999,
+     "how": "contracts",
+     "from": "Nov 2026",
+     "to": "Dec 2026"
     }
    ]
   },
@@ -184,7 +191,7 @@
    "rolls": [
     {
      "t": 1789545600,
-     "ratio": 1.009217,
+     "ratio": 1.009747,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
