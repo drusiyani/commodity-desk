@@ -1,5 +1,17 @@
 [
  {
+  "title": "Current price of silver as of Wednesday, October 21, 2026",
+  "source": "Fortune",
+  "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5YY3ZhWUl3Z3RXcmY4dlR5UGlUU09oOW42Q0RFUXJlSTdNX1RjU3pKVXlBMkgtOUpVWWQyNlhCdl9EREdiWkhEaFBoSnE2NFRweWo2QVpkVUNPbTl0U0NRTnBOaGhmQ1dORFdGTFJjQUI?oc=5",
+  "published": 1792584000,
+  "id": "ndcd5614be1",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1792586364
+ },
+ {
   "title": "Silver price today, Wednesday, October 21, 2026: Silver prices showing more resilience than gold",
   "source": "Yahoo Finance",
   "link": "https://news.google.com/rss/articles/CBMi_AFBVV95cUxQR2ZGVllldUJfeF8ya2FkTm9zVnBINTFIU3RzYlVWam9va0l0Y2NHcHdqT1BfMnVVaThuZGZvTTBqR0F6TDlYbWRWTWRKMmk0d2hXckJ0VTZOMkY3WFplLXJCMU9LVmpmRUtqbWVrRDVQcXBvX0dfNWlRSWEyeDd1cmg4MGxuSEJXMHNEeTZGRnhEMTZybXJ3YmtudGVqSVhLbFpiZmkyREZpYUk1eU52MFh4eHZ2QUIxOENfNnBlaHpFUHBScE01NURDS0hZLWMzLWJIa3pVUEdKM0JkRU5ibF95ZkFsOFp6TGdzdFQzRFpPRHJsa1BKUllVR3U?oc=5",
@@ -10,6 +22,18 @@
    "SI=F"
   ],
   "seen": 1792582423
+ },
+ {
+  "title": "Copper Miners Face a $332 Billion Hole They Can\u2019t Dig Out Of",
+  "source": "TradingView",
+  "link": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQUmdHVTZweU9SbmtfY21uajNEU0pyTjdBZUVSeWN0R3lKTkpVcHBYTWxab3A3NXJDSjRCUXptQW0tSWJmNFBCRUU2ZG1meEw2WXpnMXpnTjlaVjRoTVVacUo2TkMxcWpGQTFEVjh4d2hxOHRwNE9LQk0xTFZsMnk0YXN5dTRTeXRNcFVRRlB2UjBZWGl0SkNwb3Y5VzVOYmVJX2xHUU4wUjZMakpLUV9UXy0xbnBJWHNUMHc?oc=5",
+  "published": 1792580409,
+  "id": "n808c5bc016",
+  "symbol": "HG=F",
+  "symbols": [
+   "HG=F"
+  ],
+  "seen": 1792586364
  },
  {
   "title": "Gold Price Forecast: XAU/USD hits lows near $4,110 as yields, Oil pick up",
@@ -59,6 +83,18 @@
    "KC=F"
   ],
   "seen": 1792578864
+ },
+ {
+  "title": "Goldman Sachs identifies new risks to Brent crude price forecasts",
+  "source": "\u0627\u0644\u0645\u062a\u062f\u0627\u0648\u0644 \u0627\u0644\u0639\u0631\u0628\u064a",
+  "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxNQ0R1aHE4NmtkMUxseHR3eWN5U2s5WVUxeUdNOG1sM0s5ay14c1VabEhkbVhlOWNUdU5IS3N3cFlfYkJqR2Rncm8waEZSa1FVYlJMSkdFTVhRZVd6dGVuSk0wLWM0Z0NMcTFSN3pnVmJiS2d5Ti1pNEJCYlRBZll0d0NfWml5ZHJZN0hmRWZSTWN4R2NKMjh1ZEpCbVZNVjRIZUhMWVFYeldWSktjLWk2dWk3di1zZ29zZzFVZ01B?oc=5",
+  "published": 1792575746,
+  "id": "nddefbe5a5b",
+  "symbol": "BZ=F",
+  "symbols": [
+   "BZ=F"
+  ],
+  "seen": 1792586364
  },
  {
   "title": "US Cocoa Futures (COCOA-F) Is down 2.00% on Oct 21: Key Drivers to Watch",
@@ -179,6 +215,18 @@
    "SI=F"
   ],
   "seen": 1792575210
+ },
+ {
+  "title": "BHP reports decline in Q1 FY27 copper production",
+  "source": "Mining Technology",
+  "link": "https://news.google.com/rss/articles/CBMidEFVX3lxTFBBd05QYXh3MldnMEJocTdtekw5eFViSkJlN0lJV3lqZzZOTTBOcEZFQjRvLVhHOW51RkxqMnE4Z3RTUlNMbVVOUEl2Yl9ISFBkQ29EWTZJYzRybDFEWnVGdGNGdlNBNm40dTNVaEhmYnlwcXlk?oc=5",
+  "published": 1792567872,
+  "id": "n287235c22b",
+  "symbol": "HG=F",
+  "symbols": [
+   "HG=F"
+  ],
+  "seen": 1792586364
  },
  {
   "title": "Gold Price Forecast: XAU/USD Slips Toward $4,076 as December Fed Hike Odds Hit 90%",
@@ -578,6 +626,18 @@
    "BZ=F"
   ],
   "seen": 1792578864
+ },
+ {
+  "title": "Oil prices jump $2 as Iran knocks hopes of diplomatic progress",
+  "source": "Reuters",
+  "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPNTdIRmp3MTB3c3JZNGxXMUl1Wk5haXFwcjdJNXgtQnJkOEM4aWVVWG5tai03TmhHSWZidkliV1VlRkRvOVJCX3Q3QXhCWVdZeXlYQmViOUdOaU85anVWMXpSWFNCOHAtVU5id3Fad1BhX1BzVEt6S1A4N2s1YjJocFh6QXFTVXhHdDJJVzZBX21WUQ?oc=5",
+  "published": 1792543800,
+  "id": "n37cfb640b0",
+  "symbol": "CL=F",
+  "symbols": [
+   "CL=F"
+  ],
+  "seen": 1792586364
  },
  {
   "title": "Silver futures rally as supply deficit balances weak industrial demand.",
@@ -1255,18 +1315,6 @@
   "seen": 1792528309
  },
  {
-  "title": "Gold and silver prices pressured by hot inflation, but gold ETF holdings buck trend to hit 2026 highs \u2013 Heraeus",
-  "source": "Kitco",
-  "link": "https://news.google.com/rss/articles/CBMivgFBVV95cUxQWS1XbUdWTEt4Vjd3MHRGSWhndDhGUFNnaDR1OExpajlpX1kwVVAxZXpPb1l5N1dPRm5QRTkyRjRVc0dKRDdiTVJ0Z09nQmpzaU9Ub2M3MVhDYksxelZOc1htWXg0UlIydGE4VE1iVkplbnFDWDVJMG1UWVNESk1TUmZRQWdzWUF0SWVaQTl1Zk1jLTZadlRRaWN6ZjVPS2drM1NvQ1Z4SHh6dHdjWXB2WjltU2VzU2RjY0VzQXV3?oc=5",
-  "published": 1792506300,
-  "id": "n10914770a7",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1792524891
- },
- {
   "title": "LME Week: Copper supply struggles to keep pace with electrification demand",
   "source": "S&P Global",
   "link": "https://news.google.com/rss/articles/CBMi4gFBVV95cUxNLXRmRWZCaW5zRnlvVmlEVzlzakMzMFpPRGJubDZFejlKYkgycUkwRmc4eW1SY1A4QnA5NHdPSWdlVzJNb3lYak9NT0JxaXBfdlhLTjVSWnI5dHZjbU1JM21mX0E3SjVyR3lzUEhmU3BKWGVJMTFxYmpDZU1RcjRoekF3RHhiSG9XOW5pd09ybXB2SzZHcjZ5cktjU3A5QWgwTWZabWZqZWFaZ0ZrUlVyTzc3eEl3em1qQTYzWGU1T1pzMk9HZjV2OGRIc3JndlhNNzdENktXMWlWTW5kRnl0Q2d3?oc=5",
@@ -1388,18 +1436,6 @@
   "seen": 1792503729
  },
  {
-  "title": "Asia's Coal Prices To Stay High as Supply Drops and Demand Firms",
-  "source": "Crude Oil Prices Today | OilPrice.com",
-  "link": "https://news.google.com/rss/articles/CBMiwAFBVV95cUxQMnZIUk0xOXZRUEJEanE4TXZIa3lZejJhLWtncVZfWXNyc2FxS1BsOUJEYUwyb2h5NmFWLW1fcWlJMl9BaU5uQUlGZGF0dmNXVEZIckd5czJDSklPei1GVmlRRHdGMVBsSGcwcUlyNnk1MHdRNm8zTjNRcFZsWlhaNV9vY1B0X3UxVTV3UHcxbXI5OVQ5MUFHejZFZ1BhSmUzOE1UQ3RHemtfaFlYYWg1QzViUGM1NUswclRNYkF6S23SAcABQVVfeXFMUDJ2SFJNMTl2UVBCRGpxOE12SGt5WXoyYS1rZ3FWX1lzcnNhcUtQbDlCRGFMMm9oeTZhVi1tX3FpSTJfQWlObkFJRmRhdHZjV1RGSHJHeXMyQ0pJT3otRlZpUUR3RjFQbEhnMHFJcjZ5NTB3UTZvM04zUXBWbFpYWjVfb2NQdF91MVU1d1B3MW1yOTlUOTFBR3o2RWdQYUplMzhNVEN0R3prX2hZWGFoNUM1YlBjNTVLMHJUTWJBektt?oc=5",
-  "published": 1792499400,
-  "id": "n782eb21f47",
-  "symbol": "HG=F",
-  "symbols": [
-   "HG=F"
-  ],
-  "seen": 1792503729
- },
- {
   "title": "OPEC+ to Consider 137,000 bpd Oil Output Increase for April, Sources Say",
   "source": "EnergyNow",
   "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOcVlJUXdGMDUwQW5ScGp0QkxKTkhYd0VDTkNVdENmLVFHZjNud3JEV2pxSWtIb1NGa1dZdzZfNkRwN2QyaDItRENuTUFkYXpsTDZzaFFEeTdwS1c3Z1NqUVVEQTVXWWloV3FKREZRZ05hSDRuWDFNUmVBTTEyTVQwRTlpeWVQRnV4bER4ME9VN1ZRWmR4MzlPQkRVTm5hRkpp?oc=5",
@@ -1410,18 +1446,6 @@
    "CL=F"
   ],
   "seen": 1792514021
- },
- {
-  "title": "Data centre copper demand nears 1 million tonnes, tin price doubles: LME Week metals debate",
-  "source": "Fastmarkets",
-  "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxNQzg3YnZuQ3piWlgwT0M1eEd5Zm1xZ3c2SHdIRHZBb0JwWmt1cmFyMDFBbEhyZGNpRFFBZUxpcWdYWHZITGt3eVF5OTdEU0s5dmlZR0RfcVljZ2poTWxvRk9GS0lWX0xsLWtzTnF4OVpDSTVZTEh0TjAyT3EySlB1VzVaMWhSS25fMWVDWENFS2RKeVRPTjZBSFl4enhpX25xbEdZTS1MWWZFejhWUzZkMTZkeFh0VU5VSGRfZVNlNzNlUlA3TGc?oc=5",
-  "published": 1792499118,
-  "id": "n43ac6b19cb",
-  "symbol": "HG=F",
-  "symbols": [
-   "HG=F"
-  ],
-  "seen": 1792503729
  },
  {
   "title": "Corn Market Under Pressure on Weak US Exports and Advancing Harvest \u2014 CMB News",
@@ -1460,19 +1484,6 @@
   "seen": 1792499959
  },
  {
-  "title": "Why Is the WTI Oil Price Rising More than Brent Intraday?",
-  "source": "Rigzone",
-  "link": "https://news.google.com/rss/articles/CBMiswFBVV95cUxQR3RPMHJxdVplQUdTekZnQ0J6TG9kM3N1MGU1MDZ1bUxqRlFma2FZZDhvODJVRHVnQTZmRlBucGFXdVJPQ1ZsXzNyUFhoZXdkYzVnVmFjUlprWHo3Tm9VWS1ZZnVvRzBLUTlUOXhIM0w2UWpkY1BwSkowZnJCbmhkV3pteVhyakRxaWNIMWMxSE9sMWZkLUFNX1ZQRXhIMmR5dTZaeW9HRUJYMXJTQ0dvajZ2MA?oc=5",
-  "published": 1792496576,
-  "id": "nf58c25f943",
-  "symbol": "CL=F",
-  "symbols": [
-   "CL=F",
-   "BZ=F"
-  ],
-  "seen": 1792499959
- },
- {
   "title": "Oil Prices Surge as Middle East Attacks Push Brent Above $111 and WTI Back Above $100",
   "source": "EnergyNow.com",
   "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNdURHSi1GVFk2U1EtUjF5ZzNVNmh1WDQyTXBuU0otM0pBcGZhVFQ1bTJGTXRVbndQNWl0TmxjWFBZR0FUQk9qQ0MtNG1hVEdzMUNkOFFIYWIwT3hZYU5TN0Z0NUE5MFBnSERhdTRCMXh0MEhwZDY0V3d6M0xpaHc1SFBwWm9vVmFRZ2hVREdrS2dPdXFGZkI1dEliWTdLRTNuWFJOLUhBSURkZk5FU0V3M3g4SEc?oc=5",
@@ -1495,18 +1506,6 @@
    "NG=F"
   ],
   "seen": 1792499959
- },
- {
-  "title": "Canadian Dollar rallies as oil prices rise, US Dollar softens",
-  "source": "www.tmgm.com",
-  "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxPcFFJREF1TWVvVWhQUGJleV9feGJCQW9zT0JEOHhtUldwRmh0SEFnam5NSGVkWFpxd05QQzJiMm1qNlJPZFg1ME13Z0o5RDNpMXpyQVlYa3pfOWxWSUoyTE0ySDNES2RWSzBLU1pWMlVFZm9NSlZjUy01SENHTFFISGNZUWZLeGxFZnFDaFpweHRCMnhocmhBcFRhenE0LVAteXBhbkw1T3Jld1YwbUU3SGtyaWFSc2RyRGhxTW53TzVvX3dK?oc=5",
-  "published": 1792495790,
-  "id": "ncc9b5fa30f",
-  "symbol": "BZ=F",
-  "symbols": [
-   "BZ=F"
-  ],
-  "seen": 1792510464
  },
  {
   "title": "No one could have predicted the direction farming has taken",
