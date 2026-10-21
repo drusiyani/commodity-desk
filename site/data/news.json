@@ -1,5 +1,41 @@
 [
  {
+  "title": "Gold price outlook: will $4,194 trigger the next rally?",
+  "source": "Kitco",
+  "link": "https://news.google.com/rss/articles/CBMikgFBVV95cUxNM1JiS2V0RVp5MXhXTTc1c3J3NjVNYjZEMFhJWFVfclJXODJyZVZTM0ZvTTFmY1V5Q1VoTnFBeXdCRXpwd1F3NThSZjR6U2huUXhrYTJHTGxrTGV5bFdDZG43TTJCN2Fwa2NJS2wtSnNFY2JlNXRxMVRlVzNhRFZiU1lhd0lnUFluT0tTQllTLVZYdw?oc=5",
+  "published": 1792588017,
+  "id": "ndfde581f44",
+  "symbol": "GC=F",
+  "symbols": [
+   "GC=F"
+  ],
+  "seen": 1792590075
+ },
+ {
+  "title": "Gold gains, silver slips as oil prices rise, Fed rate hike expectations persist - Kitco AM Report",
+  "source": "Kitco",
+  "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOMW5ZQ2drOU9mdFd1bE5NRGNWVFhHMVJORVpUMjlxVUUzcnlYckZlLUY4SnJTSnRGVFJlVHo5NEl5NWE1ZlJVQmxBZ2JOcHVpdHh4N3JGWWN3VzNxWTNLZ0ZiXzNrQllkcjRERFFJZFlfcDdnaElZSFRpT3JzOFdUZnNHM0x2VllSR0VQYzJqeTJ5NW5DYlpFTVh1eVVHMVNXcHlUbVh1cWJaMzBWTEJwcVltUzg5cVBhSWNySw?oc=5",
+  "published": 1792587611,
+  "id": "n5c6566f9b4",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1792590075
+ },
+ {
+  "title": "Natural Gas Dips Below $3: Good News for Heating Costs, but Watch November",
+  "source": "Energy News Beat",
+  "link": "https://news.google.com/rss/articles/CBMiqgFBVV95cUxQZ2JSbTBpX1B4a1kzTzJUNnFqbmtjdENnTHE0ZXZ4bTFJUlNDOEdfbHkxT0FBaTZHRGE3cE9DUm5NWkVyT2VpdElsNGI4YUtzT2YwMW5UYVZxSWNmT3NWLTVxMDlXSUM1T0ZWcEVZS2hvSFd0OU93WUE3SmFGdHBhREhzWUVNeDVzOEIyOUtjcGVsSG1IbEVJYzV5RllCdWU4LThGWmhLWkFIdw?oc=5",
+  "published": 1792586025,
+  "id": "ncd97317424",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1792590075
+ },
+ {
   "title": "Current price of silver as of Wednesday, October 21, 2026",
   "source": "Fortune",
   "link": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5YY3ZhWUl3Z3RXcmY4dlR5UGlUU09oOW42Q0RFUXJlSTdNX1RjU3pKVXlBMkgtOUpVWWQyNlhCdl9EREdiWkhEaFBoSnE2NFRweWo2QVpkVUNPbTl0U0NRTnBOaGhmQ1dORFdGTFJjQUI?oc=5",
@@ -10,6 +46,30 @@
    "SI=F"
   ],
   "seen": 1792586364
+ },
+ {
+  "title": "How much gas could Jackdaw provide? And will it cut your energy bills?",
+  "source": "BBC",
+  "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE8tanV0emlDY0paUlFRZzFUMGN1WGQ5UVdNMS11anlONHk2cmVaaXRqb2lrM1hpMUd0bXBqcjRwVHF3WEp4ZVBCVFR3bkF4SUtWWHFTandjZHdpRmhiNWc?oc=5",
+  "published": 1792583869,
+  "id": "nb6b7b3375a",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1792590075
+ },
+ {
+  "title": "Copper Prices Today | Current Live Spot Price of Copper Per Pound",
+  "source": "SD Bullion",
+  "link": "https://news.google.com/rss/articles/CBMiSkFVX3lxTE1kOTlLN2J1VTU0RWJIVF9SWXV5U3I4bk1sOWNVUXg1X28tV2ZDNzNMU0hvRGltcEU0eTVyd2t5X3JlMEkxYWp1VFVR?oc=5",
+  "published": 1792581207,
+  "id": "n9250effd8a",
+  "symbol": "HG=F",
+  "symbols": [
+   "HG=F"
+  ],
+  "seen": 1792590075
  },
  {
   "title": "Silver price today, Wednesday, October 21, 2026: Silver prices showing more resilience than gold",
@@ -635,7 +695,8 @@
   "id": "n37cfb640b0",
   "symbol": "CL=F",
   "symbols": [
-   "CL=F"
+   "CL=F",
+   "BZ=F"
   ],
   "seen": 1792586364
  },
@@ -1231,18 +1292,6 @@
   "seen": 1792510464
  },
  {
-  "title": "Gold Price Forecast: HSBC Backs Long-Term Demand As BofA Sees $5,000",
-  "source": "Exchange Rates UK",
-  "link": "https://news.google.com/rss/articles/CBMixAFBVV95cUxNWmJlNFc5NmNROGstMEJ3bFRKUk9jLWQ5SWN0UF9jdVF6RXpFWDQ3M21zYmNTMW54SUIwNnVxM2FuQmdPa3ZMZFA3c05wdHVXb01mcGZXMGtfWllobjhSaXlYWHVua0M4aGpCYURDTUJLT1VocmhMNnpLd1REUHgtMFV2M3RfSUMyN3hGSTVTM2tMdUQ3bmlQUW9WM0tIVThCN3VTWHpuV2lmQ2NScXdicDljRjhNdUVXSFZKUnNCRWp1Um9a?oc=5",
-  "published": 1792509300,
-  "id": "nefe2fab56b",
-  "symbol": "GC=F",
-  "symbols": [
-   "GC=F"
-  ],
-  "seen": 1792510464
- },
- {
   "title": "Silver Price Forecast: XAU/USD To See $75 In 2027 Despite Solar Demand Risk",
   "source": "Exchange Rates UK",
   "link": "https://news.google.com/rss/articles/CBMizgFBVV95cUxOeUdfZjl0VEp3cU91SlM0dzBEVTlsVTFoZ3B2M3ppaVByMUVzYXhQWHFLN05kMDExSnNlLVJ6cWE0cXU2WHpLTHl5OVRNN3NWR2x3Z1duWEF3UjZuRWExRjlncXFGRFZSNjc1Skh1UVhaXzRQYXJIZjlSOU1wUVhwS0FBTGI0ajkwTXVkallTVU9CTGpPTzhJZWFJMnBTN1NfMkItYk5mbWxvUXB4UzBMNXhIV0RiNS1Od2pmTjVZSGhmcTBidnNKMWxIX1pEdw?oc=5",
@@ -1289,18 +1338,6 @@
    "SI=F"
   ],
   "seen": 1792549904
- },
- {
-  "title": "The Builders Keeping Up With Energy Demand",
-  "source": "Solar Energy Industries Association",
-  "link": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOcmMwZGtXbTZqenQwcXFDZGs4cVlwYXZkZ19TMmFLOUNYcFNxZUtsV2NfekIyQ0UtVnNvTlVFRV9mOURzZVJwa2ZoYVdoWHNOTjlpTUtMcThHeU1XdUNEV2dobzY2X3pmR3VWS0xRUVZCTGNMY3hIVTZlOFlWZ2paOVAwc1dzZw?oc=5",
-  "published": 1792506502,
-  "id": "n6ee3fad18a",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1792514021
  },
  {
   "title": "LNG price in Asia exceeds $30 per MMBtu",
@@ -1412,30 +1449,6 @@
   "seen": 1792506836
  },
  {
-  "title": "Weak Weather Sends Natural Gas Below $3.00 to Kick off Trading",
-  "source": "Natural Gas Intelligence",
-  "link": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQSkdPLXJTeDdVbWNvTXROeTVkTGhlclF0U01QTWlBMmRVMEs3bUcwTW9YM3FMT2ppQWdsX05Sc011WUt3YkVxVDFsUUdNalFmZXFPR2J1STE0Um9tSm1SNmhCTndHVlp0NjVSZEZ0ZGFHblJaVHltVGdidmJaTUk2LVQ3T1NOcVNtS1ZjQTJ1U0t1MWViNktwdHlzakZ4cGc?oc=5",
-  "published": 1792500017,
-  "id": "n3de32dbd80",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
-  ],
-  "seen": 1792503729
- },
- {
-  "title": "Copper Prices Stay Stuck As Tariff Questions Linger",
-  "source": "Finimize",
-  "link": "https://news.google.com/rss/articles/CBMihwFBVV95cUxOUmJGQ2hiUDcwQU1qQXg2Q1RVOHFZRHBaeEtBUllLcGd3ZkdUdmpSSVNoM0lUUWwtQk9palhJV0dHQ1dVWmx1QTdqN1Q1LVh2UklTdnVWbDlqWjV1VGFkN1BrTFFtaGdCR204WmFReENoMXdZYklaamN3UlZDVkR6dWcxYVo2QUE?oc=5",
-  "published": 1792499705,
-  "id": "nacaf79e521",
-  "symbol": "HG=F",
-  "symbols": [
-   "HG=F"
-  ],
-  "seen": 1792503729
- },
- {
   "title": "OPEC+ to Consider 137,000 bpd Oil Output Increase for April, Sources Say",
   "source": "EnergyNow",
   "link": "https://news.google.com/rss/articles/CBMioAFBVV95cUxOcVlJUXdGMDUwQW5ScGp0QkxKTkhYd0VDTkNVdENmLVFHZjNud3JEV2pxSWtIb1NGa1dZdzZfNkRwN2QyaDItRENuTUFkYXpsTDZzaFFEeTdwS1c3Z1NqUVVEQTVXWWloV3FKREZRZ05hSDRuWDFNUmVBTTEyTVQwRTlpeWVQRnV4bER4ME9VN1ZRWmR4MzlPQkRVTm5hRkpp?oc=5",
@@ -1492,18 +1505,6 @@
   "symbol": "BZ=F",
   "symbols": [
    "BZ=F"
-  ],
-  "seen": 1792499959
- },
- {
-  "title": "Do not worry too much about European gas prices",
-  "source": "Financial Times",
-  "link": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNeUpHNFdKbkhoVXMzQTJkVm51bXBORzhidEMxdjRKZUl2NHlUZFFvc01LU2Ftb2dTbjAtTXFCLU1Wa3JlOTg1VEhLTUJEZmpEVko4SGUtakpWTVRibWxTVUxCVHg1Y0lnQjVld2Q5X0FIdjVucWRHSU9pZWFxQkVXVmlRRkI?oc=5",
-  "published": 1792495802,
-  "id": "n5e3fe5a658",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
   ],
   "seen": 1792499959
  },
