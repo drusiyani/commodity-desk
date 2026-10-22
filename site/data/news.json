@@ -1,5 +1,17 @@
 [
  {
+  "title": "A Bloomberg LME Week panel including Macquarie, JPMorgan and Mercuria",
+  "source": "Shanghai Metals Market",
+  "link": "https://news.google.com/rss/articles/CBMitAFBVV95cUxOS1ZubHVvOHJJcTFRbG14WkVISGZpTTJ1aVB5MUpLVnFmc3M2Mkw3MUszT0xmNFNjaWFhSjljdElmb25EeERXTU9MV1RCeTV4dVdfMGM4bnhmRV9qUjVOM3VpeTFvVld0TkZJc1g3OTdHd291dDZOTnQzUzhYS2pNTVhZd3RxQXV2V0t6aGlsTGpnWHZFMHBMYmpzelU0R1FfS3pYQTdtSTVjRDktd0hWRUh5NmI?oc=5",
+  "published": 1792634880,
+  "id": "nf571bfb675",
+  "symbol": "HG=F",
+  "symbols": [
+   "HG=F"
+  ],
+  "seen": 1792639958
+ },
+ {
   "title": "Heavy rain is lifting cattle prices but could spoil the winter grain harvest",
   "source": "CommBank",
   "link": "https://news.google.com/rss/articles/CBMipgFBVV95cUxPTnY0R0lGVnBvWHRCQlhIX1BPQlIySHM4Q0E1YTdCVFl3RnZBR2k2b2RDYkVBeWZaTjl1WVliZndXQlRMOV82YkZyQk9uOE1HWnZDN0RQZWROM0NKeVp3NFZnM0xDb1VvSEpkWEhVZWdXTzhwZ2J3azZZVFI2VDZXUk5uZDlSVHFLeXJMeE1aSHRSWlZhNjBUcmFiMHVIOVgwQVRFMGFB?oc=5",
@@ -1133,18 +1145,6 @@
   "seen": 1792571816
  },
  {
-  "title": "Hudbay and Mitsubishi Approve Copper World Project Construction; Advancing Next Major U.S. Copper Mine Towards First Production in 2029",
-  "source": "markets.businessinsider.com",
-  "link": "https://news.google.com/rss/articles/CBMinAJBVV95cUxOR2tUTGFIM3lDUEo1SnRxOUEzc3NDZHU4RjNkT01ZVDBoVm43dmljWVI5NzlIUjBLVUFKdDhDbkROS19jdllZY2Vtc25HZmJHZEl4X2pmZm04Y08yQzRrcEJaM1FaZF9yZnAtR2FZUlpwZzREekFiRXFJUW1XOURySS1lM0JPS19EZ044TEVwLVRCT050S3Q2WlVwUjZLZm9oNVlfYXFiWDdsUm1ORDhSVmNnUnZjS3VNNzhUODBBdERkWlNxMFVOS3JYUkUxSnhPaXZLcUZNakd6VG12YXJJLWRZZUY5ZjJzYWpJV3VtMFJ0bVEtNWRoZFN3Vm9RcnZqeUhSclloa1JaUXA0OEJ4RGoteXhJVEt0UF9MTA?oc=5",
-  "published": 1792562509,
-  "id": "n246e95e3c1",
-  "symbol": "HG=F",
-  "symbols": [
-   "HG=F"
-  ],
-  "seen": 1792564769
- },
- {
   "title": "North Africa and the Sahel face the next global food shock",
   "source": "GIS Reports",
   "link": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5vTV9oOVJBemZiRkUtcEFWTjZqbVo1VDhhOG5nNV9JZVV6b3dpUUJiX1ZSeHR0alpHN015Z1FSSGptR1dxdXk4eDljV1d1N0pMekxob21aUFc2SWVPb2I4Snd5Z2g?oc=5",
@@ -1286,7 +1286,8 @@
   "id": "nea4d4e7da9",
   "symbol": "CL=F",
   "symbols": [
-   "CL=F"
+   "CL=F",
+   "BZ=F"
   ],
   "seen": 1792568648
  },
