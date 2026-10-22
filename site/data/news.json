@@ -1,5 +1,17 @@
 [
  {
+  "title": "Cocoa Prices Fall Sharply on Rising ICE Inventories",
+  "source": "Barchart.com",
+  "link": "https://news.google.com/rss/articles/CBMimwFBVV95cUxNYUI1MEsxNXJXdzEwNl92TDY1anJGRGN1dk1KcVNxVkR2ZjRDcDNTVXRya1RNT2YxUldXcXFySFpadTNIbTBWN1VuZjRGdEVfaERQOTQ4Q0xsNWI1VFdVYWROYVlHMVJVT0xhNllTY2s3UDVLUGdrcmk5MlBFV0xKbUQwMmlHdFlHTDdHZ3JxOFpIZ0NxdU9lbVVnbw?oc=5",
+  "published": 1792687482,
+  "id": "n6d74212aa5",
+  "symbol": "CC=F",
+  "symbols": [
+   "CC=F"
+  ],
+  "seen": 1792690293
+ },
+ {
   "title": "OPEC chief to attend Libya energy summit as Tripoli seeks to boost oil production",
   "source": "AzerNews",
   "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE52T052RHJlbDZLQ0hKM1g4RVN5UDJITW9UOWJVd05EaDcwYmZlWURjUXVReTQzTWtQU1FPcWtRc1lBYzc5U01GaDE1OEZDWGh3ek1QNA?oc=5",
@@ -23,6 +35,18 @@
    "ZC=F"
   ],
   "seen": 1792687504
+ },
+ {
+  "title": "Seasonally Light Storage Build Gives Natural Gas Futures Ground to Stand On",
+  "source": "Natural Gas Intelligence",
+  "link": "https://news.google.com/rss/articles/CBMisgFBVV95cUxOeE93VEZfdFNEb0xGYThEMFRERjhPRkNjdUdWekdFVUt4dWFPeExvR0lQNkRsZFYxUHFFdndKWWk3NkUzWENRc2hLWGdpbXpmQVBQT3RVemNJbnBQNUxSQkdnVm5mVHBNcEtXOW1VeDRMTXhTb1Z2NjZWSWxnNmJVbDdQVFo2WlJGY0xFZjQ3ZzlDSXRIVzlIVU5LVkMwNHc3VWhUTm1kVjFQTjF5X2V3Vy1B?oc=5",
+  "published": 1792684997,
+  "id": "nafdb8cd431",
+  "symbol": "NG=F",
+  "symbols": [
+   "NG=F"
+  ],
+  "seen": 1792690293
  },
  {
   "title": "Natural Gas News: Smaller Storage Build Supports Bounce, but Warmth Caps Upside",
@@ -188,7 +212,8 @@
   "id": "nc3d12c8346",
   "symbol": "CL=F",
   "symbols": [
-   "CL=F"
+   "CL=F",
+   "BZ=F"
   ],
   "seen": 1792687504
  },
@@ -239,6 +264,18 @@
    "HG=F"
   ],
   "seen": 1792676750
+ },
+ {
+  "title": "Silver price today: FXStreet data shows silver moving lower",
+  "source": "www.tmgm.com",
+  "link": "https://news.google.com/rss/articles/CBMixgFBVV95cUxPd2h0b2tKZHl1OVg3WXg0NF8yaEJUOW8yNnk4aW54R0VCci1pbktIVjNZa2gxc0w4X18xdWdqLU9vUVBKU19MTnpsT2xpRWtLcmJqSk5wY1ZVdHNlbk5BdTlLb19BMy1yQnlZZ29TclRBRFNJRlBSai1hSTFtMzZKcTIwOVlVSkpjTi1zdmV0MXo2VU8zb0szQ2FhbDAxc2FxaHBONExGX0dPbTd2ZEY2MjRWRUdIbmxCS1FlaktFMGhZd1hlRnc?oc=5",
+  "published": 1792674698,
+  "id": "n90674315b1",
+  "symbol": "SI=F",
+  "symbols": [
+   "SI=F"
+  ],
+  "seen": 1792690293
  },
  {
   "title": "Oil ETFs to Benefit as Oil Prices Rally Due to Geopolitical Tensions",
@@ -924,7 +961,8 @@
   "id": "n63985127e7",
   "symbol": "BZ=F",
   "symbols": [
-   "BZ=F"
+   "BZ=F",
+   "CL=F"
   ],
   "seen": 1792655105
  },
@@ -1531,6 +1569,18 @@
   "seen": 1792658286
  },
  {
+  "title": "Coffee Dec 26 (KC=F) Stock Price, News, Quote & History",
+  "source": "Yahoo! Finance Canada",
+  "link": "https://news.google.com/rss/articles/CBMiVEFVX3lxTFAyV3IzYXo4cS1RMmREOTFSTHZZbWVQdnV3bUlucXVIU1BhVW94b1ExaFloc1hVMEhfTzBobS1fNUdMazJwTDdzamtaODJxLUQzbWt2Sg?oc=5",
+  "published": 1792599604,
+  "id": "nfd73e47a15",
+  "symbol": "KC=F",
+  "symbols": [
+   "KC=F"
+  ],
+  "seen": 1792690293
+ },
+ {
   "title": "Natural Gas Prices Crater as Weather Demand Drops",
   "source": "Natural Gas Intelligence",
   "link": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxOcWlXZF9nal9fRHM1cFlWN3lwUmVMVlJFeEdOZ1Q0QjlaQklMNXpoOEdIeFFzUkRCRnVFeHY0YVZVT2JFdUcxSVBMdXRiYzlxSTkxN01HOG1BM3otTjJVMkVwbWJ4RDFsTkQ4di1WR0lvbndSR2hob1B6RVRxTTNwdUtoczJDRU4zR3lR?oc=5",
@@ -1551,18 +1601,6 @@
   "symbol": "HG=F",
   "symbols": [
    "HG=F"
-  ],
-  "seen": 1792596935
- },
- {
-  "title": "Natural Gas Drops Early as Warm Outlook Tempering Heating-Demand Expectations",
-  "source": "FXEmpire",
-  "link": "https://news.google.com/rss/articles/CBMixwFBVV95cUxPbDVMT2FfMkdSSWl0Tkd1UGN3bTlkM0RFV3F5R1R6cmlCbVdKQl9CV09aNEJ3SS1tSFZRNWl4NG5hb0hsMzd5NHoyOUlXYWlEdFNiV2ZRSjZhdFMzd1VpWWFXOTlnOGlLOHVHcndlQV91cUphQkZEd25QOWdnQ2h2aEJoZEZJLVpPVkNGUUxVTDhMN0FmNmRFcVNuVDNYSTVfUWZYVzZDdTFzRzVfS3M5cFNhZzE1eS1Zdy1OMjZsbS1MQWxwMWs0?oc=5",
-  "published": 1792594713,
-  "id": "ne84f83fd8c",
-  "symbol": "NG=F",
-  "symbols": [
-   "NG=F"
   ],
   "seen": 1792596935
  },
@@ -1589,18 +1627,6 @@
    "HG=F"
   ],
   "seen": 1792593345
- },
- {
-  "title": "Gold gains, silver slips as oil prices rise, Fed rate hike expectations persist - Kitco AM Report",
-  "source": "Kitco",
-  "link": "https://news.google.com/rss/articles/CBMivAFBVV95cUxOMW5ZQ2drOU9mdFd1bE5NRGNWVFhHMVJORVpUMjlxVUUzcnlYckZlLUY4SnJTSnRGVFJlVHo5NEl5NWE1ZlJVQmxBZ2JOcHVpdHh4N3JGWWN3VzNxWTNLZ0ZiXzNrQllkcjRERFFJZFlfcDdnaElZSFRpT3JzOFdUZnNHM0x2VllSR0VQYzJqeTJ5NW5DYlpFTVh1eVVHMVNXcHlUbVh1cWJaMzBWTEJwcVltUzg5cVBhSWNySw?oc=5",
-  "published": 1792587611,
-  "id": "n5c6566f9b4",
-  "symbol": "SI=F",
-  "symbols": [
-   "SI=F"
-  ],
-  "seen": 1792590075
  },
  {
   "title": "First Quantum Kansanshi Expansion to Surpass 2026 Processing Target - News and Statistics",
@@ -1793,18 +1819,6 @@
    "ZC=F"
   ],
   "seen": 1792528309
- },
- {
-  "title": "Coffee Prices Retreat on Possible Boost to Supplies",
-  "source": "TradingView",
-  "link": "https://news.google.com/rss/articles/CBMirwFBVV95cUxOZks4N2hTM3dhdV9BSVJYOUNFM2ZPS2ZvbENUTHR6LXhVU20zV0RhNXpoajhrWmN5MkF3RTh5S2xYRXZQVFBfMlF3UXJOMFdLNFBjZ2hqUkNSTTFFdm1Eb19VZjZtN01jTC1zaVBmRHhEVmRUTWtmUWpkTlRRUEs4S1VwZVh5dG4xcWNXMHYxN2FJc0dMb1ZrOHk1UDhKakx3RE8za000LWhqa0sycEtv?oc=5",
-  "published": 1792511258,
-  "id": "nc9b71e95b3",
-  "symbol": "KC=F",
-  "symbols": [
-   "KC=F"
-  ],
-  "seen": 1792575210
  },
  {
   "title": "Inside Ivory Coast's cocoa farms, still reeling from a 2024 heat storm",
