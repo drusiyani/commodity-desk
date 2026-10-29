@@ -1,5 +1,5 @@
 {
- "t": 1793234847,
+ "t": 1793257056,
  "applied": {
   "CL=F": 1791849600,
   "BZ=F": 1792713600,
@@ -23,15 +23,8 @@
    "method": "mixed",
    "next_roll": 1794528000,
    "next_contract": "Jan 2027",
-   "note": "holding Dec 2026 (CLZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 2 estimated from the jump on Yahoo's switch date",
+   "note": "holding Dec 2026 (CLZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
    "rolls": [
-    {
-     "t": 1787522400,
-     "ratio": 0.992419,
-     "how": "detected",
-     "from": "Sep 2026",
-     "to": "Oct 2026"
-    },
     {
      "t": 1789952400,
      "ratio": 0.999264,
@@ -207,7 +200,7 @@
    "rolls": [
     {
      "t": 1789545600,
-     "ratio": 1.009221,
+     "ratio": 1.009222,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
