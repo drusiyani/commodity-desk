@@ -1,8 +1,8 @@
 {
- "updated": 1793403469,
+ "updated": 1793598546,
  "model": "claude-haiku-4-5-20251001",
  "prompt_version": 3,
- "fx": 1.3389389514923096,
+ "fx": 1.339979648590088,
  "health": {
   "prices": true,
   "missing": [],
@@ -24,15 +24,15 @@
   "locked": true,
   "revealed": null
  },
- "last_claude": 1793403469,
+ "last_claude": 1793598546,
  "retired": {
   "ict": 1791315488,
   "rules": 1791315488
  },
  "core": {
   "fraction": 0.4,
-  "month": "2026-10",
-  "rebalanced": 1791207892,
+  "month": "2026-11",
+  "rebalanced": 1793598546,
   "target": 0.4
  },
  "rules": {
