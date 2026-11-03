@@ -1,5 +1,5 @@
 {
- "t": 1793717996,
+ "t": 1793739269,
  "applied": {
   "CL=F": 1791849600,
   "BZ=F": 1792713600,
@@ -54,7 +54,7 @@
    "rolls": [
     {
      "t": 1788127200,
-     "ratio": 1.022585,
+     "ratio": 1.020378,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -85,15 +85,15 @@
    "note": "holding Dec 2026 (NGZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 2 estimated from the jump on Yahoo's switch date",
    "rolls": [
     {
-     "t": 1788127200,
-     "ratio": 1.003127,
+     "t": 1787868000,
+     "ratio": 1.003448,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Oct 2026"
     },
     {
      "t": 1790546400,
-     "ratio": 0.963086,
+     "ratio": 0.962792,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -128,7 +128,7 @@
    "rolls": [
     {
      "t": 1788127200,
-     "ratio": 0.987962,
+     "ratio": 0.998211,
      "how": "detected",
      "from": "Aug 2026",
      "to": "Sep 2026"
@@ -141,8 +141,8 @@
      "to": "Oct 2026"
     },
     {
-     "t": 1793322000,
-     "ratio": 0.994369,
+     "t": 1793311200,
+     "ratio": 1.000521,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -159,8 +159,8 @@
    "note": "holding Dec 2026 (HGZ26.CMX), priced from Yahoo's continuous front-month series; 0 rolls measured from both contracts' prices, 3 estimated from the jump on Yahoo's switch date",
    "rolls": [
     {
-     "t": 1788127200,
-     "ratio": 0.997749,
+     "t": 1787907600,
+     "ratio": 1.002529,
      "how": "detected",
      "from": "Aug 2026",
      "to": "Sep 2026"
@@ -210,7 +210,7 @@
    "rolls": [
     {
      "t": 1789344000,
-     "ratio": 1.003451,
+     "ratio": 1.003449,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
@@ -228,7 +228,7 @@
    "rolls": [
     {
      "t": 1789344000,
-     "ratio": 0.997181,
+     "ratio": 0.998121,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
@@ -246,7 +246,7 @@
    "rolls": [
     {
      "t": 1789545600,
-     "ratio": 1.009786,
+     "ratio": 1.00922,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
