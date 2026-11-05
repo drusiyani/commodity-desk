@@ -1,5 +1,5 @@
 {
- "t": 1793849127,
+ "t": 1793880582,
  "applied": {
   "CL=F": 1791849600,
   "BZ=F": 1792713600,
@@ -54,7 +54,7 @@
    "rolls": [
     {
      "t": 1788127200,
-     "ratio": 1.020377,
+     "ratio": 1.02038,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -82,15 +82,8 @@
    "method": "mixed",
    "next_roll": 1795046400,
    "next_contract": "Jan 2027",
-   "note": "holding Dec 2026 (NGZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 2 estimated from the jump on Yahoo's switch date",
+   "note": "holding Dec 2026 (NGZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
    "rolls": [
-    {
-     "t": 1787868000,
-     "ratio": 1.003447,
-     "how": "detected",
-     "from": "Sep 2026",
-     "to": "Oct 2026"
-    },
     {
      "t": 1790546400,
      "ratio": 0.962792,
@@ -124,15 +117,8 @@
    "method": "detected",
    "next_roll": 1795392000,
    "next_contract": "Mar 2027",
-   "note": "holding Dec 2026 (SIZ26.CMX), priced from Yahoo's continuous front-month series; 0 rolls measured from both contracts' prices, 3 estimated from the jump on Yahoo's switch date",
+   "note": "holding Dec 2026 (SIZ26.CMX), priced from Yahoo's continuous front-month series; 0 rolls measured from both contracts' prices, 2 estimated from the jump on Yahoo's switch date",
    "rolls": [
-    {
-     "t": 1788127200,
-     "ratio": 0.998212,
-     "how": "detected",
-     "from": "Aug 2026",
-     "to": "Sep 2026"
-    },
     {
      "t": 1790546400,
      "ratio": 0.995195,
@@ -156,15 +142,8 @@
    "method": "detected",
    "next_roll": 1795392000,
    "next_contract": "Mar 2027",
-   "note": "holding Dec 2026 (HGZ26.CMX), priced from Yahoo's continuous front-month series; 0 rolls measured from both contracts' prices, 3 estimated from the jump on Yahoo's switch date",
+   "note": "holding Dec 2026 (HGZ26.CMX), priced from Yahoo's continuous front-month series; 0 rolls measured from both contracts' prices, 2 estimated from the jump on Yahoo's switch date",
    "rolls": [
-    {
-     "t": 1787907600,
-     "ratio": 1.002529,
-     "how": "detected",
-     "from": "Aug 2026",
-     "to": "Sep 2026"
-    },
     {
      "t": 1790546400,
      "ratio": 0.99786,
@@ -192,7 +171,7 @@
    "rolls": [
     {
      "t": 1789977600,
-     "ratio": 1.008675,
+     "ratio": 1.008674,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
