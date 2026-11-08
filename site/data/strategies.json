@@ -220,8 +220,8 @@
     "dd_bad": -5.65
    },
    "validation": {
-    "tested": 31,
-    "adj_p": 0.87755,
+    "tested": 34,
+    "adj_p": 0.90007,
     "windows_up": 2,
     "windows_traded": 4,
     "checks": {
@@ -484,7 +484,7 @@
     "dd_bad": -37.29
    },
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 1,
     "windows_traded": 4,
@@ -804,7 +804,7 @@
     "dd_bad": -52.24
    },
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 2,
     "windows_traded": 4,
@@ -1144,7 +1144,7 @@
     "dd_bad": -12.94
    },
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 1,
     "windows_traded": 4,
@@ -1434,7 +1434,7 @@
     "dd_bad": -34.71
    },
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 1,
     "windows_traded": 4,
@@ -1654,7 +1654,7 @@
     "dd_bad": -6.19
    },
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 1,
     "windows_traded": 2,
@@ -1944,8 +1944,8 @@
     "dd_bad": -15.77
    },
    "validation": {
-    "tested": 31,
-    "adj_p": 0.64093,
+    "tested": 34,
+    "adj_p": 0.67481,
     "windows_up": 4,
     "windows_traded": 4,
     "checks": {
@@ -2242,8 +2242,8 @@
     "dd_bad": -7.78
    },
    "validation": {
-    "tested": 31,
-    "adj_p": 0.48208,
+    "tested": 34,
+    "adj_p": 0.51403,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -2592,7 +2592,7 @@
     "dd_bad": -231.88
    },
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 0,
     "windows_traded": 4,
@@ -2871,7 +2871,7 @@
     }
    },
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 1,
     "windows_traded": 4,
@@ -3107,8 +3107,8 @@
     }
    },
    "validation": {
-    "tested": 31,
-    "adj_p": 0.99988,
+    "tested": 34,
+    "adj_p": 0.99995,
     "windows_up": 2,
     "windows_traded": 4,
     "checks": {
@@ -3407,8 +3407,8 @@
     }
    },
    "validation": {
-    "tested": 31,
-    "adj_p": 0.40296,
+    "tested": 34,
+    "adj_p": 0.43203,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -3692,8 +3692,8 @@
     }
    },
    "validation": {
-    "tested": 31,
-    "adj_p": 0.99995,
+    "tested": 34,
+    "adj_p": 0.99998,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -3983,8 +3983,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.99684,
+    "tested": 34,
+    "adj_p": 0.99819,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -4256,8 +4256,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.92201,
+    "tested": 34,
+    "adj_p": 0.93907,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -4546,8 +4546,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.99927,
+    "tested": 34,
+    "adj_p": 0.99964,
     "windows_up": 2,
     "windows_traded": 4,
     "checks": {
@@ -4774,7 +4774,7 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": null,
     "windows_up": 0,
     "windows_traded": 0,
@@ -5074,8 +5074,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.67909,
+    "tested": 34,
+    "adj_p": 0.71251,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -5299,7 +5299,7 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 1,
     "windows_traded": 2,
@@ -5599,8 +5599,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.19568,
+    "tested": 34,
+    "adj_p": 0.21246,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -5899,8 +5899,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.5581,
+    "tested": 34,
+    "adj_p": 0.59168,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -6184,8 +6184,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.99964,
+    "tested": 34,
+    "adj_p": 0.99984,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -6368,7 +6368,7 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": null,
     "windows_up": 0,
     "windows_traded": 0,
@@ -6666,8 +6666,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.97254,
+    "tested": 34,
+    "adj_p": 0.98061,
     "windows_up": 4,
     "windows_traded": 4,
     "checks": {
@@ -6922,7 +6922,7 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 0,
     "windows_traded": 2,
@@ -7162,7 +7162,7 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 1,
     "windows_traded": 4,
@@ -7462,7 +7462,7 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
+    "tested": 34,
     "adj_p": 1.0,
     "windows_up": 2,
     "windows_traded": 4,
@@ -7767,8 +7767,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.90462,
+    "tested": 34,
+    "adj_p": 0.92402,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -8067,8 +8067,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.95913,
+    "tested": 34,
+    "adj_p": 0.97001,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -8352,8 +8352,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.99991,
+    "tested": 34,
+    "adj_p": 0.99997,
     "windows_up": 2,
     "windows_traded": 4,
     "checks": {
@@ -8647,8 +8647,8 @@
    },
    "data": "roll-adjusted",
    "validation": {
-    "tested": 31,
-    "adj_p": 0.91658,
+    "tested": 34,
+    "adj_p": 0.93441,
     "windows_up": 3,
     "windows_traded": 4,
     "checks": {
@@ -8662,6 +8662,835 @@
    },
    "passed": false,
    "score": 1.503,
+   "waiting": false
+  },
+  {
+   "id": "s32",
+   "name": "Seasonal Vol Reawakening",
+   "idea": "Buy uptrends in positive seasonal months when volatility is recovering from suppression into the 0.8\u20130.9 zone, catching the moment trapped shorts and forced sellers exit simultaneously.",
+   "rationale": "Volatility compression in weak liquidity traps both sides: shorts confident, longs crushed. When vol begins recovering in a month with seasonal tailwinds, it signals the forced selling has exhausted and institutional re-entry begins. Trapped shorts panic-cover into vol recovery, driving the directional squeeze. Entry is highly selective\u2014few bars meet all conditions\u2014so luck penalty is lower.",
+   "timeframe": "daily",
+   "rules": {
+    "timeframe": "daily",
+    "markets": [
+     "all"
+    ],
+    "long": {
+     "entry": [
+      {
+       "left": "season",
+       "op": ">",
+       "right": 0.005
+      },
+      {
+       "left": "volratio_20",
+       "op": ">",
+       "right": 0.78
+      },
+      {
+       "left": "volratio_20",
+       "op": "<=",
+       "right": 0.92
+      },
+      {
+       "left": "ema_50",
+       "op": ">",
+       "right": "ema_200"
+      },
+      {
+       "left": "close",
+       "op": ">",
+       "right": "sma_100"
+      }
+     ],
+     "exit": [
+      {
+       "left": "volratio_20",
+       "op": ">",
+       "right": 1.15
+      },
+      {
+       "left": "ema_50",
+       "op": "<",
+       "right": "ema_200"
+      },
+      {
+       "left": "rangepos_20",
+       "op": ">",
+       "right": 0.85
+      }
+     ]
+    },
+    "short": null,
+    "stop_atr": 1.9,
+    "target_atr": 4.5,
+    "max_bars": 35,
+    "atr_period": 20
+   },
+   "created": 1794175618,
+   "round": 15,
+   "thinking": "Let me analyze the data and existing strategies carefully to invent 3 genuinely novel approaches.\n\n**Key observations from the data:**\n\n1. **Hourly strategies struggle across the board** - ICT bot barely breaks even, trend bot gets destroyed. Buy-and-hold dominates hourly.\n\n2. **Daily strategies perform better** - Trend bot at +16.4% suggests slower timeframe has edge. Daily ICT bot is flat but with tiny trade count (3 trades).\n\n3. **Market-specific patterns:**\n   - WTI: ICT works hourly (+4.9%), trend fails hourly (-1.0%)\n   - Silver: Trend crushes it at hourly (+53.8%), hold at +111.4%\n   - Gold: Trend at hourly +26.2%, hold +76.6%\n   - Cocoa: Only cocoa is above 200-day MA (4445.83 vs 4445.83, just barely)\n   - Natural gas: Massive seller, below 200MA, seasonally strong in Nov (+4.6% avg, up 4/5), crushes in Dec (-12.8%)\n   - Coffee: Below 200MA, Dec weak (-2.2%), Nov strong (+8.9%)\n\n4. **Seasonal patterns (key insight):**\n   - Nov: Gas +4.6%, Gold +3.1%, Silver +7.8%, Cocoa +5.9%, Coffee +8.9% - generally bullish\n   - Dec: Cocoa +11.5%, most metals and energy up\n   - Wheat, Corn: generally weak\n\n5. **Existing strategies that worked best:**\n   - Volatility Panic Fade [hourly] - 4/4 windows profitable, 1.53 PF (but only 0.16R avg - tight wins)\n   - Seasonal Compression Breakout - 2.01 PF (but only 2/4 windows, 7% luck)\n   - Seasonal Breakout Confirmation - 1.84 PF, 4/4 windows, only 32 trades\n\n6. **What failed:**\n   - Strategies that don't filter enough (too many trades = high luck)\n   - Strategies with conflicting rules (e.g., holding through vol expansion vs exiting it)\n   - Strategies ignoring that most market-timing is luck - need VERY selective entry\n\n**Insight: The best strategies are selective** - low trade count, high conviction wins. Seasonal Breakout Confirmation got 4/4 windows right with just 32 trades despite the luck factor.\n\n**Now, 3 novel ideas\n\n### Strategy 1: \"Market Group Divergence Fade\"\nEach commodity group moves on different drivers - oils on macro/USD, metals on fear/inflation, ag on weather. When Gold/Silver rally hard while Oil crashes, that's a dislocation: Gold +3% but WTI -2% signals a fear trade, not fundamentals. Oil traders panic-sell while metals traders are trapped in fear. Once the shock passes, oil rebounds since real demand hasn't changed.\n\nThe inverse also holds: oil rallying hard while gold can't follow means the move is economy-driven (greed, not fear), and metals should roll over.\n\nPausing here though - cross-market signals probably aren't implementable in this framework. Need a different approach.\n\n### Strategy 1: \"Seasonal Volatility Normalization Entry\"\nBuy in seasonally positive months only when volatility is recovering from a collapse, specifically the 0.7-0.85 range rather than after it's already normalized. This catches the re-engagement moment rather than acting too early on compression. Forced sellers have already covered and vol is bottoming, while institutional vol traders are re-entering as vol climbs back up. Trapped shorts and liquidation-driven sellers exit right as the seasonal tailwind kicks in.\n\nRules: Long when season > 0.005, volratio_20 between 0.75-0.9, ema_50 > ema_200, close > sma_100. Exit on volratio_20 > 1.2, ema_50 < ema_200, or rangepos_20 > 0.85. Stop 2.0 ATR, target 4.5 ATR, max 35 bars.\n\n### Strategy 2: \"Post-Capitulation Trend Confirmation\"\nRSI dropping below 30 while price holds above the 50-day MA signals capitulation selling into a still-intact uptrend - buy that reversal.\n\nRetail panics and sells into an artificial bottom while smart money accumulates; most of the forced selling (margin calls, risk limits) is already done by this point, making the entry safer than fading extremes blindly.\n\nMargin-call sellers and tight-stop traders get shaken out right before price reverts.\n\nRules: Long when rsi_14 < 30, ema_50 > ema_200, close > sma_50, ret_5 < -0.015. Exit on rsi_14 > 60, ema_50 < ema_200, or rangepos_20 > 0\n\nStop at 1.8 ATR, target 3.5 ATR, max 20 bars.\n\nFor negative seasonal months (Dec Wheat/Corn, Nov Wheat), shorting breakdowns only makes sense when volatility is collapsing \u2014 most traders avoid these months, so low activity traps longs with no bid and shorts with no volume to cover. A breakdown paired with vol compression signals capitulation of the last holders.\n\nStubborn longs refusing to exit become the final forced sellers once compression hits.\n\nThis is getting too market-specific. Refocusing on what the data actually shows: seasonal edge exists, vol transitions matter, combining both with selectivity (fewer trades) reduces luck.\n\nRevised Strategy 1 \u2014 \"Seasonal Volatility Reawakening\": enter when season > 0.005, volratio_20 crosses above 0.8, ema_50 > ema_200, and close > sma_100. Exit on volratio_20 > 1.15 or ema_50 < ema_200. Stop 1.9 ATR, target 4.5 ATR, max 35 bars \u2014 selective with few entries.\n\nStrategy 2 \u2014 \"Extreme RSI Trend Persistence\": rsi_14 < 28, ema_50 > ema_200, close > sma_50, atr_20 > 0.8*atr_60. Exit on rsi_14 > 50 or trend break \u2014 catches oversold dips within an intact uptrend, exits fast on mean reversion.\n\nStrategy 3 \u2014 \"Liquidity Trap Reversal\": leveraging LIT bot signals for sweeps/false breakouts. Entry on lit_long = 1 with volratio_20 < 0.95.\n\nLIT stands for liquidity, inducement, sweep, confirmation \u2014 built for trap setups. For seasonal fade idea: in weak months like wheat Nov or corn Nov, fade news-driven spikes \u2014 entry when season <= -0.01, ret_5 > 0.025, rsi_14 > 60, rangepos_20 > 0.7, exiting once momentum fades or rsi drops below 40.\n\n**2. Volatility Regime Breakout Confirmation**\nBreakouts only confirm when volatility ratio sits between 0.95-1.1, signaling normalization rather than a spike.\n- Entry: close > high_30, volratio_20 in [0.95, 1.1], ema_50 > ema_200\n- Exit: volratio_20 < 0.9 or > 1.3, or trend flips\n- Stop: 1.9 ATR, Target: 4.0 ATR, Max: 30 bars\n\nThis should filter out false breakouts that occur during volatility spikes.\n\n**3. Sweep Capitulation Recovery**\nA sweep_low in an uptrend marks forced selling followed by recovery \u2014 a bounce opportunity.\n- Entry: sweep_low_20 = 1, ema_50 > ema_200, rsi_14 < 60\n- Exit: rsi_14 > 70, trend break, or close < sma_50\n- Stop: 1.6 ATR, Target: 3.0 ATR, Max: 15 bars\n\nThese three ideas are selective, grounded in clear market structure, and each blend different feature types. Time to finalize.\n\n",
+   "monte_carlo": {
+    "trades": 154,
+    "runs": 2000,
+    "avg_r": -0.007,
+    "sd_r": 0.791,
+    "p": 0.5175,
+    "avg_r_lo": -0.108,
+    "avg_r_hi": 0.097,
+    "share_profitable": 0.431,
+    "dd_typical": -10.55,
+    "dd_bad": -15.79
+   },
+   "results": {
+    "windows": [
+     {
+      "from": 1710734400,
+      "to": 1731387600,
+      "train": {
+       "return": 0.0002,
+       "trades": 42,
+       "win_rate": 0.548,
+       "profit_factor": 1.02,
+       "avg_r": 0.01,
+       "worst_market_dd": -0.0174
+      },
+      "test": {
+       "return": -0.0018,
+       "trades": 46,
+       "win_rate": 0.543,
+       "profit_factor": 0.88,
+       "avg_r": -0.03,
+       "worst_market_dd": -0.032
+      }
+     },
+     {
+      "from": 1731387600,
+      "to": 1752552000,
+      "train": {
+       "return": -0.0007,
+       "trades": 72,
+       "win_rate": 0.556,
+       "profit_factor": 0.96,
+       "avg_r": -0.0,
+       "worst_market_dd": -0.0374
+      },
+      "test": {
+       "return": 0.0019,
+       "trades": 53,
+       "win_rate": 0.623,
+       "profit_factor": 1.13,
+       "avg_r": 0.06,
+       "worst_market_dd": -0.0495
+      }
+     },
+     {
+      "from": 1752465600,
+      "to": 1773288000,
+      "train": {
+       "return": 0.0012,
+       "trades": 99,
+       "win_rate": 0.596,
+       "profit_factor": 1.04,
+       "avg_r": 0.03,
+       "worst_market_dd": -0.0495
+      },
+      "test": {
+       "return": 0.0047,
+       "trades": 34,
+       "win_rate": 0.676,
+       "profit_factor": 1.94,
+       "avg_r": 0.18,
+       "worst_market_dd": -0.0161
+      }
+     },
+     {
+      "from": 1773201600,
+      "to": 1793941200,
+      "train": {
+       "return": 0.0066,
+       "trades": 87,
+       "win_rate": 0.644,
+       "profit_factor": 1.34,
+       "avg_r": 0.11,
+       "worst_market_dd": -0.0507
+      },
+      "test": {
+       "return": -0.0091,
+       "trades": 21,
+       "win_rate": 0.333,
+       "profit_factor": 0.35,
+       "avg_r": -0.44,
+       "worst_market_dd": -0.0326
+      }
+     }
+    ],
+    "train": {
+     "combined": {
+      "return": 0.0002,
+      "trades": 42,
+      "win_rate": 0.548,
+      "profit_factor": 1.02,
+      "avg_r": 0.01,
+      "worst_market_dd": -0.0174
+     },
+     "markets": {
+      "CL=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "BZ=F": {
+       "return": -0.0104,
+       "trades": 1,
+       "win_rate": 0.0
+      },
+      "NG=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "GC=F": {
+       "return": 0.0077,
+       "trades": 10,
+       "win_rate": 0.6
+      },
+      "SI=F": {
+       "return": -0.005,
+       "trades": 3,
+       "win_rate": 0.333
+      },
+      "HG=F": {
+       "return": -0.0032,
+       "trades": 6,
+       "win_rate": 0.5
+      },
+      "KC=F": {
+       "return": 0.0044,
+       "trades": 4,
+       "win_rate": 0.75
+      },
+      "ZW=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "ZC=F": {
+       "return": -0.0051,
+       "trades": 5,
+       "win_rate": 0.4
+      },
+      "CC=F": {
+       "return": 0.0133,
+       "trades": 13,
+       "win_rate": 0.615
+      }
+     }
+    },
+    "test": {
+     "combined": {
+      "return": -0.0048,
+      "trades": 154,
+      "win_rate": 0.571,
+      "profit_factor": 0.91,
+      "avg_r": -0.01,
+      "worst_market_dd": -0.0495
+     },
+     "markets": {
+      "CL=F": {
+       "return": -0.03940811778499986,
+       "trades": 6,
+       "win_rate": 0.167
+      },
+      "BZ=F": {
+       "return": -0.0542437899999999,
+       "trades": 9,
+       "win_rate": 0.222
+      },
+      "NG=F": {
+       "return": -0.006437369999999998,
+       "trades": 4,
+       "win_rate": 0.5
+      },
+      "GC=F": {
+       "return": 0.027968339870889203,
+       "trades": 30,
+       "win_rate": 0.733
+      },
+      "SI=F": {
+       "return": 0.014663965755064456,
+       "trades": 29,
+       "win_rate": 0.586
+      },
+      "HG=F": {
+       "return": 0.006077616254711149,
+       "trades": 13,
+       "win_rate": 0.538
+      },
+      "KC=F": {
+       "return": 0.040755784492423786,
+       "trades": 28,
+       "win_rate": 0.679
+      },
+      "ZC=F": {
+       "return": -0.028626280000000004,
+       "trades": 4,
+       "win_rate": 0.25
+      },
+      "CC=F": {
+       "return": -0.004237759741059999,
+       "trades": 31,
+       "win_rate": 0.548
+      }
+     }
+    }
+   },
+   "data": "roll-adjusted",
+   "validation": {
+    "tested": 34,
+    "adj_p": 1.0,
+    "windows_up": 2,
+    "windows_traded": 4,
+    "checks": {
+     "test_trades": true,
+     "test_pf": false,
+     "test_avg_r": false,
+     "train_pf": true,
+     "windows": false,
+     "luck": false
+    }
+   },
+   "passed": false,
+   "score": -0.124,
+   "waiting": false
+  },
+  {
+   "id": "s33",
+   "name": "Extreme RSI Trend Bounce",
+   "idea": "Buy sharp oversold spikes (RSI < 28) when price refuses to break below the 50-day moving average, capturing forced liquidation sellers exiting into early recovery.",
+   "rationale": "When RSI hits extreme lows but price structure (EMA50 support) is unbroken, it indicates retail panic-selling and margin call liquidations hitting at artificial lows, not fundamental breaks. Smart money accumulates into these forced sellers. Most pullback strategies enter too early or ignore trend structure; this requires both panic AND trend persistence, filtering out true breakdowns. Forced sellers exit at bounces; early entry catches their capitulation reversal.",
+   "timeframe": "daily",
+   "rules": {
+    "timeframe": "daily",
+    "markets": [
+     "all"
+    ],
+    "long": {
+     "entry": [
+      {
+       "left": "rsi_14",
+       "op": "<",
+       "right": 28
+      },
+      {
+       "left": "ema_50",
+       "op": ">",
+       "right": "ema_200"
+      },
+      {
+       "left": "close",
+       "op": ">",
+       "right": "sma_50"
+      },
+      {
+       "left": "atr_20",
+       "op": ">",
+       "right": [
+        "atr_60",
+        0.7
+       ]
+      }
+     ],
+     "exit": [
+      {
+       "left": "rsi_14",
+       "op": ">",
+       "right": 50
+      },
+      {
+       "left": "ema_50",
+       "op": "<",
+       "right": "ema_200"
+      },
+      {
+       "left": "rangepos_20",
+       "op": ">",
+       "right": 0.8
+      }
+     ]
+    },
+    "short": null,
+    "stop_atr": 1.7,
+    "target_atr": 3.0,
+    "max_bars": 18,
+    "atr_period": 14
+   },
+   "created": 1794175619,
+   "round": 15,
+   "thinking": "",
+   "monte_carlo": null,
+   "results": {
+    "windows": [
+     {
+      "from": 1710734400,
+      "to": 1731387600,
+      "train": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "worst_market_dd": 0.0
+      },
+      "test": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "worst_market_dd": 0.0
+      }
+     },
+     {
+      "from": 1731387600,
+      "to": 1752552000,
+      "train": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "worst_market_dd": 0.0
+      },
+      "test": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "worst_market_dd": 0.0
+      }
+     },
+     {
+      "from": 1752465600,
+      "to": 1773288000,
+      "train": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "worst_market_dd": 0.0
+      },
+      "test": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "worst_market_dd": 0.0
+      }
+     },
+     {
+      "from": 1773201600,
+      "to": 1793941200,
+      "train": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "worst_market_dd": 0.0
+      },
+      "test": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "worst_market_dd": 0.0
+      }
+     }
+    ],
+    "train": {
+     "combined": {
+      "return": 0.0,
+      "trades": 0,
+      "win_rate": null,
+      "profit_factor": null,
+      "worst_market_dd": 0.0
+     },
+     "markets": {
+      "CL=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "BZ=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "NG=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "GC=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "SI=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "HG=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "KC=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "ZW=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "ZC=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "CC=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      }
+     }
+    },
+    "test": {
+     "combined": {
+      "return": 0.0,
+      "trades": 0,
+      "win_rate": null,
+      "profit_factor": null,
+      "worst_market_dd": 0
+     },
+     "markets": {}
+    }
+   },
+   "data": "roll-adjusted",
+   "validation": {
+    "tested": 34,
+    "adj_p": null,
+    "windows_up": 0,
+    "windows_traded": 0,
+    "checks": {
+     "test_trades": false,
+     "test_pf": false,
+     "test_avg_r": false,
+     "train_pf": false,
+     "windows": false,
+     "luck": false
+    }
+   },
+   "passed": false,
+   "score": 0.0,
+   "waiting": false
+  },
+  {
+   "id": "s34",
+   "name": "Seasonal Intraday Snap",
+   "idea": "Buy intraday panic spikes into oversold levels during positive seasonal months, catching forced liquidation reversals when calendar tailwinds override technical weakness.",
+   "rationale": "In months that have historically averaged positive returns, intraday panic spikes (vol spiking, price below 20MA) are artificial weakness created by forced liquidation and stop-hunting, not real selling. Smart money understands the seasonal context and steps in aggressively within hours. Intraday traders forced to liquidate at the spike cannot see the seasonal advantage; mean-reversion faders who short into panic without seasonal awareness get caught in a reversal. This exploits the gap between calendar-aware money (which sees seasonal support) and intraday execution (which only sees technical",
+   "timeframe": "hourly",
+   "rules": {
+    "timeframe": "hourly",
+    "markets": [
+     "all"
+    ],
+    "long": {
+     "entry": [
+      {
+       "left": "volratio_10",
+       "op": ">",
+       "right": 1.35
+      },
+      {
+       "left": "season",
+       "op": ">",
+       "right": 0.005
+      },
+      {
+       "left": "rsi_14",
+       "op": "<",
+       "right": 50
+      },
+      {
+       "left": "close",
+       "op": "<",
+       "right": "sma_20"
+      }
+     ],
+     "exit": [
+      {
+       "left": "volratio_10",
+       "op": "<",
+       "right": 1.0
+      },
+      {
+       "left": "rsi_14",
+       "op": ">",
+       "right": 65
+      },
+      {
+       "left": "close",
+       "op": ">",
+       "right": "sma_20"
+      }
+     ]
+    },
+    "short": null,
+    "stop_atr": 1.5,
+    "target_atr": 2.5,
+    "max_bars": 8,
+    "atr_period": 14
+   },
+   "created": 1794175679,
+   "round": 16,
+   "thinking": "Looking at this extensive backtest data and history of failed strategies, I need to find genuinely novel angles that haven't been tried yet. Let me analyze the patterns:\n\n**What's been tried:**\n- Volatility ratio extremes (compression, reawakening, spring release, collapse)\n- Seasonal filters with trend confirmation\n- RSI-based mean reversion and exhaustion fades\n- Breakouts with various confirmations\n- Trend-following with volatility regime filters\n- Post-panic continuation and pullback recovery\n\n**What worked relatively best:**\n- Volatility Panic Fade [hourly]: 1.53 PF, 192 trades, 4/4 windows profitable, 3% luck\n- Seasonal Breakout Confirmation [daily]: 1.84 PF, 32 trades, 4/4 windows profitable\n- Seasonal Trend Expansion: various versions, 1.32 PF best\n\n**Key observations:**\n1. Buy-and-hold massively outperforms most strategies (except in crashed markets like wheat, corn, cocoa)\n2. Hourly strategies seem to work better than daily (Panic Fade was 4/4 windows)\n3. Most failed strategies have too many conditions or trade too rarely\n4. The \"luck\" penalty is high - need simple, repeatable setups with 50+ trades\n5. Seasonal factors help but aren't sufficient alone\n6. Volatility regime filters are useful but oversold on their own\n\n**Market-specific insights:**\n- Energy (WTI, Brent): Trending up, above 200MA, high 1y returns\n- Metals (Gold, Silver, Copper): Below 200MA (pullback), but strong 3y/5y returns\n- Agriculture: Weak - wheat/corn crashed, coffee down 24% YoY, cocoa crashed but recovering\n\n**What haven't they tried:**\n1. **Squeeze before breakout then trend continuation**: Buy when volatility IS low AND there's been a recent sweep (liquidity test), THEN trade the breakout - combining mean reversion (sweeps) with volatility expansion and trend confirmation\n   - Who loses: market makers placing stops expecting reversals, then stop hunters squeeze those positions; trapped shorts get caught when the move follows through\n\n2. **Sector-specific rules on volatility regime**: Energy vol expanding tends to coincide with metals vol contracting, yet current strategies apply identical rules everywhere. Energy behaves more momentum-driven, metals more mean-reverting, agriculture more seasonal - separate logic per group could exploit this divergence\n\n3. **RSI extreme reversal needing a sweep**: Short only when RSI > 75 AND a sweep_high confirms price tested resistance then reversed - sharper signal than RSI alone\n\n4. **Counter-trend entries aligned with trend structure**: Long on extreme pullbacks (rangepos < 0.2, RSI < 35) only if seasonality is positive and ema_50 stays above ema_200, holding through the bounce\n   - Who loses: forced liquidators and panic sellers ignoring seasonal tailwinds\n\n5. **LIT bot combination**: underused liquidity/inducement/sweep/confirmation signals could pair well with other filters\n\n6. **Vol compression into trend continuation**: buy when volatility is contracting (compression ending) within a confirmed uptrend, rather than waiting for expansion\n\n7. **Cross-asset vol rotation**: switching between energy and metals trend-following based on which sector's vol is active, though this needs dynamic market selection outside current features\n\n8. **Calendar-based mean reversion**: certain weekdays trend more, others revert more \u2014 could reshape how \"month\" feature gets used\n\n9. **Momentum continuation from range highs**: buy when rangepos > 0.75 but RSI still under 70, catching early continuation before overbought\n   - Who loses: shorts fading every high who get trapped as momentum extends\n\n10. Thinking about sweep liquidity cleanup leading into trend \u2014 after both high and low get swept\n\n= aggressive cleanup, buy the direction of the original trend\n    - Who loses: trap traders and small traders stopped out by the sweep, while smart money uses that liquidity to drive the move\n\nPushing for something genuinely novel now.\n\n**Idea 1: Liquidity Sweep Momentum**\nEntry pairs LIT bot's long confirmation (built-in sweep testing) with ema_50 > ema_200 and volratio_20 sitting in a moderate 0.85+ band \u2014 not collapsed, not spiked. Exit on trend break, vol expansion past 1.35, or close under sma_50. The logic: market makers sweep liquidity before the real move, and combining that signal with trend filters out whipsaw. The losers are traders who get stopped at sweep levels and miss the continuation that follows.\n\n**Idea 2: Volatility Spike with Seasonal Mean Reversion**\nEntry needs volratio_10 > 1.35 spike alongside rangepos_20 < 0.25 (panic sold to range lows), rsi_14 > 30 to avoid deep oversold traps, and season > 0.01 confirming a historically positive month. Exit on vol cooling below 0.95, rsi overbought past 70, or trend break below ema_50, capped at 15 bars on hourly data. Seasonally positive months see panic spikes bought back fast by momentum money, while the same setup in negative months just continues lower. Retail panic-sellers who ignore calendar context are the ones losing here.\n\nChecking against prior tests - Volatility Spike Reversal already used similar volratio/rangepos/rsi thresholds but went bidirectional, likely causing whipsaw from too many overlapping triggers. Mine differs by going long-only, adding the seasonal filter, and simplifying the RSI condition.\n\nRefining further: entry on volratio_10 > 1.35 with rangepos_20 < 0.2, season > 0.005, and ema_50 > ema_200 to confirm the uptrend stays intact. Exit when volratio drops below 1.0 or rsi climbs past 70.\n\nThe logic: positive seasonality plus an intact uptrend means a panic spike gets bought back fast - stop hunters shake out weak longs, then smart money reloads. This distinguishes itself from Seasonal Vol Reawakening (which traded normalization from low vol, not spikes) and Volatility Panic Fade (short-only, no seasonal component, different timeframe).\n\nNext idea: Sweep into Trend Expansion - enter on sweep_high_20 or sweep_low_20 triggering, with ema_50 > ema_200 confirming uptrend, volratio_30 between 0.9-1.15 for normal volatility, and close > sma_50 showing the bounce already happened. Exit on trend break, vol expansion past 1.3, or price falling below sma_50. Daily timeframe, 20 max bars, all markets - this is about trading the liquidity sweep reversal within a broader trend context.\n\nThis could trade too rarely with the OR condition. Refining to focus specifically on sweep_low_20 or pdl_sweep (catching swept panic lows in uptrends) with tighter vol bounds of 0.85-1.15.\n\nI need frequency to pass the luck check\u2014minimum ~50 trades. Reconsidering both ideas:\n\n**IDEA 1: Liquidity Sweep Long**\n- Entry: lit_long = 1, ema_50 > ema_200, volratio_20 between 0.85-1.2\n- Exit: lit breaks OR trend flips OR vol spikes above 1.35\n- Stop 2.0 ATR, Target 4.5 ATR, Max 35 bars\n- LIT bot already has sweep/inducement/confirmation logic built in; trend+vol filter should sharpen edge\n\nThe sweep catches market makers testing liquidity before the real move\u2014retail gets stopped out right before it runs. Untested combination so far.\n\n**IDEA 2: Seasonal Spike Capitulation (Hourly)**\n- Entry: volratio_10 > 1.4 (panic spike), rangepos_20 < 0.15 (sold to lows), season > 0.005 (bullish month), rsi_14 < 50 (pre-bounce)\n- Exit: vol cools below 1.0 OR rsi_14 > 60 OR close breaks ema_20\n- Stop 1.5 ATR, Target:\n\n3.0 ATR, max 10 bars for fast hourly execution, across all markets. The logic: positive seasonal months make intraday panics artificial\u2014smart money with calendar awareness buys the dip fast, shaking out stop hunters before whipsawing hourly traders who lack that seasonal context.\n\nChecking the season definition\u2014it's the historical average return for that calendar month using only prior years, confirming positive values mean historically bullish months.\n\nNow verifying both ideas are distinct and justified, starting with the liquidity sweep's novelty.\n\nlit_long hasn't really been used in prior tested strategies. The retired ICT bot had similar sweep logic, but this version layers in regime filters that ICT la",
+   "monte_carlo": {
+    "trades": 487,
+    "runs": 2000,
+    "avg_r": 0.018,
+    "sd_r": 0.867,
+    "p": 0.3375,
+    "avg_r_lo": -0.047,
+    "avg_r_hi": 0.081,
+    "share_profitable": 0.681,
+    "dd_typical": -17.63,
+    "dd_bad": -26.63
+   },
+   "results": {
+    "windows": [
+     {
+      "from": 1744858800,
+      "to": 1758020400,
+      "train": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null,
+       "profit_factor": null,
+       "worst_market_dd": 0.0
+      },
+      "test": {
+       "return": 0.0011,
+       "trades": 31,
+       "win_rate": 0.452,
+       "profit_factor": 1.32,
+       "avg_r": 0.08,
+       "worst_market_dd": -0.0096
+      }
+     },
+     {
+      "from": 1757048400,
+      "to": 1770310800,
+      "train": {
+       "return": 0.0011,
+       "trades": 31,
+       "win_rate": 0.452,
+       "profit_factor": 1.32,
+       "avg_r": 0.08,
+       "worst_market_dd": -0.0096
+      },
+      "test": {
+       "return": 0.0235,
+       "trades": 163,
+       "win_rate": 0.601,
+       "profit_factor": 2.86,
+       "avg_r": 0.15,
+       "worst_market_dd": -0.0171
+      }
+     },
+     {
+      "from": 1769630400,
+      "to": 1782486000,
+      "train": {
+       "return": 0.0244,
+       "trades": 194,
+       "win_rate": 0.577,
+       "profit_factor": 2.5,
+       "avg_r": 0.14,
+       "worst_market_dd": -0.0171
+      },
+      "test": {
+       "return": 0.0053,
+       "trades": 175,
+       "win_rate": 0.52,
+       "profit_factor": 1.19,
+       "avg_r": -0.01,
+       "worst_market_dd": -0.032
+      }
+     },
+     {
+      "from": 1782104400,
+      "to": 1793998800,
+      "train": {
+       "return": 0.0291,
+       "trades": 338,
+       "win_rate": 0.559,
+       "profit_factor": 1.71,
+       "avg_r": 0.07,
+       "worst_market_dd": -0.0388
+      },
+      "test": {
+       "return": -0.0033,
+       "trades": 118,
+       "win_rate": 0.424,
+       "profit_factor": 0.76,
+       "avg_r": -0.14,
+       "worst_market_dd": -0.0258
+      }
+     }
+    ],
+    "train": {
+     "combined": {
+      "return": 0.0,
+      "trades": 0,
+      "win_rate": null,
+      "profit_factor": null,
+      "worst_market_dd": 0.0
+     },
+     "markets": {
+      "CL=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "BZ=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "NG=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "GC=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "SI=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "HG=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "KC=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "ZW=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "ZC=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      },
+      "CC=F": {
+       "return": 0.0,
+       "trades": 0,
+       "win_rate": null
+      }
+     }
+    },
+    "test": {
+     "combined": {
+      "return": 0.0266,
+      "trades": 487,
+      "win_rate": 0.52,
+      "profit_factor": 1.47,
+      "avg_r": 0.02,
+      "worst_market_dd": -0.032
+     },
+     "markets": {
+      "CL=F": {
+       "return": -0.009721691399999788,
+       "trades": 55,
+       "win_rate": 0.509
+      },
+      "BZ=F": {
+       "return": 0.031380562024999836,
+       "trades": 47,
+       "win_rate": 0.638
+      },
+      "NG=F": {
+       "return": 0.07875063462333776,
+       "trades": 49,
+       "win_rate": 0.51
+      },
+      "GC=F": {
+       "return": 0.0016812374815806663,
+       "trades": 86,
+       "win_rate": 0.453
+      },
+      "SI=F": {
+       "return": 0.006357851323999908,
+       "trades": 83,
+       "win_rate": 0.506
+      },
+      "HG=F": {
+       "return": 0.0007784532716783588,
+       "trades": 57,
+       "win_rate": 0.544
+      },
+      "KC=F": {
+       "return": 0.09327265564930176,
+       "trades": 28,
+       "win_rate": 0.679
+      },
+      "ZW=F": {
+       "return": 0.013654311790340046,
+       "trades": 33,
+       "win_rate": 0.364
+      },
+      "ZC=F": {
+       "return": 0.040177684000000324,
+       "trades": 33,
+       "win_rate": 0.576
+      },
+      "CC=F": {
+       "return": 0.00959920000000003,
+       "trades": 16,
+       "win_rate": 0.5
+      }
+     }
+    }
+   },
+   "data": "roll-adjusted",
+   "validation": {
+    "tested": 34,
+    "adj_p": 1.0,
+    "windows_up": 2,
+    "windows_traded": 4,
+    "checks": {
+     "test_trades": true,
+     "test_pf": true,
+     "test_avg_r": true,
+     "train_pf": false,
+     "windows": false,
+     "luck": false
+    }
+   },
+   "passed": false,
+   "score": 0.441,
    "waiting": false
   }
  ],
@@ -8709,6 +9538,13 @@
   {
    "t": 1793570671,
    "tested": 31,
+   "passed": 0,
+   "live": 1,
+   "model": "claude-haiku-4-5-20251001"
+  },
+  {
+   "t": 1794175683,
+   "tested": 34,
    "passed": 0,
    "live": 1,
    "model": "claude-haiku-4-5-20251001"
