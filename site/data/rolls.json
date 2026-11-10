@@ -1,5 +1,5 @@
 {
- "t": 1794298621,
+ "t": 1794329929,
  "applied": {
   "CL=F": 1791849600,
   "BZ=F": 1792713600,
@@ -79,7 +79,7 @@
    "rolls": [
     {
      "t": 1790546400,
-     "ratio": 0.962792,
+     "ratio": 0.963086,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -120,8 +120,8 @@
      "to": "Oct 2026"
     },
     {
-     "t": 1793311200,
-     "ratio": 1.00052,
+     "t": 1793322000,
+     "ratio": 0.994371,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -164,7 +164,7 @@
    "rolls": [
     {
      "t": 1789977600,
-     "ratio": 1.00867,
+     "ratio": 1.008672,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
@@ -200,7 +200,7 @@
    "rolls": [
     {
      "t": 1789344000,
-     "ratio": 0.998121,
+     "ratio": 0.997181,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
@@ -208,17 +208,17 @@
    ]
   },
   "CC=F": {
-   "contract": "Dec 2026",
-   "ticker": "CCZ26.NYB",
-   "priced_from": "front month",
+   "contract": "Mar 2027",
+   "ticker": "CCH27.NYB",
+   "priced_from": "contract",
    "method": "detected",
-   "next_roll": 1794268800,
-   "next_contract": "Mar 2027",
-   "note": "holding Dec 2026 (CCZ26.NYB), priced from Yahoo's continuous front-month series; 0 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "next_roll": 1802044800,
+   "next_contract": "May 2027",
+   "note": "holding Mar 2027 (CCH27.NYB), priced from that contract's own prices; 0 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
    "rolls": [
     {
      "t": 1789545600,
-     "ratio": 1.009246,
+     "ratio": 1.009845,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
