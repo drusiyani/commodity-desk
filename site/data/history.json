@@ -1,12 +1,12 @@
 {
- "date": "2026-11-10",
- "fetched": 1794269337,
+ "date": "2026-11-11",
+ "fetched": 1794364932,
  "markets": {
   "CL=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 70.0276,
+     "open": 72.0476,
      "high": 72.4227,
      "low": 67.9991,
      "close": 68.8599
@@ -1833,31 +1833,31 @@
     },
     {
      "time": 1794700800,
-     "open": 86.43,
-     "high": 86.74,
-     "low": 86.11,
-     "close": 86.46
+     "open": 90.83,
+     "high": 91.42,
+     "low": 85.02,
+     "close": 86.54
     }
    ],
    "stats": {
-    "last": 86.46,
+    "last": 86.54,
     "hi5": 117.7833,
     "lo5": 53.2111,
     "hi5_date": "Mar 2026",
     "lo5_date": "Dec 2021",
-    "pos5": 0.515,
-    "from_high": -0.2659,
+    "pos5": 0.516,
+    "from_high": -0.2653,
     "hi1": 117.7833,
     "lo1": 53.7063,
-    "r1": 0.4893227115930736,
-    "r3": 0.13119154954895373,
-    "r5": 0.20545828611226913,
-    "ma200": 84.2813,
-    "vol": 0.5601,
-    "move": 0.0212,
+    "r1": 0.48271712680123735,
+    "r3": 0.1827257524544521,
+    "r5": 0.2482564967887022,
+    "ma200": 84.4172,
+    "vol": 0.5597,
+    "move": 0.0208,
     "month": 11,
     "season": {
-     "avg": -0.0718,
+     "avg": -0.0717,
      "up": 0,
      "n": 5
     },
@@ -1867,14 +1867,14 @@
      "n": 5
     }
    },
-   "text": "5-year range 53.2111 (Dec 2021) to 117.783 (Mar 2026), now at 52% of it and -27% from the high; 1-year range 53.7063-117.783; returns 1y +49%, 3y +13%, 5y +21%; above its 200-day average (84.2813); volatility 56% a year, typical daily move 2.1%; Nov has averaged -7.2% (up 0 of 5 years); Dec has averaged +2.2% (up 2 of 5 years)",
+   "text": "5-year range 53.2111 (Dec 2021) to 117.783 (Mar 2026), now at 52% of it and -27% from the high; 1-year range 53.7063-117.783; returns 1y +48%, 3y +18%, 5y +25%; above its 200-day average (84.4172); volatility 56% a year, typical daily move 2.1%; Nov has averaged -7.2% (up 0 of 5 years); Dec has averaged +2.2% (up 2 of 5 years)",
    "data": "holding Dec 2026 (CLZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 30 estimated from the jump on Yahoo's switch date"
   },
   "BZ=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 40.8689,
+     "open": 41.6365,
      "high": 41.8028,
      "low": 39.7297,
      "close": 40.1747
@@ -3701,31 +3701,31 @@
     },
     {
      "time": 1794700800,
-     "open": 92.39,
-     "high": 92.52,
-     "low": 92.0,
-     "close": 92.36
+     "open": 98.06,
+     "high": 98.42,
+     "low": 90.63,
+     "close": 92.31
     }
    ],
    "stats": {
-    "last": 92.36,
+    "last": 92.31,
     "hi5": 114.29,
     "lo5": 32.1563,
     "hi5_date": "Oct 2026",
     "lo5_date": "Dec 2021",
-    "pos5": 0.733,
-    "from_high": -0.1919,
+    "pos5": 0.732,
+    "from_high": -0.1923,
     "hi1": 114.29,
     "lo1": 44.5276,
-    "r1": 0.9341495874495609,
-    "r3": 0.780545547192196,
-    "r5": 1.2281870847839484,
-    "ma200": 80.3229,
-    "vol": 0.5296,
-    "move": 0.0209,
+    "r1": 0.9255073620836443,
+    "r3": 0.8258945378322309,
+    "r5": 1.2846494132637,
+    "ma200": 80.5368,
+    "vol": 0.5293,
+    "move": 0.0205,
     "month": 11,
     "season": {
-     "avg": -0.0685,
+     "avg": -0.0686,
      "up": 0,
      "n": 5
     },
@@ -3735,15 +3735,15 @@
      "n": 5
     }
    },
-   "text": "5-year range 32.1563 (Dec 2021) to 114.29 (Oct 2026), now at 73% of it and -19% from the high; 1-year range 44.5276-114.29; returns 1y +93%, 3y +78%, 5y +123%; above its 200-day average (80.3229); volatility 53% a year, typical daily move 2.1%; Nov has averaged -6.9% (up 0 of 5 years); Dec has averaged +1.1% (up 2 of 5 years)",
+   "text": "5-year range 32.1563 (Dec 2021) to 114.29 (Oct 2026), now at 73% of it and -19% from the high; 1-year range 44.5276-114.29; returns 1y +93%, 3y +83%, 5y +128%; above its 200-day average (80.5368); volatility 53% a year, typical daily move 2.1%; Nov has averaged -6.9% (up 0 of 5 years); Dec has averaged +1.1% (up 2 of 5 years)",
    "data": "holding Jan 2027 (BZF27.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 42 estimated from the jump on Yahoo's switch date"
   },
   "NG=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 10.9704,
-     "high": 11.086,
+     "open": 10.062,
+     "high": 10.4959,
      "low": 9.5814,
      "close": 9.7152
     },
@@ -5569,31 +5569,31 @@
     },
     {
      "time": 1794700800,
-     "open": 3.214,
-     "high": 3.217,
-     "low": 3.198,
-     "close": 3.202
+     "open": 3.032,
+     "high": 3.315,
+     "low": 2.988,
+     "close": 3.307
     }
    ],
    "stats": {
-    "last": 3.202,
+    "last": 3.307,
     "hi5": 30.1128,
     "lo5": 1.6904,
     "hi5_date": "Jun 2022",
     "lo5_date": "Aug 2025",
-    "pos5": 0.053,
-    "from_high": -0.8937,
+    "pos5": 0.057,
+    "from_high": -0.8902,
     "hi1": 5.3086,
     "lo1": 1.8508,
-    "r1": 0.40224976494490683,
-    "r3": -0.32932080391964236,
-    "r5": -0.6828583326192625,
-    "ma200": 3.4892,
-    "vol": 0.7339,
-    "move": 0.021,
+    "r1": 0.46232864636808957,
+    "r3": -0.29974547481617364,
+    "r5": -0.6658138265606915,
+    "ma200": 3.4849,
+    "vol": 0.7348,
+    "move": 0.0212,
     "month": 11,
     "season": {
-     "avg": 0.06,
+     "avg": 0.0672,
      "up": 4,
      "n": 5
     },
@@ -5603,16 +5603,16 @@
      "n": 5
     }
    },
-   "text": "5-year range 1.6904 (Aug 2025) to 30.1128 (Jun 2022), now at 5% of it and -89% from the high; 1-year range 1.8508-5.3086; returns 1y +40%, 3y -33%, 5y -68%; below its 200-day average (3.4892); volatility 73% a year, typical daily move 2.1%; Nov has averaged +6.0% (up 4 of 5 years); Dec has averaged -12.8% (up 1 of 5 years)",
+   "text": "5-year range 1.6904 (Aug 2025) to 30.1128 (Jun 2022), now at 6% of it and -89% from the high; 1-year range 1.8508-5.3086; returns 1y +46%, 3y -30%, 5y -67%; below its 200-day average (3.4849); volatility 73% a year, typical daily move 2.1%; Nov has averaged +6.7% (up 4 of 5 years); Dec has averaged -12.8% (up 1 of 5 years)",
    "data": "holding Dec 2026 (NGZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 45 estimated from the jump on Yahoo's switch date"
   },
   "GC=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 2300.9244,
+     "open": 2310.4964,
      "high": 2356.9708,
-     "low": 2293.4935,
+     "low": 2296.0125,
      "close": 2353.3183
     },
     {
@@ -7437,31 +7437,31 @@
     },
     {
      "time": 1794700800,
-     "open": 4149.0,
-     "high": 4156.2002,
-     "low": 4143.6001,
-     "close": 4147.2998
+     "open": 4074.3,
+     "high": 4157.7002,
+     "low": 4034.1001,
+     "close": 4051.0
     }
    ],
    "stats": {
-    "last": 4147.2998,
+    "last": 4051.0,
     "hi5": 5697.2521,
     "lo5": 2012.4932,
     "hi5_date": "Jan 2026",
     "lo5_date": "Nov 2022",
-    "pos5": 0.579,
-    "from_high": -0.2721,
+    "pos5": 0.553,
+    "from_high": -0.289,
     "hi1": 5697.2521,
     "lo1": 3879.3,
-    "r1": -0.0020251800776954765,
-    "r3": 0.803975145144812,
-    "r5": 0.798609735760579,
-    "ma200": 4542.5883,
+    "r1": -0.029768419490773024,
+    "r3": 0.7762175518160361,
+    "r5": 0.740212132470006,
+    "ma200": 4536.3795,
     "vol": 0.28,
-    "move": 0.0106,
+    "move": 0.0105,
     "month": 11,
     "season": {
-     "avg": 0.0349,
+     "avg": 0.0299,
      "up": 4,
      "n": 5
     },
@@ -7471,16 +7471,16 @@
      "n": 5
     }
    },
-   "text": "5-year range 2012.49 (Nov 2022) to 5697.25 (Jan 2026), now at 58% of it and -27% from the high; 1-year range 3879.3-5697.25; returns 1y -0%, 3y +80%, 5y +80%; below its 200-day average (4542.59); volatility 28% a year, typical daily move 1.1%; Nov has averaged +3.5% (up 4 of 5 years); Dec has averaged +1.4% (up 4 of 5 years)",
+   "text": "5-year range 2012.49 (Nov 2022) to 5697.25 (Jan 2026), now at 55% of it and -29% from the high; 1-year range 3879.3-5697.25; returns 1y -3%, 3y +78%, 5y +74%; below its 200-day average (4536.38); volatility 28% a year, typical daily move 1.1%; Nov has averaged +3.0% (up 4 of 5 years); Dec has averaged +1.4% (up 4 of 5 years)",
    "data": "holding Dec 2026 (GCZ26.CMX), priced from that contract's own prices; 0 rolls measured from both contracts' prices, 22 estimated from the jump on Yahoo's switch date"
   },
   "SI=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 23.7242,
+     "open": 24.1672,
      "high": 24.7947,
-     "low": 23.7242,
+     "low": 24.1672,
      "close": 24.7303
     },
     {
@@ -9305,31 +9305,31 @@
     },
     {
      "time": 1794700800,
-     "open": 53.52,
-     "high": 53.78,
-     "low": 53.375,
-     "close": 53.435
+     "open": 51.61,
+     "high": 53.58,
+     "low": 51.415,
+     "close": 52.225
     }
    ],
    "stats": {
-    "last": 53.435,
+    "last": 52.225,
     "hi5": 122.8419,
     "lo5": 17.1282,
     "hi5_date": "Jan 2026",
     "lo5_date": "Sep 2022",
-    "pos5": 0.343,
-    "from_high": -0.565,
+    "pos5": 0.332,
+    "from_high": -0.5749,
     "hi1": 122.8419,
-    "lo1": 44.7573,
-    "r1": 0.19940477083854402,
-    "r3": 1.4003673824217393,
-    "r5": 1.2523385920632415,
-    "ma200": 70.3702,
-    "vol": 0.6541,
-    "move": 0.019,
+    "lo1": 44.8598,
+    "r1": 0.16680086748789957,
+    "r3": 1.4128241470867837,
+    "r5": 1.1609833802738772,
+    "ma200": 70.0912,
+    "vol": 0.6538,
+    "move": 0.0187,
     "month": 11,
     "season": {
-     "avg": 0.0835,
+     "avg": 0.0786,
      "up": 4,
      "n": 5
     },
@@ -9339,14 +9339,14 @@
      "n": 5
     }
    },
-   "text": "5-year range 17.1282 (Sep 2022) to 122.842 (Jan 2026), now at 34% of it and -56% from the high; 1-year range 44.7573-122.842; returns 1y +20%, 3y +140%, 5y +125%; below its 200-day average (70.3702); volatility 65% a year, typical daily move 1.9%; Nov has averaged +8.3% (up 4 of 5 years); Dec has averaged +4.4% (up 3 of 5 years)",
+   "text": "5-year range 17.1282 (Sep 2022) to 122.842 (Jan 2026), now at 33% of it and -57% from the high; 1-year range 44.8598-122.842; returns 1y +17%, 3y +141%, 5y +116%; below its 200-day average (70.0912); volatility 65% a year, typical daily move 1.9%; Nov has averaged +7.9% (up 4 of 5 years); Dec has averaged +4.4% (up 3 of 5 years)",
    "data": "holding Dec 2026 (SIZ26.CMX), priced from that contract's own prices; 1 roll measured from both contracts' prices, 19 estimated from the jump on Yahoo's switch date"
   },
   "HG=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 4.0755,
+     "open": 4.0386,
      "high": 4.1128,
      "low": 3.9672,
      "close": 4.1082
@@ -11173,31 +11173,31 @@
     },
     {
      "time": 1794700800,
-     "open": 6.382,
-     "high": 6.396,
-     "low": 6.3775,
-     "close": 6.378
+     "open": 6.253,
+     "high": 6.387,
+     "low": 6.2375,
+     "close": 6.2985
     }
    ],
    "stats": {
-    "last": 6.378,
+    "last": 6.2985,
     "hi5": 6.9285,
     "lo5": 2.9213,
     "hi5_date": "Sep 2026",
     "lo5_date": "Jul 2022",
-    "pos5": 0.863,
-    "from_high": -0.0795,
+    "pos5": 0.843,
+    "from_high": -0.0909,
     "hi1": 6.9285,
     "lo1": 5.2547,
-    "r1": 0.20750211872366764,
-    "r3": 0.9163577738592388,
-    "r5": 0.5792538523454756,
-    "ma200": 6.3525,
-    "vol": 0.2691,
+    "r1": 0.19426205291098286,
+    "r3": 0.9143794469208602,
+    "r5": 0.5783068653577581,
+    "ma200": 6.3518,
+    "vol": 0.2688,
     "move": 0.0106,
     "month": 11,
     "season": {
-     "avg": 0.0195,
+     "avg": 0.0171,
      "up": 3,
      "n": 5
     },
@@ -11207,16 +11207,16 @@
      "n": 5
     }
    },
-   "text": "5-year range 2.9213 (Jul 2022) to 6.9285 (Sep 2026), now at 86% of it and -8% from the high; 1-year range 5.2547-6.9285; returns 1y +21%, 3y +92%, 5y +58%; above its 200-day average (6.3525); volatility 27% a year, typical daily move 1.1%; Nov has averaged +1.9% (up 3 of 5 years); Dec has averaged +2.8% (up 4 of 5 years)",
+   "text": "5-year range 2.9213 (Jul 2022) to 6.9285 (Sep 2026), now at 84% of it and -9% from the high; 1-year range 5.2547-6.9285; returns 1y +19%, 3y +91%, 5y +58%; below its 200-day average (6.3518); volatility 27% a year, typical daily move 1.1%; Nov has averaged +1.7% (up 3 of 5 years); Dec has averaged +2.8% (up 4 of 5 years)",
    "data": "holding Dec 2026 (HGZ26.CMX), priced from that contract's own prices; 1 roll measured from both contracts' prices, 16 estimated from the jump on Yahoo's switch date"
   },
   "KC=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 141.5354,
+     "open": 145.1934,
      "high": 155.8156,
-     "low": 139.7768,
+     "low": 143.1534,
      "close": 154.5493
     },
     {
@@ -13043,29 +13043,29 @@
      "time": 1794700800,
      "open": 280.0,
      "high": 280.6,
-     "low": 272.8,
-     "close": 273.05
+     "low": 270.8,
+     "close": 272.2
     }
    ],
    "stats": {
-    "last": 273.05,
+    "last": 272.2,
     "hi5": 389.2615,
     "lo5": 100.3901,
     "hi5_date": "Oct 2025",
     "lo5_date": "Jan 2023",
-    "pos5": 0.598,
-    "from_high": -0.2985,
+    "pos5": 0.595,
+    "from_high": -0.3007,
     "hi1": 376.8179,
     "lo1": 222.1293,
-    "r1": -0.22570170454535932,
-    "r3": 1.100805058807952,
-    "r5": 0.8851621607802129,
-    "ma200": 280.2299,
-    "vol": 0.3986,
-    "move": 0.017,
+    "r1": -0.24902754272359062,
+    "r3": 1.0510227559820757,
+    "r5": 0.8967970221924357,
+    "ma200": 279.9869,
+    "vol": 0.3975,
+    "move": 0.0168,
     "month": 11,
     "season": {
-     "avg": 0.0843,
+     "avg": 0.0837,
      "up": 3,
      "n": 5
     },
@@ -13075,16 +13075,16 @@
      "n": 5
     }
    },
-   "text": "5-year range 100.39 (Jan 2023) to 389.262 (Oct 2025), now at 60% of it and -30% from the high; 1-year range 222.129-376.818; returns 1y -23%, 3y +110%, 5y +89%; below its 200-day average (280.23); volatility 40% a year, typical daily move 1.7%; Nov has averaged +8.4% (up 3 of 5 years); Dec has averaged -2.2% (up 2 of 5 years)",
+   "text": "5-year range 100.39 (Jan 2023) to 389.262 (Oct 2025), now at 60% of it and -30% from the high; 1-year range 222.129-376.818; returns 1y -25%, 3y +105%, 5y +90%; below its 200-day average (279.987); volatility 40% a year, typical daily move 1.7%; Nov has averaged +8.4% (up 3 of 5 years); Dec has averaged -2.2% (up 2 of 5 years)",
    "data": "holding Dec 2026 (KCZ26.NYB), priced from that contract's own prices; 1 roll measured from both contracts' prices, 19 estimated from the jump on Yahoo's switch date"
   },
   "ZW=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 1091.709,
+     "open": 1111.2228,
      "high": 1173.3122,
-     "low": 1084.9678,
+     "low": 1104.1269,
      "close": 1159.4751
     },
     {
@@ -14910,30 +14910,30 @@
     {
      "time": 1794700800,
      "open": 591.0,
-     "high": 594.0,
+     "high": 594.75,
      "low": 586.25,
-     "close": 587.5
+     "close": 593.0
     }
    ],
    "stats": {
-    "last": 587.5,
+    "last": 593.0,
     "hi5": 2022.6951,
     "lo5": 517.7158,
     "hi5_date": "Mar 2022",
     "lo5_date": "Oct 2025",
-    "pos5": 0.046,
-    "from_high": -0.7095,
+    "pos5": 0.05,
+    "from_high": -0.7068,
     "hi1": 795.0,
     "lo1": 531.9012,
-    "r1": 0.04314014579708392,
-    "r3": -0.13718329965786635,
-    "r5": -0.46824708734086995,
-    "ma200": 644.0664,
-    "vol": 0.2689,
-    "move": 0.0123,
+    "r1": 0.06836761605961139,
+    "r3": -0.13402189960284394,
+    "r5": -0.47964495269220486,
+    "ma200": 644.263,
+    "vol": 0.2686,
+    "move": 0.0124,
     "month": 11,
     "season": {
-     "avg": -0.0399,
+     "avg": -0.0381,
      "up": 1,
      "n": 5
     },
@@ -14943,16 +14943,16 @@
      "n": 5
     }
    },
-   "text": "5-year range 517.716 (Oct 2025) to 2022.7 (Mar 2022), now at 5% of it and -71% from the high; 1-year range 531.901-795; returns 1y +4%, 3y -14%, 5y -47%; below its 200-day average (644.066); volatility 27% a year, typical daily move 1.2%; Nov has averaged -4.0% (up 1 of 5 years); Dec has averaged +1.8% (up 1 of 5 years)",
+   "text": "5-year range 517.716 (Oct 2025) to 2022.7 (Mar 2022), now at 5% of it and -71% from the high; 1-year range 531.901-795; returns 1y +7%, 3y -13%, 5y -48%; below its 200-day average (644.263); volatility 27% a year, typical daily move 1.2%; Nov has averaged -3.8% (up 1 of 5 years); Dec has averaged +1.8% (up 1 of 5 years)",
    "data": "holding Dec 2026 (ZWZ26.CBT), priced from that contract's own prices; 1 roll measured from both contracts' prices, 23 estimated from the jump on Yahoo's switch date"
   },
   "ZC=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 524.4102,
+     "open": 528.6931,
      "high": 553.9143,
-     "low": 521.3171,
+     "low": 528.2172,
      "close": 549.3935
     },
     {
@@ -16778,31 +16778,31 @@
     {
      "time": 1794700800,
      "open": 441.5,
-     "high": 443.75,
+     "high": 450.75,
      "low": 438.0,
-     "close": 438.75
+     "close": 449.0
     }
    ],
    "stats": {
-    "last": 438.75,
+    "last": 449.0,
     "hi5": 839.7974,
     "lo5": 422.302,
     "hi5_date": "Jun 2023",
     "lo5_date": "Jun 2026",
-    "pos5": 0.039,
-    "from_high": -0.4776,
+    "pos5": 0.064,
+    "from_high": -0.4653,
     "hi1": 549.75,
     "lo1": 422.302,
-    "r1": -0.10805139541417697,
-    "r3": -0.346683186664261,
-    "r5": -0.16900147252027453,
-    "ma200": 486.1662,
-    "vol": 0.2078,
-    "move": 0.0094,
+    "r1": -0.0840092171897141,
+    "r3": -0.3314205146718021,
+    "r5": -0.1712496260687867,
+    "ma200": 486.0031,
+    "vol": 0.209,
+    "move": 0.0095,
     "month": 11,
     "season": {
-     "avg": -0.0118,
-     "up": 2,
+     "avg": -0.0073,
+     "up": 3,
      "n": 5
     },
     "next_season": {
@@ -16811,1865 +16811,1865 @@
      "n": 5
     }
    },
-   "text": "5-year range 422.302 (Jun 2026) to 839.797 (Jun 2023), now at 4% of it and -48% from the high; 1-year range 422.302-549.75; returns 1y -11%, 3y -35%, 5y -17%; below its 200-day average (486.166); volatility 21% a year, typical daily move 0.9%; Nov has averaged -1.2% (up 2 of 5 years); Dec has averaged +1.5% (up 3 of 5 years)",
+   "text": "5-year range 422.302 (Jun 2026) to 839.797 (Jun 2023), now at 6% of it and -47% from the high; 1-year range 422.302-549.75; returns 1y -8%, 3y -33%, 5y -17%; below its 200-day average (486.003); volatility 21% a year, typical daily move 0.9%; Nov has averaged -0.7% (up 3 of 5 years); Dec has averaged +1.5% (up 3 of 5 years)",
    "data": "holding Dec 2026 (ZCZ26.CBT), priced from that contract's own prices; 1 roll measured from both contracts' prices, 23 estimated from the jump on Yahoo's switch date"
   },
   "CC=F": {
    "weekly": [
     {
      "time": 1636848000,
-     "open": 1037.4935,
-     "high": 1064.2813,
-     "low": 1018.3594,
-     "close": 1050.2496
+     "open": 1059.3688,
+     "high": 1088.9529,
+     "low": 1056.3234,
+     "close": 1074.5959
     },
     {
      "time": 1637452800,
-     "open": 1050.6748,
-     "high": 1085.9666,
-     "low": 1037.0683,
-     "close": 1060.0292
+     "open": 1075.031,
+     "high": 1111.1409,
+     "low": 1061.1091,
+     "close": 1084.6023
     },
     {
      "time": 1638057600,
-     "open": 1062.1553,
-     "high": 1062.1553,
-     "low": 994.9733,
-     "close": 994.9733
+     "open": 1086.7776,
+     "high": 1086.7776,
+     "low": 1018.0382,
+     "close": 1018.0382
     },
     {
      "time": 1638662400,
-     "open": 987.3197,
-     "high": 1035.3675,
-     "low": 986.4693,
-     "close": 1035.3675
+     "open": 1010.2072,
+     "high": 1059.3688,
+     "low": 1009.337,
+     "close": 1059.3688
     },
     {
      "time": 1639267200,
-     "open": 1032.3911,
-     "high": 1092.3446,
-     "low": 1032.3911,
-     "close": 1046.848
+     "open": 1056.3234,
+     "high": 1117.6668,
+     "low": 1056.3234,
+     "close": 1071.1154
     },
     {
      "time": 1639872000,
-     "open": 1118.282,
-     "high": 1118.282,
-     "low": 1076.3628,
-     "close": 1084.6158
+     "open": 1144.2054,
+     "high": 1144.2054,
+     "low": 1101.3144,
+     "close": 1109.7587
     },
     {
      "time": 1640476800,
-     "open": 1071.5847,
-     "high": 1090.2625,
-     "low": 1049.8664,
-     "close": 1074.1909
+     "open": 1096.4256,
+     "high": 1115.5364,
+     "low": 1074.2038,
+     "close": 1099.0922
     },
     {
      "time": 1641081600,
-     "open": 1070.2816,
-     "high": 1118.9308,
-     "low": 1056.8162,
-     "close": 1094.6062
+     "open": 1095.0923,
+     "high": 1144.8692,
+     "low": 1081.3148,
+     "close": 1119.9808
     },
     {
      "time": 1641686400,
-     "open": 1103.2936,
-     "high": 1108.9403,
-     "low": 1045.957,
-     "close": 1095.0406
+     "open": 1128.8695,
+     "high": 1134.6472,
+     "low": 1070.2039,
+     "close": 1120.4252
     },
     {
      "time": 1642291200,
-     "open": 1092.0,
-     "high": 1165.4081,
-     "low": 1085.4845,
-     "close": 1154.9833
+     "open": 1117.3142,
+     "high": 1192.424,
+     "low": 1110.6476,
+     "close": 1181.7575
     },
     {
      "time": 1642896000,
-     "open": 1158.8926,
-     "high": 1170.6205,
-     "low": 1118.4964,
-     "close": 1118.9308
+     "open": 1185.7574,
+     "high": 1197.7572,
+     "low": 1144.4248,
+     "close": 1144.8692
     },
     {
      "time": 1643500800,
-     "open": 1115.8902,
-     "high": 1118.9308,
-     "low": 1059.4224,
-     "close": 1083.3127
+     "open": 1141.7582,
+     "high": 1144.8692,
+     "low": 1083.9814,
+     "close": 1108.4254
     },
     {
      "time": 1644105600,
-     "open": 1089.3938,
-     "high": 1163.2363,
-     "low": 1082.0096,
-     "close": 1158.8926
+     "open": 1114.6475,
+     "high": 1190.2018,
+     "low": 1107.0921,
+     "close": 1185.7574
     },
     {
      "time": 1644710400,
-     "open": 1154.9833,
-     "high": 1211.8855,
-     "low": 1135.8711,
-     "close": 1201.4606
+     "open": 1181.7575,
+     "high": 1239.9787,
+     "low": 1162.2023,
+     "close": 1229.3122
     },
     {
      "time": 1645315200,
-     "open": 1187.1265,
-     "high": 1187.1265,
-     "low": 1111.9809,
-     "close": 1117.6277
+     "open": 1214.6458,
+     "high": 1214.6458,
+     "low": 1137.7583,
+     "close": 1143.5359
     },
     {
      "time": 1645920000,
-     "open": 1125.0119,
-     "high": 1141.5179,
-     "low": 1111.9809,
-     "close": 1118.9308
+     "open": 1151.0914,
+     "high": 1167.98,
+     "low": 1137.7583,
+     "close": 1144.8692
     },
     {
      "time": 1646524800,
-     "open": 1087.222,
-     "high": 1121.537,
-     "low": 1076.3628,
-     "close": 1121.537
+     "open": 1112.4254,
+     "high": 1147.5359,
+     "low": 1101.3144,
+     "close": 1147.5359
     },
     {
      "time": 1647129600,
-     "open": 1128.0525,
-     "high": 1141.9523,
-     "low": 1120.6683,
-     "close": 1120.6683
+     "open": 1154.2024,
+     "high": 1168.4244,
+     "low": 1146.647,
+     "close": 1146.647
     },
     {
      "time": 1647734400,
-     "open": 1116.759,
-     "high": 1152.6276,
-     "low": 1102.6113,
-     "close": 1143.1651
+     "open": 1142.6471,
+     "high": 1179.3472,
+     "low": 1128.1714,
+     "close": 1169.6653
     },
     {
      "time": 1648339200,
-     "open": 1138.2085,
-     "high": 1195.4343,
-     "low": 1125.5918,
-     "close": 1154.43
+     "open": 1164.5938,
+     "high": 1223.1462,
+     "low": 1151.6846,
+     "close": 1181.1914
     },
     {
      "time": 1648944000,
-     "open": 1152.177,
-     "high": 1207.1499,
-     "low": 1148.5722,
-     "close": 1171.1021
+     "open": 1178.8861,
+     "high": 1235.1333,
+     "low": 1175.1978,
+     "close": 1198.2499
     },
     {
      "time": 1649548800,
-     "open": 1171.1021,
-     "high": 1194.9837,
-     "low": 1138.6591,
-     "close": 1180.5646
+     "open": 1198.2499,
+     "high": 1222.6852,
+     "low": 1165.0549,
+     "close": 1207.9318
     },
     {
      "time": 1650153600,
-     "open": 1181.0152,
-     "high": 1192.7307,
-     "low": 1152.6276,
-     "close": 1163.8925
+     "open": 1208.3929,
+     "high": 1220.38,
+     "low": 1179.3472,
+     "close": 1190.8733
     },
     {
      "time": 1650758400,
-     "open": 1158.4854,
-     "high": 1159.3866,
-     "low": 1111.1727,
-     "close": 1129.1965
+     "open": 1185.3407,
+     "high": 1186.2628,
+     "low": 1136.9313,
+     "close": 1155.373
     },
     {
      "time": 1651363200,
-     "open": 1131.9001,
-     "high": 1194.0825,
-     "low": 1094.9512,
-     "close": 1170.2009
+     "open": 1158.1392,
+     "high": 1221.7631,
+     "low": 1120.3337,
+     "close": 1197.3278
     },
     {
      "time": 1651968000,
-     "open": 1185.9718,
-     "high": 1188.2248,
-     "low": 1126.493,
-     "close": 1126.493
+     "open": 1213.4643,
+     "high": 1215.7696,
+     "low": 1152.6067,
+     "close": 1152.6067
     },
     {
      "time": 1652572800,
-     "open": 1118.8328,
-     "high": 1134.1531,
-     "low": 1108.9197,
-     "close": 1118.8328
+     "open": 1144.769,
+     "high": 1160.4444,
+     "low": 1134.626,
+     "close": 1144.769
     },
     {
      "time": 1653177600,
-     "open": 1118.8328,
-     "high": 1139.1097,
-     "low": 1083.2356,
-     "close": 1094.5006
+     "open": 1144.769,
+     "high": 1165.5159,
+     "low": 1108.3466,
+     "close": 1119.8727
     },
     {
      "time": 1653782400,
-     "open": 1095.8524,
-     "high": 1116.1292,
-     "low": 1077.3779,
-     "close": 1109.3703
+     "open": 1121.2558,
+     "high": 1142.0027,
+     "low": 1102.3531,
+     "close": 1135.0871
     },
     {
      "time": 1654387200,
-     "open": 1128.7459,
-     "high": 1144.9674,
-     "low": 1106.6667,
-     "close": 1112.5245
+     "open": 1154.9119,
+     "high": 1171.5095,
+     "low": 1132.3208,
+     "close": 1138.3144
     },
     {
      "time": 1654992000,
-     "open": 1117.481,
-     "high": 1129.6471,
-     "low": 1071.0695,
-     "close": 1074.6743
+     "open": 1143.3859,
+     "high": 1155.834,
+     "low": 1095.8985,
+     "close": 1099.5868
     },
     {
      "time": 1655596800,
-     "open": 1069.7177,
-     "high": 1082.3344,
-     "low": 1035.0217,
-     "close": 1075.5755
+     "open": 1094.5153,
+     "high": 1107.4245,
+     "low": 1059.015,
+     "close": 1100.5089
     },
     {
      "time": 1656201600,
-     "open": 1082.3344,
-     "high": 1092.2476,
-     "low": 1065.6623,
-     "close": 1072.8719
+     "open": 1107.4245,
+     "high": 1117.5675,
+     "low": 1090.3659,
+     "close": 1097.7426
     },
     {
      "time": 1656806400,
-     "open": 1068.3659,
-     "high": 1068.3659,
-     "low": 1020.6026,
-     "close": 1020.6026
+     "open": 1093.1322,
+     "high": 1093.1322,
+     "low": 1044.2617,
+     "close": 1044.2617
     },
     {
      "time": 1657411200,
-     "open": 1021.0532,
-     "high": 1046.7373,
-     "low": 1021.0532,
-     "close": 1022.405
+     "open": 1044.7227,
+     "high": 1071.0022,
+     "low": 1044.7227,
+     "close": 1046.1058
     },
     {
      "time": 1658016000,
-     "open": 1047.1879,
-     "high": 1072.5317,
-     "low": 1012.2046,
-     "close": 1068.8476
+     "open": 1071.4632,
+     "high": 1097.3945,
+     "low": 1035.669,
+     "close": 1093.625
     },
     {
      "time": 1658620800,
-     "open": 1075.2947,
-     "high": 1099.2414,
-     "low": 1053.1902,
-     "close": 1057.7953
+     "open": 1100.2216,
+     "high": 1124.7234,
+     "low": 1077.6047,
+     "close": 1082.3165
     },
     {
      "time": 1659225600,
-     "open": 1057.7953,
-     "high": 1109.8331,
-     "low": 1052.2692,
-     "close": 1069.7686
+     "open": 1082.3165,
+     "high": 1135.5607,
+     "low": 1076.6623,
+     "close": 1094.5674
     },
     {
      "time": 1659830400,
-     "open": 1072.0712,
-     "high": 1091.4127,
-     "low": 1040.2959,
-     "close": 1061.4794
+     "open": 1096.9233,
+     "high": 1116.7132,
+     "low": 1064.4114,
+     "close": 1086.086
     },
     {
      "time": 1660435200,
-     "open": 1061.9399,
-     "high": 1119.0434,
-     "low": 1058.7163,
-     "close": 1083.1234
+     "open": 1086.5572,
+     "high": 1144.9844,
+     "low": 1083.2589,
+     "close": 1108.2318
     },
     {
      "time": 1661040000,
-     "open": 1085.8865,
-     "high": 1120.4249,
-     "low": 1067.466,
-     "close": 1087.7286
+     "open": 1111.0589,
+     "high": 1146.398,
+     "low": 1092.2115,
+     "close": 1112.9437
     },
     {
      "time": 1661644800,
-     "open": 1089.5706,
-     "high": 1111.6752,
-     "low": 1053.6507,
-     "close": 1111.6752
+     "open": 1114.8284,
+     "high": 1137.4454,
+     "low": 1078.0759,
+     "close": 1137.4454
     },
     {
      "time": 1662249600,
-     "open": 1089.5706,
-     "high": 1119.0434,
-     "low": 1087.268,
-     "close": 1119.0434
+     "open": 1114.8284,
+     "high": 1144.9844,
+     "low": 1112.4725,
+     "close": 1144.9844
     },
     {
      "time": 1662854400,
-     "open": 1122.7274,
-     "high": 1122.7274,
-     "low": 1052.7297,
-     "close": 1086.8075
+     "open": 1148.7539,
+     "high": 1148.7539,
+     "low": 1077.1335,
+     "close": 1112.0013
     },
     {
      "time": 1663459200,
-     "open": 1098.7808,
-     "high": 1102.4649,
-     "low": 1047.5415,
-     "close": 1061.9407
+     "open": 1124.2522,
+     "high": 1128.0217,
+     "low": 1071.825,
+     "close": 1086.558
     },
     {
      "time": 1664064000,
-     "open": 1057.4409,
-     "high": 1077.6898,
-     "low": 1008.8436,
-     "close": 1011.0935
+     "open": 1081.9539,
+     "high": 1102.6722,
+     "low": 1032.2301,
+     "close": 1034.5321
     },
     {
      "time": 1664668800,
-     "open": 1001.1941,
-     "high": 1068.6903,
-     "low": 986.3449,
-     "close": 1059.2408
+     "open": 1024.4032,
+     "high": 1093.4641,
+     "low": 1009.2098,
+     "close": 1083.7956
     },
     {
      "time": 1665273600,
-     "open": 1061.0407,
-     "high": 1089.8391,
-     "low": 1044.3917,
-     "close": 1078.1398
+     "open": 1085.6372,
+     "high": 1115.1032,
+     "low": 1068.6022,
+     "close": 1103.1326
     },
     {
      "time": 1665878400,
-     "open": 1077.6898,
-     "high": 1085.3394,
-     "low": 1038.992,
-     "close": 1069.5902
+     "open": 1102.6722,
+     "high": 1110.4991,
+     "low": 1063.0773,
+     "close": 1094.3849
     },
     {
      "time": 1666483200,
-     "open": 1064.6405,
-     "high": 1077.6898,
-     "low": 1023.6928,
-     "close": 1037.642
+     "open": 1089.3204,
+     "high": 1102.6722,
+     "low": 1047.4235,
+     "close": 1061.6961
     },
     {
      "time": 1667088000,
-     "open": 1043.9417,
-     "high": 1056.541,
-     "low": 1023.6928,
-     "close": 1035.8421
+     "open": 1068.1418,
+     "high": 1081.0331,
+     "low": 1047.4235,
+     "close": 1059.8545
     },
     {
      "time": 1667692800,
-     "open": 1033.5923,
-     "high": 1106.4882,
-     "low": 1032.6923,
-     "close": 1095.2388
+     "open": 1057.5524,
+     "high": 1132.1382,
+     "low": 1056.6316,
+     "close": 1120.628
     },
     {
      "time": 1668297600,
-     "open": 1098.8386,
-     "high": 1160.9351,
-     "low": 1096.1388,
-     "close": 1133.9367
+     "open": 1124.3113,
+     "high": 1187.8473,
+     "low": 1121.5489,
+     "close": 1160.223
     },
     {
      "time": 1668902400,
-     "open": 1126.7371,
-     "high": 1151.4857,
-     "low": 1076.3399,
-     "close": 1085.3394
+     "open": 1152.8565,
+     "high": 1178.1788,
+     "low": 1101.291,
+     "close": 1110.4991
     },
     {
      "time": 1669507200,
-     "open": 1081.2896,
-     "high": 1092.539,
-     "low": 1061.0407,
-     "close": 1096.5887
+     "open": 1106.3555,
+     "high": 1117.8656,
+     "low": 1085.6372,
+     "close": 1122.0093
     },
     {
      "time": 1670112000,
-     "open": 1095.6888,
-     "high": 1123.5872,
-     "low": 1094.7888,
-     "close": 1119.9874
+     "open": 1121.0884,
+     "high": 1149.6336,
+     "low": 1120.1676,
+     "close": 1145.9504
     },
     {
      "time": 1670716800,
-     "open": 1094.3389,
-     "high": 1121.3374,
-     "low": 1094.3389,
-     "close": 1104.2383
+     "open": 1119.7072,
+     "high": 1147.3316,
+     "low": 1119.7072,
+     "close": 1129.8362
     },
     {
      "time": 1671321600,
-     "open": 1103.3384,
-     "high": 1127.4436,
-     "low": 1093.7621,
-     "close": 1096.8643
+     "open": 1128.9153,
+     "high": 1153.5793,
+     "low": 1119.1171,
+     "close": 1122.2912
     },
     {
      "time": 1671926400,
-     "open": 1096.4211,
-     "high": 1174.8636,
-     "low": 1094.2053,
-     "close": 1164.6705
+     "open": 1121.8378,
+     "high": 1202.0986,
+     "low": 1119.5705,
+     "close": 1191.6692
     },
     {
      "time": 1672531200,
-     "open": 1165.5568,
-     "high": 1183.7271,
-     "low": 1135.4208,
-     "close": 1152.2615
+     "open": 1192.5761,
+     "high": 1211.1676,
+     "low": 1161.7415,
+     "close": 1178.9726
     },
     {
      "time": 1673136000,
-     "open": 1146.5002,
-     "high": 1169.9886,
-     "low": 1123.455,
-     "close": 1154.4774
+     "open": 1173.0777,
+     "high": 1197.1106,
+     "low": 1149.4983,
+     "close": 1181.2399
     },
     {
      "time": 1673740800,
-     "open": 1162.4546,
-     "high": 1196.1361,
-     "low": 1149.1593,
-     "close": 1174.8636
+     "open": 1189.402,
+     "high": 1223.8643,
+     "low": 1175.7984,
+     "close": 1202.0986
     },
     {
      "time": 1674345600,
-     "open": 1170.875,
-     "high": 1185.4998,
-     "low": 1111.046,
-     "close": 1138.523
+     "open": 1198.0175,
+     "high": 1212.9814,
+     "low": 1136.8017,
+     "close": 1164.9156
     },
     {
      "time": 1674950400,
-     "open": 1140.2957,
-     "high": 1172.2045,
-     "low": 1136.3071,
-     "close": 1164.2273
+     "open": 1166.7294,
+     "high": 1199.3779,
+     "low": 1162.6484,
+     "close": 1191.2158
     },
     {
      "time": 1675555200,
-     "open": 1164.2273,
-     "high": 1177.0794,
-     "low": 1125.6709,
-     "close": 1138.523
+     "open": 1191.2158,
+     "high": 1204.3659,
+     "low": 1151.7655,
+     "close": 1164.9156
     },
     {
      "time": 1676160000,
-     "open": 1138.523,
-     "high": 1153.1479,
-     "low": 1121.2391,
-     "close": 1136.3071
+     "open": 1164.9156,
+     "high": 1179.8795,
+     "low": 1147.231,
+     "close": 1162.6484
     },
     {
      "time": 1676764800,
-     "open": 1144.7275,
-     "high": 1218.7381,
-     "low": 1143.398,
-     "close": 1206.3292
+     "open": 1171.2639,
+     "high": 1246.9903,
+     "low": 1169.9036,
+     "close": 1234.2936
     },
     {
      "time": 1677369600,
-     "open": 1213.42,
-     "high": 1225.829,
-     "low": 1200.5679,
-     "close": 1199.6815
+     "open": 1241.5488,
+     "high": 1254.2455,
+     "low": 1228.3988,
+     "close": 1227.4919
     },
     {
      "time": 1677974400,
-     "open": 1203.2269,
-     "high": 1254.6355,
-     "low": 1203.2269,
-     "close": 1209.8746
+     "open": 1231.1195,
+     "high": 1283.7198,
+     "low": 1231.1195,
+     "close": 1237.9212
     },
     {
      "time": 1678579200,
-     "open": 1223.6131,
-     "high": 1223.6131,
-     "low": 1169.1023,
-     "close": 1185.0566
+     "open": 1251.9782,
+     "high": 1251.9782,
+     "low": 1196.2037,
+     "close": 1212.528
     },
     {
      "time": 1679184000,
-     "open": 1158.0228,
-     "high": 1189.6674,
-     "low": 1146.057,
-     "close": 1186.2015
+     "open": 1184.8675,
+     "high": 1217.2456,
+     "low": 1172.6243,
+     "close": 1213.6994
     },
     {
      "time": 1679788800,
-     "open": 1176.237,
-     "high": 1252.9199,
-     "low": 1175.3706,
-     "close": 1249.454
+     "open": 1203.5039,
+     "high": 1281.9644,
+     "low": 1202.6174,
+     "close": 1278.4182
     },
     {
      "time": 1680393600,
-     "open": 1248.1543,
-     "high": 1283.6797,
-     "low": 1233.8575,
-     "close": 1270.6826
+     "open": 1277.0883,
+     "high": 1313.4373,
+     "low": 1262.4601,
+     "close": 1300.1389
     },
     {
      "time": 1680998400,
-     "open": 1268.0832,
-     "high": 1271.9823,
-     "low": 1235.1572,
-     "close": 1264.6173
+     "open": 1297.4792,
+     "high": 1301.4687,
+     "low": 1263.79,
+     "close": 1293.933
     },
     {
      "time": 1681603200,
-     "open": 1264.6173,
-     "high": 1318.3386,
-     "low": 1240.7893,
-     "close": 1292.7777
+     "open": 1293.933,
+     "high": 1348.8996,
+     "low": 1269.5526,
+     "close": 1322.7461
     },
     {
      "time": 1682208000,
-     "open": 1290.6115,
-     "high": 1395.4547,
-     "low": 1288.4453,
-     "close": 1373.7929
+     "open": 1320.5297,
+     "high": 1427.8034,
+     "low": 1318.3133,
+     "close": 1405.6394
     },
     {
      "time": 1682812800,
-     "open": 1389.3894,
-     "high": 1390.2559,
-     "low": 1350.3981,
-     "close": 1375.0926
+     "open": 1421.5975,
+     "high": 1422.484,
+     "low": 1381.7023,
+     "close": 1406.9692
     },
     {
      "time": 1683417600,
-     "open": 1386.3567,
-     "high": 1386.3567,
-     "low": 1294.5106,
-     "close": 1346.9322
+     "open": 1418.4945,
+     "high": 1418.4945,
+     "low": 1324.5192,
+     "close": 1378.1561
     },
     {
      "time": 1684022400,
-     "open": 1381.1579,
-     "high": 1420.5824,
-     "low": 1376.8255,
-     "close": 1397.6209
+     "open": 1413.1752,
+     "high": 1453.5136,
+     "low": 1408.7424,
+     "close": 1430.0198
     },
     {
      "time": 1684627200,
-     "open": 1369.0273,
-     "high": 1408.9649,
-     "low": 1360.3799,
-     "close": 1406.2148
+     "open": 1400.7633,
+     "high": 1441.6268,
+     "low": 1391.9155,
+     "close": 1438.8129
     },
     {
      "time": 1685232000,
-     "open": 1408.9649,
-     "high": 1411.2566,
-     "low": 1368.1718,
-     "close": 1370.9219
+     "open": 1441.6268,
+     "high": 1443.9716,
+     "low": 1399.8881,
+     "close": 1402.7019
     },
     {
      "time": 1685836800,
-     "open": 1370.9219,
-     "high": 1396.5895,
-     "low": 1370.9219,
-     "close": 1386.9641
+     "open": 1402.7019,
+     "high": 1428.9645,
+     "low": 1402.7019,
+     "close": 1419.116
     },
     {
      "time": 1686441600,
-     "open": 1384.2141,
-     "high": 1458.4666,
-     "low": 1375.9638,
-     "close": 1457.5499
+     "open": 1416.3021,
+     "high": 1492.276,
+     "low": 1407.8606,
+     "close": 1491.338
     },
     {
      "time": 1687046400,
-     "open": 1452.9664,
-     "high": 1494.6762,
-     "low": 1434.1741,
-     "close": 1461.2167
+     "open": 1486.6483,
+     "high": 1529.3249,
+     "low": 1467.4203,
+     "close": 1495.0898
     },
     {
      "time": 1687651200,
-     "open": 1463.0501,
-     "high": 1463.0501,
-     "low": 1422.7154,
-     "close": 1431.424
+     "open": 1496.9657,
+     "high": 1496.9657,
+     "low": 1455.696,
+     "close": 1464.6065
     },
     {
      "time": 1688256000,
-     "open": 1443.7994,
-     "high": 1523.5522,
-     "low": 1443.7994,
-     "close": 1520.8021
+     "open": 1477.2688,
+     "high": 1558.8703,
+     "low": 1477.2688,
+     "close": 1556.0565
     },
     {
      "time": 1688860800,
-     "open": 1515.3019,
-     "high": 1538.2193,
-     "low": 1502.0098,
-     "close": 1500.6347
+     "open": 1550.4288,
+     "high": 1573.8775,
+     "low": 1536.8285,
+     "close": 1535.4216
     },
     {
      "time": 1689465600,
-     "open": 1516.6769,
-     "high": 1516.6769,
-     "low": 1480.4673,
-     "close": 1486.5885
+     "open": 1551.8357,
+     "high": 1551.8357,
+     "low": 1514.7867,
+     "close": 1521.0498
     },
     {
      "time": 1690070400,
-     "open": 1506.3678,
-     "high": 1545.9262,
-     "low": 1493.781,
-     "close": 1535.1375
+     "open": 1541.2875,
+     "high": 1581.763,
+     "low": 1528.409,
+     "close": 1570.7243
     },
     {
      "time": 1690675200,
-     "open": 1532.8899,
-     "high": 1619.1992,
-     "low": 1524.3489,
-     "close": 1584.5856
+     "open": 1568.4245,
+     "high": 1656.7346,
+     "low": 1559.6855,
+     "close": 1621.3186
     },
     {
      "time": 1691280000,
-     "open": 1585.4846,
-     "high": 1610.2087,
-     "low": 1566.155,
-     "close": 1577.8427
+     "open": 1622.2385,
+     "high": 1647.5357,
+     "low": 1602.4607,
+     "close": 1614.4194
     },
     {
      "time": 1691884800,
-     "open": 1572.4483,
-     "high": 1641.6756,
-     "low": 1455.1216,
-     "close": 1482.0932
+     "open": 1608.9,
+     "high": 1679.7321,
+     "low": 1488.8534,
+     "close": 1516.4503
     },
     {
      "time": 1692489600,
-     "open": 1485.6895,
-     "high": 1546.3757,
-     "low": 1480.2951,
-     "close": 1513.1107
+     "open": 1520.1299,
+     "high": 1582.223,
+     "low": 1514.6105,
+     "close": 1548.1868
     },
     {
      "time": 1693094400,
-     "open": 1508.1659,
-     "high": 1546.3757,
-     "low": 1482.5428,
-     "close": 1541.8804
+     "open": 1543.1273,
+     "high": 1582.223,
+     "low": 1516.9103,
+     "close": 1577.6235
     },
     {
      "time": 1693699200,
-     "open": 1557.6139,
-     "high": 1633.1346,
-     "low": 1548.1738,
-     "close": 1606.6125
+     "open": 1593.7217,
+     "high": 1670.993,
+     "low": 1584.0628,
+     "close": 1643.8561
     },
     {
      "time": 1694304000,
-     "open": 1635.3822,
-     "high": 1635.3822,
-     "low": 1602.5667,
-     "close": 1622.3459
+     "open": 1673.2928,
+     "high": 1673.2928,
+     "low": 1639.7165,
+     "close": 1659.9543
     },
     {
      "time": 1694908800,
-     "open": 1626.3917,
-     "high": 1741.4708,
-     "low": 1626.3917,
-     "close": 1735.1455
+     "open": 1664.0938,
+     "high": 1781.8406,
+     "low": 1664.0938,
+     "close": 1775.3687
     },
     {
      "time": 1695513600,
-     "open": 1730.5271,
-     "high": 1733.76,
-     "low": 1640.9295,
-     "close": 1654.3229
+     "open": 1770.6432,
+     "high": 1773.9511,
+     "low": 1678.9686,
+     "close": 1692.6725
     },
     {
      "time": 1696118400,
-     "open": 1654.7848,
-     "high": 1654.7848,
-     "low": 1569.3437,
-     "close": 1578.5806
+     "open": 1693.1451,
+     "high": 1693.1451,
+     "low": 1605.7234,
+     "close": 1615.1744
     },
     {
      "time": 1696723200,
-     "open": 1585.0464,
-     "high": 1627.9979,
-     "low": 1557.7977,
-     "close": 1594.7451
+     "open": 1621.7901,
+     "high": 1665.7372,
+     "low": 1593.9097,
+     "close": 1631.7136
     },
     {
      "time": 1697328000,
-     "open": 1597.978,
-     "high": 1622.9176,
-     "low": 1573.0385,
-     "close": 1615.9899
+     "open": 1635.0215,
+     "high": 1660.5392,
+     "low": 1609.5038,
+     "close": 1653.4509
     },
     {
      "time": 1697932800,
-     "open": 1622.4557,
-     "high": 1713.4389,
-     "low": 1619.2228,
-     "close": 1706.0494
+     "open": 1660.0666,
+     "high": 1753.1589,
+     "low": 1656.7588,
+     "close": 1745.5981
     },
     {
      "time": 1698537600,
-     "open": 1720.8284,
-     "high": 1787.7957,
-     "low": 1709.2823,
-     "close": 1779.0206
+     "open": 1760.7197,
+     "high": 1829.2394,
+     "low": 1748.9059,
+     "close": 1820.2609
     },
     {
      "time": 1699142400,
-     "open": 1782.7154,
-     "high": 1803.9602,
-     "low": 1746.2298,
-     "close": 1800.2654
+     "open": 1824.0413,
+     "high": 1845.7786,
+     "low": 1786.7099,
+     "close": 1841.9982
     },
     {
      "time": 1699747200,
-     "open": 1801.1891,
-     "high": 1852.9156,
-     "low": 1775.3259,
-     "close": 1843.2169
+     "open": 1842.9433,
+     "high": 1895.8688,
+     "low": 1816.4805,
+     "close": 1885.9453
     },
     {
      "time": 1700352000,
-     "open": 1846.4498,
-     "high": 1898.1762,
-     "low": 1794.7233,
-     "close": 1885.7064
+     "open": 1889.2532,
+     "high": 1942.1787,
+     "low": 1836.3276,
+     "close": 1929.4199
     },
     {
      "time": 1700956800,
-     "open": 1879.2406,
-     "high": 1970.6856,
-     "low": 1857.0722,
-     "close": 1948.5171
+     "open": 1922.8042,
+     "high": 2016.369,
+     "low": 1900.1218,
+     "close": 1993.6866
     },
     {
      "time": 1701561600,
-     "open": 1948.979,
-     "high": 2061.2069,
-     "low": 1948.979,
-     "close": 2031.1871
+     "open": 1994.1592,
+     "high": 2108.9887,
+     "low": 1994.1592,
+     "close": 2078.273
     },
     {
      "time": 1702166400,
-     "open": 1964.2198,
-     "high": 2023.3358,
-     "low": 1942.5132,
-     "close": 2023.3358
+     "open": 2009.7533,
+     "high": 2070.2396,
+     "low": 1987.5435,
+     "close": 2070.2396
     },
     {
      "time": 1702771200,
-     "open": 2040.8858,
-     "high": 2068.1346,
-     "low": 2004.6912,
-     "close": 2010.8507
+     "open": 2088.1965,
+     "high": 2116.0769,
+     "low": 2051.1628,
+     "close": 2057.4652
     },
     {
      "time": 1703376000,
-     "open": 2016.0626,
-     "high": 2053.4936,
-     "low": 2009.4293,
-     "close": 2042.596
+     "open": 2062.7979,
+     "high": 2101.0966,
+     "low": 2056.0108,
+     "close": 2089.9464
     },
     {
      "time": 1703980800,
-     "open": 2046.8603,
-     "high": 2057.7579,
-     "low": 1986.6864,
-     "close": 1988.1078
+     "open": 2094.3095,
+     "high": 2105.4598,
+     "low": 2032.7407,
+     "close": 2034.1951
     },
     {
      "time": 1704585600,
-     "open": 1994.2674,
-     "high": 2031.2246,
-     "low": 1987.1602,
-     "close": 1991.8983
+     "open": 2040.4974,
+     "high": 2078.3113,
+     "low": 2033.2255,
+     "close": 2038.0734
     },
     {
      "time": 1705190400,
-     "open": 1987.1602,
-     "high": 2064.8651,
-     "low": 1911.3506,
-     "close": 2048.2817
+     "open": 2033.2255,
+     "high": 2112.7317,
+     "low": 1955.6585,
+     "close": 2095.7639
     },
     {
      "time": 1705795200,
-     "open": 2063.4437,
-     "high": 2182.8438,
-     "low": 2047.3341,
-     "close": 2171.4724
+     "open": 2111.2773,
+     "high": 2233.4453,
+     "low": 2094.7943,
+     "close": 2221.8103
     },
     {
      "time": 1706400000,
-     "open": 2174.3153,
-     "high": 2293.2416,
-     "low": 2145.8866,
-     "close": 2213.6415
+     "open": 2224.7191,
+     "high": 2346.4023,
+     "low": 2195.6314,
+     "close": 2264.9569
     },
     {
      "time": 1707004800,
-     "open": 2216.9582,
-     "high": 2384.2132,
-     "low": 2194.6891,
-     "close": 2373.3156
+     "open": 2268.3505,
+     "high": 2439.4827,
+     "low": 2245.5652,
+     "close": 2428.3325
     },
     {
      "time": 1707609600,
-     "open": 2385.6346,
-     "high": 2857.0758,
-     "low": 2373.7894,
-     "close": 2789.7948
+     "open": 2440.9371,
+     "high": 2923.307,
+     "low": 2428.8173,
+     "close": 2854.4663
     },
     {
      "time": 1708214400,
-     "open": 2780.3186,
-     "high": 2861.3401,
-     "low": 2695.5065,
-     "close": 2703.5613
+     "open": 2844.7704,
+     "high": 2927.6702,
+     "low": 2757.9923,
+     "close": 2766.2338
     },
     {
      "time": 1708819200,
-     "open": 2724.409,
-     "high": 3198.2192,
-     "low": 2724.409,
-     "close": 3109.1429
+     "open": 2787.5647,
+     "high": 3272.3586,
+     "low": 2787.5647,
+     "close": 3181.2173
     },
     {
      "time": 1709424000,
-     "open": 3205.3264,
-     "high": 3283.0313,
-     "low": 3014.3808,
-     "close": 3234.2288
+     "open": 3279.6305,
+     "high": 3359.1367,
+     "low": 3084.2586,
+     "close": 3309.2029
     },
     {
      "time": 1710028800,
-     "open": 3343.679,
-     "high": 3397.2195,
-     "low": 3282.5574,
-     "close": 3315.2504
+     "open": 3421.1903,
+     "high": 3475.972,
+     "low": 3358.6519,
+     "close": 3392.1027
     },
     {
      "time": 1710633600,
-     "open": 3472.5554,
-     "high": 4279.1072,
-     "low": 3472.5554,
-     "close": 4191.2878
+     "open": 3553.0542,
+     "high": 4378.3032,
+     "low": 3553.0542,
+     "close": 4288.4479
     },
     {
      "time": 1711238400,
-     "open": 4275.4481,
-     "high": 4683.704,
-     "low": 4033.4219,
-     "close": 4672.7266
+     "open": 4374.5592,
+     "high": 4792.2791,
+     "low": 4126.9225,
+     "close": 4781.0472
     },
     {
      "time": 1711843200,
-     "open": 4663.3173,
-     "high": 5269.167,
-     "low": 4646.5898,
-     "close": 5105.0282
+     "open": 4771.4198,
+     "high": 5391.3139,
+     "low": 4754.3045,
+     "close": 5223.3702
     },
     {
      "time": 1712448000,
-     "open": 5080.9824,
-     "high": 5396.7143,
-     "low": 4783.0236,
-     "close": 5120.1876
+     "open": 5198.767,
+     "high": 5521.818,
+     "low": 4893.901,
+     "close": 5238.881
     },
     {
      "time": 1713052800,
-     "open": 5202.7797,
-     "high": 5770.4697,
-     "low": 5045.9592,
-     "close": 5743.2875
+     "open": 5323.3877,
+     "high": 5904.2376,
+     "low": 5162.9319,
+     "close": 5876.4252
     },
     {
      "time": 1713657600,
-     "open": 5689.4458,
-     "high": 6409.2516,
-     "low": 5221.0754,
-     "close": 6209.0442
+     "open": 5821.3354,
+     "high": 6557.8274,
+     "low": 5342.1075,
+     "close": 6352.9789
     },
     {
      "time": 1714262400,
-     "open": 6255.5676,
-     "high": 6343.9098,
-     "low": 5342.8726,
-     "close": 5608.4219
+     "open": 6400.5807,
+     "high": 6490.9708,
+     "low": 5466.7282,
+     "close": 5738.4333
     },
     {
      "time": 1714867200,
-     "open": 5398.2825,
-     "high": 5398.2825,
-     "low": 4307.3349,
-     "close": 4445.8596
+     "open": 5523.4225,
+     "high": 5523.4225,
+     "low": 4407.1852,
+     "close": 4548.9211
     },
     {
      "time": 1715472000,
-     "open": 4479.8374,
-     "high": 5161.4836,
-     "low": 4479.8374,
-     "close": 5161.4836
+     "open": 4583.6866,
+     "high": 5281.1343,
+     "low": 4583.6866,
+     "close": 5281.1343
     },
     {
      "time": 1716076800,
-     "open": 4259.766,
-     "high": 4739.1139,
-     "low": 4226.2387,
-     "close": 4351.1842
+     "open": 4358.5136,
+     "high": 4848.9734,
+     "low": 4324.209,
+     "close": 4452.051
     },
     {
      "time": 1716681600,
-     "open": 4309.1409,
-     "high": 4995.4532,
-     "low": 4007.1399,
-     "close": 4911.3666
+     "open": 4409.0331,
+     "high": 5111.2551,
+     "low": 4100.0312,
+     "close": 5025.2193
     },
     {
      "time": 1717286400,
-     "open": 4855.7037,
-     "high": 5655.1183,
-     "low": 4702.9267,
-     "close": 5525.4355
+     "open": 4968.266,
+     "high": 5786.2122,
+     "low": 4811.9474,
+     "close": 5653.5231
     },
     {
      "time": 1717891200,
-     "open": 5525.4355,
-     "high": 5979.6214,
-     "low": 5390.4233,
-     "close": 5881.9152
+     "open": 5653.5231,
+     "high": 6118.2378,
+     "low": 5515.3811,
+     "close": 6018.2666
     },
     {
      "time": 1718496000,
-     "open": 5881.9152,
-     "high": 6513.7489,
-     "low": 5572.8082,
-     "close": 6095.6846
+     "open": 6018.2666,
+     "high": 6664.747,
+     "low": 5701.994,
+     "close": 6236.9914
     },
     {
      "time": 1719100800,
-     "open": 6054.8256,
-     "high": 6103.3827,
-     "low": 5092.5673,
-     "close": 5326.4701
+     "open": 6195.1853,
+     "high": 6244.868,
+     "low": 5210.6204,
+     "close": 5449.9454
     },
     {
      "time": 1719705600,
-     "open": 5206.2618,
-     "high": 5248.8973,
-     "low": 4358.8823,
-     "close": 4576.7968
+     "open": 5326.9505,
+     "high": 5370.5743,
+     "low": 4459.9275,
+     "close": 4682.8936
     },
     {
      "time": 1720310400,
-     "open": 4441.1924,
-     "high": 4625.3538,
-     "low": 4290.1919,
-     "close": 4572.0595
+     "open": 4544.1457,
+     "high": 4732.5763,
+     "low": 4389.6447,
+     "close": 4678.0465
     },
     {
      "time": 1720915200,
-     "open": 4572.0595,
-     "high": 5046.971,
-     "low": 4571.4674,
-     "close": 5046.971
+     "open": 4678.0465,
+     "high": 5163.9672,
+     "low": 4677.4406,
+     "close": 5163.9672
     },
     {
      "time": 1721520000,
-     "open": 4973.5433,
-     "high": 5100.4284,
-     "low": 4658.4852,
-     "close": 4713.0385
+     "open": 5088.8373,
+     "high": 5218.6637,
+     "low": 4766.4757,
+     "close": 4822.2936
     },
     {
      "time": 1722124800,
-     "open": 4735.105,
-     "high": 5200.9536,
-     "low": 4731.4273,
-     "close": 4926.9611
+     "open": 4844.8717,
+     "high": 5321.5192,
+     "low": 4841.1087,
+     "close": 5041.1752
     },
     {
      "time": 1722729600,
-     "open": 4904.2816,
-     "high": 5056.9083,
-     "low": 4547.5397,
-     "close": 4609.4485
+     "open": 5017.97,
+     "high": 5174.1348,
+     "low": 4652.9583,
+     "close": 4716.3023
     },
     {
      "time": 1723334400,
-     "open": 4560.4119,
-     "high": 5655.1559,
-     "low": 4498.503,
-     "close": 5576.6972
+     "open": 4666.1288,
+     "high": 5786.2506,
+     "low": 4602.7849,
+     "close": 5705.9731
     },
     {
      "time": 1723939200,
-     "open": 5516.6272,
-     "high": 5565.051,
-     "low": 5122.4949,
-     "close": 5294.1233
+     "open": 5644.5107,
+     "high": 5694.0569,
+     "low": 5241.2418,
+     "close": 5416.8488
     },
     {
      "time": 1724544000,
-     "open": 5379.9375,
-     "high": 6067.677,
-     "low": 5301.4788,
-     "close": 6019.8662
+     "open": 5504.6523,
+     "high": 6208.3346,
+     "low": 5424.3748,
+     "close": 6159.4155
     },
     {
      "time": 1725148800,
-     "open": 6037.642,
-     "high": 6089.1306,
-     "low": 5832.3009,
-     "close": 5924.8577
+     "open": 6177.6034,
+     "high": 6230.2855,
+     "low": 5967.5021,
+     "close": 6062.2045
     },
     {
      "time": 1725753600,
-     "open": 5865.4007,
-     "high": 5964.087,
-     "low": 5734.2275,
-     "close": 5797.9752
+     "open": 6001.3692,
+     "high": 6102.3432,
+     "low": 5867.1553,
+     "close": 5932.3807
     },
     {
      "time": 1726358400,
-     "open": 6030.8995,
-     "high": 6200.689,
-     "low": 5099.8154,
-     "close": 6178.0096
+     "open": 6170.7045,
+     "high": 6344.43,
+     "low": 5218.0365,
+     "close": 6321.2248
     },
     {
      "time": 1726963200,
-     "open": 6139.8218,
-     "high": 6310.6829,
-     "low": 5966.5654,
-     "close": 6114.2724
+     "open": 6282.1518,
+     "high": 6456.9737,
+     "low": 6104.8791,
+     "close": 6256.0102
     },
     {
      "time": 1727568000,
-     "open": 6069.5611,
-     "high": 7022.8702,
-     "low": 6040.0197,
-     "close": 6611.6858
+     "open": 6210.2624,
+     "high": 7185.6706,
+     "low": 6180.0362,
+     "close": 6764.9543
     },
     {
      "time": 1728172800,
-     "open": 6626.0573,
-     "high": 6626.0573,
-     "low": 5469.152,
-     "close": 5644.0052
+     "open": 6779.659,
+     "high": 6779.659,
+     "low": 5595.9349,
+     "close": 5774.8414
     },
     {
      "time": 1728777600,
-     "open": 5578.5351,
-     "high": 6268.3668,
-     "low": 5478.733,
-     "close": 6178.9442
+     "open": 5707.8536,
+     "high": 6413.6766,
+     "low": 5605.738,
+     "close": 6322.1811
     },
     {
      "time": 1729382400,
-     "open": 6147.0075,
-     "high": 6524.6584,
-     "low": 5913.0715,
-     "close": 5948.2018
+     "open": 6289.5041,
+     "high": 6675.9095,
+     "low": 6050.1451,
+     "close": 6086.0898
     },
     {
      "time": 1729987200,
-     "open": 5872.3523,
-     "high": 6099.9009,
-     "low": 5130.6235,
-     "close": 5405.2787
+     "open": 6008.4819,
+     "high": 6241.3055,
+     "low": 5249.5588,
+     "close": 5530.5809
     },
     {
      "time": 1730592000,
-     "open": 5411.666,
-     "high": 5980.1385,
-     "low": 5335.0181,
-     "close": 5861.1744
+     "open": 5537.1163,
+     "high": 6118.7668,
+     "low": 5458.6915,
+     "close": 5997.045
     },
     {
      "time": 1731196800,
-     "open": 5820.4552,
-     "high": 6005.6878,
-     "low": 5499.4918,
-     "close": 5682.3292
+     "open": 5955.3818,
+     "high": 6144.9084,
+     "low": 5626.9781,
+     "close": 5814.0538
     },
     {
      "time": 1731801600,
-     "open": 5671.9498,
-     "high": 7097.9214,
-     "low": 5637.6179,
-     "close": 6871.9695
+     "open": 5803.4338,
+     "high": 7262.4615,
+     "low": 5768.306,
+     "close": 7031.2718
     },
     {
      "time": 1732406400,
-     "open": 6859.1949,
-     "high": 7265.5888,
-     "low": 6536.6347,
-     "close": 7103.5103
+     "open": 7018.201,
+     "high": 7434.0157,
+     "low": 6688.1634,
+     "close": 7268.18
     },
     {
      "time": 1733011200,
-     "open": 7157.8026,
-     "high": 7361.3988,
-     "low": 7061.1942,
-     "close": 7361.3988
+     "open": 7323.7309,
+     "high": 7532.0467,
+     "low": 7224.883,
+     "close": 7532.0467
     },
     {
      "time": 1733616000,
-     "open": 7343.0352,
-     "high": 7888.3536,
-     "low": 7052.4116,
-     "close": 7798.1325
+     "open": 7513.2574,
+     "high": 8071.2171,
+     "low": 7215.8968,
+     "close": 7978.9046
     },
     {
      "time": 1734220800,
-     "open": 7965.7999,
-     "high": 8927.0932,
-     "low": 7965.7999,
-     "close": 8927.0932
+     "open": 8150.4588,
+     "high": 9134.0362,
+     "low": 8150.4588,
+     "close": 9134.0362
     },
     {
      "time": 1734825600,
-     "open": 9022.1048,
-     "high": 10324.3219,
-     "low": 9014.1206,
-     "close": 9544.2691
+     "open": 9231.2503,
+     "high": 10563.6547,
+     "low": 9223.0811,
+     "close": 9765.5191
     },
     {
      "time": 1735430400,
-     "open": 9477.2021,
-     "high": 9620.917,
-     "low": 7849.2312,
-     "close": 8083.1672
+     "open": 9696.8974,
+     "high": 9843.9439,
+     "low": 8031.1878,
+     "close": 8270.5467
     },
     {
      "time": 1736035200,
-     "open": 8102.3291,
-     "high": 9437.2813,
-     "low": 8099.1355,
-     "close": 8972.603
+     "open": 8290.1529,
+     "high": 9656.0512,
+     "low": 8286.8852,
+     "close": 9180.601
     },
     {
      "time": 1736640000,
-     "open": 9120.31,
-     "high": 9486.7831,
-     "low": 8259.6172,
-     "close": 8439.2608
+     "open": 9331.732,
+     "high": 9706.7005,
+     "low": 8451.0871,
+     "close": 8634.8952
     },
     {
      "time": 1737244800,
-     "open": 8383.3717,
-     "high": 9016.5159,
-     "low": 8344.2493,
-     "close": 8920.7059
+     "open": 8577.7105,
+     "high": 9225.5318,
+     "low": 8537.6811,
+     "close": 9127.5008
     },
     {
      "time": 1737849600,
-     "open": 9020.508,
-     "high": 9402.9494,
-     "low": 9020.508,
-     "close": 9256.0408
+     "open": 9229.6164,
+     "high": 9620.9234,
+     "low": 9229.6164,
+     "close": 9470.6093
     },
     {
      "time": 1738454400,
-     "open": 9180.9896,
-     "high": 9412.5304,
-     "low": 8409.7194,
-     "close": 8772.2005
+     "open": 9393.8183,
+     "high": 9630.7265,
+     "low": 8604.669,
+     "close": 8975.5528
     },
     {
      "time": 1739059200,
-     "open": 8798.5482,
-     "high": 9041.2668,
-     "low": 7630.4651,
-     "close": 7998.535
+     "open": 9002.5114,
+     "high": 9250.8565,
+     "low": 7807.3504,
+     "close": 8183.9527
     },
     {
      "time": 1739664000,
-     "open": 7823.6818,
-     "high": 8419.3004,
-     "low": 7650.4255,
-     "close": 8111.1117
+     "open": 8005.0462,
+     "high": 8614.4721,
+     "low": 7827.7735,
+     "close": 8299.1391
     },
     {
      "time": 1740268800,
-     "open": 8075.183,
-     "high": 8265.2061,
-     "low": 7125.8659,
-     "close": 7133.0517
+     "open": 8262.3775,
+     "high": 8456.8056,
+     "low": 7291.0539,
+     "close": 7298.4062
     },
     {
      "time": 1740873600,
-     "open": 7220.8775,
-     "high": 7265.5888,
-     "low": 6698.7132,
-     "close": 7196.925
+     "open": 7388.2679,
+     "high": 7434.0157,
+     "low": 6853.9991,
+     "close": 7363.7602
     },
     {
      "time": 1741478400,
-     "open": 6452.801,
-     "high": 6566.9745,
-     "low": 6319.4654,
-     "close": 6499.9075
+     "open": 6602.3863,
+     "high": 6719.2065,
+     "low": 6465.9598,
+     "close": 6650.5848
     },
     {
      "time": 1742083200,
-     "open": 6610.089,
-     "high": 6718.6736,
-     "low": 6352.0221,
-     "close": 6352.0221
+     "open": 6763.3205,
+     "high": 6874.4222,
+     "low": 6499.2712,
+     "close": 6499.2712
     },
     {
      "time": 1742688000,
-     "open": 6435.8609,
-     "high": 6868.2061,
-     "low": 6278.8686,
-     "close": 6382.4342
+     "open": 6585.0535,
+     "high": 7027.4211,
+     "low": 6424.4219,
+     "close": 6530.3883
     },
     {
      "time": 1743292800,
-     "open": 6416.9561,
-     "high": 6760.5308,
-     "low": 6416.1341,
-     "close": 6610.1141
+     "open": 6565.7104,
+     "high": 6917.2497,
+     "low": 6564.8694,
+     "close": 6763.3461
     },
     {
      "time": 1743897600,
-     "open": 6553.3996,
-     "high": 7801.9402,
-     "low": 6417.778,
-     "close": 6996.4301
+     "open": 6705.3169,
+     "high": 7982.8005,
+     "low": 6566.5514,
+     "close": 7158.6176
     },
     {
      "time": 1744502400,
-     "open": 6929.0303,
-     "high": 7174.7931,
-     "low": 6292.8418,
-     "close": 6995.6082
+     "open": 7089.6553,
+     "high": 7341.1152,
+     "low": 6438.719,
+     "close": 7157.7765
     },
     {
      "time": 1745107200,
-     "open": 6925.7425,
-     "high": 7089.3104,
-     "low": 6454.7657,
-     "close": 6875.6036
+     "open": 7086.2913,
+     "high": 7253.6509,
+     "low": 6604.3966,
+     "close": 7034.9901
     },
     {
      "time": 1745712000,
-     "open": 6887.9329,
-     "high": 7933.452,
-     "low": 6887.9329,
-     "close": 7933.452
+     "open": 7047.6052,
+     "high": 8117.361,
+     "low": 7047.6052,
+     "close": 8117.361
     },
     {
      "time": 1746316800,
-     "open": 7644.126,
-     "high": 7788.789,
-     "low": 7375.3486,
-     "close": 7501.9288
+     "open": 7821.3279,
+     "high": 7969.3444,
+     "low": 7546.3199,
+     "close": 7675.8344
     },
     {
      "time": 1746921600,
-     "open": 7198.6296,
-     "high": 7715.6355,
-     "low": 7198.6296,
-     "close": 7715.6355
+     "open": 7365.5043,
+     "high": 7894.4952,
+     "low": 7365.5043,
+     "close": 7894.4952
     },
     {
      "time": 1747526400,
-     "open": 7685.2234,
-     "high": 9097.3318,
-     "low": 7624.3992,
-     "close": 8957.6005
+     "open": 7863.3781,
+     "high": 9308.2212,
+     "low": 7801.1438,
+     "close": 9165.2507
     },
     {
      "time": 1748131200,
-     "open": 8799.7863,
-     "high": 9271.585,
-     "low": 7915.3691,
-     "close": 8025.5103
+     "open": 9003.7781,
+     "high": 9486.5139,
+     "low": 8098.8589,
+     "close": 8211.5533
     },
     {
      "time": 1748736000,
-     "open": 8069.0736,
-     "high": 8353.468,
-     "low": 7441.9265,
-     "close": 8047.7029
+     "open": 8256.1265,
+     "high": 8547.1135,
+     "low": 7614.4412,
+     "close": 8234.2604
     },
     {
      "time": 1749340800,
-     "open": 7911.2594,
-     "high": 8655.9452,
-     "low": 7685.2234,
-     "close": 8432.3751
+     "open": 8094.6539,
+     "high": 8856.6026,
+     "low": 7863.3781,
+     "close": 8627.8498
     },
     {
      "time": 1749945600,
-     "open": 8342.7826,
-     "high": 8447.9921,
-     "low": 7665.4966,
-     "close": 8028.7981
+     "open": 8536.1805,
+     "high": 8643.8289,
+     "low": 7843.194,
+     "close": 8214.9173
     },
     {
      "time": 1750550400,
-     "open": 8069.0736,
-     "high": 8456.2116,
-     "low": 6847.6573,
-     "close": 6952.8668
+     "open": 8256.1265,
+     "high": 8652.2389,
+     "low": 7006.396,
+     "close": 7114.0444
     },
     {
      "time": 1751155200,
-     "open": 7031.7739,
-     "high": 7734.5404,
-     "low": 6818.0672,
-     "close": 7587.4115
+     "open": 7194.7807,
+     "high": 7913.8382,
+     "low": 6976.1199,
+     "close": 7763.2987
     },
     {
      "time": 1751760000,
-     "open": 7690.1551,
-     "high": 7690.1551,
-     "low": 7216.7125,
-     "close": 7216.7125
+     "open": 7868.4241,
+     "high": 7868.4241,
+     "low": 7384.0064,
+     "close": 7384.0064
     },
     {
      "time": 1752364800,
-     "open": 7298.0854,
-     "high": 7463.2972,
-     "low": 7185.4784,
-     "close": 7266.0294
+     "open": 7467.2657,
+     "high": 7636.3073,
+     "low": 7352.0482,
+     "close": 7434.4665
     },
     {
      "time": 1752969600,
-     "open": 7356.4438,
-     "high": 7356.4438,
-     "low": 6507.4462,
-     "close": 7041.9091
+     "open": 7526.9769,
+     "high": 7526.9769,
+     "low": 6658.2983,
+     "close": 7205.1508
     },
     {
      "time": 1753574400,
-     "open": 6996.7686,
-     "high": 7737.0719,
-     "low": 6958.8507,
-     "close": 7519.495
+     "open": 7158.9639,
+     "high": 7916.4285,
+     "low": 7120.167,
+     "close": 7693.8078
     },
     {
      "time": 1754179200,
-     "open": 7496.9247,
-     "high": 7875.2017,
-     "low": 7327.1967,
-     "close": 7431.9225
+     "open": 7670.7144,
+     "high": 8057.7603,
+     "low": 7497.0518,
+     "close": 7604.2053
     },
     {
      "time": 1754784000,
-     "open": 7426.5057,
-     "high": 7958.2601,
-     "low": 7141.2181,
-     "close": 7697.3483
+     "open": 7598.6629,
+     "high": 8142.7441,
+     "low": 7306.7619,
+     "close": 7875.784
     },
     {
      "time": 1755388800,
-     "open": 7878.8129,
-     "high": 8419.5954,
-     "low": 7326.2939,
-     "close": 7434.6309
+     "open": 8061.4552,
+     "high": 8614.7739,
+     "low": 7496.128,
+     "close": 7606.9765
     },
     {
      "time": 1755993600,
-     "open": 7474.3545,
-     "high": 7620.6096,
-     "low": 6623.9086,
-     "close": 6845.0968
+     "open": 7647.6209,
+     "high": 7797.2664,
+     "low": 6777.4604,
+     "close": 7003.7761
     },
     {
      "time": 1756598400,
-     "open": 6782.8029,
-     "high": 7163.7883,
-     "low": 6782.8029,
-     "close": 6892.9456
+     "open": 6940.0382,
+     "high": 7329.8553,
+     "low": 6940.0382,
+     "close": 7052.7341
     },
     {
      "time": 1757203200,
-     "open": 6698.8417,
-     "high": 6748.4962,
-     "low": 6504.7378,
-     "close": 6664.535
+     "open": 6854.1306,
+     "high": 6904.9362,
+     "low": 6655.5271,
+     "close": 6819.0286
     },
     {
      "time": 1757808000,
-     "open": 6437.93,
-     "high": 6726.8288,
-     "low": 6437.93,
-     "close": 6604.0468
+     "open": 6587.1705,
+     "high": 6882.7665,
+     "low": 6587.1705,
+     "close": 6757.1382
     },
     {
      "time": 1758412800,
-     "open": 6647.5431,
-     "high": 6740.1272,
-     "low": 6345.1015,
-     "close": 6386.5439
+     "open": 6801.6428,
+     "high": 6896.3732,
+     "low": 6492.1901,
+     "close": 6534.5933
     },
     {
      "time": 1759017600,
-     "open": 6375.0811,
-     "high": 6375.0811,
-     "low": 6025.9065,
-     "close": 6091.1563
+     "open": 6522.8647,
+     "high": 6522.8647,
+     "low": 6165.5958,
+     "close": 6232.3582
     },
     {
      "time": 1759622400,
-     "open": 6104.3826,
-     "high": 6241.0545,
-     "low": 5430.7226,
-     "close": 5458.057
+     "open": 6245.8911,
+     "high": 6385.7312,
+     "low": 5556.6147,
+     "close": 5584.5827
     },
     {
      "time": 1760227200,
-     "open": 5396.3342,
-     "high": 5623.8267,
-     "low": 5123.8722,
-     "close": 5156.4971
+     "open": 5521.4291,
+     "high": 5754.1952,
+     "low": 5242.651,
+     "close": 5276.0322
     },
     {
      "time": 1760832000,
-     "open": 5136.2168,
-     "high": 5396.3342,
-     "low": 4965.1565,
-     "close": 5197.9396
+     "open": 5255.2818,
+     "high": 5521.4291,
+     "low": 5080.2561,
+     "close": 5318.4354
     },
     {
      "time": 1761436800,
-     "open": 5202.3483,
-     "high": 5713.7656,
-     "low": 5125.6357,
-     "close": 5571.8032
+     "open": 5322.9463,
+     "high": 5846.219,
+     "low": 5244.4554,
+     "close": 5700.9657
     },
     {
      "time": 1762041600,
-     "open": 5516.2527,
-     "high": 5606.1916,
-     "low": 5187.3585,
-     "close": 5423.6686
+     "open": 5644.1275,
+     "high": 5736.1513,
+     "low": 5307.609,
+     "close": 5549.3971
     },
     {
      "time": 1762646400,
-     "open": 5443.9489,
-     "high": 5843.3835,
-     "low": 5278.1792,
-     "close": 5301.9865
+     "open": 5570.1476,
+     "high": 5978.8416,
+     "low": 5400.535,
+     "close": 5424.8943
     },
     {
      "time": 1763251200,
-     "open": 5316.9763,
-     "high": 5412.2058,
-     "low": 4538.3876,
-     "close": 4661.8332
+     "open": 5440.2316,
+     "high": 5537.6686,
+     "low": 4643.594,
+     "close": 4769.9012
     },
     {
      "time": 1763856000,
-     "open": 4631.8535,
-     "high": 4730.61,
-     "low": 4332.9389,
-     "close": 4482.8371
+     "open": 4739.2266,
+     "high": 4840.2724,
+     "low": 4433.3828,
+     "close": 4586.7558
     },
     {
      "time": 1764460800,
-     "open": 4488.1276,
-     "high": 4764.9984,
-     "low": 4407.888,
-     "close": 4764.9984
+     "open": 4592.169,
+     "high": 4875.458,
+     "low": 4510.0693,
+     "close": 4875.458
     },
     {
      "time": 1765065600,
-     "open": 4810.8496,
-     "high": 4975.7376,
-     "low": 4762.3531,
-     "close": 4975.7376
+     "open": 4922.3721,
+     "high": 5091.0824,
+     "low": 4872.7514,
+     "close": 5091.0824
     },
     {
      "time": 1765670400,
-     "open": 5004.8354,
-     "high": 5497.7359,
-     "low": 5004.8354,
-     "close": 5489.8001
+     "open": 5120.8548,
+     "high": 5625.1814,
+     "low": 5120.8548,
+     "close": 5617.0617
     },
     {
      "time": 1766275200,
-     "open": 5442.8873,
-     "high": 5689.6539,
-     "low": 5402.6942,
-     "close": 5463.4512
+     "open": 5569.0613,
+     "high": 5821.5484,
+     "low": 5527.9365,
+     "close": 5590.1019
     },
     {
      "time": 1766880000,
-     "open": 5416.7151,
-     "high": 5662.547,
-     "low": 5383.9998,
-     "close": 5564.4012
+     "open": 5542.2824,
+     "high": 5793.8131,
+     "low": 5508.8087,
+     "close": 5693.3921
     },
     {
      "time": 1767484800,
-     "open": 5575.6178,
-     "high": 5930.8123,
-     "low": 5442.8873,
-     "close": 5487.7539
+     "open": 5704.8688,
+     "high": 6068.2971,
+     "low": 5569.0613,
+     "close": 5614.9681
     },
     {
      "time": 1768089600,
-     "open": 5610.2026,
-     "high": 5866.3164,
-     "low": 4954.0276,
-     "close": 4996.0901
+     "open": 5740.2552,
+     "high": 6002.3062,
+     "low": 5068.8691,
+     "close": 5111.9067
     },
     {
      "time": 1768694400,
-     "open": 4982.0692,
-     "high": 5135.3637,
-     "low": 4523.1207,
-     "close": 4744.6498
+     "open": 5097.5609,
+     "high": 5254.4089,
+     "low": 4627.9732,
+     "close": 4854.6377
     },
     {
      "time": 1769299200,
-     "open": 4616.5929,
-     "high": 4645.5693,
-     "low": 3789.3637,
-     "close": 3926.7679
+     "open": 4723.6122,
+     "high": 4753.2603,
+     "low": 3877.2067,
+     "close": 4017.7961
     },
     {
      "time": 1769904000,
-     "open": 3999.6762,
-     "high": 4195.9679,
-     "low": 3674.3929,
-     "close": 3893.1179
+     "open": 4092.3945,
+     "high": 4293.2365,
+     "low": 3759.5707,
+     "close": 3983.366
     },
     {
      "time": 1770508800,
-     "open": 3835.1651,
-     "high": 4110.9082,
-     "low": 3682.8054,
-     "close": 3923.029
+     "open": 3924.0698,
+     "high": 4206.205,
+     "low": 3768.1782,
+     "close": 4013.9705
     },
     {
      "time": 1771113600,
-     "open": 3899.661,
-     "high": 3960.4179,
-     "low": 3330.4151,
-     "close": 3347.2401
+     "open": 3990.0608,
+     "high": 4052.2261,
+     "low": 3407.619,
+     "close": 3424.834
     },
     {
      "time": 1771718400,
-     "open": 3308.9165,
-     "high": 3340.6971,
-     "low": 2744.3443,
-     "close": 2878.9443
+     "open": 3385.622,
+     "high": 3418.1393,
+     "low": 2807.9622,
+     "close": 2945.6824
     },
     {
      "time": 1772323200,
-     "open": 2958.3957,
-     "high": 2958.3957,
-     "low": 2615.3527,
-     "close": 2615.3527
+     "open": 3026.9756,
+     "high": 3026.9756,
+     "low": 2675.9804,
+     "close": 2675.9804
     },
     {
      "time": 1772928000,
-     "open": 2739.6707,
-     "high": 2933.1582,
-     "low": 2739.6707,
-     "close": 2933.1582
+     "open": 2803.1803,
+     "high": 3001.1531,
+     "low": 2803.1803,
+     "close": 3001.1531
     },
     {
      "time": 1773532800,
-     "open": 2988.3068,
-     "high": 3140.6665,
-     "low": 2988.3068,
-     "close": 2995.7846
+     "open": 3057.5801,
+     "high": 3213.4718,
+     "low": 3057.5801,
+     "close": 3065.2312
     },
     {
      "time": 1774137600,
-     "open": 3018.9801,
-     "high": 3104.2517,
-     "low": 2876.5582,
-     "close": 2952.7585
+     "open": 3088.9644,
+     "high": 3176.2128,
+     "low": 2943.241,
+     "close": 3021.2077
     },
     {
      "time": 1774742400,
-     "open": 2973.6228,
-     "high": 3022.6087,
-     "low": 2794.008,
-     "close": 2871.1154
+     "open": 3042.5557,
+     "high": 3092.6771,
+     "low": 2858.7772,
+     "close": 2937.672
     },
     {
      "time": 1775347200,
-     "open": 2861.1368,
-     "high": 3064.3373,
-     "low": 2816.6866,
-     "close": 2943.687
+     "open": 2927.4621,
+     "high": 3135.3731,
+     "low": 2881.9815,
+     "close": 3011.9259
     },
     {
      "time": 1775952000,
-     "open": 2961.8299,
-     "high": 2990.8586,
-     "low": 2714.1792,
-     "close": 2944.5941
+     "open": 3030.4894,
+     "high": 3060.191,
+     "low": 2777.0978,
+     "close": 3012.8541
     },
     {
      "time": 1776556800,
-     "open": 2950.9442,
-     "high": 3274.7951,
-     "low": 2825.7581,
-     "close": 2890.1654
+     "open": 3019.3513,
+     "high": 3350.7096,
+     "low": 2891.2633,
+     "close": 2957.1637
     },
     {
      "time": 1777161600,
-     "open": 2906.494,
-     "high": 3086.1088,
-     "low": 2901.0512,
-     "close": 3038.0301
+     "open": 2973.8708,
+     "high": 3157.6493,
+     "low": 2968.3018,
+     "close": 3108.4561
     },
     {
      "time": 1777766400,
-     "open": 2976.3442,
-     "high": 3194.0591,
-     "low": 2942.7799,
-     "close": 3194.0591
+     "open": 3045.3402,
+     "high": 3268.1021,
+     "low": 3010.9978,
+     "close": 3268.1021
     },
     {
      "time": 1778371200,
-     "open": 3458.0385,
-     "high": 3951.5256,
-     "low": 3458.0385,
-     "close": 3731.0893
+     "open": 3538.2008,
+     "high": 4043.1277,
+     "low": 3538.2008,
+     "close": 3817.5813
     },
     {
      "time": 1778976000,
-     "open": 4201.8977,
-     "high": 4214.4597,
-     "low": 3713.3416,
-     "close": 3755.5706
+     "open": 4299.3039,
+     "high": 4312.157,
+     "low": 3799.4222,
+     "close": 3842.6302
     },
     {
      "time": 1779580800,
-     "open": 3666.4204,
-     "high": 3714.28,
-     "low": 3426.184,
-     "close": 3562.2554
+     "open": 3751.4134,
+     "high": 3800.3824,
+     "low": 3505.6079,
+     "close": 3644.8337
     },
     {
      "time": 1780185600,
-     "open": 3556.6249,
-     "high": 4067.1272,
-     "low": 3533.1643,
-     "close": 3681.4352
+     "open": 3639.0726,
+     "high": 4161.4092,
+     "low": 3615.0682,
+     "close": 3766.7762
     },
     {
      "time": 1780790400,
-     "open": 3636.3909,
-     "high": 3940.4401,
-     "low": 3490.9352,
-     "close": 3530.349
+     "open": 3720.6877,
+     "high": 4031.7852,
+     "low": 3571.8602,
+     "close": 3612.1876
     },
     {
      "time": 1781395200,
-     "open": 3636.3909,
-     "high": 3715.2184,
-     "low": 3466.5362,
-     "close": 3546.3022
+     "open": 3720.6877,
+     "high": 3801.3426,
+     "low": 3546.8956,
+     "close": 3628.5107
     },
     {
      "time": 1782000000,
-     "open": 3697.3884,
-     "high": 4035.2208,
-     "low": 3627.9451,
-     "close": 3887.8884
+     "open": 3783.0992,
+     "high": 4128.7631,
+     "low": 3712.0461,
+     "close": 3978.0153
     },
     {
      "time": 1782604800,
-     "open": 3963.9006,
-     "high": 4785.9596,
-     "low": 3951.7011,
-     "close": 4705.2552
+     "open": 4055.7896,
+     "high": 4896.9051,
+     "low": 4043.3073,
+     "close": 4814.3298
     },
     {
      "time": 1783209600,
-     "open": 4608.5976,
-     "high": 4697.7478,
-     "low": 4504.4326,
-     "close": 4644.2577
+     "open": 4715.4316,
+     "high": 4806.6484,
+     "low": 4608.8519,
+     "close": 4751.9183
     },
     {
      "time": 1783814400,
-     "open": 4813.1739,
-     "high": 5920.5135,
-     "low": 4746.5458,
-     "close": 5554.5284
+     "open": 4924.7502,
+     "high": 6057.7597,
+     "low": 4856.5776,
+     "close": 5683.2904
     },
     {
      "time": 1784419200,
-     "open": 5345.26,
-     "high": 5876.9703,
-     "low": 5311.4767,
-     "close": 5638.5082
+     "open": 5469.1709,
+     "high": 6013.207,
+     "low": 5434.6045,
+     "close": 5769.217
     },
     {
      "time": 1785024000,
-     "open": 5617.1077,
-     "high": 5842.3219,
-     "low": 5263.4908,
-     "close": 5478.5143
+     "open": 5747.3204,
+     "high": 5977.7555,
+     "low": 5385.5062,
+     "close": 5605.5143
     },
     {
      "time": 1785628800,
-     "open": 5433.6753,
-     "high": 5667.0421,
-     "low": 5087.1919,
-     "close": 5499.9148
+     "open": 5559.6358,
+     "high": 5798.4124,
+     "low": 5205.1204,
+     "close": 5627.4108
     },
     {
      "time": 1786233600,
-     "open": 5538.6394,
-     "high": 6340.6466,
-     "low": 5480.5525,
-     "close": 5892.2563
+     "open": 5667.0331,
+     "high": 6487.632,
+     "low": 5607.5997,
+     "close": 6028.8474
     },
     {
      "time": 1786838400,
-     "open": 5819.9024,
-     "high": 6043.0785,
-     "low": 5536.0,
-     "close": 5773.0
+     "open": 5954.8162,
+     "high": 6183.1659,
+     "low": 5664.3325,
+     "close": 5906.8265
     },
     {
      "time": 1787443200,
-     "open": 5764.0,
-     "high": 6160.0,
-     "low": 5696.0,
-     "close": 6034.0
+     "open": 5897.6179,
+     "high": 6302.7978,
+     "low": 5828.0416,
+     "close": 6173.8769
     },
     {
      "time": 1788048000,
-     "open": 6000.0,
-     "high": 6687.0,
-     "low": 5722.0,
-     "close": 6648.0
+     "open": 6139.0887,
+     "high": 6842.0144,
+     "low": 5854.6443,
+     "close": 6802.1103
     },
     {
      "time": 1788652800,
-     "open": 6555.0,
-     "high": 6821.0,
-     "low": 6025.0,
-     "close": 6188.0
+     "open": 6706.9544,
+     "high": 6979.1207,
+     "low": 6164.6683,
+     "close": 6331.4468
     },
     {
      "time": 1789257600,
-     "open": 6119.0,
-     "high": 6237.0,
-     "low": 5730.0,
-     "close": 5961.0
+     "open": 6260.8473,
+     "high": 6381.5827,
+     "low": 5862.8297,
+     "close": 6099.1847
     },
     {
      "time": 1789862400,
-     "open": 5939.0,
-     "high": 6113.0,
-     "low": 5290.0,
-     "close": 5327.0
+     "open": 6076.6747,
+     "high": 6254.7082,
+     "low": 5412.6299,
+     "close": 5450.4876
     },
     {
      "time": 1790467200,
-     "open": 5317.0,
-     "high": 5676.0,
-     "low": 5111.0,
-     "close": 5619.0
+     "open": 5440.2558,
+     "high": 5807.5779,
+     "low": 5229.4804,
+     "close": 5749.2566
     },
     {
      "time": 1791072000,
-     "open": 5625.0,
-     "high": 5781.0,
-     "low": 5051.0,
-     "close": 5670.0
+     "open": 5755.3957,
+     "high": 5915.012,
+     "low": 5168.0895,
+     "close": 5801.4388
     },
     {
      "time": 1791676800,
-     "open": 5658.0,
-     "high": 5908.0,
-     "low": 5431.0,
-     "close": 5665.0
+     "open": 5789.1607,
+     "high": 6044.956,
+     "low": 5556.8985,
+     "close": 5796.3229
     },
     {
      "time": 1792281600,
-     "open": 5700.0,
-     "high": 6023.0,
-     "low": 5554.0,
-     "close": 5645.0
+     "open": 5832.1343,
+     "high": 6162.6219,
+     "low": 5682.7498,
+     "close": 5775.8593
     },
     {
      "time": 1792886400,
-     "open": 5646.0,
-     "high": 5903.0,
-     "low": 5517.0,
-     "close": 5592.0
+     "open": 5776.8825,
+     "high": 6039.8401,
+     "low": 5644.8921,
+     "close": 5721.6307
     },
     {
      "time": 1793491200,
-     "open": 5510.0,
-     "high": 5622.0,
-     "low": 5356.0,
-     "close": 5453.0
+     "open": 5637.7298,
+     "high": 5752.3261,
+     "low": 5480.1599,
+     "close": 5579.4085
     },
     {
      "time": 1794096000,
-     "open": 5503.0,
-     "high": 5600.0,
-     "low": 5072.0,
-     "close": 5155.0
+     "open": 5630.5675,
+     "high": 5729.8161,
+     "low": 5189.5763,
+     "close": 5274.5004
     },
     {
      "time": 1794700800,
-     "open": 5160.0,
-     "high": 5227.0,
-     "low": 4979.0,
-     "close": 5000.0
+     "open": 5279.6163,
+     "high": 5348.1695,
+     "low": 4768.0,
+     "close": 4852.0
     }
    ],
    "stats": {
-    "last": 5000.0,
-    "hi5": 10324.3219,
-    "lo5": 986.3449,
+    "last": 4852.0,
+    "hi5": 10563.6547,
+    "lo5": 1009.2098,
     "hi5_date": "Dec 2024",
     "lo5_date": "Sep 2022",
-    "pos5": 0.43,
-    "from_high": -0.5157,
-    "hi1": 6821.0,
-    "lo1": 2615.3527,
-    "r1": -0.08318252084675948,
-    "r3": 1.766014653343292,
-    "r5": 3.8331728383184194,
-    "ma200": 4451.3789,
-    "vol": 0.5724,
+    "pos5": 0.402,
+    "from_high": -0.5407,
+    "hi1": 6979.1207,
+    "lo1": 2675.9804,
+    "r1": -0.10560469133044847,
+    "r3": 1.6442714452017042,
+    "r5": 3.509708249826753,
+    "ma200": 4558.0569,
+    "vol": 0.5741,
     "move": 0.019,
     "month": 11,
     "season": {
-     "avg": 0.0549,
+     "avg": 0.0455,
      "up": 3,
      "n": 5
     },
@@ -18679,8 +18679,8 @@
      "n": 5
     }
    },
-   "text": "5-year range 986.345 (Sep 2022) to 10324.3 (Dec 2024), now at 43% of it and -52% from the high; 1-year range 2615.35-6821; returns 1y -8%, 3y +177%, 5y +383%; above its 200-day average (4451.38); volatility 57% a year, typical daily move 1.9%; Nov has averaged +5.5% (up 3 of 5 years); Dec has averaged +11.5% (up 4 of 5 years)",
-   "data": "holding Dec 2026 (CCZ26.NYB), priced from that contract's own prices; 1 roll measured from both contracts' prices, 21 estimated from the jump on Yahoo's switch date"
+   "text": "5-year range 1009.21 (Sep 2022) to 10563.7 (Dec 2024), now at 40% of it and -54% from the high; 1-year range 2675.98-6979.12; returns 1y -11%, 3y +164%, 5y +351%; above its 200-day average (4558.06); volatility 57% a year, typical daily move 1.9%; Nov has averaged +4.5% (up 3 of 5 years); Dec has averaged +11.5% (up 4 of 5 years)",
+   "data": "holding Mar 2027 (CCH27.NYB), priced from that contract's own prices; 2 rolls measured from both contracts' prices, 21 estimated from the jump on Yahoo's switch date"
   }
  }
 }
