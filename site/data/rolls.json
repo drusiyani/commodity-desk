@@ -1,5 +1,5 @@
 {
- "t": 1794551557,
+ "t": 1794583066,
  "applied": {
   "CL=F": 1794528000,
   "BZ=F": 1792713600,
@@ -161,13 +161,13 @@
    ]
   },
   "KC=F": {
-   "contract": "Dec 2026",
-   "ticker": "KCZ26.NYB",
-   "priced_from": "front month",
+   "contract": "Mar 2027",
+   "ticker": "KCH27.NYB",
+   "priced_from": "contract",
    "method": "detected",
-   "next_roll": 1794528000,
-   "next_contract": "Mar 2027",
-   "note": "holding Dec 2026 (KCZ26.NYB), priced from Yahoo's continuous front-month series; 0 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "next_roll": 1802304000,
+   "next_contract": "May 2027",
+   "note": "holding Mar 2027 (KCH27.NYB), priced from that contract's own prices; 0 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
    "rolls": [
     {
      "t": 1789977600,
