@@ -1,12 +1,12 @@
 {
- "date": "2026-11-14",
- "fetched": 1794622650,
+ "date": "2026-11-16",
+ "fetched": 1794809369,
  "markets": {
   "CL=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 67.9357,
+     "open": 68.1631,
      "high": 68.9042,
      "low": 63.4802,
      "close": 64.095
@@ -1829,28 +1829,35 @@
      "open": 89.7553,
      "high": 90.3383,
      "low": 82.8875,
-     "close": 87.61
+     "close": 87.29
+    },
+    {
+     "time": 1795305600,
+     "open": 87.42,
+     "high": 87.59,
+     "low": 86.31,
+     "close": 87.29
     }
    ],
    "stats": {
-    "last": 87.61,
+    "last": 87.29,
     "hi5": 116.3897,
     "lo5": 52.5815,
     "hi5_date": "Mar 2026",
     "lo5_date": "Dec 2021",
-    "pos5": 0.549,
-    "from_high": -0.2473,
+    "pos5": 0.544,
+    "from_high": -0.25,
     "hi1": 116.3897,
     "lo1": 53.0709,
-    "r1": 0.5517462322436091,
-    "r3": 0.21482660680790389,
-    "r5": 0.28609477976964115,
-    "ma200": 83.7895,
+    "r1": 0.540809859223673,
+    "r3": 0.19353111210907947,
+    "r5": 0.2833011876944518,
+    "ma200": 83.9067,
     "vol": 0.5584,
     "move": 0.0208,
     "month": 11,
     "season": {
-     "avg": -0.0676,
+     "avg": -0.0682,
      "up": 0,
      "n": 5
     },
@@ -1860,14 +1867,14 @@
      "n": 5
     }
    },
-   "text": "5-year range 52.5815 (Dec 2021) to 116.39 (Mar 2026), now at 55% of it and -25% from the high; 1-year range 53.0709-116.39; returns 1y +55%, 3y +21%, 5y +29%; above its 200-day average (83.7895); volatility 56% a year, typical daily move 2.1%; Nov has averaged -6.8% (up 0 of 5 years); Dec has averaged +2.2% (up 2 of 5 years)",
+   "text": "5-year range 52.5815 (Dec 2021) to 116.39 (Mar 2026), now at 54% of it and -25% from the high; 1-year range 53.0709-116.39; returns 1y +54%, 3y +19%, 5y +28%; above its 200-day average (83.9067); volatility 56% a year, typical daily move 2.1%; Nov has averaged -6.8% (up 0 of 5 years); Dec has averaged +2.2% (up 2 of 5 years)",
    "data": "holding Jan 2027 (CLF27.NYM), priced from that contract's own prices; 2 rolls measured from both contracts' prices, 30 estimated from the jump on Yahoo's switch date"
   },
   "BZ=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 40.0524,
+     "open": 40.1453,
      "high": 40.6489,
      "low": 38.1603,
      "close": 38.571
@@ -3690,28 +3697,35 @@
      "open": 98.06,
      "high": 98.42,
      "low": 89.15,
-     "close": 96.08
+     "close": 95.84
+    },
+    {
+     "time": 1795305600,
+     "open": 95.84,
+     "high": 96.03,
+     "low": 94.46,
+     "close": 95.67
     }
    ],
    "stats": {
-    "last": 96.08,
+    "last": 95.67,
     "hi5": 114.29,
     "lo5": 32.1563,
     "hi5_date": "Oct 2026",
     "lo5_date": "Dec 2021",
-    "pos5": 0.778,
-    "from_high": -0.1593,
+    "pos5": 0.773,
+    "from_high": -0.1629,
     "hi1": 114.29,
     "lo1": 44.5276,
-    "r1": 1.033548724701724,
-    "r3": 0.8318349578884401,
-    "r5": 1.39505522942967,
-    "ma200": 81.1724,
+    "r1": 1.015230243113241,
+    "r3": 0.8251237068309871,
+    "r5": 1.3738408313382982,
+    "ma200": 81.3815,
     "vol": 0.5287,
-    "move": 0.0209,
+    "move": 0.0208,
     "month": 11,
     "season": {
-     "avg": -0.0619,
+     "avg": -0.0626,
      "up": 0,
      "n": 5
     },
@@ -3721,16 +3735,16 @@
      "n": 5
     }
    },
-   "text": "5-year range 32.1563 (Dec 2021) to 114.29 (Oct 2026), now at 78% of it and -16% from the high; 1-year range 44.5276-114.29; returns 1y +103%, 3y +83%, 5y +140%; above its 200-day average (81.1724); volatility 53% a year, typical daily move 2.1%; Nov has averaged -6.2% (up 0 of 5 years); Dec has averaged +1.1% (up 2 of 5 years)",
+   "text": "5-year range 32.1563 (Dec 2021) to 114.29 (Oct 2026), now at 77% of it and -16% from the high; 1-year range 44.5276-114.29; returns 1y +102%, 3y +83%, 5y +137%; above its 200-day average (81.3815); volatility 53% a year, typical daily move 2.1%; Nov has averaged -6.3% (up 0 of 5 years); Dec has averaged +1.1% (up 2 of 5 years)",
    "data": "holding Jan 2027 (BZF27.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 42 estimated from the jump on Yahoo's switch date"
   },
   "NG=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 9.9423,
+     "open": 10.2566,
      "high": 10.938,
-     "low": 9.557,
+     "low": 9.7335,
      "close": 10.2708
     },
     {
@@ -5551,28 +5565,35 @@
      "open": 3.032,
      "high": 3.397,
      "low": 2.988,
-     "close": 3.242
+     "close": 3.23
+    },
+    {
+     "time": 1795305600,
+     "open": 3.18,
+     "high": 3.18,
+     "low": 3.137,
+     "close": 3.149
     }
    ],
    "stats": {
-    "last": 3.242,
+    "last": 3.149,
     "hi5": 30.1128,
     "lo5": 1.6904,
     "hi5_date": "Jun 2022",
     "lo5_date": "Aug 2025",
-    "pos5": 0.055,
-    "from_high": -0.8923,
+    "pos5": 0.051,
+    "from_high": -0.8954,
     "hi1": 5.3086,
     "lo1": 1.8508,
-    "r1": 0.364642569681626,
-    "r3": -0.3330495534066944,
-    "r5": -0.6813286419475126,
-    "ma200": 3.466,
-    "vol": 0.735,
-    "move": 0.0215,
+    "r1": 0.29325767027656946,
+    "r3": -0.333201843807059,
+    "r5": -0.7000363654624693,
+    "ma200": 3.4555,
+    "vol": 0.7353,
+    "move": 0.0217,
     "month": 11,
     "season": {
-     "avg": 0.0627,
+     "avg": 0.0563,
      "up": 4,
      "n": 5
     },
@@ -5582,14 +5603,14 @@
      "n": 5
     }
    },
-   "text": "5-year range 1.6904 (Aug 2025) to 30.1128 (Jun 2022), now at 6% of it and -89% from the high; 1-year range 1.8508-5.3086; returns 1y +36%, 3y -33%, 5y -68%; below its 200-day average (3.466); volatility 74% a year, typical daily move 2.1%; Nov has averaged +6.3% (up 4 of 5 years); Dec has averaged -12.8% (up 1 of 5 years)",
+   "text": "5-year range 1.6904 (Aug 2025) to 30.1128 (Jun 2022), now at 5% of it and -90% from the high; 1-year range 1.8508-5.3086; returns 1y +29%, 3y -33%, 5y -70%; below its 200-day average (3.4555); volatility 74% a year, typical daily move 2.2%; Nov has averaged +5.6% (up 4 of 5 years); Dec has averaged -12.8% (up 1 of 5 years)",
    "data": "holding Dec 2026 (NGZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 45 estimated from the jump on Yahoo's switch date"
   },
   "GC=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 2358.4821,
+     "open": 2348.7843,
      "high": 2367.1725,
      "low": 2322.7132,
      "close": 2332.0333
@@ -7412,28 +7433,35 @@
      "open": 4074.3,
      "high": 4157.7002,
      "low": 3856.7,
-     "close": 3887.6001
+     "close": 3886.3
+    },
+    {
+     "time": 1795305600,
+     "open": 3869.7,
+     "high": 3904.3,
+     "low": 3835.2,
+     "close": 3841.1001
     }
    ],
    "stats": {
-    "last": 3887.6001,
+    "last": 3841.1001,
     "hi5": 5697.2521,
     "lo5": 2012.4932,
     "hi5_date": "Jan 2026",
     "lo5_date": "Nov 2022",
-    "pos5": 0.509,
-    "from_high": -0.3176,
+    "pos5": 0.496,
+    "from_high": -0.3258,
     "hi1": 5697.2521,
-    "lo1": 3856.7,
-    "r1": -0.11393792350119358,
-    "r3": 0.7112154481408623,
-    "r5": 0.6536467912970843,
-    "ma200": 4514.2778,
-    "vol": 0.2795,
-    "move": 0.0105,
+    "lo1": 3835.2,
+    "r1": -0.12054969002142946,
+    "r3": 0.6767330439062451,
+    "r5": 0.6448825776362335,
+    "ma200": 4509.2796,
+    "vol": 0.2797,
+    "move": 0.0103,
     "month": 11,
     "season": {
-     "avg": 0.0216,
+     "avg": 0.0192,
      "up": 3,
      "n": 5
     },
@@ -7443,15 +7471,15 @@
      "n": 5
     }
    },
-   "text": "5-year range 2012.49 (Nov 2022) to 5697.25 (Jan 2026), now at 51% of it and -32% from the high; 1-year range 3856.7-5697.25; returns 1y -11%, 3y +71%, 5y +65%; below its 200-day average (4514.28); volatility 28% a year, typical daily move 1.1%; Nov has averaged +2.2% (up 3 of 5 years); Dec has averaged +1.4% (up 4 of 5 years)",
+   "text": "5-year range 2012.49 (Nov 2022) to 5697.25 (Jan 2026), now at 50% of it and -33% from the high; 1-year range 3835.2-5697.25; returns 1y -12%, 3y +68%, 5y +64%; below its 200-day average (4509.28); volatility 28% a year, typical daily move 1.0%; Nov has averaged +1.9% (up 3 of 5 years); Dec has averaged +1.4% (up 4 of 5 years)",
    "data": "holding Dec 2026 (GCZ26.CMX), priced from that contract's own prices; 0 rolls measured from both contracts' prices, 22 estimated from the jump on Yahoo's switch date"
   },
   "SI=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 24.6288,
-     "high": 24.6727,
+     "open": 24.3995,
+     "high": 24.5995,
      "low": 24.1799,
      "close": 24.1799
     },
@@ -9273,28 +9301,35 @@
      "open": 51.61,
      "high": 53.78,
      "low": 48.405,
-     "close": 48.65
+     "close": 49.121
+    },
+    {
+     "time": 1795305600,
+     "open": 48.395,
+     "high": 49.005,
+     "low": 47.065,
+     "close": 47.175
     }
    ],
    "stats": {
-    "last": 48.65,
+    "last": 47.175,
     "hi5": 122.8419,
     "lo5": 17.1282,
     "hi5_date": "Jan 2026",
     "lo5_date": "Sep 2022",
-    "pos5": 0.298,
-    "from_high": -0.604,
+    "pos5": 0.284,
+    "from_high": -0.616,
     "hi1": 122.8419,
     "lo1": 44.8598,
-    "r1": -0.021393048313858798,
-    "r3": 1.277302209683028,
-    "r5": 0.9857950695015383,
-    "ma200": 69.1553,
-    "vol": 0.6526,
-    "move": 0.0187,
+    "r1": -0.04645018624514208,
+    "r3": 1.1999390480031944,
+    "r5": 0.9381714778487653,
+    "ma200": 68.9971,
+    "vol": 0.6535,
+    "move": 0.0189,
     "month": 11,
     "season": {
-     "avg": 0.0641,
+     "avg": 0.0581,
      "up": 3,
      "n": 5
     },
@@ -9304,15 +9339,15 @@
      "n": 5
     }
    },
-   "text": "5-year range 17.1282 (Sep 2022) to 122.842 (Jan 2026), now at 30% of it and -60% from the high; 1-year range 44.8598-122.842; returns 1y -2%, 3y +128%, 5y +99%; below its 200-day average (69.1553); volatility 65% a year, typical daily move 1.9%; Nov has averaged +6.4% (up 3 of 5 years); Dec has averaged +4.4% (up 3 of 5 years)",
+   "text": "5-year range 17.1282 (Sep 2022) to 122.842 (Jan 2026), now at 28% of it and -62% from the high; 1-year range 44.8598-122.842; returns 1y -5%, 3y +120%, 5y +94%; below its 200-day average (68.9971); volatility 65% a year, typical daily move 1.9%; Nov has averaged +5.8% (up 3 of 5 years); Dec has averaged +4.4% (up 3 of 5 years)",
    "data": "holding Dec 2026 (SIZ26.CMX), priced from that contract's own prices; 1 roll measured from both contracts' prices, 19 estimated from the jump on Yahoo's switch date"
   },
   "HG=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 4.1299,
-     "high": 4.1304,
+     "open": 4.0008,
+     "high": 4.0649,
      "low": 3.8777,
      "close": 4.0649
     },
@@ -11134,28 +11169,35 @@
      "open": 6.253,
      "high": 6.396,
      "low": 6.048,
-     "close": 6.0635
+     "close": 6.0905
+    },
+    {
+     "time": 1795305600,
+     "open": 6.0645,
+     "high": 6.09,
+     "low": 6.0015,
+     "close": 6.012
     }
    ],
    "stats": {
-    "last": 6.0635,
+    "last": 6.012,
     "hi5": 6.9285,
     "lo5": 2.9213,
     "hi5_date": "Sep 2026",
     "lo5_date": "Jul 2022",
-    "pos5": 0.784,
-    "from_high": -0.1248,
+    "pos5": 0.771,
+    "from_high": -0.1323,
     "hi1": 6.9285,
     "lo1": 5.2547,
-    "r1": 0.1154801868427926,
-    "r3": 0.8255928268279857,
-    "r5": 0.4921823081286021,
-    "ma200": 6.3499,
+    "r1": 0.10644070854893428,
+    "r3": 0.8002565591742208,
+    "r5": 0.49597210003724657,
+    "ma200": 6.3498,
     "vol": 0.269,
-    "move": 0.0111,
+    "move": 0.0109,
     "month": 11,
     "season": {
-     "avg": 0.0098,
+     "avg": 0.0082,
      "up": 3,
      "n": 5
     },
@@ -11165,45 +11207,45 @@
      "n": 5
     }
    },
-   "text": "5-year range 2.9213 (Jul 2022) to 6.9285 (Sep 2026), now at 78% of it and -12% from the high; 1-year range 5.2547-6.9285; returns 1y +12%, 3y +83%, 5y +49%; below its 200-day average (6.3499); volatility 27% a year, typical daily move 1.1%; Nov has averaged +1.0% (up 3 of 5 years); Dec has averaged +2.8% (up 4 of 5 years)",
+   "text": "5-year range 2.9213 (Jul 2022) to 6.9285 (Sep 2026), now at 77% of it and -13% from the high; 1-year range 5.2547-6.9285; returns 1y +11%, 3y +80%, 5y +50%; below its 200-day average (6.3498); volatility 27% a year, typical daily move 1.1%; Nov has averaged +0.8% (up 3 of 5 years); Dec has averaged +2.8% (up 4 of 5 years)",
    "data": "holding Dec 2026 (HGZ26.CMX), priced from that contract's own prices; 1 roll measured from both contracts' prices, 16 estimated from the jump on Yahoo's switch date"
   },
   "KC=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 151.2607,
-     "high": 164.7359,
-     "low": 149.5719,
-     "close": 160.8071
+     "open": 154.2701,
+     "high": 164.711,
+     "low": 152.5127,
+     "close": 160.7827
     },
     {
      "time": 1638057600,
-     "open": 159.4974,
-     "high": 170.6292,
-     "low": 157.7398,
-     "close": 168.0789
+     "open": 159.4733,
+     "high": 170.6034,
+     "low": 157.716,
+     "close": 168.0535
     },
     {
      "time": 1638662400,
-     "open": 166.2523,
-     "high": 170.0088,
-     "low": 159.463,
-     "close": 168.2167
+     "open": 166.2272,
+     "high": 169.9831,
+     "low": 159.4389,
+     "close": 168.1913
     },
     {
      "time": 1639267200,
-     "open": 168.5269,
-     "high": 172.5592,
-     "low": 161.9788,
-     "close": 160.3935
+     "open": 168.5014,
+     "high": 172.5331,
+     "low": 161.9543,
+     "close": 160.3692
     },
     {
      "time": 1639872000,
-     "open": 163.4608,
-     "high": 164.1156,
-     "low": 162.6681,
-     "close": 162.5992
+     "open": 163.436,
+     "high": 164.0908,
+     "low": 162.6435,
+     "close": 162.5746
     },
     {
      "time": 1640476800,
@@ -12995,28 +13037,28 @@
      "open": 274.354,
      "high": 279.2,
      "low": 261.3222,
-     "close": 274.0
+     "close": 273.5
     }
    ],
    "stats": {
-    "last": 274.0,
+    "last": 273.5,
     "hi5": 381.4123,
     "lo5": 98.3658,
     "hi5_date": "Oct 2025",
     "lo5_date": "Jan 2023",
-    "pos5": 0.621,
-    "from_high": -0.2816,
+    "pos5": 0.619,
+    "from_high": -0.2829,
     "hi1": 364.4297,
     "lo1": 217.6503,
-    "r1": -0.2205730631028444,
-    "r3": 1.056357330658368,
-    "r5": 0.784606446694093,
-    "ma200": 273.6969,
+    "r1": -0.22199537503148903,
+    "r3": 1.0526048537776043,
+    "r5": 0.7872357611315128,
+    "ma200": 273.6944,
     "vol": 0.3965,
     "move": 0.0167,
     "month": 11,
     "season": {
-     "avg": 0.0889,
+     "avg": 0.0885,
      "up": 3,
      "n": 5
     },
@@ -13026,14 +13068,14 @@
      "n": 5
     }
    },
-   "text": "5-year range 98.3658 (Jan 2023) to 381.412 (Oct 2025), now at 62% of it and -28% from the high; 1-year range 217.65-364.43; returns 1y -22%, 3y +106%, 5y +78%; above its 200-day average (273.697); volatility 40% a year, typical daily move 1.7%; Nov has averaged +8.9% (up 3 of 5 years); Dec has averaged -2.2% (up 2 of 5 years)",
+   "text": "5-year range 98.3658 (Jan 2023) to 381.412 (Oct 2025), now at 62% of it and -28% from the high; 1-year range 217.65-364.43; returns 1y -22%, 3y +105%, 5y +79%; below its 200-day average (273.694); volatility 40% a year, typical daily move 1.7%; Nov has averaged +8.8% (up 3 of 5 years); Dec has averaged -2.2% (up 2 of 5 years)",
    "data": "holding Mar 2027 (KCH27.NYB), priced from that contract's own prices; 2 rolls measured from both contracts' prices, 19 estimated from the jump on Yahoo's switch date"
   },
   "ZW=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 1163.3779,
+     "open": 1174.3766,
      "high": 1196.7288,
      "low": 1149.5408,
      "close": 1167.9902
@@ -14856,28 +14898,35 @@
      "open": 591.0,
      "high": 603.75,
      "low": 582.0,
-     "close": 593.5
+     "close": 593.25
+    },
+    {
+     "time": 1795305600,
+     "open": 596.0,
+     "high": 596.25,
+     "low": 586.5,
+     "close": 586.5
     }
    ],
    "stats": {
-    "last": 593.5,
+    "last": 586.5,
     "hi5": 2022.6951,
     "lo5": 517.7158,
     "hi5_date": "Mar 2022",
     "lo5_date": "Oct 2025",
-    "pos5": 0.05,
-    "from_high": -0.7066,
+    "pos5": 0.046,
+    "from_high": -0.71,
     "hi1": 795.0,
     "lo1": 531.9012,
-    "r1": 0.052810475649793354,
-    "r3": -0.1407537064613814,
-    "r5": -0.4938609166989101,
-    "ma200": 644.6591,
-    "vol": 0.2701,
-    "move": 0.0125,
+    "r1": 0.04087865035684546,
+    "r3": -0.14276962432317897,
+    "r5": -0.48995370154100515,
+    "ma200": 644.7372,
+    "vol": 0.2703,
+    "move": 0.0127,
     "month": 11,
     "season": {
-     "avg": -0.0379,
+     "avg": -0.0402,
      "up": 1,
      "n": 5
     },
@@ -14887,14 +14936,14 @@
      "n": 5
     }
    },
-   "text": "5-year range 517.716 (Oct 2025) to 2022.7 (Mar 2022), now at 5% of it and -71% from the high; 1-year range 531.901-795; returns 1y +5%, 3y -14%, 5y -49%; below its 200-day average (644.659); volatility 27% a year, typical daily move 1.2%; Nov has averaged -3.8% (up 1 of 5 years); Dec has averaged +1.8% (up 1 of 5 years)",
+   "text": "5-year range 517.716 (Oct 2025) to 2022.7 (Mar 2022), now at 5% of it and -71% from the high; 1-year range 531.901-795; returns 1y +4%, 3y -14%, 5y -49%; below its 200-day average (644.737); volatility 27% a year, typical daily move 1.3%; Nov has averaged -4.0% (up 1 of 5 years); Dec has averaged +1.8% (up 1 of 5 years)",
    "data": "holding Dec 2026 (ZWZ26.CBT), priced from that contract's own prices; 1 roll measured from both contracts' prices, 23 estimated from the jump on Yahoo's switch date"
   },
   "ZC=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 548.4417,
+     "open": 548.2038,
      "high": 555.8177,
      "low": 540.5899,
      "close": 543.2072
@@ -16717,28 +16766,35 @@
      "open": 441.5,
      "high": 455.5,
      "low": 438.0,
-     "close": 446.0
+     "close": 445.5
+    },
+    {
+     "time": 1795305600,
+     "open": 446.0,
+     "high": 446.75,
+     "low": 444.0,
+     "close": 444.0
     }
    ],
    "stats": {
-    "last": 446.0,
+    "last": 444.0,
     "hi5": 839.7974,
     "lo5": 422.302,
     "hi5_date": "Jun 2023",
     "lo5_date": "Jun 2026",
-    "pos5": 0.057,
-    "from_high": -0.4689,
+    "pos5": 0.052,
+    "from_high": -0.4713,
     "hi1": 549.75,
     "lo1": 422.302,
-    "r1": -0.10685306357102275,
-    "r3": -0.32276148573132324,
-    "r5": -0.1871395698228383,
-    "ma200": 485.44,
-    "vol": 0.2092,
-    "move": 0.0093,
+    "r1": -0.12344515176128945,
+    "r3": -0.3199863472392682,
+    "r5": -0.18299014053416085,
+    "ma200": 485.247,
+    "vol": 0.2086,
+    "move": 0.0091,
     "month": 11,
     "season": {
-     "avg": -0.0086,
+     "avg": -0.0095,
      "up": 2,
      "n": 5
     },
@@ -16748,16 +16804,16 @@
      "n": 5
     }
    },
-   "text": "5-year range 422.302 (Jun 2026) to 839.797 (Jun 2023), now at 6% of it and -47% from the high; 1-year range 422.302-549.75; returns 1y -11%, 3y -32%, 5y -19%; below its 200-day average (485.44); volatility 21% a year, typical daily move 0.9%; Nov has averaged -0.9% (up 2 of 5 years); Dec has averaged +1.5% (up 3 of 5 years)",
+   "text": "5-year range 422.302 (Jun 2026) to 839.797 (Jun 2023), now at 5% of it and -47% from the high; 1-year range 422.302-549.75; returns 1y -12%, 3y -32%, 5y -18%; below its 200-day average (485.247); volatility 21% a year, typical daily move 0.9%; Nov has averaged -0.9% (up 2 of 5 years); Dec has averaged +1.5% (up 3 of 5 years)",
    "data": "holding Dec 2026 (ZCZ26.CBT), priced from that contract's own prices; 1 roll measured from both contracts' prices, 23 estimated from the jump on Yahoo's switch date"
   },
   "CC=F": {
    "weekly": [
     {
      "time": 1637452800,
-     "open": 1075.3363,
+     "open": 1079.253,
      "high": 1111.4565,
-     "low": 1061.4105,
+     "low": 1068.8086,
      "close": 1084.9104
     },
     {
@@ -18578,28 +18634,28 @@
      "open": 5279.6163,
      "high": 5348.1695,
      "low": 4764.0,
-     "close": 5267.0
+     "close": 5260.0
     }
    ],
    "stats": {
-    "last": 5267.0,
+    "last": 5260.0,
     "hi5": 10563.6547,
     "lo5": 1009.2098,
     "hi5_date": "Dec 2024",
     "lo5_date": "Sep 2022",
-    "pos5": 0.446,
-    "from_high": -0.5014,
+    "pos5": 0.445,
+    "from_high": -0.5021,
     "hi1": 6979.1207,
     "lo1": 2675.9804,
-    "r1": 0.03786463994705791,
-    "r3": 1.7927639133841455,
-    "r5": 3.923907201044474,
-    "ma200": 4574.7192,
-    "vol": 0.5728,
-    "move": 0.0195,
+    "r1": 0.03648528690365005,
+    "r3": 1.789052246895881,
+    "r5": 3.825101277595186,
+    "ma200": 4574.6842,
+    "vol": 0.5727,
+    "move": 0.0194,
     "month": 11,
     "season": {
-     "avg": 0.0604,
+     "avg": 0.0601,
      "up": 3,
      "n": 5
     },
@@ -18609,7 +18665,7 @@
      "n": 5
     }
    },
-   "text": "5-year range 1009.21 (Sep 2022) to 10563.7 (Dec 2024), now at 45% of it and -50% from the high; 1-year range 2675.98-6979.12; returns 1y +4%, 3y +179%, 5y +392%; above its 200-day average (4574.72); volatility 57% a year, typical daily move 1.9%; Nov has averaged +6.0% (up 3 of 5 years); Dec has averaged +11.5% (up 4 of 5 years)",
+   "text": "5-year range 1009.21 (Sep 2022) to 10563.7 (Dec 2024), now at 44% of it and -50% from the high; 1-year range 2675.98-6979.12; returns 1y +4%, 3y +179%, 5y +383%; above its 200-day average (4574.68); volatility 57% a year, typical daily move 1.9%; Nov has averaged +6.0% (up 3 of 5 years); Dec has averaged +11.5% (up 4 of 5 years)",
    "data": "holding Mar 2027 (CCH27.NYB), priced from that contract's own prices; 2 rolls measured from both contracts' prices, 21 estimated from the jump on Yahoo's switch date"
   }
  }
