@@ -1,9 +1,9 @@
 {
- "t": 1795027663,
+ "t": 1795050283,
  "applied": {
   "CL=F": 1794528000,
   "BZ=F": 1792713600,
-  "NG=F": 1792540800,
+  "NG=F": 1795046400,
   "GC=F": 1785708000,
   "SI=F": 1793322000,
   "HG=F": 1793138400,
@@ -76,13 +76,13 @@
    ]
   },
   "NG=F": {
-   "contract": "Dec 2026",
-   "ticker": "NGZ26.NYM",
+   "contract": "Jan 2027",
+   "ticker": "NGF27.NYM",
    "priced_from": "contract",
    "method": "mixed",
-   "next_roll": 1795046400,
-   "next_contract": "Jan 2027",
-   "note": "holding Dec 2026 (NGZ26.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "next_roll": 1797897600,
+   "next_contract": "Feb 2027",
+   "note": "holding Jan 2027 (NGF27.NYM), priced from that contract's own prices; 2 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
    "rolls": [
     {
      "t": 1790546400,
@@ -97,6 +97,13 @@
      "how": "contracts",
      "from": "Nov 2026",
      "to": "Dec 2026"
+    },
+    {
+     "t": 1795046400,
+     "ratio": 1.117213,
+     "how": "contracts",
+     "from": "Dec 2026",
+     "to": "Jan 2027"
     }
    ]
   },
@@ -189,7 +196,7 @@
    "rolls": [
     {
      "t": 1789344000,
-     "ratio": 1.00344,
+     "ratio": 1.003441,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Dec 2026"
