@@ -2819,5 +2819,14 @@
   "missing": [],
   "kronos_skipped": [],
   "kronos_seconds": 117.1
+ },
+ {
+  "t": 1795464281,
+  "problems": [
+   "news"
+  ],
+  "missing": [],
+  "kronos_skipped": [],
+  "kronos_seconds": 59.5
  }
 ]
