@@ -1,5 +1,5 @@
 {
- "t": 1795755330,
+ "t": 1795791280,
  "applied": {
   "CL=F": 1794528000,
   "BZ=F": 1795392000,
@@ -35,8 +35,8 @@
      "to": "Nov 2026"
     },
     {
-     "t": 1792620000,
-     "ratio": 1.000612,
+     "t": 1792548000,
+     "ratio": 1.000804,
      "how": "detected",
      "from": "Nov 2026",
      "to": "Dec 2026"
@@ -89,19 +89,19 @@
    "method": "mixed",
    "next_roll": 1797897600,
    "next_contract": "Feb 2027",
-   "note": "holding Jan 2027 (NGF27.NYM), priced from that contract's own prices; 2 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
+   "note": "holding Jan 2027 (NGF27.NYM), priced from that contract's own prices; 1 roll measured from both contracts' prices, 2 estimated from the jump on Yahoo's switch date",
    "rolls": [
     {
      "t": 1790546400,
-     "ratio": 0.963086,
+     "ratio": 0.962792,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
     },
     {
-     "t": 1792540800,
-     "ratio": 1.110999,
-     "how": "contracts",
+     "t": 1793138400,
+     "ratio": 1.001647,
+     "how": "detected",
      "from": "Nov 2026",
      "to": "Dec 2026"
     },
@@ -143,14 +143,14 @@
    "rolls": [
     {
      "t": 1790546400,
-     "ratio": 0.995197,
+     "ratio": 0.9952,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Oct 2026"
     },
     {
-     "t": 1793322000,
-     "ratio": 0.994371,
+     "t": 1793311200,
+     "ratio": 1.000516,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -175,14 +175,14 @@
    "rolls": [
     {
      "t": 1790546400,
-     "ratio": 0.997868,
+     "ratio": 0.997866,
      "how": "detected",
      "from": "Sep 2026",
      "to": "Oct 2026"
     },
     {
      "t": 1793138400,
-     "ratio": 0.998809,
+     "ratio": 0.998807,
      "how": "detected",
      "from": "Oct 2026",
      "to": "Nov 2026"
@@ -200,19 +200,11 @@
    "contract": "Mar 2027",
    "ticker": "KCH27.NYB",
    "priced_from": "contract",
-   "method": "detected",
+   "method": "none",
    "next_roll": 1802304000,
    "next_contract": "May 2027",
-   "note": "holding Mar 2027 (KCH27.NYB), priced from that contract's own prices; 0 rolls measured from both contracts' prices, 1 estimated from the jump on Yahoo's switch date",
-   "rolls": [
-    {
-     "t": 1789977600,
-     "ratio": 1.008677,
-     "how": "detected",
-     "from": "Sep 2026",
-     "to": "Dec 2026"
-    }
-   ]
+   "note": "holding Mar 2027 (KCH27.NYB), priced from that contract's own prices; no rolls in this stretch",
+   "rolls": []
   },
   "ZW=F": {
    "contract": "Mar 2027",
