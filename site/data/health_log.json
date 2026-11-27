@@ -1,12 +1,5 @@
 [
  {
-  "t": 1791318069,
-  "problems": [],
-  "missing": [],
-  "kronos_skipped": [],
-  "kronos_seconds": 113.5
- },
- {
   "t": 1791321570,
   "problems": [],
   "missing": [],
@@ -2891,5 +2884,12 @@
   "missing": [],
   "kronos_skipped": [],
   "kronos_seconds": 145.0
+ },
+ {
+  "t": 1795821741,
+  "problems": [],
+  "missing": [],
+  "kronos_skipped": [],
+  "kronos_seconds": 143.4
  }
 ]
